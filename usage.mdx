@@ -63,6 +63,35 @@ The detail panel can show the full exchange, timestamps, request payloads, and v
 
 > Screenshot placeholder: Conversation Details panel with a selected log row.
 
+### Vector Scores
+
+When a request uses vector search, the bot message can show a **Score** badge in the conversation detail panel.
+
+The score is the strongest vector match found for that request. Click the badge to see the vector search results, including the provider, source, score, and a short content preview.
+
+> Screenshot placeholder: Conversation Details panel with the Score badge expanded.
+
+Scores are shown as percentages.
+
+| Score | Meaning | What to do |
+| --- | --- | --- |
+| **85%+** | Strong match. | The retrieved content is likely relevant. |
+| **70-84%** | Useful match. | Usually fine for support, product, and documentation answers. |
+| **50-69%** | Weak match. | Review the matched content and consider improving the source text. |
+| **Below 50%** | Poor match. | The chatbot may be using unrelated context. |
+
+Use scores to tune vector settings:
+
+| What you see | Recommendation |
+| --- | --- |
+| Good answers with high scores | Keep the current threshold and limit. |
+| Correct content exists, but scores are low or no result is used | Lower the threshold, increase the limit, or check that the right source is selected. |
+| Unrelated content is used | Raise the threshold or lower the limit. |
+| Scores are low after switching embedding models | Re-index the source with the same embedding model used by the chatbot. |
+| No Score badge appears | The request did not use saved vector results, or no vector match passed the threshold. |
+
+Scores help explain retrieval quality. They do not grade the final AI answer.
+
 ### Export Logs
 
 1. Open **Usage > Logs**.

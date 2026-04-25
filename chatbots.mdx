@@ -9,7 +9,7 @@ Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, in
 
 In WordPress admin, go to **AI Puffer > Chatbots**.
 
-> Screenshot placeholder: Chatbots module showing chatbot tabs, settings accordion, and preview.
+![Chatbots module overview](/images/screenshots/chatbots/chatbots-module-overview.png)
 
 ## Before You Start
 
@@ -20,8 +20,14 @@ If a provider or model list is empty, configure the provider and sync models in 
 ## Create a Chatbot
 
 1. Click the **+** button in the chatbot tab row.
-2. Enter a name for the chatbot.
-3. Select the chatbot tab when you want to edit it.
+
+![Create chatbot](/images/screenshots/chatbots/create-chatbot.png)
+
+2. A new bot will be created immediately with the default name New Chatbot.
+3. Use the Name field in the Chatbot accordion to rename it.
+
+![Rename chatbot](/images/screenshots/chatbots/rename-chatbot.png)
+
 4. Use **Preview** to test the chatbot before publishing it.
 
 Use **Actions** for saved chatbots:
@@ -32,46 +38,71 @@ Use **Actions** for saved chatbots:
 | **Reset** | Resets the current chatbot settings. |
 | **Delete** | Deletes the chatbot. The default chatbot cannot be deleted. |
 
+![Chatbot Actions](/images/screenshots/chatbots/chatbot-delete-duplicate-reset.png)
+
 ## Deploy a Chatbot
 
-Each chatbot has a shortcode:
+Each chatbot has a shortcode. For example:
 
 ```text
 [aipkit_chatbot id=123]
 ```
 
-Replace `123` with the chatbot ID shown in the Chatbots screen.
-
 ### On-page Chatbot
 
 1. Select **Mode: On-page**.
 2. Copy the shortcode.
+
+![Chatbot Onpage shortcode](/images/screenshots/chatbots/chatbot-shortcode-onpage.png)
+
 3. Paste it into a page, post, block, or shortcode area.
 4. Publish or update the page.
+
+![Chatbot shortcode classic editor](/images/screenshots/chatbots/chatbot-shortcode-classic-editor.png)
+
+![Chatbot shortcode block](/images/screenshots/chatbots/chatbot-demo-block.png)
 
 ### Popup Chatbot
 
 1. Select **Mode: Popup**.
 2. Choose whether the popup should be **Site-Wide**.
 3. Open the **Popup** section.
-4. Set position, launcher shape, launcher size, auto-open delay, hint, icon, avatar, and online text.
+4. Configure the popup settings.
 5. Save and test the site frontend.
+
+![Chatbot popup settings](/images/screenshots/chatbots/chatbot-popup-settings.png)
+
+| Setting | What it controls |
+| --- | --- |
+| Position | Where the launcher appears on the page. |
+| Launcher shape | The launcher button shape. |
+| Launcher size | The launcher button size. |
+| Auto-open delay | How long to wait before opening automatically. |
+| Hint | Small text shown near the launcher. |
+| Icon | Launcher icon. |
+| Avatar | Image shown in the chatbot header. |
+| Online text | Status text shown under the chatbot name. |
 
 Only one chatbot can be active as a site-wide popup at a time. If you enable a new site-wide popup chatbot, AI Puffer disables site-wide mode for the previous one.
 
 ### External Embed
 
-External embed is a Pro feature.
+External embed is a Pro feature. 
+
+It lets you place a chatbot on a non-WordPress site while managing it from WordPress.
 
 1. Select **Mode: External**.
 2. Click **External Setup**.
+
+![Chatbot external settings](/images/screenshots/chatbots/chatbot-external.png)
+
 3. Copy the embed code.
 4. Add allowed domains, one URL per line.
 5. Paste the embed code into the external site.
 
 Set allowed domains before using external embed on a production site.
 
-> Screenshot placeholder: Mode selector with On-page, Popup, and External options.
+![Chatbot external snippet](/images/screenshots/chatbots/chatbot-external-snippet.png)
 
 ## Model and Instructions
 
@@ -81,37 +112,247 @@ Open the **General** section to set the chatbot identity and model behavior.
 | --- | --- |
 | **Name** | Internal chatbot name shown in the Chatbots screen. |
 | **Engine** | AI provider for this chatbot. |
-| **Model / Deployment** | Model or Azure deployment used by this chatbot. |
-| **Instructions** | System instructions for the chatbot. |
+| **Model** | Model used by this chatbot. |
+| **Instructions** | System instructions for the chatbot. Use `[date]` when the bot needs today's date in its instructions. |
 | **Temperature** | Response variation. Lower values are more predictable. |
 | **Context** | Maximum completion tokens for the model response. |
 | **Messages** | Number of previous conversation messages included as history. |
-| **Session memory** | OpenAI-only setting for provider-side conversation state. |
-| **Reasoning / Thinking** | Reasoning effort for supported models. Ollama labels this setting as Thinking. |
+| **Session memory** | Only applies when the chatbot uses OpenAI. AI Puffer stores the OpenAI response ID and sends it with the next message so OpenAI can continue the same conversation state. |
+| **Reasoning** | Reasoning effort for supported models. Keep it set to None for faster responses; higher values can make replies slower. |
 
-> Screenshot placeholder: General section with Engine, Model, Instructions, and behavior settings.
+![Chatbot General Settings](/images/screenshots/chatbots/chatbot-general.png)
 
 ## Knowledge
 
-Open the **Knowledge** section to decide what information the chatbot can use.
+Knowledge controls the information a chatbot can use before it answers. 
 
-| Data source | What it does |
+It can read the current page content, search trained vector data, or use both depending on the chatbot setup.
+
+![Chatbot Knowledge Settings](/images/screenshots/chatbots/chatbot-knowledge.png)
+
+### Vector
+
+Vector is the better option when you want to train the chatbot with your own content. 
+
+AI Puffer converts your content into searchable chunks. 
+
+When a visitor asks a question, the chatbot retrieves the closest matching chunks and uses them as context for the answer.
+
+#### OpenAI
+
+OpenAI Vector Stores are the simplest option when the chatbot uses OpenAI.
+
+To create a store:
+
+1. Go to **AI Puffer > Knowledge Base**.
+2. Select **OpenAI** as the provider.
+3. Click **Create new vector store**.
+
+![OpenAI Create Vector](/images/screenshots/knowledgebase/openai-create-new-vector.png)
+
+4. Enter a store name and create it.
+5. Add training data to the store.
+
+![OpenAI Add Data](/images/screenshots/knowledgebase/openai-add-data.png)
+
+To use it in a chatbot:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **Knowledge**, select **Vector** as a data source.
+3. Set **Vector provider** to **OpenAI**.
+
+![Chatbot Vector OpenAI](/images/screenshots/chatbots/chatbot-vector-openai.png)
+
+4. Select one or two vector stores.
+5. Save the chatbot.
+
+#### Pinecone
+
+Pinecone stores vectors in an index. AI Puffer creates those vectors with the embedding model you choose.
+
+The Pinecone index dimension <u>must match</u> the embedding model. 
+
+For example, if your index is **3072 dimensions**, use a **3072-dimension** embedding model.
+
+Use the same embedding model when adding data and when enabling Pinecone in the chatbot.
+
+To create an index:
+
+1. Add your Pinecone credentials in **AI Puffer > Settings > Integrations**.
+
+![Pinecone API key](/images/screenshots/knowledgebase/pinecone-api-key.png)
+
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Pinecone** as the provider.
+4. Select the embedding model you want to use.
+5. Click **Create new index**.
+
+![Pinecone Create Index](/images/screenshots/knowledgebase/pinecone-create-index1.png)
+
+6. Enter an index name and use the dimension for the selected embedding model.
+7. Create the index, then add training data with the same embedding model.
+
+![Pinecone Create Index](/images/screenshots/knowledgebase/pinecone-create-index2.png)
+
+To use it in a chatbot:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **Knowledge**, select **Vector** as a data source.
+3. Set **Vector provider** to **Pinecone**.
+4. Select the Pinecone index.
+5. Select the same embedding provider and model used when you added the data.
+6. Save the chatbot.
+
+![Pinecone Chatbot](/images/screenshots/chatbots/pinecone-chatbot-settings.png)
+
+If the embedding model does not match the index dimension, Pinecone search will fail or return no useful context.
+
+#### Qdrant
+
+Qdrant stores vectors in collections. AI Puffer creates those vectors with the embedding model you choose.
+
+The Qdrant collection size <u>must match</u> the embedding model. For example, if your collection is **3072 dimensions**, use a **3072-dimension** embedding model.
+
+Use the same embedding model when adding data and when enabling Qdrant in the chatbot.
+
+To create a collection:
+
+1. Add your Qdrant URL and API key in **AI Puffer > Settings > Integrations**.
+
+![Qdrant API key](/images/screenshots/knowledgebase/qdrant-api-key.png)
+
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Qdrant** as the provider.
+4. Select the embedding model you want to use.
+5. Click **Create new collection**.
+
+![Qdrant Create collection](/images/screenshots/knowledgebase/qdrant-create-collection1.png)
+
+6. Enter a collection name and use the dimension for the selected embedding model.
+7. Create the collection, then add training data with the same embedding model.
+
+![Qdrant Create collection](/images/screenshots/knowledgebase/qdrant-create-collection2.png)
+
+To use it in a chatbot:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **Knowledge**, select **Vector** as a data source.
+3. Set **Vector provider** to **Qdrant**.
+4. Select one or more collections.
+5. Select the same embedding provider and model used when you added the data.
+6. Save the chatbot.
+
+![Qdrant Chatbot](/images/screenshots/chatbots/qdrant-chatbot-settings.png)
+
+If the embedding model does not match the collection size, Qdrant search will fail or return no useful context.
+
+#### Limit and Threshold
+
+For OpenAI, Pinecone, and Qdrant, use these settings to control how much vector context is added to the answer.
+
+| Setting | How it works | Example |
+| --- | --- | --- |
+| **Limit** | How many pieces of your content the chatbot is allowed to use for one answer. | `3` means the chatbot can use up to 3 matching pieces from your content. |
+| **Threshold** | How closely a piece of content must match the visitor’s question before the chatbot can use it. | Lower values allow looser matches. Higher values allow only stronger matches. |
+
+![Limit and Threshold](/images/screenshots/chatbots/limit-threshold.png)
+
+If answers miss useful context, increase **Limit** or lower **Threshold**. If answers include unrelated context, lower **Limit** or raise **Threshold**.
+
+After testing, open **Usage > Logs** and check the Score badge in the conversation details.
+
+![Score](/images/screenshots/usage/score.png)
+
+Scores show which vector results matched the visitor question and help you tune the threshold.
+
+#### Embedding Models
+
+Pinecone and Qdrant need an embedding model because AI Puffer must turn your content and the visitor question into vectors before it can search.
+
+OpenAI Vector Stores do not need this setting in AI Puffer. OpenAI handles the vector store search on its side.
+
+<Accordion title="Supported embedding models">
+
+### OpenAI
+
+| Model | Dimension |
 | --- | --- |
-| **Page Context** | Adds the current page or post content to the chatbot context. |
-| **Vector** | Searches selected vector sources before answering. |
+| `text-embedding-3-small` | 1536 |
+| `text-embedding-3-large` | 3072 |
+| `text-embedding-ada-002` | 1536 |
 
-### Vector Providers
+### Google
 
-| Provider | Required setup |
+| Model | Dimension |
 | --- | --- |
-| **OpenAI** | Select up to two OpenAI Vector Stores. |
-| **Pinecone** | Select a Pinecone index and an embedding provider/model. |
-| **Qdrant** | Select one or more Qdrant collections and an embedding provider/model. |
-| **Claude Files** | Use Claude as the chatbot engine and select Claude Files as the vector provider. |
+| `gemini-embedding-2-preview` | 3072 |
+| `gemini-embedding-001` | 3072 |
+| `models/text-embedding-004` | 768 |
 
-For OpenAI, Pinecone, and Qdrant, use **Limit** to set how many matching chunks are retrieved. Use **Threshold** to control the minimum match score.
+### OpenRouter
 
-### Add Training Data
+OpenRouter model sync can return these models:
+
+| Model | Dimension |
+| --- | --- |
+| `baai/bge-base-en-v1.5` | 768 |
+| `baai/bge-large-en-v1.5` | 1024 |
+| `baai/bge-m3` | 1024 |
+| `google/gemini-embedding-001` | 3072 |
+| `google/gemini-embedding-2-preview` | 3072 by default. Supports 128-3072. |
+| `intfloat/e5-base-v2` | 768 |
+| `intfloat/e5-large-v2` | 1024 |
+| `intfloat/multilingual-e5-large` | 1024 |
+| `mistralai/mistral-embed-2312` | 1024 |
+| `nvidia/llama-nemotron-embed-vl-1b-v2:free` | 2048 |
+| `openai/text-embedding-3-large` | 3072 |
+| `openai/text-embedding-3-small` | 1536 |
+| `openai/text-embedding-ada-002` | 1536 |
+| `perplexity/pplx-embed-v1-0.6b` | 1024 |
+| `perplexity/pplx-embed-v1-4b` | 2560 |
+| `qwen/qwen3-embedding-4b` | 2560 |
+| `qwen/qwen3-embedding-8b` | 4096 |
+| `sentence-transformers/all-minilm-l12-v2` | 384 |
+| `sentence-transformers/all-minilm-l6-v2` | 384 |
+| `sentence-transformers/all-mpnet-base-v2` | 768 |
+| `sentence-transformers/multi-qa-mpnet-base-dot-v1` | 768 |
+| `sentence-transformers/paraphrase-minilm-l6-v2` | 384 |
+| `thenlper/gte-base` | 768 |
+| `thenlper/gte-large` | 1024 |
+
+### Ollama
+
+Our plugin lists embedding-capable local models detected during Ollama model sync.
+
+| Model | Dimension |
+| --- | --- |
+| `nomic-embed-text-v2-moe` | 768 |
+| `qwen3-embedding` / `qwen3-embedding:8b` | 4096 |
+| `qwen3-embedding:4b` | 2560 |
+| `qwen3-embedding:0.6b` | 1024 |
+| `embeddinggemma` | 768 |
+| `nomic-embed-text` | 768 |
+| `mxbai-embed-large` | 1024 |
+| `bge-m3` | 1024 |
+| `snowflake-arctic-embed` / `snowflake-arctic-embed:l` | 1024 |
+| `snowflake-arctic-embed:m` | 768 |
+| `snowflake-arctic-embed:m-long` | 768 |
+| `snowflake-arctic-embed:s` | 384 |
+| `snowflake-arctic-embed:xs` | 384 |
+| `all-minilm` / `all-minilm:l6` | 384 |
+| `all-minilm:l12` | 384 |
+| `paraphrase-multilingual` | 768 |
+| `snowflake-arctic-embed2` | 1024 |
+| `granite-embedding:30m` | 384 |
+| `granite-embedding` / `granite-embedding:278m` | 768 |
+| `bge-large` | 1024 |
+
+### Azure
+
+Azure OpenAI embedding deployments are synced from your Azure resource. Use the dimension of the model behind the deployment.
+</Accordion>
+
+#### Training Data
 
 When Vector is enabled, use **Training Data** to add sources.
 
@@ -124,11 +365,27 @@ When Vector is enabled, use **Training Data** to add sources.
 
 Click **Train** after selecting or entering the source. Use **Knowledge Base** to review and manage existing sources.
 
-> Screenshot placeholder: Knowledge section with Data Source, Vector provider, and Training Data tabs.
+![Training Data](/images/screenshots/chatbots/add-training-data-chatbot.png)
+
+### Page Context
+
+Adds the current page or post content to the chatbot context. 
+
+When this feature is enabled, the chatbot will use the current page's content as part of its contextual understanding.
+
+If the page has an excerpt, that excerpt will be used directly as the bot’s context.
+
+![Chatbot Knowledge Settings](/images/screenshots/chatbots/page-context.png)
+
+If no excerpt is available, the plugin will automatically generate a short summary of the page content and feed that to the bot instead. 
+
+This is ideal for creating page-specific chatbots.
 
 ## Tools
 
-Open the **Tools** section and select the tools this chatbot can use.
+Tools are optional capabilities the chatbot can use during a conversation. They let visitors upload files, search the web, attach images, generate images, or use voice features when those options are enabled.
+
+Enable only the tools you want your chatbot to offer.
 
 ### File Upload
 
@@ -156,11 +413,13 @@ Web search is available for OpenAI, Google, Claude, and OpenRouter.
 
 You can also set whether the web toggle is on by default, whether sources are shown, the sources label, and the "searching web" status text.
 
-### Image Analysis
+### Images and Vision
+
+#### Analyze Images
 
 Image analysis lets visitors attach images in chat. It appears for OpenAI, Claude, and OpenRouter. For OpenRouter, the selected model must support image input.
 
-### Image Generation
+#### Generate Images
 
 Image generation lets the chatbot generate images from commands typed in chat.
 
@@ -173,11 +432,11 @@ Image models can come from configured image providers, including Replicate when 
 
 > Screenshot placeholder: Tools section with file upload, web search, image analysis, and image generation enabled.
 
-## Voice
+### Audio and Speech
 
 Voice settings are under **Tools > Audio**.
 
-### Speech to Text
+#### Speech to Text
 
 Speech to Text adds a microphone button to the chatbot input.
 
@@ -188,7 +447,7 @@ Speech to Text adds a microphone button to the chatbot input.
 
 The current chatbot UI uses OpenAI Speech to Text models.
 
-### Text to Speech
+#### Text to Speech
 
 Text to Speech adds playback controls for assistant replies.
 
@@ -206,7 +465,7 @@ Supported Text to Speech providers:
 | **OpenAI** | Select an OpenAI voice and model. |
 | **ElevenLabs** | Configure ElevenLabs in Integrations, then select voice and model. |
 
-### Realtime Voice
+#### Realtime Voice Agents
 
 Realtime voice is a Pro feature for low-latency voice conversations.
 
