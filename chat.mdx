@@ -1,0 +1,380 @@
+---
+title: "Chat"
+description: "Create, configure, and deploy AI Puffer chatbots."
+---
+
+Use Chat to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, tools, interface, popup settings, limits, connected apps, and rules.
+
+> Screenshot placeholder: Chat module showing chatbot tabs, settings accordion, and preview.
+
+## Create and manage chatbots
+
+1. Open **WordPress Admin > AI Puffer > Chat**.
+2. Click the **+** button in the chatbot tab row.
+3. Enter a name for the chatbot.
+4. Select the chatbot tab when you want to edit it.
+5. Use **Preview** to test the chatbot before publishing it.
+
+Use **Actions** for saved chatbots:
+
+| Action | What it does |
+| --- | --- |
+| **Duplicate** | Creates a copy of the current chatbot. |
+| **Reset** | Resets the current chatbot settings. |
+| **Delete** | Deletes the chatbot. The default chatbot cannot be deleted. |
+
+## Deploy a chatbot
+
+Each chatbot has a shortcode:
+
+```text
+[aipkit_chatbot id=123]
+```
+
+Replace `123` with the chatbot ID shown in the Chat screen.
+
+### On-page chatbot
+
+1. Select **Mode: On-page**.
+2. Copy the shortcode.
+3. Paste it into a page, post, block, or shortcode area.
+4. Publish or update the page.
+
+### Popup chatbot
+
+1. Select **Mode: Popup**.
+2. Choose whether the popup should be **Site-Wide**.
+3. Open the **Popup** section.
+4. Set position, launcher shape, launcher size, auto-open delay, hint, icon, avatar, and online text.
+5. Save and test the site frontend.
+
+Only one chatbot can be active as a site-wide popup at a time. If you enable a new site-wide popup chatbot, AI Puffer disables site-wide mode for the previous one.
+
+### External embed
+
+External embed is a Pro feature.
+
+1. Select **Mode: External**.
+2. Click **External Setup**.
+3. Copy the embed code.
+4. Add allowed domains, one URL per line.
+5. Paste the embed code into the external site.
+
+Set allowed domains before using external embed on a production site.
+
+> Screenshot placeholder: Mode selector with On-page, Popup, and External options.
+
+## General configuration
+
+Open the **General** section to set the chatbot identity and model behavior.
+
+| Setting | Use it for |
+| --- | --- |
+| **Name** | Internal chatbot name shown in the Chat screen. |
+| **Engine** | AI provider for this chatbot. |
+| **Model / Deployment** | Model or Azure deployment used by this chatbot. |
+| **Instructions** | System instructions for the chatbot. |
+| **Temperature** | Response variation. Lower values are more predictable. |
+| **Context** | Maximum completion tokens for the model response. |
+| **Messages** | Number of previous conversation messages included as history. |
+| **Session memory** | OpenAI-only setting for provider-side conversation state. |
+| **Reasoning / Thinking** | Reasoning effort for supported models. Ollama labels this setting as Thinking. |
+
+If a provider or model list is empty, configure the provider and sync models in [AI Providers](/ai-providers).
+
+> Screenshot placeholder: General section with Engine, Model, Instructions, and behavior settings.
+
+## Knowledge
+
+Open the **Knowledge** section to decide what information the chatbot can use.
+
+| Data source | What it does |
+| --- | --- |
+| **Page Context** | Adds the current page or post content to the chatbot context. |
+| **Vector** | Searches selected vector sources before answering. |
+
+### Vector providers
+
+| Provider | Required setup |
+| --- | --- |
+| **OpenAI** | Select up to two OpenAI Vector Stores. |
+| **Pinecone** | Select a Pinecone index and an embedding provider/model. |
+| **Qdrant** | Select one or more Qdrant collections and an embedding provider/model. |
+| **Claude Files** | Use Claude as the chatbot engine and select Claude Files as the vector provider. |
+
+For OpenAI, Pinecone, and Qdrant, use **Limit** to set how many matching chunks are retrieved. Use **Threshold** to control the minimum match score.
+
+### Add training data
+
+When Vector is enabled, use **Training Data** to add sources.
+
+| Source | Use it for |
+| --- | --- |
+| **Q&A** | Add question and answer pairs. |
+| **Text** | Paste custom text. |
+| **Files** | Upload `.pdf`, `.docx`, `.txt`, `.md`, `.csv`, or `.json` files. |
+| **Website** | Add WordPress content by post type and status, or select specific posts. |
+
+Click **Train** after selecting or entering the source. Use **Sources** to review and manage existing training sources.
+
+> Screenshot placeholder: Knowledge section with Data Source, Vector provider, and Training Data tabs.
+
+## Image and web tools
+
+Open the **Tools** section and select the tools this chatbot can use.
+
+### File upload
+
+File upload is a Pro feature. It lets visitors upload documents during chat.
+
+Supported chat upload file types are:
+
+| Type | Notes |
+| --- | --- |
+| **TXT** | Read as plain text. |
+| **PDF** | Parsed and used as chat context. |
+
+File upload routes through the selected vector provider. Pinecone and Qdrant require an embedding provider and embedding model.
+
+### Web search
+
+Web search is available for OpenAI, Google, Claude, and OpenRouter.
+
+| Provider | Options |
+| --- | --- |
+| **OpenAI** | Search context size and optional approximate user location. |
+| **Google** | Grounding mode and retrieval threshold. |
+| **Claude** | Max uses, optional location, allowed domains, blocked domains, and cache TTL. |
+| **OpenRouter** | Engine, max results, and optional search prompt. |
+
+You can also set whether the web toggle is on by default, whether sources are shown, the sources label, and the "searching web" status text.
+
+### Image analysis
+
+Image analysis lets visitors attach images in chat. It appears for OpenAI, Claude, and OpenRouter. For OpenRouter, the selected model must support image input.
+
+### Image generation
+
+Image generation lets the chatbot generate images from commands typed in chat.
+
+1. Enable **Image generation**.
+2. Select an image model.
+3. Set command triggers, such as `/image` or `/generate`.
+4. Tell users to start image prompts with one of the configured triggers.
+
+Image models can come from configured image providers, including Replicate when it is set up in Integrations.
+
+> Screenshot placeholder: Tools section with file upload, web search, image analysis, and image generation enabled.
+
+## Voice
+
+Chat voice settings are under **Tools > Audio**.
+
+### Speech to Text
+
+Speech to Text adds a microphone button to the chat input.
+
+1. Enable **Speech to Text**.
+2. Open **Options**.
+3. Select the Speech to Text model.
+4. Test voice input on the frontend.
+
+The current chatbot UI uses OpenAI Speech to Text models.
+
+### Text to Speech
+
+Text to Speech adds playback controls for assistant replies.
+
+1. Enable **Text to Speech**.
+2. Open **Options**.
+3. Select a provider.
+4. Select the voice and model.
+5. Enable **Auto play** only if replies should play automatically.
+
+Supported Text to Speech providers:
+
+| Provider | Setup |
+| --- | --- |
+| **Google** | Select a synced Google voice. |
+| **OpenAI** | Select an OpenAI voice and model. |
+| **ElevenLabs** | Configure ElevenLabs in Integrations, then select voice and model. |
+
+### Realtime voice
+
+Realtime voice is a Pro feature for low-latency voice conversations.
+
+1. Enable **Realtime**.
+2. Open **Options**.
+3. Select a realtime model.
+4. Select a voice.
+5. Choose turn detection.
+6. Set audio format, response speed, and noise reduction if needed.
+
+Supported turn detection modes are:
+
+| Mode | Behavior |
+| --- | --- |
+| **None** | Push-to-talk. |
+| **Automatic** | Server voice activity detection. |
+| **Smart** | Semantic voice activity detection. |
+
+**Direct voice mode** is available only when the chatbot is in popup mode and Realtime voice is enabled.
+
+> Screenshot placeholder: Audio settings showing Speech to Text, Text to Speech, and Realtime options.
+
+## Interface
+
+Open **Interface** to control the visible chatbot UI.
+
+| Setting | Use it for |
+| --- | --- |
+| **Theme** | Select a built-in theme or a custom theme preset. |
+| **Download** | Let visitors download chat transcripts as text. PDF download is Pro. |
+| **Copy** | Show copy buttons on assistant messages. |
+| **Feedback** | Show like and dislike buttons on assistant messages. |
+| **Fullscreen** | Show the fullscreen button. |
+| **Sidebar** | Show conversation history for on-page chatbots. Sidebar is disabled in popup mode. |
+| **Starters** | Show starter prompts and edit their text. |
+| **Consent** | Show a consent step before chat starts, if available on your plan. |
+| **Greeting** | Main greeting text. |
+| **Subgreeting** | Secondary greeting text. |
+| **Placeholder** | Input field placeholder. |
+| **Footer** | Footer text below the chat input. |
+| **Typing text** | Text shown while the chatbot is generating. |
+| **Status text** | Text shown while knowledge context is being retrieved. |
+
+> Screenshot placeholder: Interface section with Theme and UI features.
+
+## Security and privacy
+
+Chat uses both global security settings and chatbot-level controls.
+
+### Global security settings
+
+Open **AI Puffer > Settings > Security**.
+
+| Setting | What it does |
+| --- | --- |
+| **IP Anonymization** | Stores anonymized IP addresses in logs. |
+| **Banned Words** | Blocks messages that contain configured words or phrases. |
+| **Banned IPs** | Blocks messages from configured IP addresses. |
+| **OpenAI Moderation** | Uses OpenAI moderation for OpenAI chatbots. This is a Pro feature. |
+
+Set custom block messages for banned words, banned IPs, and OpenAI moderation if you want visitors to see specific text.
+
+### Chatbot-level controls
+
+| Control | Where |
+| --- | --- |
+| **Consent** | **Chat > Interface > UI features > Consent** |
+| **Allowed embed domains** | **Chat > Mode: External > External Setup** |
+| **Claude web allowed/blocked domains** | **Chat > Tools > Web search > Claude Options** |
+
+Chat logs include conversation messages, usage data, feedback, and metadata needed for history and reporting. Enable IP anonymization if you do not want full IP addresses stored in logs.
+
+> Screenshot placeholder: Security settings with IP Anonymization, banned words, banned IPs, and OpenAI Moderation.
+
+## Limits
+
+Open **Limits** to control token quotas for a chatbot.
+
+| Setting | Use it for |
+| --- | --- |
+| **Quota mode** | Use the same quota for all logged-in users or define role-based quotas. |
+| **Guest quota** | Token quota for visitors who are not logged in. Leave empty for unlimited. |
+| **User quota** | Token quota for logged-in users when using general quota mode. Leave empty for unlimited. |
+| **Role-based quotas** | Token quota per WordPress role. |
+| **Reset period** | Never, daily, weekly, or monthly. |
+| **Quota reached message** | Message shown when the visitor reaches the quota. |
+| **Primary button** | Optional button shown after the quota message. |
+| **Secondary button** | Optional second button shown after the quota message. |
+
+Quota buttons can link to customer dashboard usage, credits, purchases, the buy credits page, a custom URL, or no button.
+
+> Screenshot placeholder: Limits section with guest quota, user quota, reset period, and quota message.
+
+## Connected Apps
+
+Connected Apps is a Pro feature. Use it to send chatbot events to external apps.
+
+1. Open **AI Puffer > Settings > Apps**.
+2. Add the app connection.
+3. Create or enable a recipe.
+4. Scope the recipe to all chatbots or selected chatbots.
+5. Return to **Chat > Connected Apps** to review recipes for the current chatbot.
+
+Supported app destinations:
+
+| App | Common use |
+| --- | --- |
+| **Slack** | Send chat questions, responses, or session alerts to a channel. |
+| **HubSpot** | Sync contact data where the recipe supports it. |
+| **Notion** | Create pages or database items. |
+| **Pipedrive** | Sync people or CRM records where the recipe supports it. |
+| **Zapier** | Send webhook payloads. |
+| **Make** | Send webhook payloads. |
+| **n8n** | Send webhook payloads. |
+
+Chatbot recipe events include session started, user message submitted, response generated, and feedback submitted.
+
+> Screenshot placeholder: Connected Apps section with configured recipes.
+
+## Rules
+
+Rules is a Pro feature. Rules run inside a chatbot and can react to chat events.
+
+### Rule events
+
+| Event | When it runs |
+| --- | --- |
+| **Session started** | A new chat session starts with the first user message. |
+| **User message received** | A visitor sends a message before AI processing. |
+| **System error occurred** | An internal processing error occurs. |
+| **Form submitted** | A form displayed by a rule is submitted. |
+
+### Conditions
+
+Rules can check fields from:
+
+| Condition group | Example fields |
+| --- | --- |
+| **User context** | Logged-in status, user role, user message text. |
+| **Text content** | User message text. |
+| **Conversation state** | Message count. |
+| **AI model context** | Current provider and model. |
+| **HTTP context** | Referrer and user agent. |
+| **Post context** | Post ID, title, and tags. |
+| **Error context** | Error code, error message, failed provider, failed model, status code, operation, and module. |
+
+Available operators include equals, contains, starts with, ends with, regex match, empty checks, one-of checks, and numeric comparisons.
+
+### Actions
+
+| Action | What it does |
+| --- | --- |
+| **Bot reply** | Sends a predefined bot message. |
+| **Inject context** | Adds content to the system instruction or conversation history. |
+| **Block message** | Stops the user message from reaching the AI. |
+| **Call webhook** | Sends an HTTP request to an external URL. |
+| **Set variable** | Stores a variable in user meta or bot context. |
+| **Display form** | Shows a form inside the chat. |
+| **Store form submission** | Saves submitted form data to the chat log. |
+
+Webhook and message fields support placeholders. Form placeholders include submitted data, display values, labels, and individual submitted fields.
+
+> Screenshot placeholder: Rules builder with event, conditions, and action fields.
+
+## Troubleshooting
+
+| Issue | Check |
+| --- | --- |
+| Provider has no models | Configure the provider and sync models in [AI Providers](/ai-providers). |
+| Web search does not appear | Use OpenAI, Google, Claude, or OpenRouter as the chatbot engine. |
+| Image upload does not appear | Use OpenAI, Claude, or an OpenRouter model that supports image input. |
+| File upload does not appear | Confirm Pro is active and file upload is enabled. |
+| Pinecone or Qdrant upload fails | Confirm the index or collection, embedding provider, and embedding model are selected. |
+| Claude Files upload fails | Use Claude as the chatbot engine and Claude Files as the vector provider. |
+| Realtime voice does not appear | Confirm Pro is active and Realtime is enabled. |
+| Direct voice mode is disabled | Use popup mode and enable Realtime voice. |
+| Sidebar does not appear | Sidebar is available for on-page chatbots and is disabled in popup mode. |
+| External embed is blocked | Add the exact external site origin to Allowed domains. |

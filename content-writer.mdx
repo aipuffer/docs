@@ -1,0 +1,478 @@
+---
+title: "Content Writer"
+description: "Generate, update, and schedule WordPress content with AI Puffer."
+---
+
+Use Content Writer to create WordPress content from topics, CSV files, RSS feeds, web pages, or Google Sheets. It can also update existing posts, image metadata, and WooCommerce products.
+
+> Screenshot placeholder: Content Writer screen with the Mode selector, input area, settings panel, and output area.
+
+## Open Content Writer
+
+1. Open **WordPress Admin > AI Puffer > Content Writer**.
+2. Choose a mode from the left **Mode** panel.
+3. Select a model.
+4. Set prompts, publishing, images, and context.
+5. Click **Generate** to run now, or **Create Task** to create an automated task.
+
+If the model list is empty, configure the provider first in [AI Providers](/ai-providers).
+
+## Choose a mode
+
+Content Writer has create modes and optimize modes.
+
+| Mode | Use it for | Availability |
+| --- | --- | --- |
+| **Manual Entry** | Generate one or more posts from topics and keywords. | Free |
+| **Import CSV** | Generate posts from a CSV file. | Free |
+| **RSS Feed** | Generate posts from RSS feed items. | Pro |
+| **Web Page** | Generate posts from extracted page text. | Pro |
+| **Google Sheets** | Generate posts from spreadsheet rows. | Pro |
+| **Rewrite Content** | Update existing posts and pages. | Free and Pro |
+| **Image Metadata** | Update attachment title, alt text, caption, and description. | Free and Pro |
+| **Optimize Products** | Update WooCommerce product copy and search data. | Pro |
+
+**Optimize Products** appears only when WooCommerce is active.
+
+## Generate one post
+
+1. Select **Manual Entry**.
+2. Select **Single**.
+3. Enter a topic.
+4. Add keywords if needed.
+5. Choose the model and content length.
+6. Open **Prompts** if you want to edit the output instructions.
+7. Set the post status, post type, author, categories, table of contents, and URL option.
+8. Click **Generate**.
+9. Review the output.
+10. Save it as a WordPress post when ready.
+
+> Screenshot placeholder: Manual Entry in Single mode with Topic and Keywords fields.
+
+## Manual Entry
+
+Manual Entry has three input layouts.
+
+| Layout | Use it for |
+| --- | --- |
+| **Single** | One topic with optional keywords. |
+| **Batch Editor** | Multiple rows with topic, keywords, category, author, post type, and schedule. |
+| **Quick Paste** | Paste one topic per line, with optional fields separated by `|`. |
+
+Quick Paste format:
+
+```text
+Topic | Keywords | Category ID | Author Login | Post Type | YYYY-MM-DD HH:MM
+```
+
+Example:
+
+```text
+How to clean leather boots | leather care, boots | 12 | editor | post | 2026-05-01 09:00
+```
+
+You can also enter only a topic:
+
+```text
+How to clean leather boots
+```
+
+## Import CSV
+
+CSV import reads every non-empty row and converts it into a generation task.
+
+1. Select **Import CSV**.
+2. Upload a `.csv` file.
+3. Confirm the number of tasks found.
+4. Set model, prompts, publishing, and other options.
+5. Click **Generate** or **Create Task**.
+
+CSV columns are read in this order:
+
+| Column | Field | Required |
+| --- | --- | --- |
+| 1 | Topic | Yes |
+| 2 | Keywords | No |
+| 3 | Category ID | No |
+| 4 | Author Login | No |
+| 5 | Post Type | No |
+| 6 | Schedule | No |
+
+Do not add a header row unless you want the header row to be treated as a topic.
+
+> Screenshot placeholder: CSV upload state showing the file name and tasks found.
+
+## RSS Feed
+
+RSS Feed is a Pro feature.
+
+Use RSS Feed to generate content from feed items.
+
+1. Select **RSS Feed**.
+2. Add one feed URL per line.
+3. Add **Include** keywords if only matching titles should be used.
+4. Add **Exclude** keywords if matching titles should be skipped.
+5. Click **Fetch Feeds** to preview available items.
+6. Click **Generate** or **Create Task**.
+
+AI Puffer checks up to 15 items per feed. Automated RSS tasks keep a history of processed feed items so the same item is not queued again.
+
+## Web Page
+
+Web Page is a Pro feature.
+
+Use Web Page mode to generate from a list of URLs.
+
+1. Select **Web Page**.
+2. Add one URL per line.
+3. Click **Test First URL** to preview extracted text.
+4. Set the prompts and publishing options.
+5. Click **Generate** or **Create Task**.
+
+When using URL mode, the content prompt can use:
+
+| Placeholder | Value |
+| --- | --- |
+| `{url_content}` | Extracted page text. |
+| `{source_url}` | Source URL. |
+
+Some pages may block extraction or return very little readable text.
+
+## Google Sheets
+
+Google Sheets is a Pro feature.
+
+Use Google Sheets mode to generate from spreadsheet rows.
+
+1. Create a Google Cloud service account.
+2. Download the service account JSON credentials.
+3. Share the spreadsheet with the service account email.
+4. Select **Google Sheets** in Content Writer.
+5. Paste the Google Sheet ID.
+6. Upload the service account JSON file.
+7. Verify access.
+8. Click **Generate** or **Create Task**.
+
+AI Puffer reads columns `A:G`.
+
+| Column | Field | Notes |
+| --- | --- | --- |
+| A | Topic | Required. |
+| B | Keywords | Optional. |
+| C | Category ID | Optional. |
+| D | Author Login | Optional. |
+| E | Post Type | Optional. |
+| F | Schedule Date | Optional. |
+| G | Status | Leave empty for rows that should be processed. |
+
+Rows are processed only when column A has a topic and column G is empty. AI Puffer writes queue and processed status back to column G.
+
+> Screenshot placeholder: Google Sheets setup showing Sheet ID, credentials file, and verification state.
+
+## Model settings
+
+Content Writer uses the AI providers configured in AI Puffer.
+
+| Provider | Notes |
+| --- | --- |
+| OpenAI | Supports compatible chat and reasoning models. |
+| Google | Uses configured Gemini models. |
+| Claude | Uses configured Claude models. |
+| OpenRouter | Uses configured OpenRouter models. |
+| Azure | Uses configured Azure deployments. |
+| DeepSeek | Uses configured DeepSeek models. |
+| Ollama | Pro feature. Uses local or self-hosted Ollama models. |
+
+Model settings include:
+
+| Setting | What it does |
+| --- | --- |
+| **Model** | Model used for generation. |
+| **Temperature** | Controls response variation. |
+| **Reasoning** | Sets reasoning effort for supported OpenAI and Ollama models. |
+| **Length** | Sets the token budget used for the generated content. |
+
+Length values map to these token budgets:
+
+| Length | Token budget |
+| --- | --- |
+| Short | 2000 |
+| Medium | 4000 |
+| Long | 6000 |
+
+## Prompts and outputs
+
+Open **Prompts** to control what Content Writer generates.
+
+| Output | What it updates |
+| --- | --- |
+| **Title** | WordPress post title. |
+| **Content** | WordPress post content. |
+| **Meta Description** | Search meta description. |
+| **Focus Keyword** | Focus keyword in supported SEO plugins. |
+| **Excerpt** | WordPress excerpt. |
+| **Tags** | Post tags or product tags. |
+
+Common placeholders:
+
+| Placeholder | Value |
+| --- | --- |
+| `{topic}` | Topic from the input row. |
+| `{keywords}` | Keywords from the input row or keyword field. |
+| `{description}` | RSS item description. |
+| `{url_content}` | Extracted page text in Web Page mode. |
+| `{source_url}` | Source URL in Web Page mode. |
+| `{content_summary}` | Summary of generated content, used by supporting outputs. |
+
+Use **Templates** to save a set of model, prompt, publishing, image, and context settings. Templates can be loaded again later for the same workflow.
+
+> Screenshot placeholder: Prompts popover with Title, Content, Meta Description, Focus Keyword, Excerpt, and Tags.
+
+## Search optimization
+
+Content Writer can generate and save search-related data.
+
+| Item | Where it is saved |
+| --- | --- |
+| **Meta description** | Yoast SEO, Rank Math, AIOSEO, The SEO Framework, or AI Puffer fallback meta. |
+| **Focus keyword** | Yoast SEO, Rank Math, or AIOSEO. |
+| **Tags** | `post_tag`, `product_tag`, or another available non-hierarchical taxonomy. |
+| **URL** | WordPress post slug when **Optimize URL** is enabled. |
+
+The SEO Framework does not have a native focus keyword field, so focus keyword updates are skipped for that plugin.
+
+When **Optimize URL** is enabled, AI Puffer builds the slug from the focus keyword when available. If no focus keyword is available, it uses the post title.
+
+## Publishing settings
+
+Open the post settings panel to control where generated content is saved.
+
+| Setting | Use it for |
+| --- | --- |
+| **Status** | Draft, Publish, Pending Review, or Private. |
+| **Post Type** | Public WordPress post type. |
+| **Author** | WordPress author. |
+| **Categories** | WordPress categories assigned to the post. |
+| **Table of Contents** | Adds a table of contents based on headings. |
+| **Optimize URL** | Generates a cleaner post slug. |
+
+Scheduling options:
+
+| Option | Behavior |
+| --- | --- |
+| **Publish Immediately** | Publishes without spacing posts out. |
+| **Smart Schedule** | Starts at a date/time and spaces posts by hours or days. |
+| **Use Dates from Input** | Uses the schedule field in the row, CSV, or Google Sheet. |
+
+For Quick Paste or batch text, append a schedule date to the end of the row:
+
+```text
+Topic | Keywords | Category ID | Author Login | Post Type | YYYY-MM-DD HH:MM
+```
+
+## Images
+
+Content Writer can add images to generated posts.
+
+| Mode | Result |
+| --- | --- |
+| **Off** | No images are generated or fetched. |
+| **Content** | Adds images inside the post content. |
+| **Featured** | Sets a featured image. |
+| **Content + Featured** | Adds content images and sets a featured image. |
+
+Image sources:
+
+| Source | Notes |
+| --- | --- |
+| OpenAI | Uses configured OpenAI image models. |
+| Google | Uses configured Google image models. |
+| OpenRouter | Uses configured OpenRouter image models. |
+| Azure | Uses configured Azure image deployments. |
+| Replicate | Uses configured Replicate image models. |
+| Pexels | Requires a Pexels API key. |
+| Pixabay | Requires a Pixabay API key. |
+
+Image settings include count, placement, size, and alignment. Placement options include first heading, every X headings, every X paragraphs, and end of content.
+
+Content Writer can also generate image title, alt text, caption, and description when image metadata options are enabled.
+
+> Screenshot placeholder: Images section with Content + Featured selected and image settings open.
+
+## Knowledge context
+
+Use **Context** when generated content should use information from a knowledge source.
+
+| Context provider | Setup |
+| --- | --- |
+| **OpenAI** | Select one or more OpenAI vector stores. |
+| **Pinecone** | Select a Pinecone index and embedding provider/model. |
+| **Qdrant** | Select a Qdrant collection and embedding provider/model. |
+
+Context settings:
+
+| Setting | What it does |
+| --- | --- |
+| **Results Limit** | Maximum matches added to the generation context. |
+| **Confidence Threshold** | Minimum match score required before a result is included. |
+
+Context is used during new generation and existing-content updates when enabled.
+
+> Screenshot placeholder: Context selector showing OpenAI, Pinecone, and Qdrant options.
+
+## Rewrite existing content
+
+Use **Rewrite Content** to update selected posts or pages.
+
+1. Select **Rewrite Content**.
+2. Filter by type, status, or search term.
+3. Select one or more rows.
+4. Open **Prompts** and choose the fields to update.
+5. Click **Update**.
+
+Available update targets:
+
+| Target | Result |
+| --- | --- |
+| Title | Updates the post title. |
+| Content | Updates the post content. |
+| Meta Description | Updates the search meta description. |
+| Focus Keyword | Updates the focus keyword when supported. |
+| Excerpt | Updates the excerpt. |
+| Tags | Updates tags. |
+| URL | Updates the slug when **Optimize URL** is enabled. |
+
+For existing content prompts, include at least one source placeholder:
+
+```text
+{original_title}
+{original_content}
+{original_excerpt}
+{original_meta_description}
+{original_focus_keyword}
+{original_tags}
+{categories}
+```
+
+Free plan users can update title and content for non-product posts. Meta description, focus keyword, excerpt, tags, URL updates, and WooCommerce product updates require Pro.
+
+## Image Metadata
+
+Use **Image Metadata** to update media library attachment data.
+
+1. Select **Image Metadata**.
+2. Filter images by media type, unattached items, owner, or search term.
+3. Select the image.
+4. Open **Prompts**.
+5. Enable the metadata fields you want to update.
+6. Click **Update**.
+
+Fields:
+
+| Field | WordPress attachment field |
+| --- | --- |
+| Image title | Attachment title. |
+| Alt text | `_wp_attachment_image_alt`. |
+| Caption | Attachment excerpt. |
+| Description | Attachment content. |
+
+Image metadata prompts can use:
+
+```text
+{file_name}
+{original_title}
+{original_alt}
+{original_caption}
+{original_description}
+{image_context}
+```
+
+Free plan users can update one selected image at a time. Bulk image metadata updates require Pro.
+
+## Optimize WooCommerce products
+
+Optimize Products is a Pro feature. It appears when WooCommerce is active.
+
+Use it to update product titles, descriptions, excerpts, search data, tags, and URLs.
+
+Product prompts can use:
+
+```text
+{original_title}
+{original_content}
+{original_excerpt}
+{original_meta_description}
+{original_focus_keyword}
+{original_tags}
+{categories}
+{price}
+{regular_price}
+{sale_price}
+{sku}
+{stock_quantity}
+{stock_status}
+{weight}
+{length}
+{width}
+{height}
+{short_description}
+{purchase_note}
+{product_categories}
+{attributes}
+```
+
+When tags are updated for products, AI Puffer uses WooCommerce product tags.
+
+> Screenshot placeholder: Optimize Products mode with selected WooCommerce products and update fields.
+
+## Create automated tasks
+
+The primary action can run immediately or create an automated task.
+
+1. Configure a create mode: Manual Entry, Import CSV, RSS Feed, Web Page, or Google Sheets.
+2. Open the action menu next to **Generate**.
+3. Select **Create Task**.
+4. Choose an interval.
+5. Confirm the task.
+
+Task intervals:
+
+| Interval |
+| --- |
+| One-time |
+| Every 5 minutes |
+| Every 15 minutes |
+| Every 30 minutes |
+| Hourly |
+| Twice daily |
+| Daily |
+| Weekly |
+
+Created tasks appear in Automated Tasks. Google Sheets access is verified before the task is created.
+
+## Logs
+
+Content Writer activity is logged under AI Puffer logs.
+
+| Source | Log module |
+| --- | --- |
+| Direct Content Writer generation | `content_writer` |
+| Automated Content Writer tasks | `content_writer_automation` |
+
+AI Puffer also emits a `content.generated` event after generated content is completed.
+
+## Troubleshooting
+
+| Issue | What to check |
+| --- | --- |
+| Model list is empty | Configure the provider in [AI Providers](/ai-providers) and sync models. |
+| "Content title/topic is required" | Add a topic, CSV row, URL, feed item, or sheet row. |
+| "AI model selection is required" | Select a model before generating. |
+| "Custom Content Prompt cannot be empty" | Open **Prompts** and fill the Content prompt. |
+| CSV header becomes a post | Remove the header row from the CSV. |
+| RSS, URL, or Google Sheets mode is locked | These modes require Pro. |
+| Google Sheets permission denied | Share the spreadsheet with the service account email and verify the Sheet ID. |
+| URL extraction returns little text | The page may block scraping or load content through scripts. |
+| Images are not created | Check the image provider, image model, and required API keys. |
+| Long generations stop early | Increase PHP `max_execution_time` and `default_socket_timeout` above 30 seconds. |
+

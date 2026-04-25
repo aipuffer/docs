@@ -1,0 +1,520 @@
+---
+title: "Automations"
+description: "Create, schedule, and monitor recurring AI Puffer tasks."
+---
+
+Use Automations to run recurring AI Puffer tasks from WordPress. A task can create content, index WordPress content into a vector store, rewrite existing content, or reply to comments.
+
+> Screenshot placeholder: Automations screen showing the task list, New Task button, and queue panel.
+
+## Open Automations
+
+1. Open **WordPress Admin > AI Puffer > Automations**.
+2. Click **New Task**.
+3. Choose a task type.
+4. Configure the source, model, prompts, and schedule.
+5. Save the task.
+6. Use the queue panel to monitor progress.
+
+If the Automations menu is not visible, check that the module is enabled and that your WordPress role has access to it.
+
+## How automations run
+
+Automations use WordPress cron.
+
+1. A task-specific cron event runs on the selected frequency.
+2. The task finds matching work and adds items to the queue.
+3. The main queue processor handles pending queue items in batches.
+4. Each queue item becomes **Completed** or **Failed**.
+
+The queue processor handles up to 5 pending items per run. If more items remain, AI Puffer schedules another queue run.
+
+WordPress cron depends on site traffic unless you run a real server cron. If site traffic is low, scheduled tasks can run late. If `DISABLE_WP_CRON` is enabled, set up a server cron job for WordPress.
+
+## Task types
+
+| Task type | What it does | Availability |
+| --- | --- | --- |
+| **Manual Entry** | Creates posts from one or more topic lines. | Free |
+| **Import CSV** | Creates posts from CSV rows. | Free |
+| **RSS Feed** | Creates posts from RSS feed items. | Pro |
+| **Web Page** | Creates posts from extracted URL content. | Pro |
+| **Google Sheets** | Creates posts from spreadsheet rows. | Pro |
+| **Rewrite Content** | Updates existing titles, excerpts, content, or meta descriptions. | Pro |
+| **Content Indexing** | Indexes WordPress content into OpenAI, Pinecone, or Qdrant. | Free |
+| **Comment Replies** | Writes replies to approved WordPress comments. | Free |
+
+> Screenshot placeholder: New Task screen with task type groups: Create, Optimize, Index, and Engagement.
+
+## Create a task
+
+1. Click **New Task**.
+2. Enter a task name.
+3. Select a task type.
+4. Configure the task source.
+5. Select the model.
+6. Open **Customize** if you need to edit prompts.
+7. Set the task status and frequency.
+8. Save the task.
+
+Task status controls whether the task is scheduled.
+
+| Status | What it does |
+| --- | --- |
+| **Active** | Schedules the task. |
+| **Paused** | Clears the task schedule. Existing queue items remain in the queue. |
+
+## Frequencies
+
+Available task frequencies:
+
+| Frequency | Notes |
+| --- | --- |
+| **One-time** | Runs once. |
+| **Every 5 Minutes** | Uses a custom WordPress cron interval. |
+| **Every 15 Minutes** | Uses a custom WordPress cron interval. |
+| **Every 30 Minutes** | Uses a custom WordPress cron interval. |
+| **Hourly** | Uses the WordPress hourly interval. |
+| **Twice Daily** | Uses the WordPress twice-daily interval. |
+| **Daily** | Uses the WordPress daily interval. |
+| **Weekly** | Uses a custom WordPress cron interval. |
+
+The first run is scheduled shortly after the task is saved or resumed.
+
+## Task actions
+
+Saved tasks appear in the task list.
+
+| Action | What it does |
+| --- | --- |
+| **Edit** | Opens the task settings. |
+| **Pause** | Stops future scheduled runs. |
+| **Resume** | Schedules the task again. |
+| **Run Now** | Queues matching work immediately. |
+| **Delete** | Deletes the task and its queue items. |
+
+Run Now adds work to the queue. It does not process everything inside the browser request.
+
+## Create content tasks
+
+Create content tasks use the Content Writer engine inside Automations. They can create posts, pages, products, or other supported post types.
+
+> Screenshot placeholder: Create task setup showing source input, model selector, prompt button, and publishing settings.
+
+### Manual Entry
+
+Manual Entry reads each non-empty line as a content item.
+
+Basic format:
+
+```text
+Topic
+```
+
+Extended format:
+
+```text
+Topic | Keywords | Category ID | Author Login | Post Type | YYYY-MM-DD HH:MM
+```
+
+Example:
+
+```text
+How to clean leather boots | leather care, boots | 12 | editor | post | 2026-05-01 09:00
+```
+
+### Import CSV
+
+CSV import reads every non-empty row.
+
+| Column | Field | Required |
+| --- | --- | --- |
+| 1 | Topic | Yes |
+| 2 | Keywords | No |
+| 3 | Category ID | No |
+| 4 | Author Login | No |
+| 5 | Post Type | No |
+| 6 | Schedule | No |
+
+Do not include a header row unless you want the header row to be treated as a topic.
+
+### RSS Feed
+
+RSS Feed is a Pro feature.
+
+1. Add one RSS feed URL per line.
+2. Add include keywords if only matching feed items should be used.
+3. Add exclude keywords if matching feed items should be skipped.
+4. Save the task.
+
+Scheduled RSS tasks use the task's last run time and RSS history to avoid processing the same feed item again. Run Now checks recent feed items and still skips items that are already in the task history.
+
+### Web Page
+
+Web Page is a Pro feature.
+
+1. Add one URL per line.
+2. Configure the model and prompts.
+3. Save the task.
+
+AI Puffer extracts readable text from each URL and passes it to the content prompt.
+
+Useful placeholders:
+
+| Placeholder | Value |
+| --- | --- |
+| `{url_content}` | Extracted page text. |
+| `{source_url}` | Source URL. |
+
+Some sites block scraping or return very little readable text.
+
+### Google Sheets
+
+Google Sheets is a Pro feature.
+
+1. Create a Google Cloud service account.
+2. Share the spreadsheet with the service account email.
+3. Add the Sheet ID.
+4. Add the service account JSON credentials.
+5. Save the task.
+
+AI Puffer reads columns `A:G`.
+
+| Column | Field | Notes |
+| --- | --- | --- |
+| A | Topic | Required. |
+| B | Keywords | Optional. |
+| C | Category ID | Optional. |
+| D | Author Login | Optional. |
+| E | Post Type | Optional. |
+| F | Schedule Date | Optional. |
+| G | Status | Leave empty for rows that should be processed. |
+
+Rows are processed when column A has a topic and column G is empty. AI Puffer writes queue and processed status back to column G.
+
+### Content settings
+
+Content creation tasks can use the same core settings as Content Writer.
+
+| Setting | What it controls |
+| --- | --- |
+| **Model** | AI provider and model. |
+| **Temperature** | Response variation. |
+| **Reasoning** | Reasoning effort for supported models. |
+| **Length** | Output size for generated content. |
+| **Prompts** | Title, content, meta description, focus keyword, excerpt, and tags. |
+| **Publishing** | Post type, author, status, categories, and scheduling. |
+| **Images** | Inline images and featured image generation. |
+| **Context** | Optional vector store context. |
+| **Table of Contents** | Adds a generated table of contents when enabled. |
+| **URL** | Can update the post slug when enabled. |
+
+If a provider or model list is empty, configure the provider first in [AI Providers](/ai-providers).
+
+## Publishing schedule
+
+Content creation tasks have a task schedule and a post publishing schedule.
+
+The task schedule controls when AI Puffer checks the source and queues work. The post publishing schedule controls the date used for the generated WordPress post.
+
+| Publishing mode | What it does |
+| --- | --- |
+| **Publish Immediately** | Creates the post with the selected post status. |
+| **Smart Schedule** | Schedules generated posts starting from a selected date and spaced by hours or days. |
+| **Use Dates from Input** | Reads the date from the input line, CSV column, or Google Sheets column. |
+
+Supported input date examples:
+
+```text
+2026-05-01 09:00
+2026-05-01 09:00:30
+2026/05/01 09:00
+05/01/2026 09:00
+01/05/2026 09:00
+2026-05-01T09:00:00Z
+2026-05-01T09:00:00+02:00
+```
+
+Dates without a timezone are interpreted using the WordPress site timezone.
+
+## Rewrite Content
+
+Rewrite Content is a Pro feature.
+
+Use it to update existing WordPress content from a schedule.
+
+> Screenshot placeholder: Rewrite Content task showing post type filters, update fields, and prompt controls.
+
+### Choose target content
+
+Filter target content by:
+
+| Filter | Notes |
+| --- | --- |
+| **Post Types** | Required. Select one or more post types. |
+| **Categories** | Optional. Applies to category-supported content. |
+| **Authors** | Optional. Limits updates to selected authors. |
+| **Statuses** | Published, Draft, or Pending Review. |
+
+### Queue matching content
+
+Use **Queue all matching content now** when you want the task to enqueue all matching posts one time.
+
+If this option is off, scheduled runs process content that becomes eligible later.
+
+Run Now queues matching content that is not already present in that task's queue history.
+
+### Choose fields to update
+
+At least one field must be selected.
+
+| Field | What AI Puffer updates |
+| --- | --- |
+| **Title** | WordPress post title. |
+| **Excerpt** | WordPress post excerpt. |
+| **Content** | WordPress post content. |
+| **Meta Description** | Search meta description in supported SEO plugins. |
+
+Each field has its own prompt.
+
+### Rewrite placeholders
+
+Common placeholders:
+
+| Placeholder | Value |
+| --- | --- |
+| `{original_title}` | Existing post title. |
+| `{original_content}` | Existing post content without shortcodes and HTML. |
+| `{original_excerpt}` | Existing excerpt. |
+| `{original_meta_description}` | Existing meta description or excerpt fallback. |
+| `{original_focus_keyword}` | Existing focus keyword when available. |
+| `{original_tags}` | Existing tags. |
+| `{categories}` | Existing categories. |
+
+WooCommerce product placeholders are available when the target post is a product.
+
+| Placeholder | Value |
+| --- | --- |
+| `{price}` | Product price. |
+| `{regular_price}` | Product regular price. |
+| `{sale_price}` | Product sale price. |
+| `{sku}` | Product SKU. |
+| `{stock_quantity}` | Stock quantity. |
+| `{stock_status}` | Stock status. |
+| `{weight}` | Product weight. |
+| `{length}` | Product length. |
+| `{width}` | Product width. |
+| `{height}` | Product height. |
+| `{short_description}` | Product short description. |
+| `{purchase_note}` | Product purchase note. |
+| `{total_sales}` | Product total sales. |
+| `{product_categories}` | Product categories. |
+| `{attributes}` | Product attributes. |
+
+### Knowledge context
+
+Rewrite Content can optionally use vector store context.
+
+| Provider | Required setup |
+| --- | --- |
+| **OpenAI** | Select OpenAI Vector Stores. |
+| **Pinecone** | Select a Pinecone index and embedding model. |
+| **Qdrant** | Select a Qdrant collection and embedding model. |
+
+The task searches the selected knowledge source using the post title and adds matching context to the AI request.
+
+## Content Indexing
+
+Use Content Indexing to add WordPress content to a vector store for later retrieval.
+
+> Screenshot placeholder: Content Indexing task showing destination provider, store selector, post types, and indexing behavior.
+
+### Choose destination
+
+| Destination | Required setup |
+| --- | --- |
+| **OpenAI** | Select an OpenAI Vector Store. |
+| **Pinecone** | Select a Pinecone index and embedding provider/model. |
+| **Qdrant** | Select a Qdrant collection and embedding provider/model. |
+
+Pinecone and Qdrant require an embedding model because AI Puffer needs to create embeddings before writing vectors.
+
+### Choose content
+
+1. Select one or more public post types.
+2. Choose whether to queue existing content now.
+3. Choose whether to auto-index new and updated content.
+4. Save the task.
+
+Content Indexing only queues published content.
+
+### Index existing content
+
+**Queue all existing content now** creates an initial batch for matching published content.
+
+AI Puffer queues existing content in batches of 200 posts. After the initial queueing pass finishes, the one-time flag is turned off for the task.
+
+Run Now queues all matching published content again.
+
+### Auto-index updates
+
+**Auto-index new and updated content** checks posts modified after the task's last run time.
+
+Use this when the vector store should stay in sync with published WordPress content.
+
+## Comment Replies
+
+Use Comment Replies to draft and publish replies to WordPress comments.
+
+> Screenshot placeholder: Comment Replies task showing monitored post types, reply behavior, keyword filters, and reply prompt.
+
+### Choose comments to monitor
+
+1. Select one or more post types.
+2. Choose whether AI Puffer should reply only to top-level comments.
+3. Set the reply action.
+4. Add include or exclude keywords if needed.
+5. Customize the reply prompt.
+6. Save the task.
+
+Scheduled runs check approved comments. Each run queues up to 50 matching comments.
+
+### Reply behavior
+
+| Setting | What it does |
+| --- | --- |
+| **Approve Immediately** | Inserts the AI reply as an approved comment. |
+| **Hold for Moderation** | Inserts the AI reply as an unapproved comment. |
+| **Do not reply to other replies** | Limits the task to top-level comments. |
+| **Include keywords** | Replies only when the comment contains at least one keyword. |
+| **Exclude keywords** | Skips comments that contain any excluded keyword. |
+
+AI Puffer checks whether a comment is already queued or already has a reply from the same task before adding it again.
+
+### Reply prompt placeholders
+
+| Placeholder | Value |
+| --- | --- |
+| `{comment_content}` | Original comment text. |
+| `{comment_author}` | Original comment author. |
+| `{post_title}` | Title of the commented post. |
+
+Replies are inserted as child comments. The reply author is the post author when possible, with a fallback to the site administrator.
+
+## Queue
+
+The queue shows work created by saved tasks and Run Now actions.
+
+> Screenshot placeholder: Queue table with status filter, search field, pending count, failed count, and retry action.
+
+| Status | Meaning |
+| --- | --- |
+| **Pending** | Waiting to be processed. |
+| **Processing** | Currently being handled by the queue processor. |
+| **Completed** | Finished successfully. |
+| **Failed** | The queue item returned an error. |
+
+Queue controls:
+
+| Control | What it does |
+| --- | --- |
+| **Search** | Searches target identifiers and task names. |
+| **Status filter** | Shows all items or one status. |
+| **Retry** | Moves a failed item back to pending and starts queue processing. |
+| **Delete** | Deletes one queue item. |
+| **Delete filtered** | Deletes queue items matching the current filter. |
+
+Completed content creation items can show the generated post when a post ID is available.
+
+## Connected apps
+
+Automations emit events that can be used by AI Puffer app recipes.
+
+| Event | When it fires |
+| --- | --- |
+| `content.generated` | After a content creation task creates a post. |
+| `task.item_completed` | After a queue item finishes successfully. |
+
+Recipe templates include generated content or completed task notifications for apps such as Slack, Notion, Zapier, and Make.
+
+> Screenshot placeholder: Apps or Recipes screen showing a recipe triggered by `content.generated`.
+
+## Logs
+
+Automation activity can appear in AI Puffer logs.
+
+| Task area | Log module |
+| --- | --- |
+| Content creation | `content_writer_automation` |
+| Comment replies | `community_reply_comments` |
+
+Queue status and error messages remain visible in the Automations queue.
+
+## Troubleshooting
+
+### The task did not run
+
+Check these items:
+
+1. Confirm the task status is **Active**.
+2. Check the next run time in the task list.
+3. Confirm WordPress cron is working.
+4. If `DISABLE_WP_CRON` is enabled, configure a server cron job.
+5. Check whether the task already has pending or processing queue items.
+
+Content creation tasks do not queue another scheduled batch while that same task already has pending or processing items.
+
+### No items were queued
+
+Possible causes:
+
+| Task type | Check |
+| --- | --- |
+| Manual Entry | The input must contain at least one non-empty topic line. |
+| CSV | The CSV must contain topic rows. |
+| RSS Feed | The feed must contain new unprocessed items that pass the filters. |
+| Web Page | The URLs must be reachable and extractable. |
+| Google Sheets | Column A must contain a topic and column G must be empty. |
+| Rewrite Content | The selected post type, status, author, and category filters must match content. |
+| Content Indexing | Matching content must be published. |
+| Comment Replies | Matching comments must be approved. |
+
+### A Pro task is locked
+
+RSS Feed, Web Page, Google Sheets, and Rewrite Content require an active Pro plan.
+
+### A queue item failed
+
+1. Open the queue.
+2. Read the error message.
+3. Fix the provider, model, source, prompt, or destination setting.
+4. Click **Retry**.
+
+### Google Sheets rows are not processed
+
+Check these items:
+
+1. The Sheet ID is correct.
+2. The service account JSON credentials are valid.
+3. The spreadsheet is shared with the service account email.
+4. Column A has a topic.
+5. Column G is empty.
+
+### Content indexing fails
+
+Check these items:
+
+1. The selected vector store, index, or collection exists.
+2. Pinecone and Qdrant have an embedding provider and model selected.
+3. The selected post types contain published content.
+4. The provider API key is configured in [AI Providers](/ai-providers).
+
+### Comment replies are not created
+
+Check these items:
+
+1. The comment is approved.
+2. The comment belongs to a selected post type.
+3. The include and exclude keyword filters allow the comment.
+4. The reply prompt is not empty.
+5. The selected model is configured.

@@ -1,0 +1,413 @@
+---
+title: "Image / Video Generator"
+description: "Generate, edit, and embed image and video tools in WordPress."
+---
+
+Use Image / Video Generator to add a frontend generator to a WordPress page. Visitors enter a prompt, choose a provider and model if those controls are enabled, and receive generated media on the page.
+
+The module supports image generation, image editing, Google video generation, frontend history for logged-in users, usage limits, logs, and connected app events.
+
+> Screenshot placeholder: Image Generator admin screen with the shortcode, preview, and Settings button.
+
+## Open Image Generator
+
+1. Open **WordPress Admin > AI Puffer > Image Generator**.
+2. Configure the shortcode options if needed.
+3. Open **Settings** to set limits, UI text, custom CSS, or allowed frontend models.
+4. Copy the shortcode.
+5. Add it to a page, or add the **AI Puffer Image Generator** block in the block editor.
+
+If the model list is empty, configure the provider first in [AI Providers](/ai-providers), then sync models.
+
+## What it can do
+
+| Feature | What it does |
+| --- | --- |
+| Image generation | Creates images from a prompt. |
+| Image editing | Uploads one source image and edits it from a prompt. |
+| Video generation | Generates videos with Google video models. |
+| Provider and model controls | Shows or hides provider and model selectors on the frontend. |
+| User history | Shows previous generated images and videos for logged-in users. |
+| Limits | Applies guest, user, or role-based usage quotas. |
+| Logs | Records generation attempts and usage data. |
+| Events | Sends an `image.generated` event after a successful output. |
+
+## Providers
+
+| Provider | Supported in the frontend generator | Required setup |
+| --- | --- | --- |
+| OpenAI | Image generation and image editing with supported image models. | OpenAI API key and synced image models. |
+| Google | Image generation, image editing with supported Gemini image models, and video generation with Google video models. | Google API key and synced image/video models. |
+| OpenRouter | Image generation and image editing when the selected model supports image output and image input. | OpenRouter API key and synced image-capable models. |
+| Azure | Image generation with Azure OpenAI deployments. | Azure API key, endpoint URL, and synced image deployments. |
+| Replicate | Text-to-image generation with Replicate models. | Replicate API key and synced Replicate models. |
+
+Image editing is available only for OpenAI, Google, and OpenRouter in the frontend generator.
+
+## Generate images
+
+1. Add the shortcode or block to a page.
+2. Select a provider.
+3. Select an image model.
+4. Enter a prompt.
+5. Click **Generate**.
+
+AI Puffer sends the prompt to the selected provider and renders the returned image on the page.
+
+For logged-in users, generated images are saved to the WordPress Media Library and can appear in history when history is enabled.
+
+> Screenshot placeholder: Frontend image generator with provider, model, prompt, Generate button, and generated image result.
+
+## Edit images
+
+Use edit mode when visitors should upload an image and describe the change they want.
+
+1. Use a shortcode or block with edit mode enabled.
+2. Select OpenAI, Google, or OpenRouter.
+3. Select a model that supports editing.
+4. Upload a source image.
+5. Enter the edit prompt.
+6. Click **Edit Image**.
+
+Upload rules:
+
+| Rule | Value |
+| --- | --- |
+| Files | One source image |
+| Types | JPG, PNG, WEBP, GIF |
+| Maximum size | 10 MB |
+
+Provider requirements:
+
+| Provider | Editing requirement |
+| --- | --- |
+| OpenAI | Model ID must start with `gpt-image`. |
+| Google | Use a Gemini image-generation model. Google video models cannot be used for editing. |
+| OpenRouter | The synced model must support image input and image output or image generation. |
+
+> Screenshot placeholder: Edit mode showing source image upload, prompt, provider, model, and result.
+
+## Generate videos
+
+Video generation uses Google video models.
+
+1. Configure Google in **AI Puffer > Settings > AI**.
+2. Sync Google models.
+3. Confirm that Google video models are available in the Image Generator model list.
+4. Add the generator shortcode or block to a page.
+5. Select **Google** and a video model.
+6. Enter a prompt.
+7. Click **Generate**.
+
+Video generation runs as an async provider operation. AI Puffer starts the operation, checks the status, and displays the video when it is complete.
+
+Generated videos are saved as MP4 files in WordPress uploads and inserted as media attachments.
+
+> Screenshot placeholder: Frontend generator with a Google video model selected and an MP4 result.
+
+## Add the shortcode
+
+Basic shortcode:
+
+```text
+[aipkit_image_generator]
+```
+
+Generate and edit modes:
+
+```text
+[aipkit_image_generator mode="both" default_mode="generate"]
+```
+
+Edit only:
+
+```text
+[aipkit_image_generator mode="edit"]
+```
+
+Show logged-in user history:
+
+```text
+[aipkit_image_generator history="true"]
+```
+
+Hide provider and model selectors:
+
+```text
+[aipkit_image_generator show_provider="false" show_model="false" provider="openai" model="gpt-image-2"]
+```
+
+Use a light theme:
+
+```text
+[aipkit_image_generator theme="light"]
+```
+
+Limit the frontend to selected models:
+
+```text
+[aipkit_image_generator allowed_models="gpt-image-2, gemini-2.0-flash-preview-image-generation"]
+```
+
+## Shortcode attributes
+
+| Attribute | Values | Default |
+| --- | --- | --- |
+| `show_provider` | `true`, `false` | `true` |
+| `show_model` | `true`, `false` | `true` |
+| `provider` | `openai`, `google`, `openrouter`, `azure`, `replicate` | `openai` |
+| `model` | Provider model ID | `gpt-image-2` |
+| `mode` | `generate`, `edit`, `both` | `generate` |
+| `default_mode` | `generate`, `edit` | `generate` |
+| `show_mode_switch` | `true`, `false` | `true` when `mode="both"` |
+| `history` | `true`, `false` | `false` |
+| `theme` | `dark`, `light`, `custom` | `dark` |
+| `allowed_models` | Comma-separated model IDs | Uses global Image Generator settings |
+
+When `show_provider` or `show_model` is set to `false`, the shortcode uses the `provider` and `model` attributes as hidden values.
+
+## Add the block
+
+1. Open a page in the block editor.
+2. Add the **AI Puffer Image Generator** block.
+3. Set provider/model visibility.
+4. Set mode: generate, edit, or both.
+5. Enable history if needed.
+6. Save the page.
+
+The block renders the same frontend generator as the shortcode.
+
+## User history
+
+History is available for logged-in users.
+
+1. Add `history="true"` to the shortcode, or enable history in the block.
+2. Log in as a user.
+3. Generate an image or video.
+4. Refresh or revisit the page.
+
+History shows up to 20 generated media items per page, with a load-more button when more items exist.
+
+History actions:
+
+| Action | Availability |
+| --- | --- |
+| Open media | Images and videos. |
+| Delete media | The media owner or an admin. |
+| Edit from history | Images only, when the shortcode mode is `edit` or `both`. |
+
+Guest generations are not shown in user history.
+
+## Settings
+
+Open **Image Generator > Settings** from the module screen.
+
+| Section | What it controls |
+| --- | --- |
+| **Limits** | Guest quota, user quota, role-based quotas, reset period, quota message, and quota action buttons. |
+| **UI Text** | Button labels, mode labels, prompt placeholders, upload text, history title, and empty results text. |
+| **Custom CSS** | CSS for shortcodes using `theme="custom"`. |
+| **Provider Filtering** | Models allowed in the frontend provider and model selectors. |
+
+> Screenshot placeholder: Image Generator settings popover with Limits, UI Text, Custom CSS, and Provider Filtering.
+
+## Access and moderation
+
+Guests can use the frontend generator when the shortcode or block is published and guest limits allow it.
+
+Logged-in users must have role access to the Image Generator module. Configure role access from the AI Puffer role settings.
+
+If global content moderation is configured, AI Puffer checks the prompt before sending the request to the selected provider.
+
+## Limit frontend models
+
+Use provider filtering when the frontend should only expose specific models.
+
+1. Open **Image Generator > Settings**.
+2. Open **Provider Filtering**.
+3. Select the models visitors are allowed to use.
+4. Save the settings.
+
+Leave all models unselected to allow all available image and video models.
+
+AI Puffer derives the frontend provider list from the selected models. For example, if you only select OpenAI models, the frontend provider selector only shows OpenAI.
+
+## Customize labels
+
+Use **UI Text** to change frontend labels without editing code.
+
+Common fields:
+
+| Field | Default |
+| --- | --- |
+| Generate button label | `Generate` |
+| Edit button label | `Edit Image` |
+| Generate mode label | `Generate` |
+| Edit mode label | `Edit` |
+| Generate prompt placeholder | `Describe the image you want to generate...` |
+| Edit prompt placeholder | `Describe how you want to edit the uploaded image...` |
+| Source image label | `Source image` |
+| History title | `Your Images` |
+
+## Custom CSS
+
+Custom CSS applies to generators using:
+
+```text
+[aipkit_image_generator theme="custom"]
+```
+
+Target the custom theme wrapper:
+
+```css
+.aipkit_image_generator_public_wrapper.aipkit-theme-custom {
+  /* custom styles */
+}
+```
+
+## Limits
+
+Image Generator limits use the same usage system as chat and AI forms.
+
+Quota settings:
+
+| Setting | What it does |
+| --- | --- |
+| Guest quota | Limits unauthenticated visitors. |
+| User quota | Sets one limit for all logged-in users. |
+| Role-based quotas | Sets different limits by WordPress role. |
+| Reset period | Never, daily, weekly, or monthly. |
+| Quota reached message | Message shown when the quota is reached. |
+| Action buttons | Optional links shown with the quota message. |
+
+Usage is recorded under the `image_generator` module.
+
+Operations:
+
+| Operation | Used for |
+| --- | --- |
+| `generate` | Image generation. |
+| `edit` | Image editing. |
+| `video_generate` | Google video generation. |
+
+## Logs
+
+Image and video requests are logged with the module set to `image_generator`.
+
+Logs can include:
+
+| Field | Notes |
+| --- | --- |
+| Prompt | The text prompt used for generation or editing. |
+| Provider | Selected provider. |
+| Model | Selected model. |
+| Mode | `generate` or `edit`. |
+| Usage | Token or unit usage when available. |
+| User | WordPress user ID for logged-in users. |
+| Guest session | Guest identifier for unauthenticated visitors. |
+| Source image metadata | File name, MIME type, and size for edit requests. |
+
+Source image binary data is not stored in the request log.
+
+## Connected app event
+
+After successful generation, AI Puffer emits:
+
+```text
+image.generated
+```
+
+Event fields include:
+
+| Field | Value |
+| --- | --- |
+| `prompt` | Submitted prompt. |
+| `provider` | Provider used for generation. |
+| `model` | Model used for generation. |
+| `mode` | `generate` or `edit`. |
+| `media_type` | `image` or `video`. |
+| `output_count` | Number of returned media items. |
+| `outputs.images` | Image URLs, media library URLs, attachment IDs, and revised prompt when available. |
+| `outputs.videos` | Video URLs when available. |
+| `usage` | Usage data when available. |
+| `actor` | Logged-in user or guest session data. |
+
+Use this event in connected app recipes when you need to send generation results to another system.
+
+## REST image endpoint
+
+AI Puffer also registers a REST endpoint for image generation:
+
+```text
+POST /wp-json/aipkit/v1/images/generate
+```
+
+Supported REST providers:
+
+| Provider value | Provider |
+| --- | --- |
+| `openai` | OpenAI |
+| `google` | Google |
+| `azure` | Azure |
+
+Request body:
+
+```json
+{
+  "prompt": "A product photo of a black ceramic coffee mug on a white desk",
+  "provider": "openai",
+  "model": "gpt-image-2",
+  "n": 1,
+  "size": "1024x1024",
+  "response_format": "url"
+}
+```
+
+Supported optional fields:
+
+| Field | Notes |
+| --- | --- |
+| `model` | Provider model ID. |
+| `n` | Number of images, from 1 to 10. |
+| `size` | Supported image size for the selected provider/model. |
+| `quality` | `standard` or `hd` where supported. |
+| `style` | `vivid` or `natural` where supported. |
+| `response_format` | `url` or `b64_json`. |
+| `aipkit_api_key` | API key for the AI Puffer REST endpoint if required by API settings. |
+
+REST image generation is separate from the frontend shortcode UI. It does not expose frontend edit mode or video polling.
+
+## Troubleshooting
+
+### The shortcode renders nothing
+
+Check that the Image Generator module is enabled in **AI Puffer > Dashboard** and that the shortcode is on a published page.
+
+### The provider or model list is empty
+
+1. Open **AI Puffer > Settings > AI** or **Integrations**.
+2. Add the required API key or endpoint.
+3. Sync models.
+4. Return to Image Generator and refresh the page.
+
+### Edit mode does not work
+
+Check these items:
+
+1. The provider is OpenAI, Google, or OpenRouter.
+2. The selected model supports image editing.
+3. A source image is uploaded.
+4. The file is JPG, PNG, WEBP, or GIF.
+5. The file is 10 MB or smaller.
+
+### Video generation keeps processing
+
+Google video generation is asynchronous. Leave the page open until the operation completes. If it times out, try again with a shorter prompt or check the Google provider response in logs.
+
+### History is missing
+
+History only appears for logged-in users and only when `history="true"` is enabled.
+
+### Quota message appears
+
+Open **Image Generator > Settings > Limits** and review the guest, user, or role-based quota. If you sell credits through Usage & Billing, confirm the user's balance and pricing rules.
