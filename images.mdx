@@ -1,17 +1,17 @@
 ---
-title: "Image / Video Generator"
+title: "Images"
 description: "Generate, edit, and embed image and video tools in WordPress."
 ---
 
-Use Image / Video Generator to add a frontend generator to a WordPress page. Visitors enter a prompt, choose a provider and model if those controls are enabled, and receive generated media on the page.
+Use Images to add a frontend generator to a WordPress page. Visitors enter a prompt, choose a provider and model if those controls are enabled, and receive generated media on the page.
 
 The module supports image generation, image editing, Google video generation, frontend history for logged-in users, usage limits, logs, and connected app events.
 
-> Screenshot placeholder: Image Generator admin screen with the shortcode, preview, and Settings button.
+> Screenshot placeholder: Images screen with the shortcode, preview, and Settings button.
 
-## Open Image Generator
+## Open Images
 
-1. Open **WordPress Admin > AI Puffer > Image Generator**.
+1. Open **WordPress Admin > AI Puffer > Images**.
 2. Configure the shortcode options if needed.
 3. Open **Settings** to set limits, UI text, custom CSS, or allowed frontend models.
 4. Copy the shortcode.
@@ -93,7 +93,7 @@ Video generation uses Google video models.
 
 1. Configure Google in **AI Puffer > Settings > AI**.
 2. Sync Google models.
-3. Confirm that Google video models are available in the Image Generator model list.
+3. Confirm that Google video models are available in the Images model list.
 4. Add the generator shortcode or block to a page.
 5. Select **Google** and a video model.
 6. Enter a prompt.
@@ -162,7 +162,7 @@ Limit the frontend to selected models:
 | `show_mode_switch` | `true`, `false` | `true` when `mode="both"` |
 | `history` | `true`, `false` | `false` |
 | `theme` | `dark`, `light`, `custom` | `dark` |
-| `allowed_models` | Comma-separated model IDs | Uses global Image Generator settings |
+| `allowed_models` | Comma-separated model IDs | Uses global Images settings |
 
 When `show_provider` or `show_model` is set to `false`, the shortcode uses the `provider` and `model` attributes as hidden values.
 
@@ -200,7 +200,7 @@ Guest generations are not shown in user history.
 
 ## Settings
 
-Open **Image Generator > Settings** from the module screen.
+Open **Images > Settings** from the module screen.
 
 | Section | What it controls |
 | --- | --- |
@@ -209,13 +209,13 @@ Open **Image Generator > Settings** from the module screen.
 | **Custom CSS** | CSS for shortcodes using `theme="custom"`. |
 | **Provider Filtering** | Models allowed in the frontend provider and model selectors. |
 
-> Screenshot placeholder: Image Generator settings popover with Limits, UI Text, Custom CSS, and Provider Filtering.
+> Screenshot placeholder: Images settings popover with Limits, UI Text, Custom CSS, and Provider Filtering.
 
 ## Access and moderation
 
 Guests can use the frontend generator when the shortcode or block is published and guest limits allow it.
 
-Logged-in users must have role access to the Image Generator module. Configure role access from the AI Puffer role settings.
+Logged-in users must have role access to Images. Configure role access from the AI Puffer role settings.
 
 If global content moderation is configured, AI Puffer checks the prompt before sending the request to the selected provider.
 
@@ -223,7 +223,7 @@ If global content moderation is configured, AI Puffer checks the prompt before s
 
 Use provider filtering when the frontend should only expose specific models.
 
-1. Open **Image Generator > Settings**.
+1. Open **Images > Settings**.
 2. Open **Provider Filtering**.
 3. Select the models visitors are allowed to use.
 4. Save the settings.
@@ -267,7 +267,7 @@ Target the custom theme wrapper:
 
 ## Limits
 
-Image Generator limits use the same usage system as chat and AI forms.
+Images limits use the same usage system as chat and AI forms.
 
 Quota settings:
 
@@ -381,14 +381,14 @@ REST image generation is separate from the frontend shortcode UI. It does not ex
 
 ### The shortcode renders nothing
 
-Check that the Image Generator module is enabled in **AI Puffer > Dashboard** and that the shortcode is on a published page.
+Check that Images is enabled in **AI Puffer > Dashboard** and that the shortcode is on a published page.
 
 ### The provider or model list is empty
 
 1. Open **AI Puffer > Settings > AI** or **Integrations**.
 2. Add the required API key or endpoint.
 3. Sync models.
-4. Return to Image Generator and refresh the page.
+4. Return to Images and refresh the page.
 
 ### Edit mode does not work
 
@@ -410,4 +410,4 @@ History only appears for logged-in users and only when `history="true"` is enabl
 
 ### Quota message appears
 
-Open **Image Generator > Settings > Limits** and review the guest, user, or role-based quota. If you sell credits through Usage & Billing, confirm the user's balance and pricing rules.
+Open **Images > Settings > Limits** and review the guest, user, or role-based quota. If you sell credits through Usage & Billing, confirm the user's balance and pricing rules.

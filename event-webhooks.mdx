@@ -44,7 +44,7 @@ An endpoint receives events only when all of these are true:
 | `content.generated` | Content Writer | Content is generated from the writer, stream flow, or automation. |
 | `task.item_completed` | Automations | An automation queue item finishes. |
 | `form.submitted` | AI Forms | An AI Form submission completes and returns a response. |
-| `image.generated` | Image / Video Generator | An image or video generation request returns output. |
+| `image.generated` | Images | An image or video generation request returns output. |
 | `kb.source_indexed` | Knowledge Base | A source is indexed successfully. |
 
 `chatbot.feedback_submitted` is treated as a legacy name for `chatbot.fb_submitted`.
@@ -219,7 +219,7 @@ Common fields:
 | `data.actor.type` | `user` or `guest`. |
 | `data.actor.user_id` | WordPress user ID when available. |
 
-### Image / Video Generator
+### Images
 
 `image.generated` includes:
 
