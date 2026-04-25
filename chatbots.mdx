@@ -1,15 +1,15 @@
 ---
-title: "Chat"
+title: "Chatbots"
 description: "Create, configure, and deploy AI Puffer chatbots."
 ---
 
 ## Overview
 
-Use Chat to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, tools, interface, popup settings, limits, connected apps, and rules.
+Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, tools, interface, popup settings, limits, connected apps, and rules.
 
-In WordPress admin, go to **AI Puffer > Chat**.
+In WordPress admin, go to **AI Puffer > Chatbots**.
 
-> Screenshot placeholder: Chat module showing chatbot tabs, settings accordion, and preview.
+> Screenshot placeholder: Chatbots module showing chatbot tabs, settings accordion, and preview.
 
 ## Before You Start
 
@@ -40,7 +40,7 @@ Each chatbot has a shortcode:
 [aipkit_chatbot id=123]
 ```
 
-Replace `123` with the chatbot ID shown in the Chat screen.
+Replace `123` with the chatbot ID shown in the Chatbots screen.
 
 ### On-page Chatbot
 
@@ -79,7 +79,7 @@ Open the **General** section to set the chatbot identity and model behavior.
 
 | Setting | Use it for |
 | --- | --- |
-| **Name** | Internal chatbot name shown in the Chat screen. |
+| **Name** | Internal chatbot name shown in the Chatbots screen. |
 | **Engine** | AI provider for this chatbot. |
 | **Model / Deployment** | Model or Azure deployment used by this chatbot. |
 | **Instructions** | System instructions for the chatbot. |
@@ -132,9 +132,9 @@ Open the **Tools** section and select the tools this chatbot can use.
 
 ### File Upload
 
-File upload is a Pro feature. It lets visitors upload documents during chat.
+File upload is a Pro feature. It lets visitors upload documents during a chat.
 
-Supported chat upload file types are:
+Supported upload file types are:
 
 | Type | Notes |
 | --- | --- |
@@ -175,11 +175,11 @@ Image models can come from configured image providers, including Replicate when 
 
 ## Voice
 
-Chat voice settings are under **Tools > Audio**.
+Voice settings are under **Tools > Audio**.
 
 ### Speech to Text
 
-Speech to Text adds a microphone button to the chat input.
+Speech to Text adds a microphone button to the chatbot input.
 
 1. Enable **Speech to Text**.
 2. Open **Options**.
@@ -236,17 +236,17 @@ Open **Interface** to control the visible chatbot UI.
 | Setting | Use it for |
 | --- | --- |
 | **Theme** | Select a built-in theme or a custom theme preset. |
-| **Download** | Let visitors download chat transcripts as text. PDF download is Pro. |
+| **Download** | Let visitors download chatbot transcripts as text. PDF download is Pro. |
 | **Copy** | Show copy buttons on assistant messages. |
 | **Feedback** | Show like and dislike buttons on assistant messages. |
 | **Fullscreen** | Show the fullscreen button. |
 | **Sidebar** | Show conversation history for on-page chatbots. Sidebar is disabled in popup mode. |
 | **Starters** | Show starter prompts and edit their text. |
-| **Consent** | Show a consent step before chat starts, if available on your plan. |
+| **Consent** | Show a consent step before chatbot starts, if available on your plan. |
 | **Greeting** | Main greeting text. |
 | **Subgreeting** | Secondary greeting text. |
 | **Placeholder** | Input field placeholder. |
-| **Footer** | Footer text below the chat input. |
+| **Footer** | Footer text below the chatbot input. |
 | **Typing text** | Text shown while the chatbot is generating. |
 | **Status text** | Text shown while knowledge context is being retrieved. |
 
@@ -254,7 +254,7 @@ Open **Interface** to control the visible chatbot UI.
 
 ## Security and Privacy
 
-Chat uses both global security settings and chatbot-level controls.
+Chatbots use both global security settings and chatbot-level controls.
 
 ### Global Security Settings
 
@@ -273,11 +273,11 @@ Set custom block messages for banned words, banned IPs, and OpenAI moderation if
 
 | Control | Where |
 | --- | --- |
-| **Consent** | **Chat > Interface > UI features > Consent** |
-| **Allowed embed domains** | **Chat > Mode: External > External Setup** |
-| **Claude web allowed/blocked domains** | **Chat > Tools > Web search > Claude Options** |
+| **Consent** | **Chatbots > Interface > UI features > Consent** |
+| **Allowed embed domains** | **Chatbots > Mode: External > External Setup** |
+| **Claude web allowed/blocked domains** | **Chatbots > Tools > Web search > Claude Options** |
 
-Chat logs include conversation messages, usage data, feedback, and metadata needed for history and reporting. Enable IP anonymization if you do not want full IP addresses stored in logs.
+Chatbot logs include conversation messages, usage data, feedback, and metadata needed for history and reporting. Enable IP anonymization if you do not want full IP addresses stored in logs.
 
 > Screenshot placeholder: Security settings with IP Anonymization, banned words, banned IPs, and OpenAI Moderation.
 
@@ -308,13 +308,13 @@ Connected Apps is a Pro feature. Use it to send chatbot events to external apps.
 2. Add the app connection.
 3. Create or enable a recipe.
 4. Scope the recipe to all chatbots or selected chatbots.
-5. Return to **Chat > Connected Apps** to review recipes for the current chatbot.
+5. Return to **Chatbots > Connected Apps** to review recipes for the current chatbot.
 
 Supported app destinations:
 
 | App | Common use |
 | --- | --- |
-| **Slack** | Send chat questions, responses, or session alerts to a channel. |
+| **Slack** | Send chatbot questions, responses, or session alerts to a channel. |
 | **HubSpot** | Sync contact data where the recipe supports it. |
 | **Notion** | Create pages or database items. |
 | **Pipedrive** | Sync people or CRM records where the recipe supports it. |
@@ -328,13 +328,13 @@ Chatbot recipe events include session started, user message submitted, response 
 
 ## Rules
 
-Rules is a Pro feature. Rules run inside a chatbot and can react to chat events.
+Rules is a Pro feature. Rules run inside a chatbot and can react to chatbot events.
 
 ### Rule Events
 
 | Event | When it runs |
 | --- | --- |
-| **Session started** | A new chat session starts with the first user message. |
+| **Session started** | A new chatbot session starts with the first user message. |
 | **User message received** | A visitor sends a message before AI processing. |
 | **System error occurred** | An internal processing error occurs. |
 | **Form submitted** | A form displayed by a rule is submitted. |
@@ -364,8 +364,8 @@ Available operators include equals, contains, starts with, ends with, regex matc
 | **Block message** | Stops the user message from reaching the AI. |
 | **Call webhook** | Sends an HTTP request to an external URL. |
 | **Set variable** | Stores a variable in user meta or bot context. |
-| **Display form** | Shows a form inside the chat. |
-| **Store form submission** | Saves submitted form data to the chat log. |
+| **Display form** | Shows a form inside the chatbot. |
+| **Store form submission** | Saves submitted form data to the chatbot log. |
 
 Webhook and message fields support placeholders. Form placeholders include submitted data, display values, labels, and individual submitted fields.
 

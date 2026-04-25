@@ -40,7 +40,7 @@
           {
             "group": "Modules",
             "pages": [
-              "chat",
+              "chatbots",
               "content-writer",
               "automations",
               "ai-forms",

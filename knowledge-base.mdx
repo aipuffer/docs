@@ -23,9 +23,9 @@ If a provider, model, index, or collection is missing, configure it first in [AI
 
 | Store | Used for | Notes |
 | --- | --- | --- |
-| **OpenAI Vector Stores** | Chat, AI forms, content context, automations, and source storage. | AI Puffer uploads text or files to OpenAI and attaches them to the selected vector store. |
-| **Pinecone** | Chat, AI forms, content context, automations, semantic search, and source storage. | Requires an embedding provider and model. The Pinecone index dimension must match the embedding model. |
-| **Qdrant** | Chat, AI forms, content context, automations, semantic search, and source storage. | Requires an embedding provider and model. The Qdrant collection vector size must match the embedding model. |
+| **OpenAI Vector Stores** | Chatbots, AI forms, content context, automations, and source storage. | AI Puffer uploads text or files to OpenAI and attaches them to the selected vector store. |
+| **Pinecone** | Chatbots, AI forms, content context, automations, semantic search, and source storage. | Requires an embedding provider and model. The Pinecone index dimension must match the embedding model. |
+| **Qdrant** | Chatbots, AI forms, content context, automations, semantic search, and source storage. | Requires an embedding provider and model. The Qdrant collection vector size must match the embedding model. |
 
 Use the same embedding model for indexing and searching Pinecone or Qdrant content. If you change the embedding model later, retrain the sources.
 
@@ -172,7 +172,7 @@ Open **Knowledge Base > Settings > General**.
 
 | Setting | What it does |
 | --- | --- |
-| **Hide user uploads** | Hides chat upload records from the main Knowledge Base table. |
+| **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base table. |
 | **Show index button** | Shows the vector indexing controls on supported WordPress post list screens. |
 
 ## WordPress List Indexing
@@ -203,7 +203,7 @@ After sources are indexed, select them in the module that needs retrieval.
 
 | Module | How it uses knowledge sources |
 | --- | --- |
-| **Chat** | Searches selected sources before replying. OpenAI can use OpenAI file search when the chatbot uses OpenAI. Pinecone and Qdrant add matched context to the request. |
+| **Chatbots** | Searches selected sources before replying. OpenAI can use OpenAI file search when the chatbot uses OpenAI. Pinecone and Qdrant add matched context to the request. |
 | **AI Forms** | Searches selected sources before generating the form response. |
 | **Content Writer** | Adds selected knowledge context to new content generation or existing content updates. |
 | **Automations** | Can use knowledge context in content tasks or index WordPress content into a vector store. |
@@ -305,5 +305,5 @@ Full API details should be documented in the API Reference.
 | Website content indexes without expected fields | Open **Indexing controls** and confirm the post type fields, labels, taxonomies, and product attributes. |
 | Post list indexing controls are missing | Enable **Show index button** and confirm the user role has access to the vector content indexer module. |
 | Semantic search returns no results | Confirm the target index or collection has trained sources, the same embedding model is selected, and the result count is greater than `0`. |
-| Chat or forms ignore knowledge sources | Confirm knowledge base is enabled in that module, the target source is selected, and the threshold is not too high. |
-| Chat upload records appear in Knowledge Base | Enable **Hide user uploads** in **Knowledge Base > Settings > General**. |
+| Chatbots or forms ignore knowledge sources | Confirm knowledge base is enabled in that module, the target source is selected, and the threshold is not too high. |
+| Chatbot upload records appear in Knowledge Base | Enable **Hide user uploads** in **Knowledge Base > Settings > General**. |
