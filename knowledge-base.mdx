@@ -1,17 +1,17 @@
 ---
-title: "Knowledge Base / Training"
+title: "Knowledge Base"
 description: "Add and manage source data for AI Puffer retrieval."
 ---
 
-Use Knowledge Base / Training to add source data to OpenAI Vector Stores, Pinecone, or Qdrant.
+Use Knowledge Base to add source data to OpenAI Vector Stores, Pinecone, or Qdrant.
 
 AI Puffer can use those sources in chatbots, AI forms, content writing, automations, and semantic search.
 
-> Screenshot placeholder: Sources screen showing provider filter, index selector, Add data button, Settings button, and source table.
+> Screenshot placeholder: Knowledge Base screen showing provider filter, index selector, Add data button, Settings button, and source table.
 
-## Open Sources
+## Open Knowledge Base
 
-1. Open **WordPress Admin > AI Puffer > Sources**.
+1. Open **WordPress Admin > AI Puffer > Knowledge Base**.
 2. Select a provider: **OpenAI**, **Pinecone**, or **Qdrant**.
 3. Select the target vector store, index, or collection.
 4. For Pinecone or Qdrant, select the embedding model.
@@ -33,7 +33,7 @@ Use the same embedding model for indexing and searching Pinecone or Qdrant conte
 
 ## Add sources
 
-Open **Sources > Add data**, then choose one source type.
+Open **Knowledge Base > Add data**, then choose one source type.
 
 | Source type | Use it for |
 | --- | --- |
@@ -70,7 +70,7 @@ Use this for short policies, instructions, product details, support notes, or ot
 2. Choose one or more files.
 3. Click **Train**.
 
-Supported file extensions in the Sources UI:
+Supported file extensions in the Knowledge Base UI:
 
 ```text
 .pdf, .docx, .txt, .md, .csv, .json
@@ -116,7 +116,7 @@ If you configure indexing controls, AI Puffer uses the selected fields, labels, 
 
 Use indexing controls when WordPress content should include only selected fields.
 
-1. Open **Sources**.
+1. Open **Knowledge Base**.
 2. Click **Settings**.
 3. Open **Indexing controls**.
 4. Select a post type.
@@ -132,7 +132,7 @@ Indexing controls are a Pro feature in the current UI.
 
 Document chunking controls how large files are split before embedding for Pinecone and Qdrant.
 
-Open **Sources > Settings > Document chunking**.
+Open **Knowledge Base > Settings > Document chunking**.
 
 | Setting | Default | Range |
 | --- | --- | --- |
@@ -170,11 +170,11 @@ Use the filters to narrow the list by provider, target index/store, source type,
 
 ### Hide user uploads
 
-Open **Sources > Settings > General**.
+Open **Knowledge Base > Settings > General**.
 
 | Setting | What it does |
 | --- | --- |
-| **Hide user uploads** | Hides chat upload records from the main Sources table. |
+| **Hide user uploads** | Hides chat upload records from the main Knowledge Base table. |
 | **Show index button** | Shows the vector indexing controls on supported WordPress post list screens. |
 
 ## Index from post lists
@@ -197,7 +197,7 @@ The list screen can show:
 | **Index Status** filter | Filters posts by indexed or not indexed. |
 | **Add to Vector Store** action | Sends selected posts to a vector store, index, or collection. |
 
-If the controls do not appear, check role access for the vector content indexer module and confirm **Sources > Settings > General > Show index button** is enabled.
+If the controls do not appear, check role access for the vector content indexer module and confirm **Knowledge Base > Settings > General > Show index button** is enabled.
 
 ## Use sources in modules
 
@@ -225,7 +225,7 @@ Common retrieval settings:
 
 Semantic search adds a public search form to a page.
 
-Open **Sources > Settings > Semantic Search**.
+Open **Knowledge Base > Settings > Semantic Search**.
 
 1. Select **Vector DB**: Pinecone or Qdrant.
 2. Select the index or collection.
@@ -300,10 +300,10 @@ Full API details should be documented in the API Reference.
 | --- | --- |
 | Provider target is missing | Configure the provider in **Settings**, then sync vector stores, indexes, or collections. |
 | Pinecone or Qdrant indexing fails | Confirm the embedding model dimension matches the index or collection vector size. |
-| File upload is unavailable | File upload in Sources is Pro-only in the current UI. |
+| File upload is unavailable | File upload in Knowledge Base is Pro-only in the current UI. |
 | File upload fails | Check file type, file size, PHP upload limits, and whether the file contains readable text. |
 | Website content indexes without expected fields | Open **Indexing controls** and confirm the post type fields, labels, taxonomies, and product attributes. |
 | Post list indexing controls are missing | Enable **Show index button** and confirm the user role has access to the vector content indexer module. |
 | Semantic search returns no results | Confirm the target index or collection has trained sources, the same embedding model is selected, and the result count is greater than `0`. |
 | Chat or forms ignore knowledge sources | Confirm knowledge base is enabled in that module, the target source is selected, and the threshold is not too high. |
-| Chat upload records appear in Sources | Enable **Hide user uploads** in **Sources > Settings > General**. |
+| Chat upload records appear in Knowledge Base | Enable **Hide user uploads** in **Knowledge Base > Settings > General**. |

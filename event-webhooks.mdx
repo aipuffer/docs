@@ -45,7 +45,7 @@ An endpoint receives events only when all of these are true:
 | `task.item_completed` | Automations | An automation queue item finishes. |
 | `form.submitted` | AI Forms | An AI Form submission completes and returns a response. |
 | `image.generated` | Image / Video Generator | An image or video generation request returns output. |
-| `kb.source_indexed` | Knowledge Base / Training | A source is indexed successfully. |
+| `kb.source_indexed` | Knowledge Base | A source is indexed successfully. |
 
 `chatbot.feedback_submitted` is treated as a legacy name for `chatbot.fb_submitted`.
 
@@ -236,7 +236,7 @@ Common fields:
 | `data.usage` | Usage details when returned by the provider. |
 | `data.actor.type` | `user` or `guest`. |
 
-### Knowledge Base / Training
+### Knowledge Base
 
 `kb.source_indexed` includes:
 
