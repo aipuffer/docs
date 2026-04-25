@@ -44,12 +44,7 @@
               "content-writer",
               "automations",
               "ai-forms",
-              "image-video-generator"
-            ]
-          },
-          {
-            "group": "Data and usage",
-            "pages": [
+              "image-video-generator",
               "knowledge-base-training",
               "usage-billing"
             ]
