@@ -48,21 +48,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Main site",
-          "href": "https://aipower.org",
-          "icon": "globe"
-        },
-        {
-          "anchor": "Contact",
-          "href": "https://aipower.org/contact",
-          "icon": "message-circle"
-        }
-      ]
-    }
+    ]
   },
   "navbar": {
     "links": [
