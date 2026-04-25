@@ -3,22 +3,21 @@ title: "Automations"
 description: "Create, schedule, and monitor recurring AI Puffer tasks."
 ---
 
+## Overview
+
 Use Automations to run recurring AI Puffer tasks from WordPress. A task can create content, index WordPress content into a vector store, rewrite existing content, or reply to comments.
+
+In WordPress admin, go to **AI Puffer > Automations**.
 
 > Screenshot placeholder: Automations screen showing the task list, New Task button, and queue panel.
 
-## Open Automations
+## Before You Start
 
-1. Open **WordPress Admin > AI Puffer > Automations**.
-2. Click **New Task**.
-3. Choose a task type.
-4. Configure the source, model, prompts, and schedule.
-5. Save the task.
-6. Use the queue panel to monitor progress.
+Set up the AI provider, image provider, vector store, or source connection required by the task you want to run.
 
 If the Automations menu is not visible, check that the module is enabled and that your WordPress role has access to it.
 
-## How automations run
+## How Automations Run
 
 Automations use WordPress cron.
 
@@ -31,7 +30,7 @@ The queue processor handles up to 5 pending items per run. If more items remain,
 
 WordPress cron depends on site traffic unless you run a real server cron. If site traffic is low, scheduled tasks can run late. If `DISABLE_WP_CRON` is enabled, set up a server cron job for WordPress.
 
-## Task types
+## Task Types
 
 | Task type | What it does | Availability |
 | --- | --- | --- |
@@ -46,7 +45,7 @@ WordPress cron depends on site traffic unless you run a real server cron. If sit
 
 > Screenshot placeholder: New Task screen with task type groups: Create, Optimize, Index, and Engagement.
 
-## Create a task
+## Create a Task
 
 1. Click **New Task**.
 2. Enter a task name.
@@ -64,7 +63,7 @@ Task status controls whether the task is scheduled.
 | **Active** | Schedules the task. |
 | **Paused** | Clears the task schedule. Existing queue items remain in the queue. |
 
-## Frequencies
+## Task Schedule
 
 Available task frequencies:
 
@@ -81,7 +80,7 @@ Available task frequencies:
 
 The first run is scheduled shortly after the task is saved or resumed.
 
-## Task actions
+## Task Actions
 
 Saved tasks appear in the task list.
 
@@ -95,7 +94,7 @@ Saved tasks appear in the task list.
 
 Run Now adds work to the queue. It does not process everything inside the browser request.
 
-## Create content tasks
+## Content Creation
 
 Create content tasks use the Content Writer engine inside Automations. They can create posts, pages, products, or other supported post types.
 
@@ -123,7 +122,7 @@ Example:
 How to clean leather boots | leather care, boots | 12 | editor | post | 2026-05-01 09:00
 ```
 
-### Import CSV
+### CSV
 
 CSV import reads every non-empty row.
 
@@ -192,7 +191,7 @@ AI Puffer reads columns `A:G`.
 
 Rows are processed when column A has a topic and column G is empty. AI Puffer writes queue and processed status back to column G.
 
-### Content settings
+### Content Settings
 
 Content creation tasks can use the same core settings as Content Writer.
 
@@ -211,7 +210,7 @@ Content creation tasks can use the same core settings as Content Writer.
 
 If a provider or model list is empty, configure the provider first in [AI Providers](/ai-providers).
 
-## Publishing schedule
+## Publishing Schedule
 
 Content creation tasks have a task schedule and a post publishing schedule.
 
@@ -245,7 +244,7 @@ Use it to update existing WordPress content from a schedule.
 
 > Screenshot placeholder: Rewrite Content task showing post type filters, update fields, and prompt controls.
 
-### Choose target content
+### Choose Target Content
 
 Filter target content by:
 
@@ -256,7 +255,7 @@ Filter target content by:
 | **Authors** | Optional. Limits updates to selected authors. |
 | **Statuses** | Published, Draft, or Pending Review. |
 
-### Queue matching content
+### Queue Matching Content
 
 Use **Queue all matching content now** when you want the task to enqueue all matching posts one time.
 
@@ -264,7 +263,7 @@ If this option is off, scheduled runs process content that becomes eligible late
 
 Run Now queues matching content that is not already present in that task's queue history.
 
-### Choose fields to update
+### Choose Fields to Update
 
 At least one field must be selected.
 
@@ -277,7 +276,7 @@ At least one field must be selected.
 
 Each field has its own prompt.
 
-### Rewrite placeholders
+### Rewrite Placeholders
 
 Common placeholders:
 
@@ -311,7 +310,7 @@ WooCommerce product placeholders are available when the target post is a product
 | `{product_categories}` | Product categories. |
 | `{attributes}` | Product attributes. |
 
-### Knowledge context
+### Knowledge Context
 
 Rewrite Content can optionally use vector store context.
 
@@ -329,7 +328,7 @@ Use Content Indexing to add WordPress content to a vector store for later retrie
 
 > Screenshot placeholder: Content Indexing task showing destination provider, store selector, post types, and indexing behavior.
 
-### Choose destination
+### Choose Destination
 
 | Destination | Required setup |
 | --- | --- |
@@ -339,7 +338,7 @@ Use Content Indexing to add WordPress content to a vector store for later retrie
 
 Pinecone and Qdrant require an embedding model because AI Puffer needs to create embeddings before writing vectors.
 
-### Choose content
+### Choose Content
 
 1. Select one or more public post types.
 2. Choose whether to queue existing content now.
@@ -348,7 +347,7 @@ Pinecone and Qdrant require an embedding model because AI Puffer needs to create
 
 Content Indexing only queues published content.
 
-### Index existing content
+### Index Existing Content
 
 **Queue all existing content now** creates an initial batch for matching published content.
 
@@ -356,7 +355,7 @@ AI Puffer queues existing content in batches of 200 posts. After the initial que
 
 Run Now queues all matching published content again.
 
-### Auto-index updates
+### Auto-index Updates
 
 **Auto-index new and updated content** checks posts modified after the task's last run time.
 
@@ -368,7 +367,7 @@ Use Comment Replies to draft and publish replies to WordPress comments.
 
 > Screenshot placeholder: Comment Replies task showing monitored post types, reply behavior, keyword filters, and reply prompt.
 
-### Choose comments to monitor
+### Choose Comments to Monitor
 
 1. Select one or more post types.
 2. Choose whether AI Puffer should reply only to top-level comments.
@@ -379,7 +378,7 @@ Use Comment Replies to draft and publish replies to WordPress comments.
 
 Scheduled runs check approved comments. Each run queues up to 50 matching comments.
 
-### Reply behavior
+### Reply Behavior
 
 | Setting | What it does |
 | --- | --- |
@@ -391,7 +390,7 @@ Scheduled runs check approved comments. Each run queues up to 50 matching commen
 
 AI Puffer checks whether a comment is already queued or already has a reply from the same task before adding it again.
 
-### Reply prompt placeholders
+### Reply Prompt Placeholders
 
 | Placeholder | Value |
 | --- | --- |
@@ -426,7 +425,7 @@ Queue controls:
 
 Completed content creation items can show the generated post when a post ID is available.
 
-## Connected apps
+## Connected Apps
 
 Automations emit events that can be used by AI Puffer app recipes.
 
@@ -452,7 +451,7 @@ Queue status and error messages remain visible in the Automations queue.
 
 ## Troubleshooting
 
-### The task did not run
+### Task Did Not Run
 
 Check these items:
 
@@ -464,7 +463,7 @@ Check these items:
 
 Content creation tasks do not queue another scheduled batch while that same task already has pending or processing items.
 
-### No items were queued
+### No Items Were Queued
 
 Possible causes:
 
@@ -479,18 +478,18 @@ Possible causes:
 | Content Indexing | Matching content must be published. |
 | Comment Replies | Matching comments must be approved. |
 
-### A Pro task is locked
+### Pro Task Is Locked
 
 RSS Feed, Web Page, Google Sheets, and Rewrite Content require an active Pro plan.
 
-### A queue item failed
+### Queue Item Failed
 
 1. Open the queue.
 2. Read the error message.
 3. Fix the provider, model, source, prompt, or destination setting.
 4. Click **Retry**.
 
-### Google Sheets rows are not processed
+### Google Sheets Rows Are Not Processed
 
 Check these items:
 
@@ -500,7 +499,7 @@ Check these items:
 4. Column A has a topic.
 5. Column G is empty.
 
-### Content indexing fails
+### Content Indexing Fails
 
 Check these items:
 
@@ -509,7 +508,7 @@ Check these items:
 3. The selected post types contain published content.
 4. The provider API key is configured in [AI Providers](/ai-providers).
 
-### Comment replies are not created
+### Comment Replies Are Not Created
 
 Check these items:
 

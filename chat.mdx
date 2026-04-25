@@ -3,17 +3,26 @@ title: "Chat"
 description: "Create, configure, and deploy AI Puffer chatbots."
 ---
 
+## Overview
+
 Use Chat to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, tools, interface, popup settings, limits, connected apps, and rules.
+
+In WordPress admin, go to **AI Puffer > Chat**.
 
 > Screenshot placeholder: Chat module showing chatbot tabs, settings accordion, and preview.
 
-## Create and manage chatbots
+## Before You Start
 
-1. Open **WordPress Admin > AI Puffer > Chat**.
-2. Click the **+** button in the chatbot tab row.
-3. Enter a name for the chatbot.
-4. Select the chatbot tab when you want to edit it.
-5. Use **Preview** to test the chatbot before publishing it.
+Set up at least one AI provider before creating a chatbot. Configure vector stores, speech providers, or image providers only if the chatbot will use those tools.
+
+If a provider or model list is empty, configure the provider and sync models in [AI Providers](/ai-providers).
+
+## Create a Chatbot
+
+1. Click the **+** button in the chatbot tab row.
+2. Enter a name for the chatbot.
+3. Select the chatbot tab when you want to edit it.
+4. Use **Preview** to test the chatbot before publishing it.
 
 Use **Actions** for saved chatbots:
 
@@ -23,7 +32,7 @@ Use **Actions** for saved chatbots:
 | **Reset** | Resets the current chatbot settings. |
 | **Delete** | Deletes the chatbot. The default chatbot cannot be deleted. |
 
-## Deploy a chatbot
+## Deploy a Chatbot
 
 Each chatbot has a shortcode:
 
@@ -33,14 +42,14 @@ Each chatbot has a shortcode:
 
 Replace `123` with the chatbot ID shown in the Chat screen.
 
-### On-page chatbot
+### On-page Chatbot
 
 1. Select **Mode: On-page**.
 2. Copy the shortcode.
 3. Paste it into a page, post, block, or shortcode area.
 4. Publish or update the page.
 
-### Popup chatbot
+### Popup Chatbot
 
 1. Select **Mode: Popup**.
 2. Choose whether the popup should be **Site-Wide**.
@@ -50,7 +59,7 @@ Replace `123` with the chatbot ID shown in the Chat screen.
 
 Only one chatbot can be active as a site-wide popup at a time. If you enable a new site-wide popup chatbot, AI Puffer disables site-wide mode for the previous one.
 
-### External embed
+### External Embed
 
 External embed is a Pro feature.
 
@@ -64,7 +73,7 @@ Set allowed domains before using external embed on a production site.
 
 > Screenshot placeholder: Mode selector with On-page, Popup, and External options.
 
-## General configuration
+## Model and Instructions
 
 Open the **General** section to set the chatbot identity and model behavior.
 
@@ -80,8 +89,6 @@ Open the **General** section to set the chatbot identity and model behavior.
 | **Session memory** | OpenAI-only setting for provider-side conversation state. |
 | **Reasoning / Thinking** | Reasoning effort for supported models. Ollama labels this setting as Thinking. |
 
-If a provider or model list is empty, configure the provider and sync models in [AI Providers](/ai-providers).
-
 > Screenshot placeholder: General section with Engine, Model, Instructions, and behavior settings.
 
 ## Knowledge
@@ -93,7 +100,7 @@ Open the **Knowledge** section to decide what information the chatbot can use.
 | **Page Context** | Adds the current page or post content to the chatbot context. |
 | **Vector** | Searches selected vector sources before answering. |
 
-### Vector providers
+### Vector Providers
 
 | Provider | Required setup |
 | --- | --- |
@@ -104,7 +111,7 @@ Open the **Knowledge** section to decide what information the chatbot can use.
 
 For OpenAI, Pinecone, and Qdrant, use **Limit** to set how many matching chunks are retrieved. Use **Threshold** to control the minimum match score.
 
-### Add training data
+### Add Training Data
 
 When Vector is enabled, use **Training Data** to add sources.
 
@@ -119,11 +126,11 @@ Click **Train** after selecting or entering the source. Use **Knowledge Base** t
 
 > Screenshot placeholder: Knowledge section with Data Source, Vector provider, and Training Data tabs.
 
-## Image and web tools
+## Tools
 
 Open the **Tools** section and select the tools this chatbot can use.
 
-### File upload
+### File Upload
 
 File upload is a Pro feature. It lets visitors upload documents during chat.
 
@@ -136,7 +143,7 @@ Supported chat upload file types are:
 
 File upload routes through the selected vector provider. Pinecone and Qdrant require an embedding provider and embedding model.
 
-### Web search
+### Web Search
 
 Web search is available for OpenAI, Google, Claude, and OpenRouter.
 
@@ -149,11 +156,11 @@ Web search is available for OpenAI, Google, Claude, and OpenRouter.
 
 You can also set whether the web toggle is on by default, whether sources are shown, the sources label, and the "searching web" status text.
 
-### Image analysis
+### Image Analysis
 
 Image analysis lets visitors attach images in chat. It appears for OpenAI, Claude, and OpenRouter. For OpenRouter, the selected model must support image input.
 
-### Image generation
+### Image Generation
 
 Image generation lets the chatbot generate images from commands typed in chat.
 
@@ -199,7 +206,7 @@ Supported Text to Speech providers:
 | **OpenAI** | Select an OpenAI voice and model. |
 | **ElevenLabs** | Configure ElevenLabs in Integrations, then select voice and model. |
 
-### Realtime voice
+### Realtime Voice
 
 Realtime voice is a Pro feature for low-latency voice conversations.
 
@@ -245,11 +252,11 @@ Open **Interface** to control the visible chatbot UI.
 
 > Screenshot placeholder: Interface section with Theme and UI features.
 
-## Security and privacy
+## Security and Privacy
 
 Chat uses both global security settings and chatbot-level controls.
 
-### Global security settings
+### Global Security Settings
 
 Open **AI Puffer > Settings > Security**.
 
@@ -262,7 +269,7 @@ Open **AI Puffer > Settings > Security**.
 
 Set custom block messages for banned words, banned IPs, and OpenAI moderation if you want visitors to see specific text.
 
-### Chatbot-level controls
+### Chatbot Controls
 
 | Control | Where |
 | --- | --- |
@@ -323,7 +330,7 @@ Chatbot recipe events include session started, user message submitted, response 
 
 Rules is a Pro feature. Rules run inside a chatbot and can react to chat events.
 
-### Rule events
+### Rule Events
 
 | Event | When it runs |
 | --- | --- |

@@ -3,13 +3,15 @@ title: "AI Providers"
 description: "Connect the model providers and service integrations used by AI Puffer."
 ---
 
+## Overview
+
 AI Puffer uses provider settings for chat, writing, automations, AI forms, images, speech, embeddings, and knowledge features.
 
 Set up the providers you want to use, sync their models, then choose the provider and model inside each module.
 
 > Screenshot placeholder: Settings screen with the AI tab selected.
 
-## Provider areas
+## Provider Areas
 
 AI Puffer has two provider areas in **AI Puffer > Settings**.
 
@@ -20,7 +22,7 @@ AI Puffer has two provider areas in **AI Puffer > Settings**.
 
 Settings save automatically after you change a field.
 
-## Supported providers
+## Supported Providers
 
 | Feature area | Providers |
 | --- | --- |
@@ -37,7 +39,7 @@ Settings save automatically after you change a field.
 
 Ollama requires the Pro plan in the plugin UI.
 
-## Main AI providers
+## Provider Summary
 
 Use the **AI** tab for these providers.
 
@@ -51,7 +53,7 @@ Use the **AI** tab for these providers.
 | DeepSeek | API key | Supports chat and writing workflows. Dedicated embeddings are not supported by this provider strategy. |
 | Ollama | Base URL | Uses a local or self-hosted Ollama server. No API key is required. The WordPress server must be able to reach the Ollama URL. |
 
-## Service integrations
+## Integration Summary
 
 Use the **Integrations** tab for these services.
 
@@ -66,7 +68,7 @@ Use the **Integrations** tab for these services.
 
 Pexels and Pixabay search existing stock images. They do not generate AI images.
 
-## Set the default AI provider
+## Default Provider
 
 1. Open **WordPress Admin > AI Puffer > Settings**.
 2. Select the **AI** tab.
@@ -81,7 +83,7 @@ Pexels and Pixabay search existing stock images. They do not generate AI images.
 
 > Screenshot placeholder: AI tab showing the provider selector, API key field, model field, and Advanced button.
 
-## Sync all providers
+## Sync Providers
 
 Use this when you changed several API keys or want to refresh all model lists.
 
@@ -94,7 +96,9 @@ AI Puffer only syncs providers that have the required credentials or connection 
 
 > Screenshot placeholder: Others tab with the Sync All button.
 
-## OpenAI
+## AI Provider Setup
+
+### OpenAI
 
 Use OpenAI when you want OpenAI models for chat, writing, forms, automations, images, embeddings, vector stores, speech, or realtime voice.
 
@@ -109,7 +113,7 @@ For knowledge features, OpenAI embedding models are available in embedding model
 
 > Screenshot placeholder: OpenAI provider settings.
 
-## Google
+### Google
 
 Use Google for Gemini text models, Google embedding models, image models, video models, text to speech, and grounding.
 
@@ -124,7 +128,7 @@ Google image and video model settings are configured in Images.
 
 > Screenshot placeholder: Google provider settings and safety settings.
 
-## Claude
+### Claude
 
 Use Claude for chat, writing, AI forms, automations, web search, and image analysis where supported by the selected model.
 
@@ -138,7 +142,7 @@ Claude does not provide embeddings through the current AI Puffer provider strate
 
 > Screenshot placeholder: Claude provider settings.
 
-## OpenRouter
+### OpenRouter
 
 Use OpenRouter when you want to route through models available in your OpenRouter account.
 
@@ -152,7 +156,7 @@ OpenRouter model capabilities vary. Image generation, image editing, embeddings,
 
 > Screenshot placeholder: OpenRouter provider settings.
 
-## Azure
+### Azure
 
 Use Azure when your site should use Azure OpenAI deployments.
 
@@ -169,7 +173,7 @@ Azure uses deployment names. If a deployment does not appear, confirm it exists 
 
 > Screenshot placeholder: Azure provider settings with endpoint URL and deployment selector.
 
-## DeepSeek
+### DeepSeek
 
 Use DeepSeek for chat, writing, AI forms, and automations.
 
@@ -183,7 +187,7 @@ DeepSeek embeddings are not supported by the current provider strategy. Use Open
 
 > Screenshot placeholder: DeepSeek provider settings.
 
-## Ollama
+### Ollama
 
 Use Ollama for local or self-hosted models.
 
@@ -199,7 +203,9 @@ If WordPress and Ollama are on different servers, do not use `localhost` unless 
 
 > Screenshot placeholder: Ollama provider settings with base URL and model sync.
 
-## ElevenLabs
+## Service Integration Setup
+
+### ElevenLabs
 
 Use ElevenLabs for chatbot text to speech.
 
@@ -212,7 +218,7 @@ Use ElevenLabs for chatbot text to speech.
 
 > Screenshot placeholder: ElevenLabs integration settings.
 
-## Replicate
+### Replicate
 
 Use Replicate for image generation models.
 
@@ -224,7 +230,7 @@ Use Replicate for image generation models.
 
 > Screenshot placeholder: Replicate integration settings.
 
-## Pinecone
+### Pinecone
 
 Use Pinecone as a vector database for knowledge and retrieval workflows.
 
@@ -236,7 +242,7 @@ Use Pinecone as a vector database for knowledge and retrieval workflows.
 
 > Screenshot placeholder: Pinecone integration settings.
 
-## Qdrant
+### Qdrant
 
 Use Qdrant as a vector database for knowledge and retrieval workflows.
 
@@ -249,7 +255,7 @@ Use Qdrant as a vector database for knowledge and retrieval workflows.
 
 > Screenshot placeholder: Qdrant integration settings.
 
-## Pexels and Pixabay
+### Pexels and Pixabay
 
 Use Pexels or Pixabay when a content workflow should fetch stock images instead of generating images with an AI model.
 
@@ -260,7 +266,7 @@ Use Pexels or Pixabay when a content workflow should fetch stock images instead 
 
 > Screenshot placeholder: Pexels and Pixabay integration settings.
 
-## Use a provider in a module
+## Use in Modules
 
 After provider setup, choose the provider and model in the module you are configuring.
 
@@ -276,28 +282,28 @@ Modules can use a different provider than the global default.
 
 ## Troubleshooting
 
-### The model list is empty
+### Model List Is Empty
 
 Check that the API key or base URL is saved, then sync models again.
 
 For Azure, confirm the endpoint URL and deployments. For Ollama, confirm WordPress can reach the Ollama base URL.
 
-### A module says the provider is not configured
+### Module Says the Provider Is Not Configured
 
 Open **AI Puffer > Settings** and confirm the provider has the required API key, endpoint, base URL, or synced models.
 
-### Embeddings do not work with the selected provider
+### Embeddings Do Not Work with the Selected Provider
 
 Use one of the embedding providers: OpenAI, Google, Azure, OpenRouter, or Ollama.
 
-### Image generation does not work with OpenRouter
+### Image Generation Does Not Work with OpenRouter
 
 Select an OpenRouter model that supports image output. For image editing, the model must support both image input and image output.
 
-### Speech settings do not show the provider you expected
+### Speech Settings Do Not Show the Provider You Expected
 
 Text to speech supports Google, OpenAI, and ElevenLabs. Speech to text supports OpenAI and Azure.
 
-### Ollama works locally but not from WordPress
+### Ollama Works Locally but Not from WordPress
 
 The URL is resolved from the WordPress server, not from your browser. If Ollama runs on your computer and WordPress runs on another server, `http://localhost:11434` will not point to your computer.

@@ -3,23 +3,15 @@ title: "Images"
 description: "Generate, edit, and embed image and video tools in WordPress."
 ---
 
+## Overview
+
 Use Images to add a frontend generator to a WordPress page. Visitors enter a prompt, choose a provider and model if those controls are enabled, and receive generated media on the page.
 
 The module supports image generation, image editing, Google video generation, frontend history for logged-in users, usage limits, logs, and connected app events.
 
+In WordPress admin, go to **AI Puffer > Images**.
+
 > Screenshot placeholder: Images screen with the shortcode, preview, and Settings button.
-
-## Open Images
-
-1. Open **WordPress Admin > AI Puffer > Images**.
-2. Configure the shortcode options if needed.
-3. Open **Settings** to set limits, UI text, custom CSS, or allowed frontend models.
-4. Copy the shortcode.
-5. Add it to a page, or add the **AI Puffer Image Generator** block in the block editor.
-
-If the model list is empty, configure the provider first in [AI Providers](/ai-providers), then sync models.
-
-## What it can do
 
 | Feature | What it does |
 | --- | --- |
@@ -31,6 +23,10 @@ If the model list is empty, configure the provider first in [AI Providers](/ai-p
 | Limits | Applies guest, user, or role-based usage quotas. |
 | Logs | Records generation attempts and usage data. |
 | Events | Sends an `image.generated` event after a successful output. |
+
+## Before You Start
+
+Configure at least one image provider before publishing the generator. If the model list is empty, configure the provider first in [AI Providers](/ai-providers), then sync models.
 
 ## Providers
 
@@ -44,7 +40,7 @@ If the model list is empty, configure the provider first in [AI Providers](/ai-p
 
 Image editing is available only for OpenAI, Google, and OpenRouter in the frontend generator.
 
-## Generate images
+## Generate Images
 
 1. Add the shortcode or block to a page.
 2. Select a provider.
@@ -58,7 +54,7 @@ For logged-in users, generated images are saved to the WordPress Media Library a
 
 > Screenshot placeholder: Frontend image generator with provider, model, prompt, Generate button, and generated image result.
 
-## Edit images
+## Edit Images
 
 Use edit mode when visitors should upload an image and describe the change they want.
 
@@ -87,7 +83,7 @@ Provider requirements:
 
 > Screenshot placeholder: Edit mode showing source image upload, prompt, provider, model, and result.
 
-## Generate videos
+## Generate Videos
 
 Video generation uses Google video models.
 
@@ -105,7 +101,9 @@ Generated videos are saved as MP4 files in WordPress uploads and inserted as med
 
 > Screenshot placeholder: Frontend generator with a Google video model selected and an MP4 result.
 
-## Add the shortcode
+## Publish on Your Site
+
+### Shortcode
 
 Basic shortcode:
 
@@ -149,7 +147,7 @@ Limit the frontend to selected models:
 [aipkit_image_generator allowed_models="gpt-image-2, gemini-2.0-flash-preview-image-generation"]
 ```
 
-## Shortcode attributes
+### Shortcode Attributes
 
 | Attribute | Values | Default |
 | --- | --- | --- |
@@ -166,7 +164,7 @@ Limit the frontend to selected models:
 
 When `show_provider` or `show_model` is set to `false`, the shortcode uses the `provider` and `model` attributes as hidden values.
 
-## Add the block
+### Block
 
 1. Open a page in the block editor.
 2. Add the **AI Puffer Image Generator** block.
@@ -177,7 +175,7 @@ When `show_provider` or `show_model` is set to `false`, the shortcode uses the `
 
 The block renders the same frontend generator as the shortcode.
 
-## User history
+## User History
 
 History is available for logged-in users.
 
@@ -211,7 +209,7 @@ Open **Images > Settings** from the module screen.
 
 > Screenshot placeholder: Images settings popover with Limits, UI Text, Custom CSS, and Provider Filtering.
 
-## Access and moderation
+### Access and Moderation
 
 Guests can use the frontend generator when the shortcode or block is published and guest limits allow it.
 
@@ -219,7 +217,7 @@ Logged-in users must have role access to Images. Configure role access from the 
 
 If global content moderation is configured, AI Puffer checks the prompt before sending the request to the selected provider.
 
-## Limit frontend models
+### Frontend Models
 
 Use provider filtering when the frontend should only expose specific models.
 
@@ -232,7 +230,7 @@ Leave all models unselected to allow all available image and video models.
 
 AI Puffer derives the frontend provider list from the selected models. For example, if you only select OpenAI models, the frontend provider selector only shows OpenAI.
 
-## Customize labels
+### Labels
 
 Use **UI Text** to change frontend labels without editing code.
 
@@ -249,7 +247,7 @@ Common fields:
 | Source image label | `Source image` |
 | History title | `Your Images` |
 
-## Custom CSS
+### Custom CSS
 
 Custom CSS applies to generators using:
 
@@ -309,7 +307,9 @@ Logs can include:
 
 Source image binary data is not stored in the request log.
 
-## Connected app event
+## Developer Options
+
+### Connected App Event
 
 After successful generation, AI Puffer emits:
 
@@ -334,7 +334,7 @@ Event fields include:
 
 Use this event in connected app recipes when you need to send generation results to another system.
 
-## REST image endpoint
+### REST Image Endpoint
 
 AI Puffer also registers a REST endpoint for image generation:
 
@@ -379,18 +379,18 @@ REST image generation is separate from the frontend shortcode UI. It does not ex
 
 ## Troubleshooting
 
-### The shortcode renders nothing
+### The Shortcode Renders Nothing
 
 Check that Images is enabled in **AI Puffer > Dashboard** and that the shortcode is on a published page.
 
-### The provider or model list is empty
+### The Provider or Model List Is Empty
 
 1. Open **AI Puffer > Settings > AI** or **Integrations**.
 2. Add the required API key or endpoint.
 3. Sync models.
 4. Return to Images and refresh the page.
 
-### Edit mode does not work
+### Edit Mode Does Not Work
 
 Check these items:
 
@@ -400,14 +400,14 @@ Check these items:
 4. The file is JPG, PNG, WEBP, or GIF.
 5. The file is 10 MB or smaller.
 
-### Video generation keeps processing
+### Video Generation Keeps Processing
 
 Google video generation is asynchronous. Leave the page open until the operation completes. If it times out, try again with a shorter prompt or check the Google provider response in logs.
 
-### History is missing
+### History Is Missing
 
 History only appears for logged-in users and only when `history="true"` is enabled.
 
-### Quota message appears
+### Quota Message Appears
 
 Open **Images > Settings > Limits** and review the guest, user, or role-based quota. If you sell credits through Usage, confirm the user's balance and pricing rules.

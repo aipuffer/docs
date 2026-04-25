@@ -3,7 +3,11 @@ title: "Usage"
 description: "Track logs, set quotas, manage credits, and sell credit packages."
 ---
 
+## Overview
+
 Use Usage to inspect activity, set quotas, define credit pricing, manage balances, and create WooCommerce credit packages.
+
+In WordPress admin, go to **AI Puffer > Usage**.
 
 The Usage screen has two main areas:
 
@@ -14,13 +18,7 @@ The Usage screen has two main areas:
 
 > Screenshot placeholder: Usage screen showing the Logs tab, Billing tab, and billing sub-tabs.
 
-## Open Usage
-
-1. Open **WordPress Admin > AI Puffer > Usage**.
-2. Use **Logs** to inspect saved interactions.
-3. Use **Billing** to configure credits, pricing rules, balances, and WooCommerce packages.
-
-## Key concepts
+## Key Concepts
 
 | Concept | Meaning |
 | --- | --- |
@@ -65,7 +63,7 @@ The detail panel can show the full exchange, timestamps, request payloads, and v
 
 > Screenshot placeholder: Conversation Details panel with a selected log row.
 
-### Export logs
+### Export Logs
 
 1. Open **Usage > Logs**.
 2. Apply filters if needed.
@@ -74,7 +72,7 @@ The detail panel can show the full exchange, timestamps, request payloads, and v
 
 AI Puffer exports a CSV file with log ID, date, user, source, module, message count, token count, preview, and conversation UUID.
 
-### Delete logs
+### Delete Logs
 
 1. Open **Usage > Logs**.
 2. Apply filters if you want to delete only a subset.
@@ -84,7 +82,7 @@ AI Puffer exports a CSV file with log ID, date, user, source, module, message co
 
 To delete one conversation, open the conversation detail panel and use the delete action there.
 
-## Log retention
+## Log Retention
 
 Log retention controls how long saved conversation logs stay in the database.
 
@@ -114,7 +112,7 @@ The retention panel also shows the pruning schedule status and the last run time
 
 > Screenshot placeholder: Log Retention modal with auto-delete enabled and a retention period selected.
 
-## Pricing rules
+## Pricing Rules
 
 Open **Usage > Billing > Pricing**.
 
@@ -128,7 +126,7 @@ Pricing rules currently apply to these billing modules:
 | **AI Forms** | Form submit |
 | **Images** | Generate, Edit, Video |
 
-### Create a pricing rule
+### Create a Pricing Rule
 
 1. Open **Usage > Billing > Pricing**.
 2. Click **New Pricing**.
@@ -140,7 +138,7 @@ Pricing rules currently apply to these billing modules:
 
 > Screenshot placeholder: New Pricing modal showing usage type, provider/model, billing method, and rate fields.
 
-### Billing methods
+### Billing Methods
 
 | Billing method | Used by | Rate fields |
 | --- | --- | --- |
@@ -153,7 +151,7 @@ For token-based rules, AI Puffer uses input and output token counts when the pro
 
 If no pricing rule matches a request, AI Puffer falls back to the raw recorded units for credit calculation.
 
-### Manage pricing rules
+### Manage Pricing Rules
 
 The Pricing table shows module, provider/model, pricing, status, and actions.
 
@@ -165,7 +163,9 @@ Available actions:
 | **Edit** | Opens the rule in the pricing modal. |
 | **Delete** | Removes the rule. |
 
-## How credits are charged
+## Credits
+
+### How Credits Are Charged
 
 AI Puffer checks usage before a request and records usage after the request.
 
@@ -184,7 +184,7 @@ For guests:
 
 Credit balance and quota are not the same setting. A user can have a balance and still have a periodic quota configured. When a balance covers the estimated request cost, that request does not need remaining quota.
 
-## Ledger activity
+### Ledger Activity
 
 Open **Usage > Billing > Activity**.
 
@@ -211,7 +211,7 @@ The ledger table shows time, actor, entry type, module/model, credit delta, and 
 
 > Screenshot placeholder: Ledger Activity tab with summary cards and recent ledger entries.
 
-## User balances
+### User Balances
 
 Open **Usage > Billing > Balances**.
 
@@ -227,7 +227,7 @@ The table shows:
 | **Latest Reset** | Most recent reset timestamp. |
 | **Actions** | Details, Reset all, and History when available. |
 
-### Edit a balance
+#### Edit a Balance
 
 1. Open **Usage > Billing > Balances**.
 2. Search for the user.
@@ -236,7 +236,7 @@ The table shows:
 
 AI Puffer stores the new balance and records the difference as an admin adjustment in the ledger.
 
-### Reset usage
+#### Reset Usage
 
 Use **Details** to view periodic usage by scope.
 
@@ -251,7 +251,7 @@ Supported reset scopes:
 
 Resetting usage does not change the user's credit balance.
 
-### Purchase history
+#### Purchase History
 
 If the user has completed WooCommerce credit orders, the **History** button shows recent credit purchases.
 
@@ -303,7 +303,7 @@ Quota action options:
 
 > Screenshot placeholder: Limits settings showing guest quota, user quota, reset period, and quota action buttons.
 
-## WooCommerce credit packages
+## WooCommerce Credit Packages
 
 AI Puffer can grant credits from WooCommerce product purchases.
 
@@ -318,7 +318,7 @@ Requirements:
 
 Guest checkout orders without a linked WordPress user account cannot receive credits automatically.
 
-### Create a credit package
+### Create a Credit Package
 
 1. Open **WooCommerce > Products**.
 2. Create or edit a product.
@@ -332,7 +332,7 @@ If a customer buys quantity `3`, AI Puffer grants the credit amount three times.
 
 > Screenshot placeholder: WooCommerce product editor with the AI Puffer: Credit Package box enabled.
 
-### Package previews
+### Package Previews
 
 When pricing rules exist, the product editor can show an approximate package value.
 
@@ -347,7 +347,7 @@ Examples:
 
 The preview uses current pricing rules. It is only for package sizing.
 
-## Customer dashboard shortcode
+## Customer Dashboard
 
 Use `[aipkit_token_usage]` to show a logged-in customer their credits, purchases, and quota usage.
 
@@ -367,7 +367,7 @@ The shortcode requires the visitor to be logged in.
 
 > Screenshot placeholder: Frontend customer dashboard showing available credits, recent purchases, and quota usage.
 
-### Shortcode options
+### Shortcode Options
 
 Use attributes to hide sections or change text.
 
@@ -403,7 +403,7 @@ Supported attributes:
 
 The Usage screen can generate the shortcode for you from the WooCommerce tab options.
 
-## What is stored
+## Stored Data
 
 AI Puffer stores usage data in WordPress database tables and user meta.
 
@@ -416,7 +416,7 @@ AI Puffer stores usage data in WordPress database tables and user meta.
 | Logged-in user credit balance | User meta. |
 | Logged-in user periodic usage | User meta. |
 
-## Usage overview chart
+## Charts
 
 The Settings area includes a Usage Overview card.
 
@@ -438,14 +438,14 @@ The chart reads from saved logs. If the log volume is high, reduce the selected 
 
 ## Troubleshooting
 
-### Pricing model is missing
+### Pricing Model Is Missing
 
 1. Open [AI Providers](/ai-providers).
 2. Check the provider API settings.
 3. Sync models.
 4. Return to **Usage > Billing > Pricing** and create the rule again.
 
-### Credits were not granted after purchase
+### Credits Were Not Granted After Purchase
 
 Check these items:
 
@@ -456,14 +456,14 @@ Check these items:
 | Product setting | Marked as an AI Puffer credit package. |
 | Credit amount | Greater than `0`. |
 
-### Customer dashboard does not show usage
+### Customer Dashboard Does Not Show Usage
 
 1. Confirm the visitor is logged in.
 2. Confirm the shortcode is on the page.
 3. Check role access for the customer dashboard module if role access is enabled.
 4. Confirm the related module has recorded usage for that user.
 
-### A user sees a quota message after buying credits
+### User Sees a Quota Message After Buying Credits
 
 Check these items:
 
@@ -473,7 +473,7 @@ Check these items:
 4. Confirm the module has a matching pricing rule.
 5. Confirm the request cost does not exceed the remaining balance plus available quota.
 
-### Logs are growing too large
+### Logs Are Growing Too Large
 
 1. Open **Usage > Logs**.
 2. Delete old logs manually if needed.
