@@ -48,6 +48,13 @@
               "knowledge-base-training",
               "usage-billing"
             ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              "api-reference",
+              "event-webhooks"
+            ]
           }
         ]
       }
