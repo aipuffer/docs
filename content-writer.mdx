@@ -3,55 +3,71 @@ title: "Content Writer"
 description: "Generate, update, and schedule WordPress content with AI Puffer."
 ---
 
-Use Content Writer to create WordPress content from topics, CSV files, RSS feeds, web pages, or Google Sheets. It can also update existing posts, image metadata, and WooCommerce products.
+## Overview
 
-> Screenshot placeholder: Content Writer screen with the Mode selector, input area, settings panel, and output area.
+Content Writer creates WordPress content from topics, CSV files, RSS feeds, web pages, and Google Sheets. It can also update existing posts, image metadata, and WooCommerce product copy.
 
-## Open Content Writer
+In WordPress admin, go to **AI Puffer > Content Writer**.
 
-1. Open **WordPress Admin > AI Puffer > Content Writer**.
-2. Choose a mode from the left **Mode** panel.
-3. Select a model.
-4. Set prompts, publishing, images, and context.
-5. Click **Generate** to run now, or **Create Task** to create an automated task.
+> Screenshot placeholder: Content Writer screen with the mode selector, input area, settings panel, and output area.
 
-If the model list is empty, configure the provider first in [AI Providers](/ai-providers).
+## Before You Start
 
-## Choose a mode
+Set up at least one AI provider before using Content Writer. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
 
-Content Writer has create modes and optimize modes.
+Some modes require additional services:
+
+| Feature | Requirement |
+| --- | --- |
+| RSS Feed | Pro |
+| Web Page | Pro |
+| Google Sheets | Pro and a Google Cloud service account |
+| Ollama | Pro and a reachable Ollama server |
+| WooCommerce product updates | Pro and WooCommerce active |
+| Generated or fetched images | A configured image provider, Pexels, or Pixabay |
+| Knowledge context | A configured knowledge source |
+
+## Writing Modes
+
+Content Writer has create modes and update modes.
 
 | Mode | Use it for | Availability |
 | --- | --- | --- |
-| **Manual Entry** | Generate one or more posts from topics and keywords. | Free |
-| **Import CSV** | Generate posts from a CSV file. | Free |
-| **RSS Feed** | Generate posts from RSS feed items. | Pro |
-| **Web Page** | Generate posts from extracted page text. | Pro |
-| **Google Sheets** | Generate posts from spreadsheet rows. | Pro |
+| **Manual Entry** | Generate content from topics and keywords. | Free |
+| **Import CSV** | Generate content from CSV rows. | Free |
+| **RSS Feed** | Generate content from feed items. | Pro |
+| **Web Page** | Generate content from extracted page text. | Pro |
+| **Google Sheets** | Generate content from spreadsheet rows. | Pro |
 | **Rewrite Content** | Update existing posts and pages. | Free and Pro |
 | **Image Metadata** | Update attachment title, alt text, caption, and description. | Free and Pro |
-| **Optimize Products** | Update WooCommerce product copy and search data. | Pro |
+| **Optimize Products** | Update WooCommerce product content and search data. | Pro |
 
 **Optimize Products** appears only when WooCommerce is active.
 
-## Generate one post
+## Create Content
+
+Use Manual Entry when you want to generate content immediately from one topic.
 
 1. Select **Manual Entry**.
 2. Select **Single**.
 3. Enter a topic.
 4. Add keywords if needed.
-5. Choose the model and content length.
-6. Open **Prompts** if you want to edit the output instructions.
-7. Set the post status, post type, author, categories, table of contents, and URL option.
+5. Choose the provider, model, and content length.
+6. Open **Prompts** if you want to edit the instructions.
+7. Set the post type, status, author, categories, table of contents, and URL option.
 8. Click **Generate**.
 9. Review the output.
 10. Save it as a WordPress post when ready.
 
 > Screenshot placeholder: Manual Entry in Single mode with Topic and Keywords fields.
 
-## Manual Entry
+## Content Sources
 
-Manual Entry has three input layouts.
+Use content sources when you want to create many items or build content from existing external material.
+
+### Manual Entry
+
+Manual Entry supports three input layouts.
 
 | Layout | Use it for |
 | --- | --- |
@@ -77,7 +93,7 @@ You can also enter only a topic:
 How to clean leather boots
 ```
 
-## Import CSV
+### CSV
 
 CSV import reads every non-empty row and converts it into a generation task.
 
@@ -102,11 +118,9 @@ Do not add a header row unless you want the header row to be treated as a topic.
 
 > Screenshot placeholder: CSV upload state showing the file name and tasks found.
 
-## RSS Feed
+### RSS Feed
 
-RSS Feed is a Pro feature.
-
-Use RSS Feed to generate content from feed items.
+RSS Feed is a Pro feature. Use it to generate content from feed items.
 
 1. Select **RSS Feed**.
 2. Add one feed URL per line.
@@ -117,19 +131,17 @@ Use RSS Feed to generate content from feed items.
 
 AI Puffer checks up to 15 items per feed. Automated RSS tasks keep a history of processed feed items so the same item is not queued again.
 
-## Web Page
+### Web Page
 
-Web Page is a Pro feature.
-
-Use Web Page mode to generate from a list of URLs.
+Web Page is a Pro feature. Use it to generate content from a list of URLs.
 
 1. Select **Web Page**.
 2. Add one URL per line.
 3. Click **Test First URL** to preview extracted text.
-4. Set the prompts and publishing options.
+4. Set prompts and publishing options.
 5. Click **Generate** or **Create Task**.
 
-When using URL mode, the content prompt can use:
+When using Web Page mode, prompts can use:
 
 | Placeholder | Value |
 | --- | --- |
@@ -138,11 +150,9 @@ When using URL mode, the content prompt can use:
 
 Some pages may block extraction or return very little readable text.
 
-## Google Sheets
+### Google Sheets
 
-Google Sheets is a Pro feature.
-
-Use Google Sheets mode to generate from spreadsheet rows.
+Google Sheets is a Pro feature. Use it to generate content from spreadsheet rows.
 
 1. Create a Google Cloud service account.
 2. Download the service account JSON credentials.
@@ -169,7 +179,7 @@ Rows are processed only when column A has a topic and column G is empty. AI Puff
 
 > Screenshot placeholder: Google Sheets setup showing Sheet ID, credentials file, and verification state.
 
-## Model settings
+## Model Settings
 
 Content Writer uses the AI providers configured in AI Puffer.
 
@@ -200,7 +210,7 @@ Length values map to these token budgets:
 | Medium | 4000 |
 | Long | 6000 |
 
-## Prompts and outputs
+## Prompts and Outputs
 
 Open **Prompts** to control what Content Writer generates.
 
@@ -226,9 +236,9 @@ Common placeholders:
 
 Use **Templates** to save a set of model, prompt, publishing, image, and context settings. Templates can be loaded again later for the same workflow.
 
-> Screenshot placeholder: Prompts popover with Title, Content, Meta Description, Focus Keyword, Excerpt, and Tags.
+> Screenshot placeholder: Prompts panel with Title, Content, Meta Description, Focus Keyword, Excerpt, and Tags.
 
-## Search optimization
+## Search Optimization
 
 Content Writer can generate and save search-related data.
 
@@ -243,9 +253,9 @@ The SEO Framework does not have a native focus keyword field, so focus keyword u
 
 When **Optimize URL** is enabled, AI Puffer builds the slug from the focus keyword when available. If no focus keyword is available, it uses the post title.
 
-## Publishing settings
+## Publishing
 
-Open the post settings panel to control where generated content is saved.
+Use post settings to control where generated content is saved.
 
 | Setting | Use it for |
 | --- | --- |
@@ -299,7 +309,7 @@ Content Writer can also generate image title, alt text, caption, and description
 
 > Screenshot placeholder: Images section with Content + Featured selected and image settings open.
 
-## Knowledge context
+## Knowledge Base
 
 Use **Context** when generated content should use information from a knowledge source.
 
@@ -320,7 +330,11 @@ Context is used during new generation and existing-content updates when enabled.
 
 > Screenshot placeholder: Context selector showing OpenAI, Pinecone, and Qdrant options.
 
-## Rewrite existing content
+## Rewrite Existing Content
+
+Use rewrite tools when you want to update content that already exists in WordPress.
+
+### Rewrite Posts and Pages
 
 Use **Rewrite Content** to update selected posts or pages.
 
@@ -356,7 +370,7 @@ For existing content prompts, include at least one source placeholder:
 
 Free plan users can update title and content for non-product posts. Meta description, focus keyword, excerpt, tags, URL updates, and WooCommerce product updates require Pro.
 
-## Image Metadata
+### Image Metadata
 
 Use **Image Metadata** to update media library attachment data.
 
@@ -389,7 +403,7 @@ Image metadata prompts can use:
 
 Free plan users can update one selected image at a time. Bulk image metadata updates require Pro.
 
-## Optimize WooCommerce products
+### WooCommerce Products
 
 Optimize Products is a Pro feature. It appears when WooCommerce is active.
 
@@ -425,9 +439,9 @@ When tags are updated for products, AI Puffer uses WooCommerce product tags.
 
 > Screenshot placeholder: Optimize Products mode with selected WooCommerce products and update fields.
 
-## Create automated tasks
+## Automations
 
-The primary action can run immediately or create an automated task.
+Content Writer can run immediately or create an automated task.
 
 1. Configure a create mode: Manual Entry, Import CSV, RSS Feed, Web Page, or Google Sheets.
 2. Open the action menu next to **Generate**.
@@ -448,7 +462,7 @@ Task intervals:
 | Daily |
 | Weekly |
 
-Created tasks appear in Automated Tasks. Google Sheets access is verified before the task is created.
+Created tasks appear in [Automations](/automations). Google Sheets access is verified before the task is created.
 
 ## Logs
 
@@ -475,4 +489,3 @@ AI Puffer also emits a `content.generated` event after generated content is comp
 | URL extraction returns little text | The page may block scraping or load content through scripts. |
 | Images are not created | Check the image provider, image model, and required API keys. |
 | Long generations stop early | Increase PHP `max_execution_time` and `default_socket_timeout` above 30 seconds. |
-
