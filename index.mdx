@@ -1,47 +1,31 @@
 ---
-title: "Overview"
-description: "AI Puffer documentation for WordPress setup and modules."
+title: "Introduction"
+description: "AI Puffer documentation for WordPress modules, providers, knowledge, usage, and billing."
 ---
 
-AI Puffer adds AI features to WordPress through separate modules for chat, writing, automation, forms, media generation, knowledge sources, and usage controls.
+```text
++----------------+        +--------------------------------+
+| WordPress      |        | AI Puffer                      |
+| visitors       | -----> | chat, forms, images            |
+| editors        | -----> | writing, automation            |
+| customers      | -----> | usage, credits, limits         |
++----------------+        +----------------+---------------+
+                                             |
+                                             v
+                              +-----------------------------+
+                              | AI providers, vector stores |
+                              | voice, media, app services  |
+                              +-----------------------------+
+```
 
-Use these docs to configure each module and find the settings that affect it.
+AI Puffer is a WordPress plugin for running AI features where the site is already managed: inside WordPress.
 
-> Screenshot placeholder: AI Puffer dashboard home screen.
+The plugin is organized around modules. Chatbots answer visitors. AI Forms turn submitted fields into generated output. Content Writer prepares posts, SEO content, and product copy. Automations run recurring work from sources such as RSS, CSV, Google Sheets, URLs, and WooCommerce. Image / Video Generator creates media. Usage & Billing records activity, limits access, and sells credits through WooCommerce.
 
-## Start here
+Providers are separate from modules. OpenAI, Google, Azure, OpenRouter, DeepSeek, Ollama, Claude, ElevenLabs, Replicate, Pinecone, and Qdrant are connected once, then selected where a module needs them.
 
-1. Configure at least one provider in [AI Providers](/ai-providers).
-2. Open the module you want to use.
-3. Select the provider and model for that module.
-4. Save the module settings.
-5. Add the shortcode, block, or workflow to your WordPress site.
+Knowledge is shared infrastructure. Posts, pages, products, files, URLs, sitemaps, RSS feeds, and uploaded documents can be indexed and reused by chatbots, forms, search, and automation tasks.
 
-## Modules
+Usage controls are part of the system. Site owners can inspect logs, apply limits, price requests, create WooCommerce credit packages, and review activity by user, module, and source.
 
-<CardGroup cols={2}>
-  <Card title="AI Providers" icon="plug" href="/ai-providers">
-    Connect provider API keys and sync models.
-  </Card>
-  <Card title="Chat" icon="messages" href="/chat">
-    Create and manage WordPress chatbots.
-  </Card>
-  <Card title="Content Writer" icon="pen-line" href="/content-writer">
-    Generate posts, pages, SEO fields, product copy, and bulk content.
-  </Card>
-  <Card title="Automations" icon="calendar-clock" href="/automations">
-    Schedule recurring content, product, source indexing, and connected app tasks.
-  </Card>
-  <Card title="AI Forms" icon="list-checks" href="/ai-forms">
-    Build prompt-backed forms for frontend or admin use.
-  </Card>
-  <Card title="Image / Video Generator" icon="image" href="/image-video-generator">
-    Add image and video generation tools to WordPress pages.
-  </Card>
-  <Card title="Knowledge Base / Training" icon="database" href="/knowledge-base-training">
-    Add source data to OpenAI Vector Stores, Pinecone, or Qdrant.
-  </Card>
-  <Card title="Usage & Billing" icon="chart-column" href="/usage-billing">
-    Track logs, quotas, balances, credits, and WooCommerce packages.
-  </Card>
-</CardGroup>
+AI Puffer does not replace WordPress. It adds AI workflows to the same admin screens, shortcodes, blocks, users, products, logs, and permissions the site already uses.
