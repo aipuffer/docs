@@ -517,21 +517,13 @@ The **Template** control is in the **General** panel on the right side of Conten
 
 Use the template menu to load, create, edit, rename, delete, and reset templates. Starter templates and default templates cannot be renamed or deleted.
 
-> Screenshot placeholder: Template dropdown showing Starter Templates, My Templates, New, Rename, Delete, and Reset.
+<Frame>
+  <img src="/images/screenshots/content-writer/templates.png" alt="Templates" />
+</Frame>
 
 ### AI
 
-Content Writer uses the AI providers configured in AI Puffer.
-
-| Provider | Notes |
-| --- | --- |
-| OpenAI | Supports compatible chat and reasoning models. |
-| Google | Uses configured Gemini models. |
-| Claude | Uses configured Claude models. |
-| OpenRouter | Uses configured OpenRouter models. |
-| Azure | Uses configured Azure deployments. |
-| DeepSeek | Uses configured DeepSeek models. |
-| Ollama | Uses local or self-hosted Ollama models. |
+Content Writer uses the AI providers configured in AI Puffer, including hosted providers and local Ollama models.
 
 Model settings include:
 
@@ -542,6 +534,10 @@ Model settings include:
 | **Reasoning** | Sets reasoning effort for supported OpenAI and Ollama models. |
 | **Length** | Sets the token budget used for the generated content. |
 
+<Frame>
+  <img src="/images/screenshots/content-writer/models.png" alt="Models" />
+</Frame>
+
 Length values map to these <Tooltip headline="Token budget" tip="The amount of model output reserved for generated content. Longer settings allow longer drafts.">token budgets</Tooltip>:
 
 | Length | Token budget |
@@ -550,9 +546,28 @@ Length values map to these <Tooltip headline="Token budget" tip="The amount of m
 | Medium | 4000 |
 | Long | 6000 |
 
+<Frame>
+  <img src="/images/screenshots/content-writer/model-settings.png" alt="Model Settings" />
+</Frame>
+
 ### Prompts
 
-Open **Prompts** to control what Content Writer generates.
+Prompts are the instructions Content Writer sends to the selected model. Each output has its own prompt, so the title, article body, SEO fields, excerpt, and tags can follow different rules.
+
+To customize prompts:
+
+1. In the right settings panel, open **Prompts**.
+2. Click **Customize**.
+3. Enable the outputs you want Content Writer to generate.
+4. Click the edit icon next to an output.
+5. Select **Default** or a saved prompt from the dropdown, or edit the prompt text directly.
+6. Use the variables shown under the editor. Click a variable to copy it.
+7. Click **Apply changes** if the button appears.
+8. Generate one item and review the result before running a batch.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/prompts.png" alt="Prompts Settings" />
+</Frame>
 
 | Output | What it updates |
 | --- | --- |
@@ -563,20 +578,19 @@ Open **Prompts** to control what Content Writer generates.
 | **Excerpt** | WordPress excerpt. |
 | **Tags** | Post tags or product tags. |
 
-Common placeholders:
+Available variables change based on the selected source or optimize mode.
 
-| Placeholder | Value |
+| Workflow | Variables to use |
 | --- | --- |
-| `{topic}` | Topic from the input row. |
-| `{keywords}` | Keywords from the input row or keyword field. |
-| `{description}` | RSS item description. |
-| `{url_content}` | Extracted page text in Web Page mode. |
-| `{source_url}` | Source URL in Web Page mode. |
-| `{content_summary}` | Summary of generated content, used by supporting outputs. |
+| Manual Entry, CSV, Google Sheets | Use `{topic}` in enabled prompts. Use `{keywords}` when keyword input should guide the result. |
+| RSS Feed | Use `{description}` in the title and content prompts. Use `{source_url}` if the source URL should be included. |
+| Web Page | Use `{url_content}` in the title and content prompts. Use `{source_url}` if the source URL should be included. |
+| SEO, excerpt, tags | Use `{content_summary}` when the output should be based on the generated article. |
+| Rewrite, image metadata, products | Use the variables shown under the prompt editor. They change for each optimize mode. |
 
-Use **Templates** to save a set of model, prompt, publishing, image, and context settings. Templates can be loaded again later for the same workflow.
-
-> Screenshot placeholder: Prompts panel with Title, Content, Meta Description, Focus Keyword, Excerpt, and Tags.
+<Warning>
+AI Puffer checks required variables before generation. If a required variable is missing, it stops and asks you to update the prompt.
+</Warning>
 
 ### SEO
 
