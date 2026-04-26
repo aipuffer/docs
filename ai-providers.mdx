@@ -7,9 +7,9 @@ description: "Connect the model providers and service integrations used by AI Pu
 
 AI Puffer uses a bring-your-own-key model. Add your provider credentials, sync models, then choose the provider and model inside each module.
 
-Requests are sent from your WordPress site to the accounts you connect. Provider usage is billed by those providers.
-
-AI Puffer Pro unlocks plugin features. It does not include provider credits.
+<Info>
+When you purchase AI Puffer Pro, you get access to additional plugin features. API usage is separate. You still need your own provider account and billing setup for OpenAI, Google, Claude, or any other provider you connect. AI Puffer does not include API credits.
+</Info>
 
 AI providers power text, image, audio, embedding, and retrieval features.
 
@@ -27,7 +27,9 @@ AI providers power text, image, audio, embedding, and retrieval features.
 
 **AI Puffer > Settings** is the central area for managing your connections to different AI providers.
 
-![Settings](/images/screenshots/ai-providers/settings.png)
+<Frame>
+  <img src="/images/screenshots/ai-providers/settings.png" alt="Settings" />
+</Frame>
 
 ## OpenAI
 
@@ -42,7 +44,9 @@ OpenAI supports the widest set of AI Puffer features.
 
 For knowledge features, OpenAI embedding models are available in embedding model selectors. OpenAI Vector Stores are handled in Knowledge Base.
 
-![OpenAI API key settings](/images/screenshots/ai-providers/openai-api-key-settings.png)
+<Frame>
+  <img src="/images/screenshots/ai-providers/openai-api-key-settings.png" alt="OpenAI API key settings" />
+</Frame>
 
 ## Google
 
@@ -57,7 +61,13 @@ Google provides Gemini, embeddings, image/video models, text to speech, and grou
 
 Google image and video model settings are configured in Images.
 
-![Google API key settings](/images/screenshots/ai-providers/google-api-key-settings.png)
+<Info>
+Google safety settings can block some responses. Change them only when the default behavior is too restrictive for your site.
+</Info>
+
+<Frame>
+  <img src="/images/screenshots/ai-providers/google-api-key-settings.png" alt="Google API key settings" />
+</Frame>
 
 ## Claude
 
@@ -71,7 +81,9 @@ Claude is available for text workflows, web search, and supported image analysis
 
 Claude does not provide embeddings through the current AI Puffer provider strategy.
 
-![Claude API key settings](/images/screenshots/ai-providers/claude-api-key-settings.png)
+<Frame>
+  <img src="/images/screenshots/ai-providers/claude-api-key-settings.png" alt="Claude API key settings" />
+</Frame>
 
 ## OpenRouter
 
@@ -85,7 +97,13 @@ OpenRouter gives access to models available in your OpenRouter account.
 
 Some capabilities depend on the selected model.
 
-![OpenRouter API key settings](/images/screenshots/ai-providers/openrouter-api-key-settings.png)
+<Info>
+OpenRouter support depends on the model you select. Check the model capabilities before using image, embedding, or web features.
+</Info>
+
+<Frame>
+  <img src="/images/screenshots/ai-providers/openrouter-api-key-settings.png" alt="OpenRouter API key settings" />
+</Frame>
 
 ## Azure
 
@@ -100,9 +118,13 @@ Azure uses your Azure OpenAI deployments.
 7. Click **Sync Models** to load deployments.
 8. Select the deployment to use as the default model.
 
+<Info>
 Azure uses deployment names. If a deployment does not appear, confirm it exists in Azure and that the endpoint and API key belong to the same resource.
+</Info>
 
-![Azure API key settings](/images/screenshots/ai-providers/azure-api-key-settings.png)
+<Frame>
+  <img src="/images/screenshots/ai-providers/azure-api-key-settings.png" alt="Azure API key settings" />
+</Frame>
 
 ## DeepSeek
 
@@ -116,7 +138,9 @@ DeepSeek is available for text workflows.
 
 DeepSeek embeddings are not supported by the current provider strategy. Use OpenAI, Google, Azure, OpenRouter, or Ollama for embedding workflows.
 
-![DeepSeek API key settings](/images/screenshots/ai-providers/deepseek-api-key-settings.png)
+<Frame>
+  <img src="/images/screenshots/ai-providers/deepseek-api-key-settings.png" alt="DeepSeek API key settings" />
+</Frame>
 
 ## Ollama
 
@@ -146,9 +170,17 @@ Install notes:
 
 You can pull more than one model. AI Puffer shows synced Ollama models after **Sync Models** runs.
 
+<Warning>
 If WordPress and Ollama are on different servers, do not use `localhost` unless Ollama is running on the same server as WordPress. Use the reachable server URL instead.
+</Warning>
 
-![Ollama API key settings](/images/screenshots/ai-providers/ollama-api-key-settings.png)
+<Danger>
+Do not expose Ollama publicly without access controls. Anyone who can reach the Ollama server can send model requests to it.
+</Danger>
+
+<Frame>
+  <img src="/images/screenshots/ai-providers/ollama-api-key-settings.png" alt="Ollama API key settings" />
+</Frame>
 
 ## Troubleshooting
 
@@ -194,7 +226,9 @@ Fix:
 8. Click **Sync All**.
 9. Return to **Settings > AI** and check the model list again.
 
-![Settings Others model cache buttons](/images/screenshots/ai-providers/settings-others-model-cache.png)
+<Frame>
+  <img src="/images/screenshots/ai-providers/settings-others-model-cache.png" alt="Settings Others model cache buttons" />
+</Frame>
 
 If the model still does not appear, confirm the provider account has access to that model.
 
