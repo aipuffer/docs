@@ -169,13 +169,9 @@ Some sites block scraping or return very little readable text.
 
 ### Google Sheets
 
-Google Sheets creates posts from spreadsheet rows.
+Google Sheets tasks create posts from spreadsheet rows.
 
-1. Create a Google Cloud service account.
-2. Share the spreadsheet with the service account email.
-3. Add the Sheet ID.
-4. Add the service account JSON credentials.
-5. Save the task.
+[Open the sample Google Sheet](https://docs.google.com/spreadsheets/d/18QIWggMmbTVTb-nztTo7SFdGJTUC6kwRxgc841xq4x0/edit?gid=0#gid=0), make a copy, and keep the same column order.
 
 AI Puffer reads columns `A:G`.
 
@@ -186,10 +182,70 @@ AI Puffer reads columns `A:G`.
 | C | Category ID | Optional. |
 | D | Author Login | Optional. |
 | E | Post Type | Optional. |
-| F | Schedule Date | Optional. |
+| F | Schedule Date | Optional. Use `YYYY-MM-DD HH:MM`. |
 | G | Status | Leave empty for rows that should be processed. |
 
-Rows are processed when column A has a topic and column G is empty. AI Puffer writes queue and processed status back to column G.
+Rows are processed only when column A has a topic and column G is empty. After a post is created, AI Puffer writes `Processed on ...` to column G so the row is not used again.
+
+If you use a header row, put a value in column G for that row, such as `Status`, so it is skipped.
+
+Before creating the task, set up Google access:
+
+1. Open [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project, or select an existing project.
+3. Go to **APIs & Services**.
+4. Click **Enable APIs and Services**.
+5. Search for **Google Sheets API**.
+6. Select **Google Sheets API** and click **Enable**.
+7. Go to **Credentials**.
+8. Click **Create credentials**.
+9. Select **Service account**.
+10. Enter a service account name and click **Done**.
+11. Open the service account.
+12. Go to **Keys**.
+13. Click **Add key**.
+14. Select **Create new key**.
+15. Select **JSON** and click **Create**.
+
+![Create service account credentials](/images/screenshots/google-sheets/google-cloud-create-service-account.png)
+
+![Create a service account key](/images/screenshots/google-sheets/google-cloud-create-json-key.png)
+
+![Select JSON key type](/images/screenshots/google-sheets/google-cloud-json-key-type.png)
+
+Google downloads a `.json` file. Keep this file private. You will upload it in AI Puffer.
+
+Share the sheet with the service account:
+
+1. Open your Google Sheet.
+2. Click **Share**.
+3. Copy the service account email from Google Cloud or from the JSON file field named `client_email`.
+4. Share the sheet with that email as **Editor**.
+
+Editor access is required because AI Puffer writes the processed status back to column G.
+
+![Copy the service account email](/images/screenshots/google-sheets/google-cloud-copy-service-account-email.png)
+
+![Share the sheet with the service account](/images/screenshots/google-sheets/google-sheets-share-service-account.png)
+
+Create the automation:
+
+1. Click **New Task**.
+2. Select **Google Sheets** as the task type.
+3. Paste the Google Sheet ID.
+4. Upload the service account JSON file.
+5. Wait for the connection check to pass.
+6. Set the model, prompts, publishing, image, and SEO options.
+7. Set the task frequency.
+8. Save the task.
+
+The Google Sheet ID is the value between `/d/` and `/edit` in the sheet URL.
+
+```text
+https://docs.google.com/spreadsheets/d/GOOGLE_SHEET_ID/edit
+```
+
+> Screenshot placeholder: Automation task using Google Sheets with connected status.
 
 ### Content Settings
 
@@ -270,7 +326,7 @@ At least one field must be selected.
 | **Title** | WordPress post title. |
 | **Excerpt** | WordPress post excerpt. |
 | **Content** | WordPress post content. |
-| **Meta Description** | Search meta description in supported SEO plugins. |
+| **Meta Description** | SEO meta description in supported SEO plugins. |
 
 Each field has its own prompt.
 
