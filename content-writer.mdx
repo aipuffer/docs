@@ -594,20 +594,57 @@ AI Puffer checks required variables before generation. If a required variable is
 
 ### SEO
 
-Content Writer can generate and save SEO data.
+Use SEO settings when the generated post should leave Content Writer with search metadata already filled in. AI Puffer can create a meta description, focus keyword, tags, and a cleaner WordPress URL slug.
 
-| Item | Where it is saved |
+To use SEO output:
+
+1. In the right panel, open **Prompts**.
+2. Enable **Meta Description**, **Focus Keyword**, or **Tags**.
+3. Edit the prompt for each enabled output if the default instruction does not match your site.
+4. Open **Publishing** and enable **Optimize URL** if you want AI Puffer to update the post <Tooltip headline="Slug" tip="The URL-friendly part of a WordPress post address.">slug</Tooltip>.
+5. Generate the content.
+6. Review the SEO fields in the output panel before saving the post.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/seo.png" alt="SEO" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/content-writer/seo-slug.png" alt="SEO" />
+</Frame>
+
+The focus keyword is generated first. Meta description, excerpt, and tag prompts can then use that keyword. If you enter keywords manually, the first keyword is used as the focus keyword.
+
+| Output | How it is saved |
 | --- | --- |
-| **Meta description** | Yoast SEO, Rank Math, AIOSEO, The SEO Framework, or AI Puffer fallback meta. |
-| **Focus keyword** | Yoast SEO, Rank Math, or AIOSEO. |
-| **Tags** | `post_tag`, `product_tag`, or another available non-hierarchical taxonomy. |
-| **URL** | WordPress post slug when **Optimize URL** is enabled. |
+| **Meta description** | Saved to the active SEO plugin. If no supported SEO plugin is active, AI Puffer saves it as fallback post meta. |
+| **Focus keyword** | Saved to Yoast SEO, Rank Math, or All in One SEO. |
+| **Tags** | Saved as WordPress tags for new posts. Existing-post and product update workflows use the matching tag taxonomy when available. |
+| **URL** | Updates the WordPress post slug when **Optimize URL** is enabled. |
 
-<Info>
-The SEO Framework does not have a native focus keyword field, so focus keyword updates are skipped for that plugin.
-</Info>
+#### Yoast SEO
 
-When **Optimize URL** is enabled, AI Puffer builds the <Tooltip headline="Slug" tip="The URL-friendly part of a WordPress post address.">slug</Tooltip> from the focus keyword when available. If no focus keyword is available, it uses the post title.
+AI Puffer saves the generated meta description to the Yoast meta description field and the generated focus keyword to the Yoast focus keyphrase field.
+
+If **Optimize URL** is enabled, the slug is built from the focus keyphrase when available. If there is no focus keyphrase, the post title is used.
+
+#### Rank Math
+
+AI Puffer saves the generated meta description to the Rank Math description field and the generated focus keyword to the Rank Math focus keyword field.
+
+#### All in One SEO
+
+AI Puffer saves the generated meta description to All in One SEO and updates the focus keyphrase data used by AIOSEO.
+
+#### The SEO Framework
+
+AI Puffer saves the generated meta description to The SEO Framework description field.
+
+The SEO Framework does not provide a native focus keyword field, so AI Puffer does not save a focus keyword for it.
+
+If none of the supported SEO plugins are active, AI Puffer still saves the meta description as fallback post meta. Focus keyword output remains visible in Content Writer, but there is no SEO plugin field to save it into.
+
+WordPress tags and the optimized URL slug still work without an SEO plugin.
 
 ### Publishing
 
