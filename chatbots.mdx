@@ -87,8 +87,6 @@ Only one chatbot can be active as a site-wide popup at a time. If you enable a n
 
 ### External Embed
 
-External embed is a Pro feature. 
-
 It lets you place a chatbot on a non-WordPress site while managing it from WordPress.
 
 1. Select **Mode: External**.
@@ -389,102 +387,283 @@ Enable only the tools you want your chatbot to offer.
 
 ### File Upload
 
-File upload is a Pro feature. It lets visitors upload documents during a chat.
+File upload lets visitors attach a document to the current chat. AI Puffer reads the file, prepares it for the selected vector provider, and uses the matching file content as context for the visitor's next messages.
 
-Supported upload file types are:
+File upload uses the chatbot's **Vector provider** setting: OpenAI, Pinecone, Qdrant, or Claude Files when the chatbot provider is Claude.
 
-| Type | Notes |
-| --- | --- |
-| **TXT** | Read as plain text. |
-| **PDF** | Parsed and used as chat context. |
+Visitors can upload `.txt` and `.pdf` files. The frontend limit is **20 MB**, but your WordPress or server upload limit can be lower.
 
-File upload routes through the selected vector provider. Pinecone and Qdrant require an embedding provider and embedding model.
+To enable file upload:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **Knowledge**, select **Vector** as a data source.
+3. Select the **Vector provider**.
+4. Configure vector provider.
+5. Open **Tools**.
+6. Add **File upload** to **Enabled tools**.
+7. Save the chatbot.
+8. Test the chatbot on the frontend and upload a `.txt` or `.pdf` file.
+
+> Screenshot placeholder: Tools section with File upload enabled.
 
 ### Web Search
 
-Web search is available for OpenAI, Google, Claude, and OpenRouter.
+Web Search lets a chatbot use online sources while answering. When enabled, the chatbot input shows a web/search toggle on the frontend.
 
-| Provider | Options |
+If the frontend toggle is off, the chatbot answers without web search even when the tool is enabled in the admin.
+
+Web Search is available for OpenAI, Google, Claude, and OpenRouter models that support web search.
+
+To enable web search:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **General**, select **OpenAI**, **Google**, **Claude**, or **OpenRouter** as the engine.
+3. In **Tools**, add **Web search** to **Enabled tools**.
+4. Set **Web search** to **Yes**.
+5. Click **Options**.
+6. Configure the provider settings.
+7. Save the chatbot.
+8. Test the chatbot on the frontend.
+
+> Screenshot placeholder: Tools section with Web search enabled.
+
+#### Shared Options
+
+These options appear in the Web Search options panel.
+
+| Option | What it does |
 | --- | --- |
-| **OpenAI** | Search context size and optional approximate user location. |
-| **Google** | Grounding mode and retrieval threshold. |
-| **Claude** | Max uses, optional location, allowed domains, blocked domains, and cache TTL. |
-| **OpenRouter** | Engine, max results, and optional search prompt. |
+| **Web toggle default on** | Starts the frontend web/search toggle enabled. |
+| **Show sources** | Shows source links under replies when the provider returns them. |
+| **Sources label** | Changes the label shown above source links. |
+| **Searching web text** | Changes the temporary status text shown while a web search is running. |
 
-You can also set whether the web toggle is on by default, whether sources are shown, the sources label, and the "searching web" status text.
+#### OpenAI Options
+
+| Option | What it does |
+| --- | --- |
+| **Search context size** | Controls how much web-search context OpenAI can use. Use **Medium** unless answers need less or more web context. |
+| **User location** | Optionally sends an approximate country, city, region, or timezone. Use it only when local results matter. |
+
+#### Google Options
+
+Google uses Search Grounding.
+
+| Option | What it does |
+| --- | --- |
+| **Mode** | **Default** lets the model decide how to use grounding. **Dynamic** is for Gemini 1.5 Flash. |
+| **Retrieval threshold** | Applies only to Dynamic mode. Lower values search more often. Higher values are stricter. |
+
+#### Claude Options
+
+| Option | What it does |
+| --- | --- |
+| **Max uses** | Maximum number of web searches Claude can make for one answer. The allowed range is 1 to 20. |
+| **User location** | Optionally sends an approximate country, city, region, or timezone. |
+| **Allowed domains** | Restricts Claude web search to specific domains. Separate domains with commas or new lines. |
+| **Blocked domains** | Excludes specific domains. If allowed domains are set, blocked domains are ignored. |
+| **Cache TTL** | Optional Claude cache setting. Available values are None, 5 minutes, and 1 hour. |
+
+#### OpenRouter Options
+
+OpenRouter web search depends on the selected model. If the web/search toggle does not appear on the frontend, choose a model that supports web search.
+
+| Option | What it does |
+| --- | --- |
+| **Engine** | **Auto** is recommended. **Native** and **Exa** force a specific search engine when supported. |
+| **Max results** | Maximum number of search results. The allowed range is 1 to 10. |
+| **Search prompt** | Optional instruction that tells OpenRouter what kind of search to run. |
 
 ### Images and Vision
 
-#### Analyze Images
+Image tools cover two separate features:
 
-Image analysis lets visitors attach images in chat. It appears for OpenAI, Claude, and OpenRouter. For OpenRouter, the selected model must support image input.
+- **Image analysis** sends an uploaded image to the chatbot model so it can answer questions about the image.
+- **Image generation** creates a new image when the visitor types a configured image command.
 
-#### Generate Images
+#### Image Analysis
 
-Image generation lets the chatbot generate images from commands typed in chat.
+Image analysis lets visitors attach an image to a chat message. The image is sent with the next message to the chatbot's selected model.
 
-1. Enable **Image generation**.
-2. Select an image model.
-3. Set command triggers, such as `/image` or `/generate`.
-4. Tell users to start image prompts with one of the configured triggers.
+#### Provider Support
 
-Image models can come from configured image providers, including Replicate when it is set up in Integrations.
+| Chatbot provider | Supported | Notes |
+| --- | --- | --- |
+| **OpenAI** | Yes | Uses the selected OpenAI chat model. |
+| **Claude** | Yes | Uses the selected Claude chat model. |
+| **OpenRouter** | Model-dependent | Requires an OpenRouter model that supports image input. |
+| **Google** | No | Image analysis is not shown for Google chatbots. |
+| **Azure** | No | Image analysis is not shown for Azure chatbots. |
+| **DeepSeek** | No | Image analysis is not shown for DeepSeek chatbots. |
+| **Ollama** | No | Image analysis is not shown for Ollama chatbots. |
 
-> Screenshot placeholder: Tools section with file upload, web search, image analysis, and image generation enabled.
+#### Supported Images
+
+| File type | Notes |
+| --- | --- |
+| `.jpg` / `.jpeg` | Supported. |
+| `.png` | Supported. |
+| `.webp` | Supported. |
+
+AI Puffer accepts one image per message. The frontend limit is **20 MB**.
+
+#### Enable Image Analysis
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **General**, select **OpenAI**, **Claude**, or an OpenRouter model that supports image input.
+3. Open **Tools**.
+4. Add **Image analysis** to **Enabled tools**.
+5. Set **Image analysis** to **Yes**.
+6. Save the chatbot.
+7. Test the chatbot on the frontend.
+
+> Screenshot placeholder: Tools section with Image analysis enabled.
+
+On the frontend, visitors use the image upload button, select an image, type a question, and send the message.
+
+If File Upload and Image Analysis are both enabled, the attachment button opens a small menu. If only Image Analysis is enabled, the button opens the image picker directly.
+
+#### Image Generation
+
+Image generation lets visitors create a new image from a chat command. The visitor types a trigger followed by a prompt, for example:
+
+```text
+/image a clean product photo on a white background
+```
+
+Each command returns one image.
+
+#### Image Model Support
+
+| Provider | How models appear |
+| --- | --- |
+| **OpenAI** | Built-in GPT Image models. |
+| **Azure** | Synced Azure image deployments. |
+| **Google** | Synced Google image models. |
+| **OpenRouter** | Synced models that support image output. |
+| **Replicate** | Models configured in Integrations. |
+
+If a model is missing, configure the provider and sync models in [AI Providers](/ai-providers).
+
+#### Enable Image Generation
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. Open **Tools**.
+3. Add **Image generation** to **Enabled tools**.
+4. Select the image model.
+5. Set the image triggers.
+6. Save the chatbot.
+7. Test the command on the frontend.
+
+Triggers are comma-separated and must start with `/`. Examples:
+
+```text
+/image, /generate, /draw
+```
+
+> Screenshot placeholder: Tools section with Image generation enabled, model selected, and triggers set.
+
+#### How Chat Image Generation Works
+
+When a visitor uses an image trigger, AI Puffer extracts the prompt after the trigger and sends it to the selected image model. The original command is saved in the conversation log, and the generated image reply is shown in the chat.
+
+Chat image generation uses the provider defaults from the Images module. Use **AI Puffer > Images** to adjust provider defaults such as size, quality, and other model-specific options.
 
 ### Audio and Speech
 
-Voice settings are under **Tools > Audio**.
+Audio tools are configured per chatbot under **Tools > Audio**.
+
+| Tool | What it does |
+| --- | --- |
+| **Speech to Text** | Records visitor speech, transcribes it, and sends the text as the chat message. |
+| **Text to Speech** | Adds a play button to assistant replies. Auto play can read replies automatically. |
+| **Realtime Voice** | Starts a live voice session with OpenAI Realtime. |
 
 #### Speech to Text
 
 Speech to Text adds a microphone button to the chatbot input.
 
-1. Enable **Speech to Text**.
-2. Open **Options**.
-3. Select the Speech to Text model.
-4. Test voice input on the frontend.
+When a visitor clicks the microphone, AI Puffer records the audio in the browser, uploads it to WordPress, sends it to the speech-to-text provider, then submits the transcript as the user message.
 
-The current chatbot UI uses OpenAI Speech to Text models.
+The chatbot UI currently exposes OpenAI speech-to-text models. The default model is `whisper-1`.
+
+#### Enable Speech to Text
+
+1. Configure OpenAI in [AI Providers](/ai-providers).
+2. Go to **AI Puffer > Chatbots** and select the chatbot.
+3. Open **Tools**.
+4. Add **Speech to Text** to **Enabled tools**.
+5. Set **Speech to Text** to **Yes**.
+6. Select the model if the model selector is shown.
+7. Save the chatbot and test the microphone on the frontend.
+
+The browser must allow microphone access. The site must use HTTPS, except for localhost testing. Recorded audio uploads are limited to **4 MB** by default.
 
 #### Text to Speech
 
 Text to Speech adds playback controls for assistant replies.
 
-1. Enable **Text to Speech**.
-2. Open **Options**.
-3. Select a provider.
-4. Select the voice and model.
-5. Enable **Auto play** only if replies should play automatically.
+When a visitor clicks the play button, AI Puffer sends the assistant reply text to the selected text-to-speech provider and plays the returned audio in the browser.
 
-Supported Text to Speech providers:
+#### Text to Speech Providers
 
-| Provider | Setup |
+| Provider | What to configure |
 | --- | --- |
-| **Google** | Select a synced Google voice. |
-| **OpenAI** | Select an OpenAI voice and model. |
-| **ElevenLabs** | Configure ElevenLabs in Integrations, then select voice and model. |
+| **Google** | Add the Google API key, sync voices, then select a voice. |
+| **OpenAI** | Add the OpenAI API key, then select a voice and TTS model. |
+| **ElevenLabs** | Add the ElevenLabs API key, sync voices and models, then select a voice. The model field can be left empty if you want ElevenLabs to use its default. |
+
+#### Enable Text to Speech
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. Open **Tools**.
+3. Add **Text to Speech** to **Enabled tools**.
+4. Set **Text to Speech** to **Yes**.
+5. Select the provider.
+6. Select the voice and model fields shown for that provider.
+7. Enable **Auto play** only if replies should play automatically.
+8. Save the chatbot and test the play button on an assistant reply.
 
 #### Realtime Voice Agents
 
-Realtime voice is a Pro feature for low-latency voice conversations.
+Realtime Voice is separate from Speech to Text and Text to Speech. It creates a live WebRTC session with OpenAI Realtime, streams microphone audio, receives spoken replies, and logs completed turns.
 
-1. Enable **Realtime**.
-2. Open **Options**.
-3. Select a realtime model.
-4. Select a voice.
-5. Choose turn detection.
-6. Set audio format, response speed, and noise reduction if needed.
+#### Enable Realtime Voice
 
-Supported turn detection modes are:
+1. Configure OpenAI in [AI Providers](/ai-providers).
+2. Go to **AI Puffer > Chatbots** and select the chatbot.
+3. Open **Tools**.
+4. Add **Realtime Voice** to **Enabled tools**.
+5. Set **Realtime voice agent** to **Yes**.
+6. Select the realtime model.
+7. Select the voice.
+8. Choose turn detection.
+9. Save the chatbot and test voice mode on the frontend.
+
+Supported realtime models are `gpt-4o-realtime-preview` and `gpt-4o-mini-realtime`.
+
+#### Realtime Settings
+
+| Setting | What it does |
+| --- | --- |
+| **Model** | OpenAI Realtime model used for the voice session. |
+| **Voice** | Voice used for spoken replies. |
+| **Direct voice mode** | Popup-only. The popup launcher starts and stops the voice session directly, and the in-chat realtime button is hidden. |
+| **Noise reduction** | Applies input audio noise reduction before the model receives the microphone stream. |
+| **Audio format** | Sets the input and output audio format. Available values are `pcm16`, `g711_ulaw`, and `g711_alaw`. |
+| **Response speed** | Controls spoken reply speed from `0.25` to `1.5`. |
+
+#### Turn Detection
 
 | Mode | Behavior |
 | --- | --- |
-| **None** | Push-to-talk. |
-| **Automatic** | Server voice activity detection. |
-| **Smart** | Semantic voice activity detection. |
+| **None** | No server voice activity detection. Use this for push-to-talk style sessions. |
+| **Automatic** | Uses server voice activity detection. This is the default. |
+| **Smart** | Uses semantic voice activity detection, so the model can wait for a more complete thought before replying. |
 
-**Direct voice mode** is available only when the chatbot is in popup mode and Realtime voice is enabled.
+#### Realtime Logs and Usage
+
+Realtime sessions create chat log entries for the user transcript and assistant transcript when a turn completes. If OpenAI returns usage data, AI Puffer records the token usage against the chatbot.
 
 > Screenshot placeholder: Audio settings showing Speech to Text, Text to Speech, and Realtime options.
 
@@ -495,13 +674,13 @@ Open **Interface** to control the visible chatbot UI.
 | Setting | Use it for |
 | --- | --- |
 | **Theme** | Select a built-in theme or a custom theme preset. |
-| **Download** | Let visitors download chatbot transcripts as text. PDF download is Pro. |
+| **Download** | Let visitors download chatbot transcripts. |
 | **Copy** | Show copy buttons on assistant messages. |
 | **Feedback** | Show like and dislike buttons on assistant messages. |
 | **Fullscreen** | Show the fullscreen button. |
 | **Sidebar** | Show conversation history for on-page chatbots. Sidebar is disabled in popup mode. |
 | **Starters** | Show starter prompts and edit their text. |
-| **Consent** | Show a consent step before chatbot starts, if available on your plan. |
+| **Consent** | Show a consent step before chatbot starts. |
 | **Greeting** | Main greeting text. |
 | **Subgreeting** | Secondary greeting text. |
 | **Placeholder** | Input field placeholder. |
@@ -524,7 +703,7 @@ Open **AI Puffer > Settings > Security**.
 | **IP Anonymization** | Stores anonymized IP addresses in logs. |
 | **Banned Words** | Blocks messages that contain configured words or phrases. |
 | **Banned IPs** | Blocks messages from configured IP addresses. |
-| **OpenAI Moderation** | Uses OpenAI moderation for OpenAI chatbots. This is a Pro feature. |
+| **OpenAI Moderation** | Uses OpenAI moderation for OpenAI chatbots. |
 
 Set custom block messages for banned words, banned IPs, and OpenAI moderation if you want visitors to see specific text.
 
@@ -561,7 +740,7 @@ Quota buttons can link to customer dashboard usage, credits, purchases, the buy 
 
 ## Connected Apps
 
-Connected Apps is a Pro feature. Use it to send chatbot events to external apps.
+Use Connected Apps to send chatbot events to external apps.
 
 1. Open **AI Puffer > Settings > Apps**.
 2. Add the app connection.
@@ -587,7 +766,7 @@ Chatbot recipe events include session started, user message submitted, response 
 
 ## Rules
 
-Rules is a Pro feature. Rules run inside a chatbot and can react to chatbot events.
+Rules run inside a chatbot and can react to chatbot events.
 
 ### Rule Events
 
@@ -635,12 +814,19 @@ Webhook and message fields support placeholders. Form placeholders include submi
 | Issue | Check |
 | --- | --- |
 | Provider has no models | Configure the provider and sync models in [AI Providers](/ai-providers). |
-| Web search does not appear | Use OpenAI, Google, Claude, or OpenRouter as the chatbot engine. |
+| Web search does not appear | Use OpenAI, Google, Claude, or an OpenRouter model that supports web search. |
 | Image upload does not appear | Use OpenAI, Claude, or an OpenRouter model that supports image input. |
-| File upload does not appear | Confirm Pro is active and file upload is enabled. |
+| Image generation command fails | Confirm Image generation is enabled, an image model is selected, and the message starts with one of the configured triggers. |
+| Image model is missing | Configure the provider and sync models in [AI Providers](/ai-providers). |
+| File upload does not appear | Confirm file upload is enabled. |
 | Pinecone or Qdrant upload fails | Confirm the index or collection, embedding provider, and embedding model are selected. |
 | Claude Files upload fails | Use Claude as the chatbot engine and Claude Files as the vector provider. |
-| Realtime voice does not appear | Confirm Pro is active and Realtime is enabled. |
+| Microphone button does not work | Use HTTPS, allow microphone permission, and test in a browser that supports audio recording. |
+| Speech to Text fails | Check the OpenAI API key, selected STT model, and audio size. |
+| Text to Speech play button does not appear | Confirm Text to Speech is enabled and a voice is selected. |
+| Text to Speech playback fails | Check the selected provider API key, voice, and model. |
+| Realtime voice does not appear | Confirm Realtime is enabled, OpenAI is configured, and a realtime model is selected. |
+| Realtime connection fails | Check HTTPS, microphone permission, OpenAI API key, and Realtime model access. |
 | Direct voice mode is disabled | Use popup mode and enable Realtime voice. |
 | Sidebar does not appear | Sidebar is available for on-page chatbots and is disabled in popup mode. |
 | External embed is blocked | Add the exact external site origin to Allowed domains. |

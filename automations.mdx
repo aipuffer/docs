@@ -32,16 +32,16 @@ WordPress cron depends on site traffic unless you run a real server cron. If sit
 
 ## Task Types
 
-| Task type | What it does | Availability |
-| --- | --- | --- |
-| **Manual Entry** | Creates posts from one or more topic lines. | Free |
-| **Import CSV** | Creates posts from CSV rows. | Free |
-| **RSS Feed** | Creates posts from RSS feed items. | Pro |
-| **Web Page** | Creates posts from extracted URL content. | Pro |
-| **Google Sheets** | Creates posts from spreadsheet rows. | Pro |
-| **Rewrite Content** | Updates existing titles, excerpts, content, or meta descriptions. | Pro |
-| **Content Indexing** | Indexes WordPress content into OpenAI, Pinecone, or Qdrant. | Free |
-| **Comment Replies** | Writes replies to approved WordPress comments. | Free |
+| Task type | What it does |
+| --- | --- |
+| **Manual Entry** | Creates posts from one or more topic lines. |
+| **Import CSV** | Creates posts from CSV rows. |
+| **RSS Feed** | Creates posts from RSS feed items. |
+| **Web Page** | Creates posts from extracted URL content. |
+| **Google Sheets** | Creates posts from spreadsheet rows. |
+| **Rewrite Content** | Updates existing titles, excerpts, content, or meta descriptions. |
+| **Content Indexing** | Indexes WordPress content into OpenAI, Pinecone, or Qdrant. |
+| **Comment Replies** | Writes replies to approved WordPress comments. |
 
 > Screenshot placeholder: New Task screen with task type groups: Create, Optimize, Index, and Engagement.
 
@@ -139,7 +139,7 @@ Do not include a header row unless you want the header row to be treated as a to
 
 ### RSS Feed
 
-RSS Feed is a Pro feature.
+RSS Feed creates posts from feed items.
 
 1. Add one RSS feed URL per line.
 2. Add include keywords if only matching feed items should be used.
@@ -150,7 +150,7 @@ Scheduled RSS tasks use the task's last run time and RSS history to avoid proces
 
 ### Web Page
 
-Web Page is a Pro feature.
+Web Page creates posts from extracted URL content.
 
 1. Add one URL per line.
 2. Configure the model and prompts.
@@ -169,7 +169,7 @@ Some sites block scraping or return very little readable text.
 
 ### Google Sheets
 
-Google Sheets is a Pro feature.
+Google Sheets creates posts from spreadsheet rows.
 
 1. Create a Google Cloud service account.
 2. Share the spreadsheet with the service account email.
@@ -237,8 +237,6 @@ Supported input date examples:
 Dates without a timezone are interpreted using the WordPress site timezone.
 
 ## Rewrite Content
-
-Rewrite Content is a Pro feature.
 
 Use it to update existing WordPress content from a schedule.
 
@@ -477,10 +475,6 @@ Possible causes:
 | Rewrite Content | The selected post type, status, author, and category filters must match content. |
 | Content Indexing | Matching content must be published. |
 | Comment Replies | Matching comments must be approved. |
-
-### Pro Task Is Locked
-
-RSS Feed, Web Page, Google Sheets, and Rewrite Content require an active Pro plan.
 
 ### Queue Item Failed
 

@@ -37,7 +37,7 @@ Open **Knowledge Base > Add data**, then choose one source type.
 | --- | --- |
 | **Q&A** | Add a question and answer pair. AI Puffer stores it as text in the selected store. |
 | **Text** | Paste custom text directly into the knowledge base. |
-| **Files** | Upload supported documents. File upload is a Pro feature in the current UI. |
+| **Files** | Upload supported documents. |
 | **Website** | Index WordPress posts, pages, products, or other public post types. |
 
 ### Q&A
@@ -122,8 +122,6 @@ Use indexing controls when WordPress content should include only selected fields
 6. Change labels if needed.
 7. Save.
 
-Indexing controls are a Pro feature in the current UI.
-
 > Screenshot placeholder: Content Indexing Controls sheet showing a post type, custom fields, taxonomies, and label fields.
 
 ## Document Chunking
@@ -137,8 +135,6 @@ Open **Knowledge Base > Settings > Document chunking**.
 | **Avg chars per token** | `4` | `2` to `10` |
 | **Max tokens per chunk** | `3000` | `256` to `8000` |
 | **Overlap tokens** | `150` | `0` to `1000` |
-
-Chunking settings are a Pro feature in the current UI.
 
 Keep overlap above `0` when a long document needs context to continue across chunk boundaries. Use smaller chunks if the embedding provider rejects long input.
 
@@ -300,7 +296,7 @@ Full API details should be documented in the API Reference.
 | --- | --- |
 | Provider target is missing | Configure the provider in **Settings**, then sync vector stores, indexes, or collections. |
 | Pinecone or Qdrant indexing fails | Confirm the embedding model dimension matches the index or collection vector size. |
-| File upload is unavailable | File upload in Knowledge Base is Pro-only in the current UI. |
+| File upload is unavailable | Confirm file upload is enabled and the file type is supported. |
 | File upload fails | Check file type, file size, PHP upload limits, and whether the file contains readable text. |
 | Website content indexes without expected fields | Open **Indexing controls** and confirm the post type fields, labels, taxonomies, and product attributes. |
 | Post list indexing controls are missing | Enable **Show index button** and confirm the user role has access to the vector content indexer module. |

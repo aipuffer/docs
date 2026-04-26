@@ -19,11 +19,11 @@ Some modes require additional services:
 
 | Feature | Requirement |
 | --- | --- |
-| RSS Feed | Pro |
-| Web Page | Pro |
-| Google Sheets | Pro and a Google Cloud service account |
-| Ollama | Pro and a reachable Ollama server |
-| WooCommerce product updates | Pro and WooCommerce active |
+| RSS Feed | A reachable RSS feed URL |
+| Web Page | Public URLs with readable page text |
+| Google Sheets | A Google Cloud service account |
+| Ollama | A reachable Ollama server |
+| WooCommerce product updates | WooCommerce active |
 | Generated or fetched images | A configured image provider, Pexels, or Pixabay |
 | Knowledge context | A configured knowledge source |
 
@@ -31,16 +31,16 @@ Some modes require additional services:
 
 Content Writer has create modes and update modes.
 
-| Mode | Use it for | Availability |
-| --- | --- | --- |
-| **Manual Entry** | Generate content from topics and keywords. | Free |
-| **Import CSV** | Generate content from CSV rows. | Free |
-| **RSS Feed** | Generate content from feed items. | Pro |
-| **Web Page** | Generate content from extracted page text. | Pro |
-| **Google Sheets** | Generate content from spreadsheet rows. | Pro |
-| **Rewrite Content** | Update existing posts and pages. | Free and Pro |
-| **Image Metadata** | Update attachment title, alt text, caption, and description. | Free and Pro |
-| **Optimize Products** | Update WooCommerce product content and search data. | Pro |
+| Mode | Use it for |
+| --- | --- |
+| **Manual Entry** | Generate content from topics and keywords. |
+| **Import CSV** | Generate content from CSV rows. |
+| **RSS Feed** | Generate content from feed items. |
+| **Web Page** | Generate content from extracted page text. |
+| **Google Sheets** | Generate content from spreadsheet rows. |
+| **Rewrite Content** | Update existing posts and pages. |
+| **Image Metadata** | Update attachment title, alt text, caption, and description. |
+| **Optimize Products** | Update WooCommerce product content and search data. |
 
 **Optimize Products** appears only when WooCommerce is active.
 
@@ -120,7 +120,7 @@ Do not add a header row unless you want the header row to be treated as a topic.
 
 ### RSS Feed
 
-RSS Feed is a Pro feature. Use it to generate content from feed items.
+Use RSS Feed to generate content from feed items.
 
 1. Select **RSS Feed**.
 2. Add one feed URL per line.
@@ -133,7 +133,7 @@ AI Puffer checks up to 15 items per feed. Automated RSS tasks keep a history of 
 
 ### Web Page
 
-Web Page is a Pro feature. Use it to generate content from a list of URLs.
+Use Web Page to generate content from a list of URLs.
 
 1. Select **Web Page**.
 2. Add one URL per line.
@@ -152,7 +152,7 @@ Some pages may block extraction or return very little readable text.
 
 ### Google Sheets
 
-Google Sheets is a Pro feature. Use it to generate content from spreadsheet rows.
+Use Google Sheets to generate content from spreadsheet rows.
 
 1. Create a Google Cloud service account.
 2. Download the service account JSON credentials.
@@ -191,7 +191,7 @@ Content Writer uses the AI providers configured in AI Puffer.
 | OpenRouter | Uses configured OpenRouter models. |
 | Azure | Uses configured Azure deployments. |
 | DeepSeek | Uses configured DeepSeek models. |
-| Ollama | Pro feature. Uses local or self-hosted Ollama models. |
+| Ollama | Uses local or self-hosted Ollama models. |
 
 Model settings include:
 
@@ -368,7 +368,7 @@ For existing content prompts, include at least one source placeholder:
 {categories}
 ```
 
-Free plan users can update title and content for non-product posts. Meta description, focus keyword, excerpt, tags, URL updates, and WooCommerce product updates require Pro.
+Available update fields depend on the selected content type and active plugins.
 
 ### Image Metadata
 
@@ -401,11 +401,11 @@ Image metadata prompts can use:
 {image_context}
 ```
 
-Free plan users can update one selected image at a time. Bulk image metadata updates require Pro.
+You can update one selected image or use bulk updates when available in your installed plugin version.
 
 ### WooCommerce Products
 
-Optimize Products is a Pro feature. It appears when WooCommerce is active.
+Optimize Products appears when WooCommerce is active.
 
 Use it to update product titles, descriptions, excerpts, search data, tags, and URLs.
 
@@ -484,7 +484,7 @@ AI Puffer also emits a `content.generated` event after generated content is comp
 | "AI model selection is required" | Select a model before generating. |
 | "Custom Content Prompt cannot be empty" | Open **Prompts** and fill the Content prompt. |
 | CSV header becomes a post | Remove the header row from the CSV. |
-| RSS, URL, or Google Sheets mode is locked | These modes require Pro. |
+| RSS, URL, or Google Sheets mode is locked | Confirm the mode is enabled and available in your installed plugin version. |
 | Google Sheets permission denied | Share the spreadsheet with the service account email and verify the Sheet ID. |
 | URL extraction returns little text | The page may block scraping or load content through scripts. |
 | Images are not created | Check the image provider, image model, and required API keys. |

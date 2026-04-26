@@ -54,14 +54,14 @@ AI Puffer also creates example forms on activation, including a blog post genera
 
 ### Field Types
 
-| Field | Use it for | Availability |
-| --- | --- | --- |
-| **Text Input** | Short text values. | Free |
-| **Text Area** | Longer text values. | Free |
-| **Dropdown** | One selected option from a list. | Free |
-| **Checkbox** | One or more selected options. | Free |
-| **Radio Buttons** | One selected option from a visible list. | Free |
-| **File Upload** | Upload a `.txt` or `.pdf` file and use the extracted text in the prompt. | Pro |
+| Field | Use it for |
+| --- | --- |
+| **Text Input** | Short text values. |
+| **Text Area** | Longer text values. |
+| **Dropdown** | One selected option from a list. |
+| **Checkbox** | One or more selected options. |
+| **Radio Buttons** | One selected option from a visible list. |
+| **File Upload** | Upload a `.txt` or `.pdf` file and use the extracted text in the prompt. |
 
 File Upload parses text from TXT and PDF files. It does not parse Word documents.
 
@@ -150,7 +150,7 @@ Each form has its own provider and model.
 | OpenRouter | Uses configured OpenRouter models. |
 | Azure | Uses configured Azure deployments. |
 | DeepSeek | Uses configured DeepSeek models. |
-| Ollama | Pro feature. Uses local or self-hosted Ollama models. |
+| Ollama | Uses local or self-hosted Ollama models. |
 
 Open the settings button beside the model selector to edit generation parameters.
 
@@ -210,8 +210,6 @@ Web search is available for OpenAI, Google, Claude, and OpenRouter. Availability
 
 ## Multi-Step Forms
 
-Multi-step forms are a Pro feature.
-
 Use multi-step forms when you want to show one row at a time.
 
 1. Add two or more layout rows.
@@ -248,8 +246,6 @@ Condition operators:
 Conditions can use fields from earlier rows. Skipped step inputs are cleared before submission.
 
 ## Connected Apps
-
-Connected apps are a Pro feature.
 
 AI Forms can send completed submissions to connected apps through recipes. The event is emitted after the AI response is complete, so mappings can include both submitted inputs and the generated response.
 
@@ -312,7 +308,7 @@ Replace `123` with the form ID.
 | `show_provider` | `true`, `false` | `false` | Shows the provider selector. |
 | `show_model` | `true`, `false` | `false` | Shows the model selector. |
 | `save_button` | `true`, `false` | `false` | Shows Save as Post after output. |
-| `pdf_download` | `true`, `false` | `false` | Shows PDF download after output. Pro only. |
+| `pdf_download` | `true`, `false` | `false` | Shows PDF download after output. |
 | `copy_button` | `true`, `false` | `false` | Shows a copy button after output. |
 
 Examples:
@@ -342,13 +338,11 @@ The block renders the same form as the shortcode.
 | --- | --- | --- |
 | **Copy** | Copies the generated response. | Available after output. |
 | **Save as Post** | Saves the generated response as a draft WordPress post. | Logged-in user with `edit_posts`. |
-| **Download PDF** | Downloads the generated response as a PDF. | Pro and `pdf_download="true"`. |
+| **Download PDF** | Downloads the generated response as a PDF. | Shortcode uses `pdf_download="true"`. |
 
 Save as Post uses the form title as the post title and saves the output as draft content.
 
 ## File Upload
-
-File Upload is a Pro feature.
 
 1. Add a **File Upload** field to the form.
 2. Set the field variable name.
@@ -474,7 +468,7 @@ This allows usage rules to target all AI Forms or a specific form.
 | Model dropdown is empty | Sync or configure the provider in [AI Providers](/ai-providers). |
 | Placeholder stays blank | Check that the field variable name matches the prompt placeholder. |
 | Required checkbox does not validate | Make sure at least one option exists and one option is selected. |
-| File upload fails | Confirm Pro is active and the file is TXT or PDF. |
+| File upload fails | Confirm the file is TXT or PDF and contains readable text. |
 | Save as Post fails | The current user must be logged in and have permission to edit posts. |
-| PDF button does not appear | Confirm Pro is active and the shortcode uses `pdf_download="true"`. |
+| PDF button does not appear | Confirm the shortcode uses `pdf_download="true"`. |
 | App recipe does not run | Confirm the recipe is enabled, connected, scoped to the form, and uses the `form.submitted` event. |
