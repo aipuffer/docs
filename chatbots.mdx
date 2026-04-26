@@ -475,12 +475,24 @@ Image tools cover two separate features:
 
 Image analysis lets visitors attach an image to a chat message. The image is sent with the next message to the chatbot's selected model.
 
-Image analysis is available for OpenAI, Claude, and OpenRouter models that support image input. Visitors can upload `.jpg`, `.jpeg`, `.png`, and `.webp` files. AI Puffer accepts one image per message, with a **20 MB** frontend limit.
+Image analysis uses the chatbot's selected provider and model.
+
+| Provider | Support | Notes |
+| --- | --- | --- |
+| **OpenAI** | Yes | Uses the selected OpenAI chat model. |
+| **Claude** | Yes | Uses the selected Claude chat model. |
+| **OpenRouter** | Model-dependent | The selected model must support image input. Sync models if the option does not appear. |
+| **Ollama** | Model-dependent | The selected local model must be vision-capable. Sync Ollama models first. |
+| **Google** | No | Chatbot image analysis is not exposed for Google. |
+| **Azure** | No | Chatbot image analysis is not exposed for Azure. |
+| **DeepSeek** | No | Chatbot image analysis is not exposed for DeepSeek. |
+
+Visitors can upload `.jpg`, `.jpeg`, `.png`, and `.webp` files. AI Puffer accepts one image per message, with a **20 MB** frontend limit.
 
 To enable image analysis:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **General**, select **OpenAI**, **Claude**, or an OpenRouter model that supports image input.
+2. In **General**, select a supported provider and model.
 3. Open **Tools**.
 4. Add **Image analysis** to **Enabled tools**.
 5. Set **Image analysis** to **Yes**.
@@ -506,7 +518,17 @@ Image generation lets visitors create a new image from a chat command. The visit
 
 Each command returns one image.
 
-Image generation models can come from OpenAI, Azure, Google, OpenRouter, or Replicate. 
+Image generation uses a separate image model. It does not use the chatbot's answer model.
+
+| Provider | Support | Model source |
+| --- | --- | --- |
+| **OpenAI** | Yes | Built-in GPT Image models. |
+| **Google** | Yes | Synced Google image models. |
+| **Azure** | Yes | Synced Azure image deployments. |
+| **OpenRouter** | Model-dependent | Synced OpenRouter models with image output. |
+| **Replicate** | Yes | Add the API key under **Settings > Integrations > Replicate**, then sync models. |
+
+The chatbot image generation model list includes those providers only.
 
 If a model is missing, configure the provider and sync models in [AI Providers](/ai-providers).
 
@@ -1060,25 +1082,3 @@ Available operators include equals, contains, starts with, ends with, regex matc
 Webhook and message fields support placeholders. Form placeholders include submitted data, display values, labels, and individual submitted fields.
 
 ![Chatbot Rules](/images/screenshots/chatbots/rules.png)
-
-## Troubleshooting
-
-| Issue | Check |
-| --- | --- |
-| Provider has no models | Configure the provider and sync models in [AI Providers](/ai-providers). |
-| Web search does not appear | Use OpenAI, Google, Claude, or an OpenRouter model that supports web search. |
-| Image upload does not appear | Use OpenAI, Claude, or an OpenRouter model that supports image input. |
-| Image generation command fails | Confirm Image generation is enabled, an image model is selected, and the message starts with one of the configured triggers. |
-| Image model is missing | Configure the provider and sync models in [AI Providers](/ai-providers). |
-| File upload does not appear | Confirm file upload is enabled. |
-| Pinecone or Qdrant upload fails | Confirm the index or collection, embedding provider, and embedding model are selected. |
-| Claude Files upload fails | Use Claude as the chatbot engine and Claude Files as the vector provider. |
-| Microphone button does not work | Use HTTPS, allow microphone permission, and test in a browser that supports audio recording. |
-| Speech to Text fails | Check the OpenAI API key, selected STT model, and audio size. |
-| Text to Speech play button does not appear | Confirm Text to Speech is enabled and a voice is selected. |
-| Text to Speech playback fails | Check the selected provider API key, voice, and model. |
-| Realtime voice does not appear | Confirm Realtime is enabled, OpenAI is configured, and a realtime model is selected. |
-| Realtime connection fails | Check HTTPS, microphone permission, OpenAI API key, and Realtime model access. |
-| Direct voice mode is disabled | Use popup mode and enable Realtime voice. |
-| Sidebar does not appear | Sidebar is available for on-page chatbots and is disabled in popup mode. |
-| External embed is blocked | Add the exact external site origin to Allowed domains. |
