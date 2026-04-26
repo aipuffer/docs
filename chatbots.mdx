@@ -66,22 +66,7 @@ Each chatbot has a shortcode. For example:
 
 1. Select **Mode: Popup**.
 2. Choose whether the popup should be **Site-Wide**.
-3. Open the **Popup** section.
-4. Configure the popup settings.
-5. Save and test the site frontend.
-
-![Chatbot popup settings](/images/screenshots/chatbots/chatbot-popup-settings.png)
-
-| Setting | What it controls |
-| --- | --- |
-| Position | Where the launcher appears on the page. |
-| Launcher shape | The launcher button shape. |
-| Launcher size | The launcher button size. |
-| Auto-open delay | How long to wait before opening automatically. |
-| Hint | Small text shown near the launcher. |
-| Icon | Launcher icon. |
-| Avatar | Image shown in the chatbot header. |
-| Online text | Status text shown under the chatbot name. |
+3. Save and test the site frontend.
 
 Only one chatbot can be active as a site-wide popup at a time. If you enable a new site-wide popup chatbot, AI Puffer disables site-wide mode for the previous one.
 
@@ -269,27 +254,25 @@ Pinecone and Qdrant need an embedding model because AI Puffer must turn your con
 
 OpenAI Vector Stores do not need this setting in AI Puffer. OpenAI handles the vector store search on its side.
 
-<Accordion title="Supported embedding models">
-
-### OpenAI
+<Accordion title="OpenAI">
 
 | Model | Dimension |
 | --- | --- |
 | `text-embedding-3-small` | 1536 |
 | `text-embedding-3-large` | 3072 |
 | `text-embedding-ada-002` | 1536 |
+</Accordion>
 
-### Google
+<Accordion title="Google">
 
 | Model | Dimension |
 | --- | --- |
 | `gemini-embedding-2-preview` | 3072 |
 | `gemini-embedding-001` | 3072 |
 | `models/text-embedding-004` | 768 |
+</Accordion>
 
-### OpenRouter
-
-OpenRouter model sync can return these models:
+<Accordion title="OpenRouter">
 
 | Model | Dimension |
 | --- | --- |
@@ -317,10 +300,9 @@ OpenRouter model sync can return these models:
 | `sentence-transformers/paraphrase-minilm-l6-v2` | 384 |
 | `thenlper/gte-base` | 768 |
 | `thenlper/gte-large` | 1024 |
+</Accordion>
 
-### Ollama
-
-Our plugin lists embedding-capable local models detected during Ollama model sync.
+<Accordion title="Ollama">
 
 | Model | Dimension |
 | --- | --- |
@@ -344,8 +326,9 @@ Our plugin lists embedding-capable local models detected during Ollama model syn
 | `granite-embedding:30m` | 384 |
 | `granite-embedding` / `granite-embedding:278m` | 768 |
 | `bge-large` | 1024 |
+</Accordion>
 
-### Azure
+<Accordion title="Azure">
 
 Azure OpenAI embedding deployments are synced from your Azure resource. Use the dimension of the model behind the deployment.
 </Accordion>
@@ -399,12 +382,18 @@ To enable file upload:
 2. In **Knowledge**, select **Vector** as a data source.
 3. Select the **Vector provider**.
 4. Configure vector provider.
+
+![Chatbot Vector OpenAI](/images/screenshots/chatbots/chatbot-vector-openai.png)
+
 5. Open **Tools**.
 6. Add **File upload** to **Enabled tools**.
 7. Save the chatbot.
+
+![Chatbot File Upload](/images/screenshots/chatbots/chatbot-file-upload.png)
+
 8. Test the chatbot on the frontend and upload a `.txt` or `.pdf` file.
 
-> Screenshot placeholder: Tools section with File upload enabled.
+![Chatbot File Upload Demo](/images/screenshots/chatbots/chatbot-file-upload-demo.png)
 
 ### Web Search
 
@@ -421,15 +410,16 @@ To enable web search:
 3. In **Tools**, add **Web search** to **Enabled tools**.
 4. Set **Web search** to **Yes**.
 5. Click **Options**.
+
+![Chatbot Web](/images/screenshots/chatbots/chatbot-web.png)
+
 6. Configure the provider settings.
 7. Save the chatbot.
 8. Test the chatbot on the frontend.
 
-> Screenshot placeholder: Tools section with Web search enabled.
+![Chatbot We Demo](/images/screenshots/chatbots/chatbot-web-demo.png)
 
-#### Shared Options
-
-These options appear in the Web Search options panel.
+These options appear for every web search provider:
 
 | Option | What it does |
 | --- | --- |
@@ -438,41 +428,41 @@ These options appear in the Web Search options panel.
 | **Sources label** | Changes the label shown above source links. |
 | **Searching web text** | Changes the temporary status text shown while a web search is running. |
 
-#### OpenAI Options
+Provider-specific options are shown based on the chatbot engine.
+
+<Accordion title="OpenAI">
+| Option | What it does |
+| --- | --- |
+| **Search context size** | Controls how much web-search context OpenAI can use. |
+| **User location** | Sends approximate location only when local results matter. |
+</Accordion>
+
+<Accordion title="Google">
+| Option | What it does |
+| --- | --- |
+| **Mode** | Controls Gemini grounding mode. |
+| **Retrieval threshold** | Applies only to Dynamic mode. Lower values search more often. |
+</Accordion>
+
+<Accordion title="Claude">
+| Option | What it does |
+| --- | --- |
+| **Max uses** | Limits web searches per answer. |
+| **User location** | Sends approximate country, city, region, or timezone. |
+| **Allowed domains** | Restricts web search to specific domains. |
+| **Blocked domains** | Excludes specific domains. |
+| **Cache TTL** | Sets optional Claude cache time: None, 5 minutes, or 1 hour. |
+</Accordion>
+
+<Accordion title="OpenRouter">
+OpenRouter web search depends on the selected model.
 
 | Option | What it does |
 | --- | --- |
-| **Search context size** | Controls how much web-search context OpenAI can use. Use **Medium** unless answers need less or more web context. |
-| **User location** | Optionally sends an approximate country, city, region, or timezone. Use it only when local results matter. |
-
-#### Google Options
-
-Google uses Search Grounding.
-
-| Option | What it does |
-| --- | --- |
-| **Mode** | **Default** lets the model decide how to use grounding. **Dynamic** is for Gemini 1.5 Flash. |
-| **Retrieval threshold** | Applies only to Dynamic mode. Lower values search more often. Higher values are stricter. |
-
-#### Claude Options
-
-| Option | What it does |
-| --- | --- |
-| **Max uses** | Maximum number of web searches Claude can make for one answer. The allowed range is 1 to 20. |
-| **User location** | Optionally sends an approximate country, city, region, or timezone. |
-| **Allowed domains** | Restricts Claude web search to specific domains. Separate domains with commas or new lines. |
-| **Blocked domains** | Excludes specific domains. If allowed domains are set, blocked domains are ignored. |
-| **Cache TTL** | Optional Claude cache setting. Available values are None, 5 minutes, and 1 hour. |
-
-#### OpenRouter Options
-
-OpenRouter web search depends on the selected model. If the web/search toggle does not appear on the frontend, choose a model that supports web search.
-
-| Option | What it does |
-| --- | --- |
-| **Engine** | **Auto** is recommended. **Native** and **Exa** force a specific search engine when supported. |
-| **Max results** | Maximum number of search results. The allowed range is 1 to 10. |
-| **Search prompt** | Optional instruction that tells OpenRouter what kind of search to run. |
+| **Engine** | Chooses Auto, Native, or Exa search when supported. |
+| **Max results** | Limits search results from 1 to 10. |
+| **Search prompt** | Adds search-specific instructions. |
+</Accordion>
 
 ### Images and Vision
 
@@ -485,43 +475,26 @@ Image tools cover two separate features:
 
 Image analysis lets visitors attach an image to a chat message. The image is sent with the next message to the chatbot's selected model.
 
-#### Provider Support
+Image analysis is available for OpenAI, Claude, and OpenRouter models that support image input. Visitors can upload `.jpg`, `.jpeg`, `.png`, and `.webp` files. AI Puffer accepts one image per message, with a **20 MB** frontend limit.
 
-| Chatbot provider | Supported | Notes |
-| --- | --- | --- |
-| **OpenAI** | Yes | Uses the selected OpenAI chat model. |
-| **Claude** | Yes | Uses the selected Claude chat model. |
-| **OpenRouter** | Model-dependent | Requires an OpenRouter model that supports image input. |
-| **Google** | No | Image analysis is not shown for Google chatbots. |
-| **Azure** | No | Image analysis is not shown for Azure chatbots. |
-| **DeepSeek** | No | Image analysis is not shown for DeepSeek chatbots. |
-| **Ollama** | No | Image analysis is not shown for Ollama chatbots. |
-
-#### Supported Images
-
-| File type | Notes |
-| --- | --- |
-| `.jpg` / `.jpeg` | Supported. |
-| `.png` | Supported. |
-| `.webp` | Supported. |
-
-AI Puffer accepts one image per message. The frontend limit is **20 MB**.
-
-#### Enable Image Analysis
+To enable image analysis:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
 2. In **General**, select **OpenAI**, **Claude**, or an OpenRouter model that supports image input.
 3. Open **Tools**.
 4. Add **Image analysis** to **Enabled tools**.
 5. Set **Image analysis** to **Yes**.
+
+![Chatbot Image Analysis](/images/screenshots/chatbots/chatbot-image-analysis.png)
+
 6. Save the chatbot.
 7. Test the chatbot on the frontend.
 
-> Screenshot placeholder: Tools section with Image analysis enabled.
+![Chatbot Image Analysis Demo](/images/screenshots/chatbots/chatbot-image-analysis-demo.png)
 
-On the frontend, visitors use the image upload button, select an image, type a question, and send the message.
+On the frontend, visitors use the image upload button, select an image, type a question, and send the message. 
 
-If File Upload and Image Analysis are both enabled, the attachment button opens a small menu. If only Image Analysis is enabled, the button opens the image picker directly.
+If File Upload and Image Analysis are both enabled, the attachment button opens a small menu.
 
 #### Image Generation
 
@@ -533,19 +506,11 @@ Image generation lets visitors create a new image from a chat command. The visit
 
 Each command returns one image.
 
-#### Image Model Support
-
-| Provider | How models appear |
-| --- | --- |
-| **OpenAI** | Built-in GPT Image models. |
-| **Azure** | Synced Azure image deployments. |
-| **Google** | Synced Google image models. |
-| **OpenRouter** | Synced models that support image output. |
-| **Replicate** | Models configured in Integrations. |
+Image generation models can come from OpenAI, Azure, Google, OpenRouter, or Replicate. 
 
 If a model is missing, configure the provider and sync models in [AI Providers](/ai-providers).
 
-#### Enable Image Generation
+To enable image generation:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
 2. Open **Tools**.
@@ -561,17 +526,15 @@ Triggers are comma-separated and must start with `/`. Examples:
 /image, /generate, /draw
 ```
 
-> Screenshot placeholder: Tools section with Image generation enabled, model selected, and triggers set.
-
-#### How Chat Image Generation Works
+![Chatbot Image Generation](/images/screenshots/chatbots/chatbot-image-generation.png)
 
 When a visitor uses an image trigger, AI Puffer extracts the prompt after the trigger and sends it to the selected image model. The original command is saved in the conversation log, and the generated image reply is shown in the chat.
 
-Chat image generation uses the provider defaults from the Images module. Use **AI Puffer > Images** to adjust provider defaults such as size, quality, and other model-specific options.
+![Chatbot Image Generation Demo](/images/screenshots/chatbots/chatbot-image-generation-demo.png)
 
 ### Audio and Speech
 
-Audio tools are configured per chatbot under **Tools > Audio**.
+Audio tools are configured per chatbot under **Tools**.
 
 | Tool | What it does |
 | --- | --- |
@@ -585,19 +548,28 @@ Speech to Text adds a microphone button to the chatbot input.
 
 When a visitor clicks the microphone, AI Puffer records the audio in the browser, uploads it to WordPress, sends it to the speech-to-text provider, then submits the transcript as the user message.
 
-The chatbot UI currently exposes OpenAI speech-to-text models. The default model is `whisper-1`.
+Speech to Text is currently available for OpenAI.
 
-#### Enable Speech to Text
+| Provider | Speech to Text model |
+| --- | --- |
+| **OpenAI** | `whisper-1` |
+
+To enable speech to text:
 
 1. Configure OpenAI in [AI Providers](/ai-providers).
 2. Go to **AI Puffer > Chatbots** and select the chatbot.
 3. Open **Tools**.
 4. Add **Speech to Text** to **Enabled tools**.
 5. Set **Speech to Text** to **Yes**.
+
+![Chatbot Speech to Text](/images/screenshots/chatbots/chatbot-speech-to-text.png)
+
 6. Select the model if the model selector is shown.
 7. Save the chatbot and test the microphone on the frontend.
 
 The browser must allow microphone access. The site must use HTTPS, except for localhost testing. Recorded audio uploads are limited to **4 MB** by default.
+
+![Chatbot Speech to Text Demo](/images/screenshots/chatbots/chatbot-speech-to-text-demo.png)
 
 #### Text to Speech
 
@@ -605,15 +577,15 @@ Text to Speech adds playback controls for assistant replies.
 
 When a visitor clicks the play button, AI Puffer sends the assistant reply text to the selected text-to-speech provider and plays the returned audio in the browser.
 
-#### Text to Speech Providers
+Text to Speech is available for Google, OpenAI, and ElevenLabs.
 
-| Provider | What to configure |
+| Provider | Text to Speech models |
 | --- | --- |
-| **Google** | Add the Google API key, sync voices, then select a voice. |
-| **OpenAI** | Add the OpenAI API key, then select a voice and TTS model. |
-| **ElevenLabs** | Add the ElevenLabs API key, sync voices and models, then select a voice. The model field can be left empty if you want ElevenLabs to use its default. |
+| **OpenAI** | `tts-1`, `tts-1-hd` |
+| **ElevenLabs** | `eleven_v3`, `eleven_multilingual_v2`, `eleven_flash_v2_5`, `eleven_flash_v2` |
+| **Google** | Uses synced Google voices. |
 
-#### Enable Text to Speech
+To enable text to speech:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
 2. Open **Tools**.
@@ -624,11 +596,23 @@ When a visitor clicks the play button, AI Puffer sends the assistant reply text 
 7. Enable **Auto play** only if replies should play automatically.
 8. Save the chatbot and test the play button on an assistant reply.
 
+![Chatbot Text to Speech](/images/screenshots/chatbots/chatbot-text-to-speech.png)
+
+For ElevenLabs, add your API key under **AI Puffer > Settings > Integrations** before selecting voices or models.
+
+![ElevenLabs API key](/images/screenshots/chatbots/elevenlabs-api-key.png)
+
 #### Realtime Voice Agents
 
 Realtime Voice is separate from Speech to Text and Text to Speech. It creates a live WebRTC session with OpenAI Realtime, streams microphone audio, receives spoken replies, and logs completed turns.
 
-#### Enable Realtime Voice
+Realtime Voice is currently available for OpenAI.
+
+| Provider | Realtime models |
+| --- | --- |
+| **OpenAI** | `gpt-4o-realtime-preview`, `gpt-4o-mini-realtime` |
+
+To enable realtime voice:
 
 1. Configure OpenAI in [AI Providers](/ai-providers).
 2. Go to **AI Puffer > Chatbots** and select the chatbot.
@@ -640,9 +624,9 @@ Realtime Voice is separate from Speech to Text and Text to Speech. It creates a 
 8. Choose turn detection.
 9. Save the chatbot and test voice mode on the frontend.
 
-Supported realtime models are `gpt-4o-realtime-preview` and `gpt-4o-mini-realtime`.
+![Realtime Voice](/images/screenshots/chatbots/chatbot-realtime-voice.png)
 
-#### Realtime Settings
+Realtime options:
 
 | Setting | What it does |
 | --- | --- |
@@ -653,7 +637,7 @@ Supported realtime models are `gpt-4o-realtime-preview` and `gpt-4o-mini-realtim
 | **Audio format** | Sets the input and output audio format. Available values are `pcm16`, `g711_ulaw`, and `g711_alaw`. |
 | **Response speed** | Controls spoken reply speed from `0.25` to `1.5`. |
 
-#### Turn Detection
+Turn detection options:
 
 | Mode | Behavior |
 | --- | --- |
@@ -661,26 +645,101 @@ Supported realtime models are `gpt-4o-realtime-preview` and `gpt-4o-mini-realtim
 | **Automatic** | Uses server voice activity detection. This is the default. |
 | **Smart** | Uses semantic voice activity detection, so the model can wait for a more complete thought before replying. |
 
-#### Realtime Logs and Usage
-
 Realtime sessions create chat log entries for the user transcript and assistant transcript when a turn completes. If OpenAI returns usage data, AI Puffer records the token usage against the chatbot.
-
-> Screenshot placeholder: Audio settings showing Speech to Text, Text to Speech, and Realtime options.
 
 ## Interface
 
 Open **Interface** to control the visible chatbot UI.
 
+![Chatbot Interface](/images/screenshots/chatbots/chatbot-interface.png)
+
+### Theme
+
+Choose **Light**, **Dark**, **ChatGPT**, or one of the custom color presets from the **Theme** menu.
+
+To build your own theme, select **Custom** and click **Edit**. The custom editor lets you change the main colors, bubble radius, font, inline width, popup width, chat height, and advanced colors for messages, header, footer, input area, buttons, and sidebar. Use **Reset** to return the custom theme fields to their defaults.
+
+![Chatbot Theme](/images/screenshots/chatbots/chatbot-theme.png)
+
+### Popup
+
+Popup mode adds a launcher button to the page. When the visitor clicks it, the chatbot opens in a floating chat window.
+
+To configure a popup:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. Set **Mode** to **Popup**.
+3. Set **Site-Wide** to **Yes** if the launcher should appear across the site.
+4. Open **Popup**.
+5. Configure the launcher position, shape, size, hint, icon, avatar, and online text.
+6. Save the chatbot and test it on the frontend.
+
+![Chatbot popup settings](/images/screenshots/chatbots/chatbot-popup-settings.png)
+
 | Setting | Use it for |
 | --- | --- |
-| **Theme** | Select a built-in theme or a custom theme preset. |
-| **Download** | Let visitors download chatbot transcripts. |
+| **Position** | Place the launcher in a page corner. Options are bottom right, bottom left, top right, and top left. |
+| **Shape** | Set the launcher shape to circle, square, or none. |
+| **Size** | Set the launcher size to small, medium, large, or x-large. |
+| **Auto-open** | Open the popup automatically after a delay, or keep it off. |
+| **Hint** | Show a short message near the launcher. Click **Edit** to set the text, timing, size, frequency, desktop/mobile visibility, and dismiss button. |
+| **Online text** | Set the status text shown in the chatbot header. |
+| **Icon** | Choose a built-in launcher icon or enter a custom icon URL. |
+| **Avatar** | Choose a built-in header avatar or enter a custom avatar URL. |
+
+### UI Features
+
+Use UI features to choose which controls appear in the chatbot.
+
+| Setting | Use it for |
+| --- | --- |
+| **Download** | Let visitors download chatbot transcripts as TXT or PDF. |
 | **Copy** | Show copy buttons on assistant messages. |
 | **Feedback** | Show like and dislike buttons on assistant messages. |
 | **Fullscreen** | Show the fullscreen button. |
 | **Sidebar** | Show conversation history for on-page chatbots. Sidebar is disabled in popup mode. |
-| **Starters** | Show starter prompts and edit their text. |
-| **Consent** | Show a consent step before chatbot starts. |
+
+![Chatbot UI features](/images/screenshots/chatbots/chatbot-ui-features.png)
+
+#### Conversation Starters
+
+Conversation starters are quick prompts shown inside the chatbot before the first message. Use them to help visitors begin with common questions.
+
+To enable and customize starters:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. Open **Interface**.
+3. In **UI features**, enable **Starters**.
+4. Click **Edit**.
+5. Add one starter prompt per line.
+6. Keep the list to 6 prompts or fewer.
+7. Save the chatbot.
+
+![Chatbot Starters](/images/screenshots/chatbots/chatbot-starters.png)
+
+#### Consent Notice
+
+Consent shows a notice before the conversation starts. The chatbot input stays disabled until the visitor clicks the consent button.
+
+To enable and customize the consent notice:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. Open **Interface**.
+3. In **UI features**, enable **Consent**.
+4. Click **Edit**.
+5. Set the **Title**.
+6. Set the **Button label**.
+7. Write the **Message**.
+8. Save the chatbot.
+
+![Chatbot Consent](/images/screenshots/chatbots/chatbot-consent.png)
+
+### Text Labels
+
+Use text labels to change the words visitors see in the chatbot.
+
+| Setting | Use it for |
+| --- | --- |
 | **Greeting** | Main greeting text. |
 | **Subgreeting** | Secondary greeting text. |
 | **Placeholder** | Input field placeholder. |
@@ -688,13 +747,9 @@ Open **Interface** to control the visible chatbot UI.
 | **Typing text** | Text shown while the chatbot is generating. |
 | **Status text** | Text shown while knowledge context is being retrieved. |
 
-> Screenshot placeholder: Interface section with Theme and UI features.
-
 ## Security and Privacy
 
 Chatbots use both global security settings and chatbot-level controls.
-
-### Global Security Settings
 
 Open **AI Puffer > Settings > Security**.
 
@@ -707,28 +762,22 @@ Open **AI Puffer > Settings > Security**.
 
 Set custom block messages for banned words, banned IPs, and OpenAI moderation if you want visitors to see specific text.
 
-### Chatbot Controls
-
-| Control | Where |
-| --- | --- |
-| **Consent** | **Chatbots > Interface > UI features > Consent** |
-| **Allowed embed domains** | **Chatbots > Mode: External > External Setup** |
-| **Claude web allowed/blocked domains** | **Chatbots > Tools > Web search > Claude Options** |
-
 Chatbot logs include conversation messages, usage data, feedback, and metadata needed for history and reporting. Enable IP anonymization if you do not want full IP addresses stored in logs.
 
-> Screenshot placeholder: Security settings with IP Anonymization, banned words, banned IPs, and OpenAI Moderation.
+![Chatbot Security](/images/screenshots/chatbots/chatbot-security.png)
 
 ## Limits
 
-Open **Limits** to control token quotas for a chatbot.
+Limits control how much a visitor can use this chatbot before AI Puffer stops new messages.
+
+AI Puffer checks the visitor's quota before a chat request starts and records usage after the response. Guests are tracked by session. Logged-in users are tracked on their WordPress account. Leave a quota empty for unlimited usage, or set it to `0` to block that group.
 
 | Setting | Use it for |
 | --- | --- |
 | **Quota mode** | Use the same quota for all logged-in users or define role-based quotas. |
-| **Guest quota** | Token quota for visitors who are not logged in. Leave empty for unlimited. |
-| **User quota** | Token quota for logged-in users when using general quota mode. Leave empty for unlimited. |
-| **Role-based quotas** | Token quota per WordPress role. |
+| **Guest quota** | Usage quota for visitors who are not logged in. Empty means unlimited. `0` blocks guests. |
+| **User quota** | Usage quota for logged-in users when using general quota mode. Empty means unlimited. `0` blocks logged-in users. |
+| **Role-based quotas** | Usage quota per WordPress role. Empty means unlimited for that role. |
 | **Reset period** | Never, daily, weekly, or monthly. |
 | **Quota reached message** | Message shown when the visitor reaches the quota. |
 | **Primary button** | Optional button shown after the quota message. |
@@ -736,33 +785,236 @@ Open **Limits** to control token quotas for a chatbot.
 
 Quota buttons can link to customer dashboard usage, credits, purchases, the buy credits page, a custom URL, or no button.
 
-> Screenshot placeholder: Limits section with guest quota, user quota, reset period, and quota message.
+You can also sell prepaid credits with WooCommerce products. See [Usage](/usage#woocommerce-credit-packages) for credit packages, pricing rules, balances, and the customer dashboard.
+
+![Chatbot Limits](/images/screenshots/chatbots/chatbot-limits.png)
 
 ## Connected Apps
 
 Use Connected Apps to send chatbot events to external apps.
 
-1. Open **AI Puffer > Settings > Apps**.
-2. Add the app connection.
-3. Create or enable a recipe.
-4. Scope the recipe to all chatbots or selected chatbots.
-5. Return to **Chatbots > Connected Apps** to review recipes for the current chatbot.
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: '6px', alignItems: 'center', margin: '18px 0 22px' }}>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/slack.svg" alt="Slack" style={{ maxHeight: '21px', maxWidth: '64px' }} />
+  </span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/hubspot.svg" alt="HubSpot" style={{ maxHeight: '21px', maxWidth: '70px' }} />
+  </span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/notion.svg" alt="Notion" style={{ maxHeight: '22px', maxWidth: '64px' }} />
+  </span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/pipedrive.svg" alt="Pipedrive" style={{ maxHeight: '21px', maxWidth: '70px' }} />
+  </span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/zapier.svg" alt="Zapier" style={{ maxHeight: '21px', maxWidth: '64px' }} />
+  </span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/make.svg" alt="Make" style={{ maxHeight: '21px', maxWidth: '64px' }} />
+  </span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: '38px', minWidth: 0, padding: '0 8px', border: '1px solid #E2E8F0', borderRadius: '10px', background: '#FFFFFF' }}>
+    <img src="/images/logos/apps/n8n.svg" alt="n8n" style={{ maxHeight: '21px', maxWidth: '64px' }} />
+  </span>
+</div>
 
-Supported app destinations:
+Connected Apps has two parts: a **connection** stores the app credentials, and a **recipe** decides which chatbot event is sent to that app.
 
-| App | Common use |
+Chatbot recipes can run on these events:
+
+| Event | When it runs |
 | --- | --- |
-| **Slack** | Send chatbot questions, responses, or session alerts to a channel. |
-| **HubSpot** | Sync contact data where the recipe supports it. |
-| **Notion** | Create pages or database items. |
-| **Pipedrive** | Sync people or CRM records where the recipe supports it. |
-| **Zapier** | Send webhook payloads. |
-| **Make** | Send webhook payloads. |
-| **n8n** | Send webhook payloads. |
+| **Chat Session Started** | The first user message starts a new chat session. |
+| **Chat User Message Submitted** | A visitor sends a message. |
+| **Chat Response Generated** | The chatbot finishes an answer. |
+| **Chat Feedback Submitted** | A visitor submits feedback. |
 
-Chatbot recipe events include session started, user message submitted, response generated, and feedback submitted.
+Open **AI Puffer > Settings > Apps** to create connections and recipes. 
 
-> Screenshot placeholder: Connected Apps section with configured recipes.
+![Chatbot Connected Apps](/images/screenshots/chatbots/chatbot-connected-apps.png)
+
+Use **Chatbots > Connected Apps** to review the recipes attached to the current chatbot.
+
+![Chatbot Connected Apps](/images/screenshots/chatbots/chatbot-connected-apps2.png)
+
+Failed deliveries appear under **Settings > Apps > Delivery Issues**, where you can retry or clear them.
+
+### Slack
+
+Use Slack to send chatbot messages, responses, feedback, or session alerts to a channel.
+
+1. Go to [https://api.slack.com/apps](https://api.slack.com/apps).
+2. Click **Create New App**.
+3. Choose **From scratch**.
+4. Enter an app name and select the workspace.
+5. Click **Create App**.
+6. Choose one connection method:
+   - **Bot token**: open **OAuth & Permissions**, scroll to **Bot Token Scopes**, click **Add an OAuth Scope**, add `chat:write`, click **Install to Workspace**, then copy the **Bot User OAuth Token** that starts with `xoxb-`.
+   - **Incoming webhook**: open **Incoming Webhooks**, turn on **Activate Incoming Webhooks**, click **Add New Webhook to Workspace**, select a channel, then copy the webhook URL.
+7. If you use a bot token, invite the Slack app to the target channel.
+8. In WordPress, open **AI Puffer > Settings > Apps**.
+9. Create a **Slack** connection.
+10. Select **Token** or **Webhook**.
+11. For **Token**, enter the **Bot Token** and **Default Channel**.
+12. For **Webhook**, enter the **Webhook URL**.
+13. Save the connection.
+14. For token connections, click **Test Connection**. AI Puffer posts a temporary Slack message and removes it after the channel is verified.
+15. Create a recipe, choose a chatbot event, choose **Slack Message**, map the fields, and enable it.
+16. Scope the recipe to all chatbots or one chatbot.
+17. Test from the frontend chatbot.
+
+Webhook connections are tested at delivery time. If a token test fails, check that the bot is in the default channel.
+
+![Chatbot Slack](/images/screenshots/chatbots/slack.png)
+
+![Chatbot Slack Recipe](/images/screenshots/chatbots/slack-recipe.png)
+
+### HubSpot
+
+Use HubSpot to create or update contacts from chatbot events when your recipe maps an email address.
+
+1. Go to [https://app.hubspot.com](https://app.hubspot.com) and select your HubSpot account.
+2. Open **Development > Legacy apps**.
+3. Click **Create private app**.
+4. Enter an app name.
+5. Open **Scopes**.
+6. Add `crm.objects.contacts.read` and `crm.objects.contacts.write`.
+7. Create the app.
+8. Open the app's **Auth** tab and copy the private app access token.
+9. In WordPress, open **AI Puffer > Settings > Apps**.
+10. Create a **HubSpot** connection.
+11. Enter the **Private App Token**.
+12. Add the **Portal ID** if you want it stored with the connection.
+13. Save the connection.
+14. Click **Test Connection**.
+15. Create a recipe, choose a chatbot event, choose **HubSpot Contact**, map **Email**, and map any other contact fields you need.
+16. Enable the recipe and test from the frontend chatbot.
+
+HubSpot contact recipes require an email mapping.
+
+![Chatbot HubSpot](/images/screenshots/chatbots/hubspot-connection.png)
+
+### Notion
+
+Use Notion to create pages or database items from chatbot events.
+
+1. Go to [https://www.notion.com/my-integrations](https://www.notion.com/my-integrations).
+2. Click **New integration** or **Create a new integration**.
+3. Select the workspace and enter an integration name.
+4. Open the integration's **Configuration** tab.
+5. Copy the **Internal Integration Secret**.
+6. In Notion, open the page or database AI Puffer should write to.
+7. Click the **...** menu in the top-right corner.
+8. Select **Connections**.
+9. Click **+ Add connection**.
+10. Search for your integration and select it.
+11. Confirm access.
+12. Copy the parent page ID or database ID from the Notion URL.
+13. In WordPress, open **AI Puffer > Settings > Apps**.
+14. Create a **Notion** connection.
+15. Enter the **Integration Token**.
+16. Enter **Parent Page ID** for page recipes, or **Database ID** for database item recipes.
+17. Save the connection.
+18. Click **Test Connection**.
+19. Create a recipe, choose a chatbot event, choose **Notion Page** or **Notion Database Item**, map the fields, and enable it.
+20. Test from the frontend chatbot.
+
+The connection test checks the token. If delivery fails, confirm the target page or database is shared with the Notion integration.
+
+![Chatbot Notion](/images/screenshots/chatbots/notion.png)
+
+### Pipedrive
+
+Use Pipedrive to create or update people from chatbot events when your recipe maps a name.
+
+1. Go to [https://app.pipedrive.com](https://app.pipedrive.com).
+2. Open your account menu in the top-right corner.
+3. Open **Personal preferences**.
+4. Open the **API** tab.
+5. Copy your personal API token.
+6. Copy your company domain from the browser address. For `https://example.pipedrive.com`, the company domain is `example`.
+7. In WordPress, open **AI Puffer > Settings > Apps**.
+8. Create a **Pipedrive** connection.
+9. Enter the **API Token** and **Company Domain**.
+10. Add **Default Owner ID** or **Pipeline ID** if your workflow needs them.
+11. Save the connection.
+12. Click **Test Connection**.
+13. Create a recipe, choose a chatbot event, choose **Pipedrive Person**, map **Name**, and map any other fields you need.
+14. Enable the recipe and test from the frontend chatbot.
+
+Pipedrive person recipes require a name mapping. If an email is mapped, AI Puffer looks for an existing person before creating a new one.
+
+![Chatbot Pipedrive](/images/screenshots/chatbots/pipedrive.png)
+
+### Zapier
+
+Use Zapier when you want to send chatbot event data into a Zap.
+
+1. Go to [https://zapier.com/app/editor](https://zapier.com/app/editor).
+2. Click the **Trigger** step.
+3. Search for **Webhooks by Zapier**.
+4. Select **Webhooks by Zapier**.
+5. Set **Event** to **Catch Hook**.
+6. Click **Continue**.
+7. In the **Test** tab, click **Copy** to copy the webhook URL.
+8. In WordPress, open **AI Puffer > Settings > Apps**.
+9. Create a **Zapier** connection.
+10. Enter the **Webhook URL**.
+11. Add a **Zap Name** if you want a label for the connection.
+12. Save the connection.
+13. Create a recipe, choose a chatbot event, choose **Zapier Webhook**, map the fields, and enable it.
+14. In Zapier, keep the Zap ready to receive a test request.
+15. Test from the frontend chatbot and confirm the request appears in Zapier.
+
+Zapier connections are verified when AI Puffer sends the first event.
+
+![Chatbot Zapier](/images/screenshots/chatbots/zapier.png)
+
+### Make
+
+Use Make when you want chatbot events to start a Make scenario.
+
+1. Go to [https://www.make.com/en/login](https://www.make.com/en/login) and open Make.
+2. Create a new scenario.
+3. Click the large **+** button.
+4. Search for **Webhooks**.
+5. Select **Webhooks > Custom webhook**.
+6. Click **Create a webhook**.
+7. Name the webhook and save it.
+8. Copy the generated webhook URL.
+9. In WordPress, open **AI Puffer > Settings > Apps**.
+10. Create a **Make** connection.
+11. Enter the **Webhook URL**.
+12. Add a **Scenario Name** if you want a label for the connection.
+13. Save the connection.
+14. Create a recipe, choose a chatbot event, choose **Make Webhook**, map the fields, and enable it.
+15. In Make, click **Run once** so the scenario can receive a test request.
+16. Test from the frontend chatbot and check the Make scenario history.
+
+Make connections are verified when AI Puffer sends the first event.
+
+![Chatbot Make](/images/screenshots/chatbots/make.png)
+
+### n8n
+
+Use n8n when you want chatbot events to start an n8n workflow.
+
+1. Go to [https://app.n8n.cloud](https://app.n8n.cloud) or open your self-hosted n8n URL.
+2. Create a new workflow.
+3. Add a **Webhook** node.
+4. Set **HTTP Method** to **POST**.
+5. Copy the **Test URL** if you are testing, or the **Production URL** if the workflow is active.
+6. In WordPress, open **AI Puffer > Settings > Apps**.
+7. Create an **n8n** connection.
+8. Enter the **Webhook URL**.
+9. Add a **Workflow Name** if you want a label for the connection.
+10. Save the connection.
+11. Create a recipe, choose a chatbot event, choose **n8n Webhook**, map the fields, and enable it.
+12. In n8n, click **Listen for test event** if you used the Test URL, or activate the workflow if you used the Production URL.
+13. Test from the frontend chatbot and check the n8n execution log.
+
+n8n connections are verified when AI Puffer sends the first event.
+
+![Chatbot n8n](/images/screenshots/chatbots/n8n.png)
 
 ## Rules
 
@@ -807,7 +1059,7 @@ Available operators include equals, contains, starts with, ends with, regex matc
 
 Webhook and message fields support placeholders. Form placeholders include submitted data, display values, labels, and individual submitted fields.
 
-> Screenshot placeholder: Rules builder with event, conditions, and action fields.
+![Chatbot Rules](/images/screenshots/chatbots/rules.png)
 
 ## Troubleshooting
 
