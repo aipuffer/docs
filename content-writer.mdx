@@ -207,7 +207,7 @@ If you use a header row, put a value in column G for that row, such as `Status`,
 
 ### Setup and Connect
 
-AI Puffer uses a Google Cloud service account to read the sheet and update the status column.
+AI Puffer uses a Google Cloud <Tooltip headline="Service account" tip="A Google Cloud identity used by AI Puffer to access the spreadsheet without a personal Google login.">service account</Tooltip> to read the sheet and update the status column.
 
 Create the service account:
 
@@ -542,7 +542,7 @@ Model settings include:
 | **Reasoning** | Sets reasoning effort for supported OpenAI and Ollama models. |
 | **Length** | Sets the token budget used for the generated content. |
 
-Length values map to these token budgets:
+Length values map to these <Tooltip headline="Token budget" tip="The amount of model output reserved for generated content. Longer settings allow longer drafts.">token budgets</Tooltip>:
 
 | Length | Token budget |
 | --- | --- |
@@ -593,7 +593,7 @@ Content Writer can generate and save SEO data.
 The SEO Framework does not have a native focus keyword field, so focus keyword updates are skipped for that plugin.
 </Info>
 
-When **Optimize URL** is enabled, AI Puffer builds the slug from the focus keyword when available. If no focus keyword is available, it uses the post title.
+When **Optimize URL** is enabled, AI Puffer builds the <Tooltip headline="Slug" tip="The URL-friendly part of a WordPress post address.">slug</Tooltip> from the focus keyword when available. If no focus keyword is available, it uses the post title.
 
 ### Publishing
 

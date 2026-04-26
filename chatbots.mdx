@@ -50,7 +50,7 @@ Use **Actions** for saved chatbots:
 
 ## Deploy a Chatbot
 
-Each chatbot has a shortcode. For example:
+Each chatbot has a <Tooltip headline="Shortcode" tip="A bracketed WordPress tag that renders plugin output inside a page, post, block, or shortcode area.">shortcode</Tooltip>. For example:
 
 ```text
 [aipkit_chatbot id=123]
@@ -314,7 +314,7 @@ Scores show which vector results matched the visitor question and help you tune 
 
 #### Embedding Models
 
-Pinecone and Qdrant need an embedding model because AI Puffer must turn your content and the visitor question into vectors before it can search.
+Pinecone and Qdrant need an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so Pinecone or Qdrant can search by meaning.">embedding model</Tooltip> because AI Puffer must turn your content and the visitor question into vectors before it can search.
 
 OpenAI Vector Stores do not need this setting in AI Puffer. OpenAI handles the vector store search on its side.
 
@@ -749,7 +749,7 @@ ElevenLabs voices and models appear only after the ElevenLabs API key is saved u
 
 #### Realtime Voice Agents
 
-Realtime Voice is separate from Speech to Text and Text to Speech. It creates a live WebRTC session with OpenAI Realtime, streams microphone audio, receives spoken replies, and logs completed turns.
+Realtime Voice is separate from Speech to Text and Text to Speech. It creates a live <Tooltip headline="WebRTC" tip="A browser technology for realtime audio, video, and data connections.">WebRTC</Tooltip> session with OpenAI Realtime, streams microphone audio, receives spoken replies, and logs completed turns.
 
 Realtime Voice is currently available for OpenAI.
 
