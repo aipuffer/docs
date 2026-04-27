@@ -525,6 +525,15 @@ Use the template menu to load, create, edit, rename, delete, and reset templates
 
 Content Writer uses the AI providers configured in AI Puffer, including hosted providers and local Ollama models.
 
+To set the model:
+
+1. In the right panel, open **AI**.
+2. Select the model.
+3. Select the content **Length**.
+4. Click the settings icon next to the model.
+5. Adjust **Temperature** if you want more or less variation.
+6. Set **Reasoning** only for models that support it. Keep it on **None** for faster generation.
+
 Model settings include:
 
 | Setting | What it does |
@@ -648,7 +657,22 @@ WordPress tags and the optimized URL slug still work without an SEO plugin.
 
 ### Publishing
 
-Use post settings to control where generated content is saved.
+Publishing controls the WordPress post that gets created after generation.
+
+To set the post target:
+
+1. In the right panel, open **Publishing**.
+2. Select the post **Status**.
+3. Click the settings icon next to **Status**.
+4. Select the **Post Type**.
+5. Select the **Author**.
+6. Select categories if the post type supports them.
+7. Enable **Table of Contents** if you want a generated table of contents added to the top of the post.
+8. Enable **Optimize URL** if you want AI Puffer to generate a cleaner WordPress slug.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/publishing.png" alt="Publishing" />
+</Frame>
 
 | Setting | Use it for |
 | --- | --- |
@@ -656,26 +680,68 @@ Use post settings to control where generated content is saved.
 | **Post Type** | Public WordPress post type. |
 | **Author** | WordPress author. |
 | **Categories** | WordPress categories assigned to the post. |
-| **Table of Contents** | Adds a table of contents based on headings. |
-| **Optimize URL** | Generates a cleaner post slug. |
+| **Table of Contents** | Adds a table of contents from the generated headings. |
+| **Optimize URL** | Updates the WordPress slug after the post is saved. |
 
-Scheduling options:
+<Frame>
+  <img src="/images/screenshots/content-writer/publishing-options.png" alt="Publishing Options" />
+</Frame>
+
+#### Schedule
+
+Schedule options appear when **Status** is set to **Publish** and you are generating multiple items. Single Entry publishes immediately when the status is **Publish**.
+
+To schedule posts:
+
+1. Set **Status** to **Publish**.
+2. Choose one of the available schedule modes.
+3. Use **Smart Schedule** when AI Puffer should space posts automatically.
+4. Use **Use Dates from Input** when each row, CSV line, or Google Sheets row already has its own date.
+5. Generate the batch or create the task.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/schedule.png" alt="Schedule" />
+</Frame>
 
 | Option | Behavior |
 | --- | --- |
 | **Publish Immediately** | Publishes without spacing posts out. |
 | **Smart Schedule** | Starts at a date/time and spaces posts by hours or days. |
-| **Use Dates from Input** | Uses the schedule field in the row, CSV, or Google Sheet. |
+| **Use Dates from Input** | Uses the schedule field from Batch Editor, Quick Paste, CSV, or Google Sheets. |
 
-For Quick Paste or batch text, append a schedule date to the end of the row:
+Use this date format:
+
+```text
+YYYY-MM-DD HH:MM
+```
+
+Quick Paste can include the schedule as the last field:
 
 ```text
 Topic | Keywords | Category ID | Author Login | Post Type | YYYY-MM-DD HH:MM
 ```
 
+<Info>
+Use Dates from Input is available for Batch Editor, Quick Paste, CSV, and Google Sheets. RSS Feed and Web Page sources can use Publish Immediately or Smart Schedule.
+</Info>
+
 ### Images
 
-Content Writer can add images to generated posts.
+Images can be inserted into the article content, set as the featured image, or both.
+
+To use images, first choose what AI Puffer should create:
+
+1. In the right panel, open **Images**.
+2. Select **Content**, **Featured**, or **Content + Featured**.
+3. Select an image source.
+4. Select the image model when the source has models.
+5. Click the settings icon.
+6. Set the image count, placement, WordPress image size, and alignment.
+7. Generate one item and review the image previews before saving the post.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/images.png" alt="Images" />
+</Frame>
 
 | Mode | Result |
 | --- | --- |
@@ -684,48 +750,214 @@ Content Writer can add images to generated posts.
 | **Featured** | Sets a featured image. |
 | **Content + Featured** | Adds content images and sets a featured image. |
 
-Image sources:
+AI image sources use the image prompt. Stock photo sources use the generated keywords first. If there are no keywords, AI Puffer uses the topic or title as the search query.
 
-| Source | Notes |
+<Info>
+Image prompts are used for OpenAI, Google, OpenRouter, Azure, and Replicate. Pexels and Pixabay do not use image prompts because they search existing stock photos.
+</Info>
+
+Image placement controls where content images are inserted after the post is saved.
+
+| Setting | Use it for |
 | --- | --- |
-| OpenAI | Uses configured OpenAI image models. |
-| Google | Uses configured Google image models. |
-| OpenRouter | Uses configured OpenRouter image models. |
-| Azure | Uses configured Azure image deployments. |
-| Replicate | Uses configured Replicate image models. |
-| Pexels | Requires a Pexels API key. |
-| Pixabay | Requires a Pixabay API key. |
+| **Count** | Number of content images to insert. |
+| **Placement** | Where content images should be inserted. |
+| **X** | Used only with every-X placement options. |
+| **Size** | WordPress image size used in the post. |
+| **Align** | WordPress image alignment. |
 
-Image settings include count, placement, size, and alignment. Placement options include first heading, every X headings, every X paragraphs, and end of content.
+Placement options:
 
-Content Writer can also generate image title, alt text, caption, and description when image metadata options are enabled.
+| Placement | Result |
+| --- | --- |
+| **After 1st H2** | Inserts the first image after the first H2 heading. |
+| **After 1st H3** | Inserts the first image after the first H3 heading. |
+| **Every X H2s** | Inserts images after every selected number of H2 headings. |
+| **Every X H3s** | Inserts images after every selected number of H3 headings. |
+| **Every X paragraphs** | Inserts images after every selected number of paragraphs. |
+| **End of content** | Adds images at the end of the article. |
 
-> Screenshot placeholder: Images section with Content + Featured selected and image settings open.
+<Frame>
+  <img src="/images/screenshots/content-writer/image-options.png" alt="Image Options" />
+</Frame>
+
+#### OpenAI
+
+OpenAI uses your OpenAI API key and one of the image models available in your synced model list.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **OpenAI**.
+3. Add your OpenAI API key.
+4. Sync models.
+5. In Content Writer, open **Images**.
+6. Select an image mode.
+7. Select an OpenAI image model from **Image source**.
+8. Open **Prompts** if you want to change the image prompt or featured image prompt.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/image-prompts1.png" alt="Image Prompts" />
+</Frame>
+
+#### Google
+
+Google uses your Google API key and the Google image models available in your synced model list.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **Google**.
+3. Add your Google API key.
+4. Sync models.
+5. In Content Writer, open **Images**.
+6. Select an image mode.
+7. Select a Google image model from **Image source**.
+8. Edit the image prompts if needed.
+
+#### OpenRouter
+
+OpenRouter uses image-capable models from your OpenRouter account.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **OpenRouter**.
+3. Add your OpenRouter API key.
+4. Sync models.
+5. In Content Writer, open **Images**.
+6. Select an image mode.
+7. Select an OpenRouter image model from **Image source**.
+
+If a selected OpenRouter model does not return images, choose another image-capable model from the synced list.
+
+#### Azure
+
+Azure uses your Azure OpenAI endpoint, API key, API version, and image deployment.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **Azure**.
+3. Add the Azure endpoint and API key.
+4. Add or sync the image deployment you want to use.
+5. In Content Writer, open **Images**.
+6. Select an image mode.
+7. Select the Azure image deployment from **Image source**.
+
+#### Replicate
+
+Replicate uses your Replicate API key and synced text-to-image models.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > Integrations**.
+2. Select **Replicate**.
+3. Add your Replicate API key.
+4. Sync Replicate models.
+5. In Content Writer, open **Images**.
+6. Select an image mode.
+7. Select a Replicate model from **Image source**.
+
+#### Pexels
+
+Pexels searches stock photos instead of generating a new image.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > Integrations**.
+2. Select **Pexels**.
+3. Add your Pexels API key, or use the **Get Key** link to create one.
+4. In Content Writer, open **Images**.
+5. Select an image mode.
+6. Select **Pexels** from **Image source**.
+7. Click the settings icon.
+8. Set **Orientation**, **Size**, and **Color** if you want to filter results.
+9. Generate one item and review the selected photo.
+
+#### Pixabay
+
+Pixabay searches stock photos, illustrations, or vectors.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > Integrations**.
+2. Select **Pixabay**.
+3. Add your Pixabay API key, or use the **Get Key** link to create one.
+4. In Content Writer, open **Images**.
+5. Select an image mode.
+6. Select **Pixabay** from **Image source**.
+7. Click the settings icon.
+8. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
+9. Generate one item and review the selected image.
+
+#### Image Prompts
+
+For AI image providers, the image prompt controls content images and the featured image prompt controls the featured image.
+
+You can use these placeholders:
+
+| Placeholder | Replaced with |
+| --- | --- |
+| `{topic}` | Generated title. |
+| `{keywords}` | Generated keywords. |
+| `{post_title}` | WordPress post title. |
+| `{excerpt}` | Generated excerpt. |
+
+<Frame>
+  <img src="/images/screenshots/content-writer/image-prompts2.png" alt="Featured Image Prompt" />
+</Frame>
+
+#### Image Metadata
+
+To generate image metadata:
+
+1. Open **Prompts**.
+2. Enable the image metadata fields you want: **Title**, **Alt Text**, **Caption**, or **Description**.
+3. Edit the metadata prompts if needed.
+4. Generate the content and images.
+
+AI Puffer saves generated metadata to the WordPress media attachment fields. Alt text is saved as the attachment alternate text.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/image-metadata-prompts.png" alt="Image Metadata" />
+</Frame>
 
 ### Knowledge Base
 
-Use **Context** when generated content should use information from a knowledge source.
+The Knowledge Base setting appears as **Context** inside Content Writer. Use it when the generated content should pull facts from indexed site data, uploaded files, or other knowledge sources you already added in **AI Puffer > Knowledge Base**.
+
+To use Knowledge Base context:
+
+1. Add content to **AI Puffer > Knowledge Base** first.
+2. In Content Writer, open **Knowledge Base**.
+3. Select **OpenAI**, **Pinecone**, or **Qdrant** from **Context**.
+4. Select the vector store, index, or collection.
+5. Click the settings icon.
+6. Set **Results Limit** and **Confidence Threshold**.
+7. For Pinecone or Qdrant, select the same embedding provider and model used when the content was added.
+8. Generate one item and check whether the output used the right context.
+
+> Screenshot placeholder: Context selector showing OpenAI, Pinecone, and Qdrant options.
 
 | Context provider | Setup |
 | --- | --- |
-| **OpenAI** | Select one or more OpenAI vector stores. |
-| **Pinecone** | Select a Pinecone index and embedding provider/model. |
-| **Qdrant** | Select a Qdrant collection and embedding provider/model. |
+| **OpenAI** | Select one or more OpenAI vector stores. When the Content Writer model is OpenAI, AI Puffer can use OpenAI file search. With other AI providers, AI Puffer queries the selected store and adds matching text to the prompt. |
+| **Pinecone** | Select a Pinecone index, embedding provider, and embedding model. |
+| **Qdrant** | Select a Qdrant collection, embedding provider, and embedding model. |
 
 Context settings:
 
 | Setting | What it does |
 | --- | --- |
-| **Results Limit** | Maximum matches added to the generation context. |
-| **Confidence Threshold** | Minimum match score required before a result is included. |
+| **Results Limit** | How many matching pieces of knowledge AI Puffer can use. |
+| **Confidence Threshold** | How close a match must be before AI Puffer includes it. |
 
-Context is used during new generation and existing-content updates when enabled.
+Use a lower threshold if useful context is being missed. Use a higher threshold if unrelated context is being included.
 
 <Info>
-For Pinecone and Qdrant, use the same embedding model that was used when adding content to the index or collection.
+For Pinecone and Qdrant, the embedding model must match the data already stored in the index or collection. If the model dimensions do not match, search will not work correctly.
 </Info>
-
-> Screenshot placeholder: Context selector showing OpenAI, Pinecone, and Qdrant options.
 
 ## Automations
 
