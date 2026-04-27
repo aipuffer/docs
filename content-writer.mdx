@@ -1089,4 +1089,4 @@ Content Writer activity is logged under AI Puffer logs.
 | Direct Content Writer generation | `content_writer` |
 | Automated Content Writer tasks | `content_writer_automation` |
 
-AI Puffer also emits a `content.generated` event after generated content is completed.
+Use the `content.generated` event when another system needs to receive generated content after Content Writer finishes. See [Event Webhooks](/event-webhooks) for payload and delivery details.
