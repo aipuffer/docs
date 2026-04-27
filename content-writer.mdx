@@ -17,6 +17,8 @@ To start using Content Writer, open WordPress Admin and go to **AI Puffer > Cont
 Set up at least one AI provider before using Content Writer. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
 </Info>
 
+## Create Content
+
 To create new content, first choose where the input comes from.
 
 You can type topics manually, upload a CSV, use RSS feed items, extract text from web pages, or read rows from Google Sheets.
@@ -25,7 +27,7 @@ Manual Entry is for topics you type directly into Content Writer.
 
 Choose **Single**, **Batch Editor**, or **Quick Paste**, then use the right panel to select the model, edit prompts, set publishing options, add images, and enable SEO.
 
-## Single Entry
+### Single Entry
 
 Single Entry is for one content item.
 
@@ -44,7 +46,7 @@ Single Entry is for one content item.
   <img src="/images/screenshots/content-writer/single-entry.png" alt="Content Writer Single Entry" />
 </Frame>
 
-## Batch Editor
+### Batch Editor
 
 Batch Editor is a row-based queue. Each row creates one content item.
 
@@ -62,7 +64,7 @@ The main row fields are **Topic** and **Keywords**. Click the row settings icon 
   <img src="/images/screenshots/content-writer/batch-editor.png" alt="Content Writer Batch Editor" />
 </Frame>
 
-## Quick Paste
+### Quick Paste
 
 Quick Paste is for adding many rows at once. Each line becomes one Batch Editor row.
 
@@ -100,7 +102,7 @@ To use Quick Paste:
   <img src="/images/screenshots/content-writer/quick-paste.png" alt="Content Writer Quick Paste" />
 </Frame>
 
-## CSV
+### CSV
 
 CSV import reads every non-empty row and converts it into a generation task.
 
@@ -131,7 +133,7 @@ Do not add a header row unless you want the header row to be treated as a topic.
   <img src="/images/screenshots/content-writer/csv.png" alt="Content Writer CSV" />
 </Frame>
 
-## RSS Feed
+### RSS Feed
 
 Use RSS Feed to generate content from feed items.
 
@@ -148,7 +150,7 @@ Use RSS Feed to generate content from feed items.
 
 Our plugin checks up to 15 items per feed. Automated RSS tasks keep a history of processed feed items so the same item is not queued again.
 
-## Web Page
+### Web Page
 
 Use Web Page to generate content from a list of URLs.
 
@@ -173,7 +175,7 @@ When using Web Page mode, prompts can use:
 Some pages block extraction or return very little readable text. Use **Test First URL** before creating a large task.
 </Warning>
 
-## Google Sheets
+### Google Sheets
 
 Use Google Sheets when your content inputs are managed in a spreadsheet.
 
@@ -182,8 +184,6 @@ Use Google Sheets when your content inputs are managed in a spreadsheet.
 <Frame>
   <img src="/images/screenshots/google-sheets/google-sheets-make-copy.png" alt="Copy the sample Google Sheet" />
 </Frame>
-
-### Sheet Format
 
 AI Puffer reads columns `A:G`.
 
@@ -204,8 +204,6 @@ Column G controls whether a row is processed. If column G has any value, AI Puff
 Rows are processed only when column A has a topic and column G is empty. After a post is created, AI Puffer writes `Processed on ...` to column G so the row is not used again.
 
 If you use a header row, put a value in column G for that row, such as `Status`, so it is skipped.
-
-### Setup and Connect
 
 AI Puffer uses a Google Cloud <Tooltip headline="Service account" tip="A Google Cloud identity used by AI Puffer to access the spreadsheet without a personal Google login.">service account</Tooltip> to read the sheet and update the status column.
 
