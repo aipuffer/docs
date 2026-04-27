@@ -11,7 +11,9 @@ Use it for support answers, product details, documentation, policies, posts, pag
 
 In WordPress admin, go to **AI Puffer > Knowledge Base**.
 
-> Screenshot placeholder: Knowledge Base screen showing the provider selector, target selector, embedding model selector, Add data button, Settings button, search field, and source table.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-overview.png" alt="Knowledge Base overview" />
+</Frame>
 
 <Info>
 Configure provider credentials before adding data. OpenAI uses **AI Puffer > Settings > AI**. Pinecone and Qdrant use **AI Puffer > Settings > Integrations**.
@@ -39,7 +41,9 @@ If the dimension does not match, Pinecone or Qdrant can reject the data or retur
 
 Use the provider and target selectors at the top of **AI Puffer > Knowledge Base** to create, select, or delete vector targets.
 
-> Screenshot placeholder: Provider selector opened with OpenAI, Pinecone, and Qdrant options.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-provider-selector.png" alt="Knowledge Base provider selector" />
+</Frame>
 
 ### OpenAI Vector Stores
 
@@ -52,7 +56,9 @@ Use the provider and target selectors at the top of **AI Puffer > Knowledge Base
 
 OpenAI handles the vector store search on its side. AI Puffer stores a local source record so you can see what was added.
 
-> Screenshot placeholder: OpenAI target selector with the create vector store form open.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/openai-vector-store-create.png" alt="OpenAI vector store create form" />
+</Frame>
 
 ### Pinecone Indexes
 
@@ -67,7 +73,9 @@ OpenAI handles the vector store search on its side. AI Puffer stores a local sou
 
 Use the same embedding model when you add data to the index and when a module searches that index.
 
-> Screenshot placeholder: Pinecone target selector with the create index form and dimension field.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-index-create.png" alt="Pinecone index create form" />
+</Frame>
 
 ### Qdrant Collections
 
@@ -82,7 +90,9 @@ Use the same embedding model when you add data to the index and when a module se
 
 Use the same embedding model when you add data to the collection and when a module searches that collection.
 
-> Screenshot placeholder: Qdrant target selector with the create collection form and dimension field.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-collection-create.png" alt="Qdrant collection create form" />
+</Frame>
 
 To delete a target, select the provider, open the target selector, choose the target, then use **Delete** in the selector footer.
 
@@ -95,7 +105,9 @@ Before adding data:
 3. For Pinecone or Qdrant, select the embedding model.
 4. Click **Add data**.
 
-> Screenshot placeholder: Add data panel with Q&A, Text, Files, and Website tabs.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-add-data.png" alt="Knowledge Base Add data panel" />
+</Frame>
 
 ### Q&A
 
@@ -113,7 +125,9 @@ Q: question text
 A: answer text
 ```
 
-> Screenshot placeholder: Q&A tab with question and answer fields filled.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-qa.png" alt="Knowledge Base Q&A tab" />
+</Frame>
 
 ### Text
 
@@ -123,7 +137,9 @@ Use Text for policies, instructions, product notes, support snippets, or any sou
 2. Paste the source text.
 3. Click **Train**.
 
-> Screenshot placeholder: Text tab with source text entered.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-text.png" alt="Knowledge Base Text tab" />
+</Frame>
 
 ### Files
 
@@ -145,7 +161,9 @@ For Pinecone and Qdrant, AI Puffer extracts text, splits large files into chunks
 
 File size is limited by your WordPress/PHP upload settings. OpenAI Vector Store uploads also use OpenAI's file limits.
 
-> Screenshot placeholder: Files tab with selected files and upload status rows.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-files.png" alt="Knowledge Base Files tab" />
+</Frame>
 
 ### Website
 
@@ -162,9 +180,13 @@ Posts and pages are selected by default. WooCommerce products appear when WooCom
 
 When WordPress content is indexed, AI Puffer builds the source text from the URL, title, excerpt, content, public custom fields, public taxonomies, and available WooCommerce product data.
 
-> Screenshot placeholder: Website tab in All mode with post type and status controls.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-website-all.png" alt="Knowledge Base Website all mode" />
+</Frame>
 
-> Screenshot placeholder: Website tab in Specific mode with individual content selection.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-website-specific.png" alt="Knowledge Base Website specific mode" />
+</Frame>
 
 ## Manage Data
 
@@ -179,7 +201,9 @@ The source table shows the local records created while adding data.
 | **Status** | Trained, Processing, Failed, or another provider status. |
 | **Actions** | Available actions for the source. |
 
-> Screenshot placeholder: Source table with provider, type, status, search, and row actions visible.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-source-table.png" alt="Knowledge Base source table" />
+</Frame>
 
 Available actions:
 
@@ -190,15 +214,21 @@ Available actions:
 | **Retrain** | Re-index a WordPress content source after the content changes. |
 | **Delete** | Remove the source from the external provider and from the local source table. |
 
-> Screenshot placeholder: Source preview modal.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-source-preview.png" alt="Knowledge Base source preview" />
+</Frame>
 
-> Screenshot placeholder: Edit source modal with Save & retrain button.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-edit-source.png" alt="Knowledge Base edit source" />
+</Frame>
 
 ## Settings
 
 Click **Settings** in **AI Puffer > Knowledge Base** to open Knowledge Base settings.
 
-> Screenshot placeholder: Knowledge Base Settings popover showing General, Document chunking, Indexing controls, and Semantic search.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-settings.png" alt="Knowledge Base settings" />
+</Frame>
 
 ### General
 
@@ -209,7 +239,9 @@ General controls how Knowledge Base records and indexing buttons appear in the a
 | **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base source table. |
 | **Show index button** | Shows vector indexing controls on supported WordPress list screens. |
 
-> Screenshot placeholder: General settings panel with Hide user uploads and Show index button.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
+</Frame>
 
 ### Document Chunking
 
@@ -223,7 +255,9 @@ Document chunking controls how AI Puffer splits large uploaded files before embe
 
 Use smaller chunks when an embedding provider rejects long input. Keep some overlap for long documents where meaning continues across sections.
 
-> Screenshot placeholder: Document chunking panel with all three fields.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base document chunking settings" />
+</Frame>
 
 ### Indexing Controls
 
@@ -240,7 +274,9 @@ Indexing controls define which WordPress fields are included when Website traini
 
 If the Save button shows **Upgrade**, activate Pro before saving indexing rules.
 
-> Screenshot placeholder: Content Indexing Controls sheet with a post type accordion open.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-indexing-controls.png" alt="Knowledge Base indexing controls" />
+</Frame>
 
 When **Show index button** is enabled, supported WordPress list screens can show vector indexing controls.
 
@@ -250,7 +286,9 @@ When **Show index button** is enabled, supported WordPress list screens can show
 | **Index Status** filter | Filters content by indexed or not indexed. |
 | **Add to Vector Store** action | Sends selected posts to a vector target. |
 
-> Screenshot placeholder: WordPress Posts list showing Index Status and Add to Vector Store controls.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-wordpress-list-indexing.png" alt="WordPress list indexing controls" />
+</Frame>
 
 ## Semantic Search
 
@@ -274,15 +312,34 @@ Semantic Search uses the global settings from this panel. It does not use OpenAI
 
 Use the same embedding model that was used when the Pinecone or Qdrant data was added.
 
-> Screenshot placeholder: Semantic Search sheet with configuration, shortcode, and preview search.
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-semantic-search.png" alt="Knowledge Base Semantic Search settings" />
+</Frame>
 
 ## Troubleshooting
 
-| Problem | What to check |
-| --- | --- |
-| Provider target is missing | Configure the provider credentials, then sync or create the vector target again. |
-| Pinecone or Qdrant training fails | Confirm the embedding model dimension matches the index or collection dimension. |
-| File text is not useful | Use a text-based document. Scanned PDFs may not contain extractable text. |
-| Website content is missing fields | Check **Settings > Indexing controls** for that post type. |
-| WordPress list indexing controls are missing | Enable **Settings > General > Show index button** and confirm the user role can access the vector content indexer module. |
-| Semantic Search returns no results | Confirm the selected target contains trained data and the same embedding model is selected. |
+<AccordionGroup>
+  <Accordion title="Provider target is missing">
+    Configure the provider credentials, then sync or create the vector target again.
+  </Accordion>
+
+  <Accordion title="Pinecone or Qdrant training fails">
+    Confirm the embedding model dimension matches the index or collection dimension.
+  </Accordion>
+
+  <Accordion title="File text is not useful">
+    Use a text-based document. Scanned PDFs may not contain extractable text.
+  </Accordion>
+
+  <Accordion title="Website content is missing fields">
+    Check **Settings > Indexing controls** for that post type.
+  </Accordion>
+
+  <Accordion title="WordPress list indexing controls are missing">
+    Enable **Settings > General > Show index button** and confirm the user role can access the vector content indexer module.
+  </Accordion>
+
+  <Accordion title="Semantic Search returns no results">
+    Confirm the selected target contains trained data and the same embedding model is selected.
+  </Accordion>
+</AccordionGroup>
