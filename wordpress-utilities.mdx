@@ -1,0 +1,254 @@
+---
+title: "WordPress Utilities"
+description: "Use AI Puffer tools inside WordPress post lists and editors."
+---
+
+## Overview
+
+WordPress Utilities are AI Puffer tools that appear inside normal WordPress admin screens.
+
+Use them when you are already reviewing posts, pages, products, or editor content and want to update or index that content without opening a full module screen.
+
+<Columns cols={2}>
+  <Card title="Bulk Assistant" icon="list-check" href="#bulk-assistant" horizontal>
+    Update selected posts from the list screen.
+  </Card>
+
+  <Card title="Row Assistant Menu" icon="menu" href="#row-assistant-menu" horizontal>
+    Generate title, excerpt, meta, or tag suggestions for one post.
+  </Card>
+
+  <Card title="Content Indexing" icon="database" href="#content-indexing" horizontal>
+    Send selected posts to a vector store, index, or collection.
+  </Card>
+
+  <Card title="Classic Editor Assistant" icon="pen-to-square" href="#classic-editor-assistant" horizontal>
+    Run AI actions on selected text in the Classic Editor.
+  </Card>
+
+  <Card title="Block Editor Assistant" icon="blocks" href="#block-editor-assistant" horizontal>
+    Run AI actions from the block toolbar.
+  </Card>
+
+  <Card title="Settings" icon="gear" href="#settings" horizontal>
+    Enable utilities and manage assistant actions.
+  </Card>
+</Columns>
+
+## Settings
+
+Content Assistant settings control the post-list assistant and the editor assistants.
+
+To configure them:
+
+1. Go to **AI Puffer > Settings**.
+2. Open **Integrations**.
+3. Open **Content Assistant**.
+4. Enable **Show on Post Lists** if you want the list-screen Assistant button and row menu.
+5. Enable **Enable in Editors** if you want the Classic Editor and Block Editor assistants.
+6. Choose the default **Insert Position**.
+7. Add, edit, delete, reorder, or reset assistant actions.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Content Assistant settings" />
+</Frame>
+
+Each editor action has a label, a prompt, and an optional position. Use `%s` in the prompt where the selected editor text should be inserted.
+
+<Info>
+Editor actions and row menu suggestions use the default AI provider and model from **Settings > AI**. Bulk Assistant lets you choose the provider and model before running.
+</Info>
+
+Content Indexing has its own visibility setting.
+
+To show or hide the **Index** button on post lists:
+
+1. Go to **AI Puffer > Knowledge Base**.
+2. Click **Settings**.
+3. Open **General**.
+4. Turn **Show index button** on or off.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Knowledge Base setting for the post-list Index button" />
+</Frame>
+
+## Bulk Assistant
+
+Bulk Assistant appears as an **Assistant** button next to **Add New** on supported post list screens.
+
+Use it when you want to update several posts, pages, or products in one run. It can update title, content, meta description, focus keyword, excerpt, tags, and URL slug.
+
+To run Bulk Assistant:
+
+1. Go to a WordPress post list, such as **Posts**, **Pages**, or **Products**.
+2. Select one or more rows.
+3. Click **Assistant** next to **Add New**.
+4. Select a template if you want to reuse saved settings.
+5. Choose the provider and model.
+6. Under **What to update**, enable the fields you want to change.
+7. Edit a prompt if needed.
+8. Open settings if you want to adjust creativity, content length, reasoning, or Knowledge Base context.
+9. Click **Start Processing**.
+10. Review the progress log before closing the modal.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Assistant button on a WordPress post list" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Bulk Assistant modal" />
+</Frame>
+
+<Tip>
+Use Bulk Assistant on a small selection first. It edits real WordPress records.
+</Tip>
+
+## Row Assistant Menu
+
+The row menu is for one post at a time.
+
+Hover over a post row and click **Assistant** to open the menu. It includes:
+
+| Action | What it does |
+| --- | --- |
+| **Generate Title** | Creates title suggestions from the current title and content. |
+| **Generate Excerpt** | Creates excerpt suggestions from the post content. |
+| **Generate Meta Desc** | Creates SEO meta description suggestions. |
+| **Generate Tags** | Creates tag suggestions. |
+
+To use it:
+
+1. Go to a supported post list.
+2. Hover over a row.
+3. Click **Assistant**.
+4. Choose an action.
+5. Wait for suggestions.
+6. Click the suggestion you want to apply.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Assistant row menu on a post list" />
+</Frame>
+
+## Content Indexing
+
+Content Indexing appears as an **Index** button next to **Add New** on post, page, and product list screens.
+
+Use it to add selected WordPress content to Knowledge Base retrieval.
+
+| Provider | Target | Extra requirement |
+| --- | --- | --- |
+| **OpenAI** | Vector store | Select an existing OpenAI vector store. |
+| **Pinecone** | Index | Select the same embedding model that matches the index dimension. |
+| **Qdrant** | Collection | Select the same embedding model that matches the collection dimension. |
+
+To index selected posts:
+
+1. Create or select the target in **AI Puffer > Knowledge Base**.
+2. Go to a supported WordPress post list.
+3. Select one or more rows.
+4. Click **Index** next to **Add New**.
+5. Select **OpenAI**, **Pinecone**, or **Qdrant**.
+6. Select the target vector store, index, or collection.
+7. For Pinecone or Qdrant, select the embedding model.
+8. Click **Start Indexing**.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Index button on a WordPress post list" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Add Content to Vector Store modal" />
+</Frame>
+
+<Warning>
+For Pinecone and Qdrant, the embedding model dimension must match the index or collection dimension. For example, a 3072-dimension index needs a 3072-dimension embedding model.
+</Warning>
+
+### Index Status
+
+The post list includes an **Index Status** filter with **Indexed** and **Not Indexed** options.
+
+The **Index Status** column is hidden by default. Open <Tooltip headline="Screen Options" tip="The WordPress panel at the top of list screens where users can show or hide table columns.">Screen Options</Tooltip>, enable **Index Status**, and apply the change.
+
+When the column is visible, indexed rows show the vector target where the post was added.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Index Status filter and column" />
+</Frame>
+
+## Classic Editor Assistant
+
+The Classic Editor Assistant adds an **Assistant** dropdown to the TinyMCE toolbar.
+
+Use it to rewrite, expand, summarize, simplify, create outlines, generate FAQs, or run your own custom actions on selected text.
+
+To use it:
+
+1. Confirm **Enable in Editors** is turned on in Content Assistant settings.
+2. Open a post or page in the Classic Editor.
+3. Use the **Visual** editor.
+4. Select the text you want to process.
+5. Click **Assistant** in the editor toolbar.
+6. Choose an action.
+7. Review the inserted output.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Content Assistant in the Classic Editor toolbar" />
+</Frame>
+
+The selected action decides what prompt is sent. The default insert position decides whether the result replaces the selected text, appears before it, or appears after it. A custom action can override the default position.
+
+<Tip>
+If the Classic Editor button is missing, check **Enable in Editors** and make sure the user's profile does not disable the visual editor.
+</Tip>
+
+## Block Editor Assistant
+
+The Block Editor Assistant appears in the block toolbar when text is selected.
+
+To use it:
+
+1. Confirm **Enable in Editors** is turned on in Content Assistant settings.
+2. Open a post or page in the Block Editor.
+3. Select text inside a text-based block.
+4. Click the Assistant icon in the block toolbar.
+5. Choose an action.
+6. Review the result.
+
+<Frame>
+  <img src="/images/screenshots/utilities/placeholder.svg" alt="Screenshot placeholder: Content Assistant in the Block Editor toolbar" />
+</Frame>
+
+If the generated output includes headings, lists, or paragraphs, AI Puffer can insert it as formatted editor content. The Block Editor notice includes **Undo** when the change can be reverted from the notice.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Assistant button is missing on post lists">
+    Turn on **Settings > Integrations > Content Assistant > Show on Post Lists**. Also confirm the current user can edit the post type and has access to the Content Assistant module.
+  </Accordion>
+
+  <Accordion title="Index button is missing on post lists">
+    Turn on **Knowledge Base > Settings > General > Show index button**. The button appears on supported post, page, and product list screens when the user has access to Content Indexing.
+  </Accordion>
+
+  <Accordion title="Bulk Assistant says to select a post">
+    Select one or more rows using the checkboxes in the WordPress list table, then click **Assistant** again.
+  </Accordion>
+
+  <Accordion title="Editor Assistant is disabled">
+    Select text inside the editor first. The assistant actions need selected text because the action prompt uses that text as input.
+  </Accordion>
+
+  <Accordion title="Custom action ignores the selected text">
+    Edit the action prompt and include `%s`. AI Puffer replaces `%s` with the selected editor text before sending the request.
+  </Accordion>
+
+  <Accordion title="Pinecone or Qdrant indexing fails">
+    Check the provider credentials, sync targets again, and confirm the selected embedding model dimension matches the index or collection dimension.
+  </Accordion>
+
+  <Accordion title="Suggestions fail or return provider errors">
+    Check the default provider and model in **Settings > AI**. Row menu and editor assistant actions use that default configuration.
+  </Accordion>
+</AccordionGroup>

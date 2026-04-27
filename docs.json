@@ -50,6 +50,12 @@
             ]
           },
           {
+            "group": "Utilities",
+            "pages": [
+              "wordpress-utilities"
+            ]
+          },
+          {
             "group": "Developers",
             "pages": [
               "api-reference",
