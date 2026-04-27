@@ -11,7 +11,9 @@ Use it for image generation, image editing, Google video generation, logged-in u
 
 In WordPress admin, go to **AI Puffer > Images**.
 
-> Screenshot placeholder: Images module screen showing the shortcode, preview, and Settings button.
+<Frame>
+  <img src="/images/screenshots/images/images-module-overview.png" alt="Images module overview" />
+</Frame>
 
 The Images screen gives you an admin preview and a shortcode configurator. Use the preview to test the generator. Use the shortcode settings to decide what visitors can see on the frontend.
 
@@ -44,7 +46,9 @@ To generate an image:
 
 AI Puffer sends the prompt to the selected provider and displays the returned image in the results area. For logged-in users, generated images are saved to the WordPress Media Library.
 
-> Screenshot placeholder: Frontend image generator with provider, model, prompt, Generate button, and image result.
+<Frame>
+  <img src="/images/screenshots/images/images-generate-mode.png" alt="Images frontend generate mode" />
+</Frame>
 
 ## Edit Images
 
@@ -73,7 +77,9 @@ To edit an image on the frontend:
 | Types | JPG, PNG, WEBP, GIF |
 | Maximum size | 10 MB |
 
-> Screenshot placeholder: Frontend edit mode showing source image upload, prompt, provider, model, and result.
+<Frame>
+  <img src="/images/screenshots/images/images-edit-mode.png" alt="Images frontend edit mode" />
+</Frame>
 
 ## Generate Videos
 
@@ -91,7 +97,9 @@ To use it:
 
 Video generation is an <Tooltip headline="Async operation" tip="The provider starts the job first. AI Puffer checks the job status until the video is ready.">async operation</Tooltip>. Keep the page open while AI Puffer checks the status. Completed videos are saved as MP4 files in WordPress uploads.
 
-> Screenshot placeholder: Frontend generator with a Google video model selected and a completed video result.
+<Frame>
+  <img src="/images/screenshots/images/images-video-mode.png" alt="Images frontend video model" />
+</Frame>
 
 ## Publish
 
@@ -121,7 +129,9 @@ Use the shortcode settings panel when you want to build the shortcode from the U
 4. Copy the generated shortcode.
 5. Add it to a page or post.
 
-> Screenshot placeholder: Images shortcode settings panel.
+<Frame>
+  <img src="/images/screenshots/images/images-shortcode-settings.png" alt="Images shortcode settings" />
+</Frame>
 
 | Option | What it controls |
 | --- | --- |
@@ -160,8 +170,6 @@ Use the block when you prefer the block editor.
 6. Choose the theme.
 7. Save the page.
 
-> Screenshot placeholder: AI Puffer Image Generator block settings in the block editor.
-
 The block renders the same generator as the shortcode.
 
 ### User History
@@ -178,13 +186,17 @@ To enable it, turn on **Show User History** in the shortcode settings panel, ena
 
 Guest generations are not shown in user history.
 
-> Screenshot placeholder: Frontend user history section with image and video results.
+<Frame>
+  <img src="/images/screenshots/images/images-user-history.png" alt="Images user history" />
+</Frame>
 
 ## Settings
 
 Open **AI Puffer > Images**, then click **Settings**.
 
-> Screenshot placeholder: Images settings panel showing Limits, UI Text, Custom CSS, and Provider Filtering.
+<Frame>
+  <img src="/images/screenshots/images/images-settings.png" alt="Images settings panel" />
+</Frame>
 
 ### Limits
 
@@ -199,7 +211,9 @@ Go to **AI Puffer > Images**, click **Settings**, then choose **Limits**.
 5. Edit **Quota reached message**.
 6. Configure optional primary and secondary buttons.
 
-> Screenshot placeholder: Images limits settings.
+<Frame>
+  <img src="/images/screenshots/images/images-limits-settings.png" alt="Images limits settings" />
+</Frame>
 
 | Value | Meaning |
 | --- | --- |
@@ -219,7 +233,9 @@ UI Text changes the frontend labels without editing code.
 
 Go to **AI Puffer > Images**, click **Settings**, then choose **UI Text**.
 
-> Screenshot placeholder: Images UI Text settings.
+<Frame>
+  <img src="/images/screenshots/images/images-ui-text-settings.png" alt="Images UI text settings" />
+</Frame>
 
 | Field | Default |
 | --- | --- |
@@ -242,7 +258,9 @@ Custom CSS applies to generators using the custom theme.
 
 Go to **AI Puffer > Images**, click **Settings**, then choose **Custom CSS**.
 
-> Screenshot placeholder: Images Custom CSS settings.
+<Frame>
+  <img src="/images/screenshots/images/images-custom-css-settings.png" alt="Images custom CSS settings" />
+</Frame>
 
 Use the custom theme in the shortcode:
 
@@ -268,7 +286,9 @@ Go to **AI Puffer > Images**, click **Settings**, then choose **Provider filteri
 2. Leave all models unselected if you want to allow every configured image and video model.
 3. Save the settings.
 
-> Screenshot placeholder: Images provider filtering settings.
+<Frame>
+  <img src="/images/screenshots/images/images-provider-filtering-settings.png" alt="Images provider filtering settings" />
+</Frame>
 
 AI Puffer builds the frontend provider list from the selected <Tooltip headline="Allowed models" tip="The model list that is allowed to appear in the frontend generator.">allowed models</Tooltip>. For example, if you only select OpenAI models, the frontend provider selector only shows OpenAI.
 
@@ -299,8 +319,6 @@ Usage operations:
 | `generate` | Image generation |
 | `edit` | Image editing |
 | `video_generate` | Google video generation |
-
-> Screenshot placeholder: Usage log entry for an image generator request.
 
 ## Troubleshooting
 
