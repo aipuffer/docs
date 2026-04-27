@@ -925,64 +925,160 @@ AI Puffer saves generated metadata to the WordPress media attachment fields. Alt
 
 ### Knowledge Base
 
-The Knowledge Base setting appears as **Context** inside Content Writer. Use it when the generated content should pull facts from indexed site data, uploaded files, or other knowledge sources you already added in **AI Puffer > Knowledge Base**.
+Knowledge Base lets Content Writer use vector data you already added in **AI Puffer > Knowledge Base**.
 
-To use Knowledge Base context:
+When Knowledge Base is enabled, AI Puffer searches the selected vector source with the current generation prompt and adds the closest matches to the request.
 
-1. Add content to **AI Puffer > Knowledge Base** first.
+To enable it:
+
+1. Add data in **AI Puffer > Knowledge Base** first.
 2. In Content Writer, open **Knowledge Base**.
 3. Select **OpenAI**, **Pinecone**, or **Qdrant** from **Context**.
 4. Select the vector store, index, or collection.
 5. Click the settings icon.
 6. Set **Results Limit** and **Confidence Threshold**.
-7. For Pinecone or Qdrant, select the same embedding provider and model used when the content was added.
-8. Generate one item and check whether the output used the right context.
+7. Generate one item and check the output.
 
-> Screenshot placeholder: Context selector showing OpenAI, Pinecone, and Qdrant options.
+<Frame>
+  <img src="/images/screenshots/content-writer/knowledgebase.png" alt="knowledgebase" />
+</Frame>
 
-| Context provider | Setup |
-| --- | --- |
-| **OpenAI** | Select one or more OpenAI vector stores. When the Content Writer model is OpenAI, AI Puffer can use OpenAI file search. With other AI providers, AI Puffer queries the selected store and adds matching text to the prompt. |
-| **Pinecone** | Select a Pinecone index, embedding provider, and embedding model. |
-| **Qdrant** | Select a Qdrant collection, embedding provider, and embedding model. |
+<Frame>
+  <img src="/images/screenshots/content-writer/kb-options.png" alt="knowledgebase" />
+</Frame>
 
-Context settings:
+#### OpenAI
 
-| Setting | What it does |
-| --- | --- |
-| **Results Limit** | How many matching pieces of knowledge AI Puffer can use. |
-| **Confidence Threshold** | How close a match must be before AI Puffer includes it. |
+OpenAI uses OpenAI Vector Stores.
+
+To create a store:
+
+1. Go to **AI Puffer > Knowledge Base**.
+2. Select **OpenAI** as the provider.
+3. Click **Create new vector store**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/openai-create-new-vector.png" alt="OpenAI Create Vector" />
+</Frame>
+
+4. Enter a store name and create it.
+5. Add data to the store.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/openai-add-data.png" alt="OpenAI Add Data" />
+</Frame>
+
+To use it in Content Writer:
+
+1. Open **Knowledge Base**.
+2. Set **Context** to **OpenAI**.
+3. Select one or more vector stores.
+4. Click the settings icon and adjust the limit or threshold if needed.
+
+When Content Writer uses an OpenAI model, AI Puffer can pass the selected vector stores to OpenAI file search. With other content models, AI Puffer searches the stores first and adds matching text to the prompt.
+
+#### Pinecone
+
+Pinecone stores vectors in an index. AI Puffer creates and searches those vectors with the embedding model you choose.
+
+The Pinecone index dimension <u>must match</u> the embedding model. For example, if your index is **3072 dimensions**, use a **3072-dimension** embedding model.
+
+<Warning>
+Use the same embedding model when adding data to Pinecone and when enabling Pinecone in Content Writer.
+</Warning>
+
+To create an index:
+
+1. Add your Pinecone credentials in **AI Puffer > Settings > Integrations**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-api-key.png" alt="Pinecone API key" />
+</Frame>
+
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Pinecone** as the provider.
+4. Select the embedding model you want to use.
+5. Click **Create new index**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
+</Frame>
+
+6. Enter an index name and use the dimension for the selected embedding model.
+7. Create the index, then add data with the same embedding model.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-create-index2.png" alt="Pinecone Create Index" />
+</Frame>
+
+To use it in Content Writer:
+
+1. Open **Knowledge Base**.
+2. Set **Context** to **Pinecone**.
+3. Select the Pinecone index.
+4. Click the settings icon.
+5. Select the same embedding provider and model used when you added the data.
+6. Adjust the limit or threshold if needed.
+
+#### Qdrant
+
+Qdrant stores vectors in a collection. AI Puffer creates and searches those vectors with the embedding model you choose.
+
+The Qdrant collection size <u>must match</u> the embedding model. For example, if your collection is **3072 dimensions**, use a **3072-dimension** embedding model.
+
+<Warning>
+Use the same embedding model when adding data to Qdrant and when enabling Qdrant in Content Writer.
+</Warning>
+
+To create a collection:
+
+1. Add your Qdrant URL and API key in **AI Puffer > Settings > Integrations**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-api-key.png" alt="Qdrant API key" />
+</Frame>
+
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Qdrant** as the provider.
+4. Select the embedding model you want to use.
+5. Click **Create new collection**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
+</Frame>
+
+6. Enter a collection name and use the dimension for the selected embedding model.
+7. Create the collection, then add data with the same embedding model.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-create-collection2.png" alt="Qdrant Create collection" />
+</Frame>
+
+To use it in Content Writer:
+
+1. Open **Knowledge Base**.
+2. Set **Context** to **Qdrant**.
+3. Select the Qdrant collection.
+4. Click the settings icon.
+5. Select the same embedding provider and model used when you added the data.
+6. Adjust the limit or threshold if needed.
+
+#### Limit and Threshold
+
+Use these settings to control how much vector context is added to the generated content.
+
+| Setting | How it works | Example |
+| --- | --- | --- |
+| **Results Limit** | How many matching pieces of knowledge AI Puffer can use. | `3` means AI Puffer can use up to 3 matching pieces. |
+| **Confidence Threshold** | How closely a result must match before AI Puffer includes it. | Lower values allow looser matches. Higher values allow only stronger matches. |
 
 Use a lower threshold if useful context is being missed. Use a higher threshold if unrelated context is being included.
 
-<Info>
-For Pinecone and Qdrant, the embedding model must match the data already stored in the index or collection. If the model dimensions do not match, search will not work correctly.
-</Info>
+After testing, open **Usage > Logs** and check the Score badge when vector results are recorded.
 
-## Automations
-
-Content Writer can run immediately or create an automated task.
-
-1. Configure a create mode: Manual Entry, Import CSV, RSS Feed, Web Page, or Google Sheets.
-2. Open the action menu next to **Generate**.
-3. Select **Create Task**.
-4. Choose an interval.
-5. Confirm the task.
-
-Task intervals:
-
-| Interval |
-| --- |
-| One-time |
-| Every 5 minutes |
-| Every 15 minutes |
-| Every 30 minutes |
-| Hourly |
-| Twice daily |
-| Daily |
-| Weekly |
-
-Created tasks appear in [Automations](/automations). Google Sheets access is verified before the task is created.
+<Tip>
+Start with a small limit and tune the threshold after testing real topics.
+</Tip>
 
 ## Logs
 
@@ -994,18 +1090,3 @@ Content Writer activity is logged under AI Puffer logs.
 | Automated Content Writer tasks | `content_writer_automation` |
 
 AI Puffer also emits a `content.generated` event after generated content is completed.
-
-## Troubleshooting
-
-| Issue | What to check |
-| --- | --- |
-| Model list is empty | Configure the provider in [AI Providers](/ai-providers) and sync models. |
-| "Content title/topic is required" | Add a topic, CSV row, URL, feed item, or sheet row. |
-| "AI model selection is required" | Select a model before generating. |
-| "Custom Content Prompt cannot be empty" | Open **Prompts** and fill the Content prompt. |
-| CSV header becomes a post | Remove the header row from the CSV. |
-| RSS, URL, or Google Sheets mode is locked | Confirm the mode is enabled and available in your installed plugin version. |
-| Google Sheets permission denied | Share the spreadsheet with the service account email and verify the Sheet ID. |
-| URL extraction returns little text | The page may block scraping or load content through scripts. |
-| Images are not created | Check the image provider, image model, and required API keys. |
-| Long generations stop early | Increase PHP `max_execution_time` and `default_socket_timeout` above 30 seconds. |
