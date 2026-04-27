@@ -21,13 +21,39 @@ In WordPress admin, go to **AI Puffer > AI Forms**.
   Open example forms built with AI Puffer.
 </Card>
 
-<Frame>
-  <img src="/images/screenshots/ai-forms/aiforms.png" alt="AI Forms" />
-</Frame>
+<Columns cols={2}>
+  <Card title="Create a Form" icon="clipboard-plus" href="#create-a-form" horizontal>
+    Build fields, layouts, labels, prompt, and AI settings.
+  </Card>
 
-<Info>
-Set up at least one AI provider before creating a form. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
-</Info>
+  <Card title="Knowledge Base" icon="database" href="#knowledge-base" horizontal>
+    Use vector data as context for form responses.
+  </Card>
+
+  <Card title="Web Search" icon="globe" href="#web-search" horizontal>
+    Let supported providers search the web during a response.
+  </Card>
+
+  <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
+    Send form submissions and outputs to external apps.
+  </Card>
+
+  <Card title="Manage Forms" icon="list" href="#manage-forms" horizontal>
+    Edit, duplicate, delete, and organize saved forms.
+  </Card>
+
+  <Card title="Publish" icon="send" href="#publish" horizontal>
+    Embed forms with shortcodes or the WordPress block editor.
+  </Card>
+
+  <Card title="Settings" icon="sliders-horizontal" href="#settings" horizontal>
+    Configure limits, custom CSS, and provider filtering.
+  </Card>
+
+  <Card title="Logs" icon="file-clock" href="#logs" horizontal>
+    Review form requests and generated responses.
+  </Card>
+</Columns>
 
 ## Create a Form
 
@@ -51,6 +77,10 @@ You can also click **Generate Form** and describe the form you want. AI Puffer d
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-generator-modal.png" alt="AI Form generator modal" />
 </Frame>
+
+<Info>
+Set up at least one AI provider before creating a form. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
+</Info>
 
 ### Form Elements
 

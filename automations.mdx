@@ -11,75 +11,39 @@ In WordPress admin, go to **AI Puffer > Automations**.
 
 Set up the AI provider, image provider, vector store, or source connection required by the task you want to run. If the Automations menu is not visible, check that the module is enabled and that your WordPress role has access to it.
 
-<Frame>
-  <img src="/images/screenshots/automations/automations.png" alt="Automations" />
-</Frame>
+<Columns cols={2}>
+  <Card title="Create Content" icon="file-plus" href="#create-content" horizontal>
+    Create posts from topics, CSV, RSS, URLs, and Sheets.
+  </Card>
 
-Available task types:
+  <Card title="Optimize" icon="wand-sparkles" href="#optimize" horizontal>
+    Rewrite existing content and update products.
+  </Card>
 
-<Tabs>
-  <Tab title="Create">
+  <Card title="Content Indexing" icon="database" href="#content-indexing" horizontal>
+    Add WordPress content to vector stores on a schedule.
+  </Card>
 
-| Task type | What it does |
-| --- | --- |
-| **Manual Entry** | Creates posts from one or more topic lines. |
-| **Import CSV** | Creates posts from CSV rows. |
-| **RSS Feed** | Creates posts from RSS feed items. |
-| **Web Page** | Creates posts from extracted URL content. |
-| **Google Sheets** | Creates posts from spreadsheet rows. |
+  <Card title="Comment Replies" icon="message-circle-reply" href="#comment-replies" horizontal>
+    Generate replies for approved WordPress comments.
+  </Card>
 
-  </Tab>
-  <Tab title="Optimize">
+  <Card title="Settings" icon="sliders-horizontal" href="#settings" horizontal>
+    Configure schedule, model, prompts, SEO, images, and knowledge.
+  </Card>
 
-| Task type | What it does |
-| --- | --- |
-| **Rewrite Content** | Updates existing titles, excerpts, content, or meta descriptions. |
-| **Content Indexing** | Indexes WordPress content into OpenAI, Pinecone, or Qdrant. |
+  <Card title="Queue" icon="list-checks" href="#queue" horizontal>
+    Review pending, completed, and failed task items.
+  </Card>
 
-  </Tab>
-  <Tab title="Engage">
+  <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
+    Send automation events to external apps.
+  </Card>
 
-| Task type | What it does |
-| --- | --- |
-| **Comment Replies** | Writes replies to approved WordPress comments. |
-
-  </Tab>
-</Tabs>
-
-To create a task:
-
-1. Click **New Task**.
-2. Enter a task name.
-3. Select a task type.
-4. Configure the task source.
-5. Select the model.
-6. In the right-side **General** card, click **Customize** next to **Prompts** if you need to edit prompts.
-7. Set the task status and frequency.
-8. Save the task.
-
-<Frame>
-  <img src="/images/screenshots/automations/new-task.png" alt="New Task" />
-</Frame>
-
-Saved tasks appear in the task list.
-
-| Action | What it does |
-| --- | --- |
-| **Edit** | Opens the task settings. |
-| **Pause** | Stops future scheduled runs. |
-| **Resume** | Schedules the task again. |
-| **Run Now** | Queues matching work immediately. |
-| **Delete** | Deletes the task and its queue items. |
-
-Run Now adds work to the queue. It does not process everything inside the browser request.
-
-<Frame>
-  <img src="/images/screenshots/automations/task-actions.png" alt="Task Actions" />
-</Frame>
-
-<Tip>
-Use **Run Now** to test a task after saving it. Check the queue if the result does not appear immediately.
-</Tip>
+  <Card title="Logs" icon="list" href="#logs" horizontal>
+    Review automation activity and generated output.
+  </Card>
+</Columns>
 
 ## How Automations Run
 

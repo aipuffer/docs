@@ -9,8 +9,6 @@ Images adds a frontend generator to a WordPress page. Visitors enter a prompt, c
 
 Use it for image generation, image editing, Google video generation, logged-in user history, usage limits, logs, and connected app recipes.
 
-In WordPress admin, go to **AI Puffer > Images**.
-
 <Card
   title="Live image generator demo"
   icon="play"
@@ -21,15 +19,39 @@ In WordPress admin, go to **AI Puffer > Images**.
   Open the frontend image generator example.
 </Card>
 
-<Frame>
-  <img src="/images/screenshots/images/images-module-overview.png" alt="Images module overview" />
-</Frame>
+<Columns cols={2}>
+  <Card title="Providers" icon="sparkles" href="#providers" horizontal>
+    See which providers support images, edits, and videos.
+  </Card>
 
-The Images screen gives you an admin preview and a shortcode configurator. Use the preview to test the generator. Use the shortcode settings to decide what visitors can see on the frontend.
+  <Card title="Generate Images" icon="image-plus" href="#generate-images" horizontal>
+    Let visitors create images from prompts.
+  </Card>
 
-<Info>
-Set up at least one image provider before publishing the generator. If the model list is empty, configure the provider in [AI Providers](/ai-providers), sync models, then return to Images.
-</Info>
+  <Card title="Edit Images" icon="crop" href="#edit-images" horizontal>
+    Let visitors upload an image and describe changes.
+  </Card>
+
+  <Card title="Generate Videos" icon="film" href="#generate-videos" horizontal>
+    Use Google video models from the frontend generator.
+  </Card>
+
+  <Card title="Publish" icon="send" href="#publish" horizontal>
+    Embed the generator with a shortcode or block.
+  </Card>
+
+  <Card title="Settings" icon="sliders-horizontal" href="#settings" horizontal>
+    Configure limits, UI text, custom CSS, and provider filtering.
+  </Card>
+
+  <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
+    Send generated media events to external apps.
+  </Card>
+
+  <Card title="Logs" icon="file-clock" href="#logs" horizontal>
+    Review image, edit, and video activity.
+  </Card>
+</Columns>
 
 ## Providers
 
@@ -40,6 +62,10 @@ Set up at least one image provider before publishing the generator. If the model
 | **OpenRouter** | Yes | Yes, when the model supports image input and output | No | Add an OpenRouter API key in **Settings > AI**, then sync models. |
 | **Azure** | Yes | No | No | Add the Azure API key and endpoint in **Settings > AI**, then sync deployments. |
 | **Replicate** | Yes | No | No | Add a Replicate API key in **Settings > Integrations**, then sync models. |
+
+<Info>
+Set up at least one image provider before publishing the generator. If the model list is empty, configure the provider in [AI Providers](/ai-providers), sync models, then return to Images.
+</Info>
 
 <Warning>
 Image editing only works with OpenAI, Google, and OpenRouter models that support image editing.

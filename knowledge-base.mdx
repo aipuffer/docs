@@ -9,17 +9,35 @@ Knowledge Base stores the content AI Puffer can search before it generates an an
 
 Use it for support answers, product details, documentation, policies, posts, pages, WooCommerce products, uploaded documents, and other source text you want AI Puffer to use as context.
 
-In WordPress admin, go to **AI Puffer > Knowledge Base**.
+<Columns cols={2}>
+  <Card title="Providers" icon="database" href="#providers" horizontal>
+    Use OpenAI Vector Stores, Pinecone, or Qdrant.
+  </Card>
 
-<Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-overview.png" alt="Knowledge Base overview" />
-</Frame>
+  <Card title="Vector Stores" icon="box" href="#manage-vector-stores" horizontal>
+    Create, select, or delete vector targets.
+  </Card>
 
-<Info>
-Configure provider credentials before adding data. OpenAI uses **AI Puffer > Settings > AI**. Pinecone and Qdrant use **AI Puffer > Settings > Integrations**.
-</Info>
+  <Card title="Add Data" icon="file-plus" href="#add-data" horizontal>
+    Add Q&A, text, files, or WordPress content.
+  </Card>
 
-After data is added, select the same provider and target inside Chatbots, AI Forms, Content Writer, Automations, or Semantic Search.
+  <Card title="Manage Data" icon="list" href="#manage-data" horizontal>
+    View, edit, retrain, or delete source records.
+  </Card>
+
+  <Card title="Settings" icon="sliders-horizontal" href="#settings" horizontal>
+    Configure visibility, chunking, and indexing controls.
+  </Card>
+
+  <Card title="Semantic Search" icon="search" href="#semantic-search" horizontal>
+    Publish a frontend vector search form.
+  </Card>
+
+  <Card title="Troubleshooting" icon="circle-help" href="#troubleshooting" horizontal>
+    Fix missing targets, dimension errors, and empty results.
+  </Card>
+</Columns>
 
 ## Providers
 

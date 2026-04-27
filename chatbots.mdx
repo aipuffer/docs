@@ -7,8 +7,6 @@ description: "Create, configure, and deploy AI Puffer chatbots."
 
 Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, tools, interface, popup settings, limits, connected apps, and rules.
 
-In WordPress admin, go to **AI Puffer > Chatbots**.
-
 <Card
   title="Live chatbot demo"
   icon="play"
@@ -19,15 +17,39 @@ In WordPress admin, go to **AI Puffer > Chatbots**.
   Open the frontend chatbot example.
 </Card>
 
-<Frame>
-  <img src="/images/screenshots/chatbots/chatbots-module-overview.png" alt="Chatbots module overview" />
-</Frame>
+<Columns cols={2}>
+  <Card title="Deploy" icon="rocket" href="#deploy-a-chatbot" horizontal>
+    Use popup, on-page, or external embed.
+  </Card>
 
-<Info>
-Set up at least one AI provider before creating a chatbot. If a provider or model list is empty, configure the provider and sync models in [AI Providers](/ai-providers).
-</Info>
+  <Card title="Model" icon="sparkles" href="#model-and-instructions" horizontal>
+    Choose the provider, model, instructions, and memory.
+  </Card>
 
-Configure vector stores, speech providers, image providers, or connected apps only if the chatbot will use those tools.
+  <Card title="Knowledge" icon="database" href="#knowledge" horizontal>
+    Use vectors, page context, and training data.
+  </Card>
+
+  <Card title="Tools" icon="wrench" href="#tools" horizontal>
+    Add file upload, web search, images, and voice.
+  </Card>
+
+  <Card title="Interface" icon="paintbrush" href="#interface" horizontal>
+    Customize theme, popup, starters, consent, and labels.
+  </Card>
+
+  <Card title="Limits" icon="chart-line" href="#limits" horizontal>
+    Set usage limits and credit behavior.
+  </Card>
+
+  <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
+    Send chatbot events to Slack, HubSpot, Notion, and more.
+  </Card>
+
+  <Card title="Rules" icon="bolt" href="#rules" horizontal>
+    Trigger actions from chatbot events and conditions.
+  </Card>
+</Columns>
 
 ## Create a Chatbot
 

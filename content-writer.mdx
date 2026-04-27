@@ -9,13 +9,47 @@ Content Writer creates WordPress content from topics, CSV files, RSS feeds, web 
 
 To start using Content Writer, open WordPress Admin and go to **AI Puffer > Content Writer**.
 
-<Frame>
-  <img src="/images/screenshots/content-writer/content-writer.png" alt="Content Writer" />
-</Frame>
+<Columns cols={2}>
+  <Card title="Create Content" icon="file-plus" href="#create-content" horizontal>
+    Generate posts from topics, CSV, RSS, URLs, and Sheets.
+  </Card>
 
-<Info>
-Set up at least one AI provider before using Content Writer. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
-</Info>
+  <Card title="Optimize" icon="wand-sparkles" href="#optimize" horizontal>
+    Rewrite posts, update image metadata, and edit products.
+  </Card>
+
+  <Card title="Templates" icon="copy" href="#templates" horizontal>
+    Save reusable writer settings.
+  </Card>
+
+  <Card title="AI" icon="sparkles" href="#ai" horizontal>
+    Choose the provider, model, and generation settings.
+  </Card>
+
+  <Card title="Prompts" icon="message-square-text" href="#prompts" horizontal>
+    Customize instructions for each generated output.
+  </Card>
+
+  <Card title="SEO" icon="search" href="#seo" horizontal>
+    Generate metadata for supported SEO plugins.
+  </Card>
+
+  <Card title="Publishing" icon="calendar-clock" href="#publishing" horizontal>
+    Set post type, status, author, taxonomy, and schedule.
+  </Card>
+
+  <Card title="Images" icon="image" href="#images" horizontal>
+    Generate or search images for content.
+  </Card>
+
+  <Card title="Knowledge Base" icon="database" href="#knowledge-base" horizontal>
+    Use vector data while generating content.
+  </Card>
+
+  <Card title="Logs" icon="list" href="#logs" horizontal>
+    Review generated content activity.
+  </Card>
+</Columns>
 
 ## Create Content
 
@@ -26,6 +60,10 @@ You can type topics manually, upload a CSV, use RSS feed items, extract text fro
 Manual Entry is for topics you type directly into Content Writer. 
 
 Choose **Single**, **Batch Editor**, or **Quick Paste**, then use the right panel to select the model, edit prompts, set publishing options, add images, and enable SEO.
+
+<Info>
+Set up at least one AI provider before using Content Writer. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
+</Info>
 
 ### Single Entry
 
