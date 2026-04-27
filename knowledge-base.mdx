@@ -5,301 +5,284 @@ description: "Add and manage source data for AI Puffer retrieval."
 
 ## Overview
 
-Use Knowledge Base to add source data to OpenAI Vector Stores, Pinecone, or Qdrant.
+Knowledge Base stores the content AI Puffer can search before it generates an answer or a piece of content.
 
-AI Puffer can use those sources in chatbots, AI forms, content writing, automations, and semantic search.
+Use it for support answers, product details, documentation, policies, posts, pages, WooCommerce products, uploaded documents, and other source text you want AI Puffer to use as context.
 
 In WordPress admin, go to **AI Puffer > Knowledge Base**.
 
-> Screenshot placeholder: Knowledge Base screen showing provider filter, index selector, Add data button, Settings button, and source table.
+> Screenshot placeholder: Knowledge Base screen showing the provider selector, target selector, embedding model selector, Add data button, Settings button, search field, and source table.
 
-## Before You Start
+<Info>
+Configure provider credentials before adding data. OpenAI uses **AI Puffer > Settings > AI**. Pinecone and Qdrant use **AI Puffer > Settings > Integrations**.
+</Info>
 
-Configure the vector store you want to use: OpenAI Vector Stores, Pinecone, or Qdrant. For Pinecone and Qdrant, also configure the embedding provider and model.
+After data is added, select the same provider and target inside Chatbots, AI Forms, Content Writer, Automations, or Semantic Search.
 
-If a provider, model, index, or collection is missing, configure it first in [AI Providers](/ai-providers), then sync the provider data.
+## Providers
 
-## Vector Stores
-
-| Store | Used for | Notes |
+| Provider | Target name | How it works |
 | --- | --- | --- |
-| **OpenAI Vector Stores** | Chatbots, AI forms, content context, automations, and source storage. | AI Puffer uploads text or files to OpenAI and attaches them to the selected vector store. |
-| **Pinecone** | Chatbots, AI forms, content context, automations, semantic search, and source storage. | Requires an embedding provider and model. The Pinecone index dimension must match the embedding model. |
-| **Qdrant** | Chatbots, AI forms, content context, automations, semantic search, and source storage. | Requires an embedding provider and model. The Qdrant collection vector size must match the embedding model. |
+| **OpenAI** | Vector store | AI Puffer sends the source data to OpenAI Vector Stores. No separate embedding model is selected in AI Puffer for this target. |
+| **Pinecone** | Index | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Pinecone index. |
+| **Qdrant** | Collection | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Qdrant collection. |
 
-Use the same embedding model for indexing and searching Pinecone or Qdrant content. If you change the embedding model later, retrain the sources.
+For Pinecone and Qdrant, the index or collection dimension must match the embedding model.
 
-## Add Content
+For example, if your Pinecone index or Qdrant collection is **3072 dimensions**, use a **3072-dimension** embedding model when adding data and when searching that data later.
 
-Open **Knowledge Base > Add data**, then choose one source type.
+<Warning>
+If the dimension does not match, Pinecone or Qdrant can reject the data or return unusable search results.
+</Warning>
 
-| Source type | Use it for |
-| --- | --- |
-| **Q&A** | Add a question and answer pair. AI Puffer stores it as text in the selected store. |
-| **Text** | Paste custom text directly into the knowledge base. |
-| **Files** | Upload supported documents. |
-| **Website** | Index WordPress posts, pages, products, or other public post types. |
+## Manage Vector Stores
+
+Use the provider and target selectors at the top of **AI Puffer > Knowledge Base** to create, select, or delete vector targets.
+
+> Screenshot placeholder: Provider selector opened with OpenAI, Pinecone, and Qdrant options.
+
+### OpenAI Vector Stores
+
+1. Add your OpenAI API key in **AI Puffer > Settings > AI**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **OpenAI** as the provider.
+4. Click **Create new vector store**.
+5. Enter a store name.
+6. Click **Create**.
+
+OpenAI handles the vector store search on its side. AI Puffer stores a local source record so you can see what was added.
+
+> Screenshot placeholder: OpenAI target selector with the create vector store form open.
+
+### Pinecone Indexes
+
+1. Add your Pinecone API key in **AI Puffer > Settings > Integrations**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Pinecone** as the provider.
+4. Select the embedding model you plan to use.
+5. Click **Create new index**.
+6. Enter an index name.
+7. Enter the dimension for the selected embedding model.
+8. Click **Create**.
+
+Use the same embedding model when you add data to the index and when a module searches that index.
+
+> Screenshot placeholder: Pinecone target selector with the create index form and dimension field.
+
+### Qdrant Collections
+
+1. Add your Qdrant URL and API key in **AI Puffer > Settings > Integrations**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Qdrant** as the provider.
+4. Select the embedding model you plan to use.
+5. Click **Create new collection**.
+6. Enter a collection name.
+7. Enter the dimension for the selected embedding model.
+8. Click **Create**.
+
+Use the same embedding model when you add data to the collection and when a module searches that collection.
+
+> Screenshot placeholder: Qdrant target selector with the create collection form and dimension field.
+
+To delete a target, select the provider, open the target selector, choose the target, then use **Delete** in the selector footer.
+
+## Add Data
+
+Before adding data:
+
+1. Select a provider.
+2. Select the target vector store, index, or collection.
+3. For Pinecone or Qdrant, select the embedding model.
+4. Click **Add data**.
+
+> Screenshot placeholder: Add data panel with Q&A, Text, Files, and Website tabs.
 
 ### Q&A
+
+Use Q&A for short answers that should be easy to retrieve later.
 
 1. Select **Q&A**.
 2. Enter the question.
 3. Enter the answer.
 4. Click **Train**.
 
-AI Puffer stores the source in this format:
+AI Puffer stores the pair as text:
 
 ```text
 Q: question text
 A: answer text
 ```
 
+> Screenshot placeholder: Q&A tab with question and answer fields filled.
+
 ### Text
+
+Use Text for policies, instructions, product notes, support snippets, or any source text that does not already exist as WordPress content.
 
 1. Select **Text**.
 2. Paste the source text.
 3. Click **Train**.
 
-Use this for short policies, instructions, product details, support notes, or other text that is not already stored as a WordPress post.
+> Screenshot placeholder: Text tab with source text entered.
 
 ### Files
 
-1. Select **Files**.
-2. Choose one or more files.
-3. Click **Train**.
+Use Files when the source is already in a document.
 
-Supported file extensions in the Knowledge Base UI:
+1. Select **Files**.
+2. Click **Choose files**.
+3. Select one or more files.
+
+Files start uploading and training after selection.
+
+Supported file extensions:
 
 ```text
 .pdf, .docx, .txt, .md, .csv, .json
 ```
 
-AI Puffer validates file type and size against the WordPress/PHP upload limits. For Pinecone and Qdrant, AI Puffer extracts text, splits large documents into chunks, generates embeddings, and upserts each chunk.
+For Pinecone and Qdrant, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection.
 
-> Screenshot placeholder: Add data panel with the Files tab selected and several files queued.
+File size is limited by your WordPress/PHP upload settings. OpenAI Vector Store uploads also use OpenAI's file limits.
+
+> Screenshot placeholder: Files tab with selected files and upload status rows.
 
 ### Website
 
-Use Website when the knowledge base should include WordPress content.
+Use Website when the source is WordPress content.
 
 1. Select **Website**.
 2. Choose **All** or **Specific**.
-3. Choose content status: **Published**, **Draft**, or **Any**.
+3. Choose the content status: **Published**, **Draft**, or **Any**.
 4. Select post types.
 5. If using **Specific**, select the individual items.
 6. Click **Train**.
 
-By default, posts and pages are selected. Products appear when WooCommerce is active.
+Posts and pages are selected by default. WooCommerce products appear when WooCommerce is active. Public custom post types can also appear.
 
-## WordPress Content
+When WordPress content is indexed, AI Puffer builds the source text from the URL, title, excerpt, content, public custom fields, public taxonomies, and available WooCommerce product data.
 
-When AI Puffer indexes WordPress content, it builds a text document from the post data.
+> Screenshot placeholder: Website tab in All mode with post type and status controls.
 
-Included content can contain:
+> Screenshot placeholder: Website tab in Specific mode with individual content selection.
 
-| Content | Notes |
-| --- | --- |
-| Source URL | The post permalink. |
-| Title | The WordPress post title. |
-| Excerpt | Used for non-product content when an excerpt exists. |
-| Main content | Rendered content with HTML tags and shortcodes stripped. |
-| Public custom fields | Hidden fields, serialized data, arrays, objects, and very long values are skipped. |
-| Public taxonomies | Public terms attached to the post. |
-| WooCommerce product data | SKU, price, stock status, weight, dimensions, and product attributes when available. |
-| Product short description | Used for WooCommerce products. |
+## Manage Data
 
-If you configure indexing controls, AI Puffer uses the selected fields, labels, taxonomies, and WooCommerce attributes. If you do not configure them, AI Puffer uses the safe public fields it can detect.
-
-## Indexing Controls
-
-Use indexing controls when WordPress content should include only selected fields.
-
-1. In WordPress admin, go to **AI Puffer > Knowledge Base**.
-2. Click **Settings**.
-3. Open **Indexing controls**.
-4. Select a post type.
-5. Enable or disable fields, taxonomies, and WooCommerce attributes.
-6. Change labels if needed.
-7. Save.
-
-> Screenshot placeholder: Content Indexing Controls sheet showing a post type, custom fields, taxonomies, and label fields.
-
-## Document Chunking
-
-Document chunking controls how large files are split before embedding for Pinecone and Qdrant.
-
-Open **Knowledge Base > Settings > Document chunking**.
-
-| Setting | Default | Range |
-| --- | --- | --- |
-| **Avg chars per token** | `4` | `2` to `10` |
-| **Max tokens per chunk** | `3000` | `256` to `8000` |
-| **Overlap tokens** | `150` | `0` to `1000` |
-
-Keep overlap above `0` when a long document needs context to continue across chunk boundaries. Use smaller chunks if the embedding provider rejects long input.
-
-## Manage Content
-
-The source table shows the local records AI Puffer created while indexing.
+The source table shows the local records created while adding data.
 
 | Column | What it shows |
 | --- | --- |
-| **Time** | When the source was indexed or updated. |
-| **Index** | Provider and target store/index/collection. |
+| **Time** | When the source was added or updated. |
+| **Index** | Provider and target vector store, index, or collection. |
 | **Type** | Site Content, Text, or File Upload. |
 | **Source** | Post title, text preview, file name, or source identifier. |
 | **Status** | Trained, Processing, Failed, or another provider status. |
-| **Actions** | Actions available for that source. |
+| **Actions** | Available actions for the source. |
+
+> Screenshot placeholder: Source table with provider, type, status, search, and row actions visible.
 
 Available actions:
 
-| Action | Availability | What it does |
-| --- | --- | --- |
-| **View** | Sources with stored text preview. | Opens the stored source text. |
-| **Edit** | Text sources. | Replaces the old vector/source entry with the edited text. |
-| **Retrain** | Site content sources. | Deletes the old vector/source entry and indexes the WordPress item again. |
-| **Delete** | Sources with a stored vector or file ID. | Attempts to delete the external vector/file, then removes the local source record. |
+| Action | Use it for |
+| --- | --- |
+| **View** | Review the stored source preview. |
+| **Edit** | Edit a text source and save it again. |
+| **Retrain** | Re-index a WordPress content source after the content changes. |
+| **Delete** | Remove the source from the external provider and from the local source table. |
 
-Use the filters to narrow the list by provider, target index/store, source type, status, or search text.
+> Screenshot placeholder: Source preview modal.
 
-### Hide User Uploads
+> Screenshot placeholder: Edit source modal with Save & retrain button.
 
-Open **Knowledge Base > Settings > General**.
+## Settings
+
+Click **Settings** in **AI Puffer > Knowledge Base** to open Knowledge Base settings.
+
+> Screenshot placeholder: Knowledge Base Settings popover showing General, Document chunking, Indexing controls, and Semantic search.
+
+### General
+
+General controls how Knowledge Base records and indexing buttons appear in the admin.
 
 | Setting | What it does |
 | --- | --- |
-| **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base table. |
-| **Show index button** | Shows the vector indexing controls on supported WordPress post list screens. |
+| **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base source table. |
+| **Show index button** | Shows vector indexing controls on supported WordPress list screens. |
 
-## WordPress List Indexing
+> Screenshot placeholder: General settings panel with Hide user uploads and Show index button.
 
-AI Puffer can add indexing controls to WordPress list screens.
+### Document Chunking
 
-Supported list screens:
+Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone or Qdrant.
 
-| Post type | Notes |
-| --- | --- |
-| Posts | Available by default. |
-| Pages | Available by default. |
-| Products | Available when WooCommerce is active. |
+| Setting | Default | Range | Use it for |
+| --- | --- | --- | --- |
+| **Avg chars per token** | `4` | `2` to `10` | Estimates how many characters equal one token. |
+| **Max tokens per chunk** | `3000` | `256` to `8000` | Sets the maximum chunk size before embedding. |
+| **Overlap tokens** | `150` | `0` to `1000` | Repeats a small part of the previous chunk so context does not break sharply. |
 
-The list screen can show:
+Use smaller chunks when an embedding provider rejects long input. Keep some overlap for long documents where meaning continues across sections.
+
+> Screenshot placeholder: Document chunking panel with all three fields.
+
+### Indexing Controls
+
+Indexing controls define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
+
+1. Click **Settings** in **AI Puffer > Knowledge Base**.
+2. Open **Indexing controls**.
+3. Select a post type.
+4. Adjust **Basic Labels** if you want different labels for source URL, title, excerpt, or content.
+5. Enable or disable custom fields.
+6. Enable or disable taxonomies.
+7. For WooCommerce products, enable or disable product data such as SKU, price, stock, dimensions, and attributes.
+8. Save.
+
+If the Save button shows **Upgrade**, activate Pro before saving indexing rules.
+
+> Screenshot placeholder: Content Indexing Controls sheet with a post type accordion open.
+
+When **Show index button** is enabled, supported WordPress list screens can show vector indexing controls.
 
 | Control | What it does |
 | --- | --- |
-| **Index Status** column | Shows where a post has been indexed. Hidden by default in Screen Options. |
-| **Index Status** filter | Filters posts by indexed or not indexed. |
-| **Add to Vector Store** action | Sends selected posts to a vector store, index, or collection. |
+| **Index Status** column | Shows whether a post has already been indexed. |
+| **Index Status** filter | Filters content by indexed or not indexed. |
+| **Add to Vector Store** action | Sends selected posts to a vector target. |
 
-If the controls do not appear, check role access for the vector content indexer module and confirm **Knowledge Base > Settings > General > Show index button** is enabled.
-
-## Use in Modules
-
-After sources are indexed, select them in the module that needs retrieval.
-
-| Module | How it uses knowledge sources |
-| --- | --- |
-| **Chatbots** | Searches selected sources before replying. OpenAI can use OpenAI file search when the chatbot uses OpenAI. Pinecone and Qdrant add matched context to the request. |
-| **AI Forms** | Searches selected sources before generating the form response. |
-| **Content Writer** | Adds selected knowledge context to new content generation or existing content updates. |
-| **Automations** | Can use knowledge context in content tasks or index WordPress content into a vector store. |
-| **Semantic Search** | Uses Pinecone or Qdrant to return search results on a public page. |
-
-Common retrieval settings:
-
-| Setting | What it controls |
-| --- | --- |
-| **Vector provider** | OpenAI, Pinecone, or Qdrant, depending on the module. |
-| **Store / index / collection** | The target source set to search. |
-| **Embedding provider and model** | Required for Pinecone and Qdrant. |
-| **Limit** | Maximum number of matches to include. |
-| **Threshold** | Minimum score required before a match is used. |
+> Screenshot placeholder: WordPress Posts list showing Index Status and Add to Vector Store controls.
 
 ## Semantic Search
 
-Semantic search adds a public search form to a page.
+Semantic Search publishes a search form that queries a Pinecone index or Qdrant collection from the frontend.
 
-Open **Knowledge Base > Settings > Semantic Search**.
+Open **AI Puffer > Knowledge Base > Settings > Semantic search**.
 
 1. Select **Vector DB**: Pinecone or Qdrant.
 2. Select the index or collection.
 3. Select the embedding model.
 4. Set **Number of Results**.
 5. Set **No Results Text**.
-6. Test a query in the preview form.
+6. Test a query in **Try semantic search**.
 7. Copy the shortcode.
-
-Shortcode:
 
 ```text
 [aipkit_semantic_search]
 ```
 
-The shortcode uses the global Semantic Search settings. It has no shortcode attributes in the current implementation.
+Semantic Search uses the global settings from this panel. It does not use OpenAI Vector Stores in the current UI.
 
-Semantic Search does not use OpenAI Vector Stores in the current UI. Use Pinecone or Qdrant for this shortcode.
+Use the same embedding model that was used when the Pinecone or Qdrant data was added.
 
-> Screenshot placeholder: Semantic Search settings sheet with vector DB, target, embedding model, result count, shortcode, and preview search.
-
-## Developer Options
-
-### Connected Apps
-
-AI Puffer emits a connected-app event when a source is indexed successfully.
-
-| Event | When it fires |
-| --- | --- |
-| `kb.source_indexed` | After a knowledge source is indexed with status `indexed`. |
-
-The event payload includes the source log ID, post ID, post title, post URL, provider, store ID, status, file ID, batch ID, embedding provider, and embedding model.
-
-Use this event when another app should be notified after a knowledge source is added or refreshed.
-
-### REST Upsert
-
-AI Puffer includes a REST endpoint for adding text vectors to Pinecone or Qdrant.
-
-```text
-POST /wp-json/aipkit/v1/vector-stores/upsert
-```
-
-Required parameters:
-
-| Parameter | Notes |
-| --- | --- |
-| `provider` | `pinecone` or `qdrant`. |
-| `target_id` | Pinecone index name or Qdrant collection name. |
-| `vectors` | Array of objects with `content`, optional `id`, and optional `metadata`. |
-| `embedding_provider` | Embedding provider key. |
-| `embedding_model` | Embedding model ID. |
-
-Optional parameter:
-
-| Parameter | Notes |
-| --- | --- |
-| `namespace` | Pinecone namespace. |
-
-Authentication:
-
-| Method | Notes |
-| --- | --- |
-| `Authorization: Bearer <key>` | Preferred method. |
-| `aipkit_api_key` | Request parameter fallback. |
-
-OpenAI Vector Stores are not supported by this REST upsert endpoint.
-
-Full API details should be documented in the API Reference.
+> Screenshot placeholder: Semantic Search sheet with configuration, shortcode, and preview search.
 
 ## Troubleshooting
 
 | Problem | What to check |
 | --- | --- |
-| Provider target is missing | Configure the provider in **Settings**, then sync vector stores, indexes, or collections. |
-| Pinecone or Qdrant indexing fails | Confirm the embedding model dimension matches the index or collection vector size. |
-| File upload is unavailable | Confirm file upload is enabled and the file type is supported. |
-| File upload fails | Check file type, file size, PHP upload limits, and whether the file contains readable text. |
-| Website content indexes without expected fields | Open **Indexing controls** and confirm the post type fields, labels, taxonomies, and product attributes. |
-| Post list indexing controls are missing | Enable **Show index button** and confirm the user role has access to the vector content indexer module. |
-| Semantic search returns no results | Confirm the target index or collection has trained sources, the same embedding model is selected, and the result count is greater than `0`. |
-| Chatbots or forms ignore knowledge sources | Confirm knowledge base is enabled in that module, the target source is selected, and the threshold is not too high. |
-| Chatbot upload records appear in Knowledge Base | Enable **Hide user uploads** in **Knowledge Base > Settings > General**. |
+| Provider target is missing | Configure the provider credentials, then sync or create the vector target again. |
+| Pinecone or Qdrant training fails | Confirm the embedding model dimension matches the index or collection dimension. |
+| File text is not useful | Use a text-based document. Scanned PDFs may not contain extractable text. |
+| Website content is missing fields | Check **Settings > Indexing controls** for that post type. |
+| WordPress list indexing controls are missing | Enable **Settings > General > Show index button** and confirm the user role can access the vector content indexer module. |
+| Semantic Search returns no results | Confirm the selected target contains trained data and the same embedding model is selected. |
