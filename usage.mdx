@@ -178,6 +178,40 @@ Open **AI Puffer > Usage > Billing > Pricing**.
 
 Pricing rules tell AI Puffer how many credits a model operation should cost.
 
+#### How Pricing Works
+
+Credits are internal AI Puffer units. You decide how many credits each request should cost.
+
+Use **Flat** when every request should cost the same amount. Use **Per 1K Tokens** when longer chat or form requests should cost more. Use **Per Image** or **Per Video** for media tools.
+
+For chat and AI forms, tokens are the pieces of text sent to and returned from the AI provider. **Input tokens** are the user message, instructions, and context sent to the model. **Output tokens** are the AI response.
+
+Example token rule:
+
+| Field | Value |
+| --- | --- |
+| Input rate | 1 credit per 1K input tokens |
+| Output rate | 2 credits per 1K output tokens |
+
+If a request uses 800 input tokens and 300 output tokens:
+
+| Usage | Calculation | Cost |
+| --- | --- | --- |
+| Input | 800 / 1000 x 1 | 0.8 credits |
+| Output | 300 / 1000 x 2 | 0.6 credits |
+| Total | 0.8 + 0.6 | 1.4 credits |
+
+AI Puffer rounds the result up, so this request is charged as **2 credits**.
+
+Example flat rule:
+
+| Field | Value |
+| --- | --- |
+| Billing method | Flat |
+| Unit rate | 5 credits |
+
+Every matching request costs **5 credits**, no matter how long the prompt or response is.
+
 To create a pricing rule:
 
 1. Click **New Pricing**.
