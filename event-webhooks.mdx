@@ -5,51 +5,83 @@ description: "Send AI Puffer events to external URLs."
 
 Event webhooks send an HTTP `POST` request when selected AI Puffer events happen.
 
-Use them when another system needs to receive chat messages, generated content, form submissions, image outputs, automation results, or knowledge base indexing events.
+Use them when another system needs to receive form submissions, chatbot activity, generated content, image outputs, automation results, or knowledge base indexing results.
 
-## Enable event webhooks
+<Columns cols={2}>
+  <Card title="Setup" icon="gear" href="#setup" horizontal>
+    Enable webhooks, add endpoints, and choose events.
+  </Card>
 
-1. Open **WordPress Admin > AI Puffer > Settings**.
-2. Open **Developers**.
-3. Turn on **Event Webhooks**.
-4. Enter a **Signing Secret** if the receiving app should verify requests.
-5. Click **Add Endpoint**.
-6. Enter an endpoint name and URL.
-7. Enable the endpoint.
-8. Select the events this endpoint should receive.
+  <Card title="Events" icon="list" href="#events" horizontal>
+    See the event names and when they fire.
+  </Card>
 
-> Screenshot placeholder: Developers settings screen with Event Webhooks enabled and a signing secret entered.
+  <Card title="Payload" icon="database" href="#payload" horizontal>
+    Read the request headers and JSON body format.
+  </Card>
 
-> Screenshot placeholder: Endpoint editor showing URL, enabled switch, and subscribed events.
+  <Card title="Signatures" icon="wrench" href="#signatures" horizontal>
+    Verify requests with the signing secret.
+  </Card>
 
-Settings save with the rest of the AI Puffer settings.
+  <Card title="Delivery" icon="bolt" href="#delivery" horizontal>
+    Understand success responses, retries, and failed deliveries.
+  </Card>
 
-An endpoint receives events only when all of these are true:
+  <Card title="Troubleshooting" icon="wrench" href="#troubleshooting" horizontal>
+    Fix missing requests, signature errors, and timeouts.
+  </Card>
+</Columns>
 
-| Requirement | Notes |
+## Setup
+
+In WordPress admin, go to **AI Puffer > Settings > Developers**.
+
+To enable event webhooks:
+
+1. Turn on **Event Webhooks**.
+2. Enter a **Signing Secret** if your receiver will verify requests.
+3. Click **Add Endpoint**.
+4. Enter a name and endpoint URL.
+5. Turn on the endpoint.
+6. Select the events this endpoint should receive.
+
+Settings save automatically after you change them.
+
+> Screenshot placeholder: Developers settings with Event Webhooks enabled and a Signing Secret field.
+
+> Screenshot placeholder: Webhook endpoint card showing endpoint name, URL, enabled switch, and subscribed events.
+
+<Info>
+The endpoint URL must be reachable from your WordPress server. For production, use an HTTPS URL.
+</Info>
+
+An endpoint receives an event only when all of these are true:
+
+| Requirement | Meaning |
 | --- | --- |
-| Event Webhooks is enabled | This is the global switch. |
-| Endpoint is enabled | Each endpoint has its own switch. |
-| Endpoint URL is set | The URL must be reachable from your WordPress server. |
-| Event is selected | Each endpoint can subscribe to one or more events. |
+| Event Webhooks is enabled | The global switch is on. |
+| Endpoint is enabled | The endpoint's own switch is on. |
+| Endpoint URL is set | AI Puffer has a URL to send to. |
+| Event is selected | The endpoint is subscribed to that event. |
 
 ## Events
 
 | Event | Module | Fires when |
 | --- | --- | --- |
-| `chatbot.session_started` | Chatbot | A new chatbot conversation starts. |
-| `chatbot.user_message_submitted` | Chatbot | A visitor or logged-in user sends a chatbot message. |
-| `chatbot.response_generated` | Chatbot | The chatbot response is completed and saved. |
-| `chatbot.fb_submitted` | Chatbot | A user submits chatbot feedback. |
-| `content.generated` | Content Writer | Content is generated from the writer, stream flow, or automation. |
+| `chatbot.session_started` | Chatbots | A new chatbot conversation starts. |
+| `chatbot.user_message_submitted` | Chatbots | A user sends a chatbot message. |
+| `chatbot.response_generated` | Chatbots | The chatbot response is completed. |
+| `chatbot.fb_submitted` | Chatbots | A user submits chatbot feedback. |
+| `content.generated` | Content Writer | Content is generated from Content Writer, streaming, or automation. |
 | `task.item_completed` | Automations | An automation queue item finishes. |
 | `form.submitted` | AI Forms | An AI Form submission completes and returns a response. |
-| `image.generated` | Images | An image or video generation request returns output. |
+| `image.generated` | Images | An image, edit, or video generation request returns output. |
 | `kb.source_indexed` | Knowledge Base | A source is indexed successfully. |
 
-`chatbot.feedback_submitted` is treated as a legacy name for `chatbot.fb_submitted`.
+Saved endpoint subscriptions using the old `chatbot.feedback_submitted` name are normalized to `chatbot.fb_submitted`.
 
-## Request format
+## Payload
 
 AI Puffer sends JSON to each subscribed endpoint.
 
@@ -61,18 +93,18 @@ Accept: application/json
 
 ### Headers
 
-| Header | Description |
+| Header | Meaning |
 | --- | --- |
 | `X-AIPKit-Event` | Event name, such as `form.submitted`. |
-| `X-AIPKit-Event-Id` | Unique ID for this event envelope. |
-| `X-AIPKit-Delivery-Id` | Unique ID for this delivery attempt group. |
-| `X-AIPKit-Idempotency-Key` | Stable key for deduplicating retries or repeated processing. |
+| `X-AIPKit-Event-Id` | Unique event envelope ID. |
+| `X-AIPKit-Delivery-Id` | Unique delivery ID for this endpoint attempt group. |
+| `X-AIPKit-Idempotency-Key` | Stable key for deduplicating repeated delivery. |
 | `X-AIPKit-Schema-Version` | Event schema version. Current value: `2026-03-19`. |
-| `X-AIPKit-Timestamp` | Unix timestamp used for signing. |
-| `X-AIPKit-Signature` | HMAC signature. Included only when a signing secret is set. |
-| `X-AIPKit-Signature-Alg` | `sha256`. Included only when a signing secret is set. |
+| `X-AIPKit-Timestamp` | Unix timestamp used for the signature. |
+| `X-AIPKit-Signature` | HMAC signature. Sent only when a signing secret is set. |
+| `X-AIPKit-Signature-Alg` | `sha256`. Sent only when a signing secret is set. |
 
-## Payload envelope
+### Envelope
 
 Every event uses the same outer envelope. Event-specific fields are inside `data`.
 
@@ -105,10 +137,6 @@ Every event uses the same outer envelope. Event-specific fields are inside `data
       "id": 123,
       "name": "Contact Form"
     },
-    "submission": {
-      "id": "conversation-uuid",
-      "count": 1
-    },
     "inputs": {
       "email": "person@example.com",
       "message": "I need help with pricing."
@@ -127,15 +155,16 @@ Every event uses the same outer envelope. Event-specific fields are inside `data
 
 `resource` and `meta` are included when the event provides them.
 
-## Event data
+### Event Data
 
-Use the event name to decide which fields to read from `data`.
+Use `type` or `X-AIPKit-Event` to decide which fields to read from `data`.
 
-### Chatbot events
+<AccordionGroup>
+<Accordion title="Chatbots">
 
-`chatbot.session_started` and `chatbot.user_message_submitted` include:
+`chatbot.session_started` and `chatbot.user_message_submitted` include bot, conversation, actor, message, and AI model details.
 
-| Field | Description |
+| Field | Meaning |
 | --- | --- |
 | `data.bot.id` | Chatbot ID. |
 | `data.bot.name` | Chatbot name. |
@@ -143,36 +172,24 @@ Use the event name to decide which fields to read from `data`.
 | `data.conversation.message_count` | Number of messages in the conversation. |
 | `data.actor.type` | `user` or `guest`. |
 | `data.actor.user_id` | WordPress user ID when available. |
-| `data.message.id` | Message ID. |
 | `data.message.text` | User message text. |
 | `data.ai.provider` | Provider used by the chatbot. |
 | `data.ai.model` | Model used by the chatbot. |
 
-`chatbot.response_generated` includes `data.response.id`, `data.response.text`, and the last user message in `data.user_message` when available.
+`chatbot.response_generated` includes `data.response.text`. `chatbot.fb_submitted` includes `data.feedback`.
 
-`chatbot.fb_submitted` includes:
+</Accordion>
 
-| Field | Description |
-| --- | --- |
-| `data.feedback` | Submitted feedback value. |
-| `data.bot.id` | Chatbot ID. |
-| `data.bot.name` | Chatbot name. |
-| `data.conversation.id` | Conversation UUID. |
-| `data.message.id` | Message ID the feedback belongs to. |
-| `data.actor.type` | `user` or `guest`. |
+<Accordion title="Content Writer">
 
-### Content Writer
+`content.generated` can come from Content Writer, streaming, or an automation task.
 
-`content.generated` can come from direct generation, streaming, or an automated task.
-
-Common fields:
-
-| Field | Description |
+| Field | Meaning |
 | --- | --- |
 | `data.title` | Generated title when available. |
 | `data.content` | Generated content. |
 | `data.excerpt` | Excerpt when generated. |
-| `data.meta_description` | Search description when generated. |
+| `data.meta_description` | SEO description when generated. |
 | `data.focus_keyword` | Focus keyword when generated. |
 | `data.tags` | Tags when generated. |
 | `data.post.id` | Created post ID when a post was created. |
@@ -180,33 +197,33 @@ Common fields:
 | `data.post.url` | WordPress post URL. |
 | `data.ai.provider` | Provider used for generation. |
 | `data.ai.model` | Model used for generation. |
-| `data.input.keywords` | Input keywords when available. |
-| `data.input.source_url` | Source URL when available. |
 | `data.task.id` | Automation task ID when generated by automation. |
-| `data.task.queue_item_id` | Automation queue item ID when generated by automation. |
 
-### Automations
+</Accordion>
 
-`task.item_completed` includes:
+<Accordion title="Automations">
 
-| Field | Description |
+`task.item_completed` is sent when an automation queue item completes.
+
+| Field | Meaning |
 | --- | --- |
 | `data.task.id` | Automation task ID. |
 | `data.task.name` | Automation task name. |
 | `data.task.type` | Automation task type. |
 | `data.queue_item.id` | Queue item ID. |
-| `data.queue_item.target_identifier` | Item target, such as a topic, URL, row, product, or post. |
+| `data.queue_item.target_identifier` | Topic, URL, row, product, post, or other queued target. |
 | `data.queue_item.status` | Final queue status. |
 | `data.queue_item.attempts` | Number of attempts. |
 | `data.result.message` | Result message. |
 | `data.result.generated_post_id` | Generated post ID when available. |
-| `data.item` | Summary of the queued item configuration. |
 
-### AI Forms
+</Accordion>
 
-`form.submitted` includes:
+<Accordion title="AI Forms">
 
-| Field | Description |
+`form.submitted` is sent after an AI Form returns a response.
+
+| Field | Meaning |
 | --- | --- |
 | `data.form.id` | AI Form ID. |
 | `data.form.name` | AI Form name. |
@@ -219,28 +236,32 @@ Common fields:
 | `data.actor.type` | `user` or `guest`. |
 | `data.actor.user_id` | WordPress user ID when available. |
 
-### Images
+</Accordion>
 
-`image.generated` includes:
+<Accordion title="Images">
 
-| Field | Description |
+`image.generated` is sent after image, image edit, or video generation returns output.
+
+| Field | Meaning |
 | --- | --- |
 | `data.prompt` | Prompt used for generation. |
 | `data.provider` | Image or video provider. |
 | `data.model` | Model used for generation. |
-| `data.mode` | Generation mode, such as `generate`. |
+| `data.mode` | Generation mode. |
 | `data.media_type` | `image` or `video`. |
 | `data.output_count` | Number of generated outputs. |
-| `data.outputs.images` | Generated image output data. |
-| `data.outputs.videos` | Generated video output data. |
+| `data.outputs.images` | Image output data. |
+| `data.outputs.videos` | Video output data. |
 | `data.usage` | Usage details when returned by the provider. |
 | `data.actor.type` | `user` or `guest`. |
 
-### Knowledge Base
+</Accordion>
 
-`kb.source_indexed` includes:
+<Accordion title="Knowledge Base">
 
-| Field | Description |
+`kb.source_indexed` is sent after a Knowledge Base source is indexed successfully.
+
+| Field | Meaning |
 | --- | --- |
 | `data.source.log_id` | Knowledge source log ID. |
 | `data.source.post_id` | WordPress post ID when the source is a post. |
@@ -251,12 +272,13 @@ Common fields:
 | `data.store.name` | Vector store, index, or collection name. |
 | `data.status` | Indexing status. |
 | `data.message` | Indexing message. |
-| `data.file_id` | File ID when available. |
-| `data.batch_id` | Batch ID when available. |
 | `data.embedding.provider` | Embedding provider. |
 | `data.embedding.model` | Embedding model. |
 
-## Verify signatures
+</Accordion>
+</AccordionGroup>
+
+## Signatures
 
 If a signing secret is set, AI Puffer signs the raw JSON body.
 
@@ -278,6 +300,10 @@ Header format:
 X-AIPKit-Signature: sha256=HEX_DIGEST
 ```
 
+<Warning>
+Verify the raw request body exactly as received. Do not parse JSON and then stringify it again before checking the signature.
+</Warning>
+
 Node example:
 
 ```js
@@ -291,16 +317,18 @@ function verifyAIPufferWebhook({ rawBody, timestamp, signature, secret }) {
       .update(`${timestamp}.${rawBody}`)
       .digest("hex");
 
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expected)
-  );
+  const a = Buffer.from(signature);
+  const b = Buffer.from(expected);
+
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(a, b);
 }
 ```
 
-Use the raw request body exactly as received. Do not verify against a re-serialized JSON object.
-
-## Respond to a webhook
+## Delivery
 
 Return any `2xx` status code to mark the delivery as successful.
 
@@ -310,89 +338,112 @@ Return any `2xx` status code to mark the delivery as successful.
 }
 ```
 
-AI Puffer treats these as delivery failures:
+AI Puffer treats network errors and non-`2xx` responses as failed deliveries. Retryable failures include network errors, `408`, `409`, `425`, `429`, and `5xx` responses.
 
-| Failure type | Notes |
-| --- | --- |
-| Network error | WordPress could not reach the endpoint. |
-| Non-2xx response | The endpoint responded, but not with a success code. |
-| Invalid payload encoding | The event body could not be encoded. |
-
-Retryable failures are network errors, `408`, `409`, `425`, `429`, and `5xx` responses.
-
-## Delivery behavior
-
-AI Puffer uses a delivery queue for frontend events where slow webhook endpoints would affect the visitor request.
-
-Queued delivery is used for:
-
-| Event type | Notes |
-| --- | --- |
-| `chatbot.*` | Chatbot events. |
-| `form.submitted` | AI Form submissions. |
-| `content.generated` | Content generation events. |
-| `image.generated` | Image or video generation events. |
-
-Admin and manual origins can be delivered synchronously.
-
-Default delivery settings:
+Default delivery behavior:
 
 | Setting | Default |
 | --- | --- |
-| Request timeout | `5` seconds. |
-| Redirects | `2`. |
-| Retry schedule | Immediate, `0.25` seconds, then `1` second. |
-| Queue worker batch size | `5` jobs. |
-| Cron fallback | Every five minutes. |
-| Failed queue retention | `7` days. |
+| Request timeout | `5` seconds |
+| Redirects | `2` |
+| Retry schedule | Immediate, `0.25` seconds, then `1` second |
+| Queue worker batch size | `5` jobs |
+| Cron fallback | Every 5 minutes |
+| Failed queue retention | `7` days |
 
-Because retries can happen, your receiver should be idempotent. Store `X-AIPKit-Idempotency-Key` or `X-AIPKit-Event-Id` and ignore duplicates if the same event has already been processed.
+AI Puffer queues latency-sensitive frontend events so slow endpoints do not slow down the visitor request. This includes chatbot events, `form.submitted`, `content.generated`, and `image.generated` when they are not manual or admin-originated.
 
-## Delivery issues
+Some admin and manual events can be delivered synchronously.
+
+<Tip>
+Webhook receivers should be idempotent. Store `X-AIPKit-Idempotency-Key` or `X-AIPKit-Event-Id` and ignore duplicates that were already processed.
+</Tip>
+
+### Delivery Issues
 
 Failed queued webhook deliveries appear in **AI Puffer > Settings > Developers**.
 
-The delivery issues panel shows recent failed webhook jobs. You can retry or clear an issue.
+The panel shows the five most recent failed webhook jobs. Use **Retry** to run the delivery again, or **Clear** to remove it from the list.
 
-> Screenshot placeholder: Webhook Delivery Issues panel showing failed items with Retry and Clear buttons.
+> Screenshot placeholder: Webhook Delivery Issues panel with failed jobs and Retry / Clear buttons.
 
-Retry runs the selected failed delivery again. Clear removes the failed queue job from the delivery issues list.
-
-## Test an endpoint
+### Test an Endpoint
 
 Use a temporary endpoint during setup.
 
-1. Create a test URL in a service such as RequestBin, webhook.site, or a local tunnel.
+1. Create a test URL in RequestBin, webhook.site, or a local tunnel.
 2. Add the URL as an AI Puffer webhook endpoint.
 3. Subscribe it to one event, such as `form.submitted`.
 4. Trigger that event in WordPress.
-5. Confirm the request body and headers in the receiving tool.
+5. Check the received headers and JSON body.
 6. Replace the test URL with your production URL.
 
 ## Troubleshooting
 
-| Issue | Check |
-| --- | --- |
-| No request arrives | Confirm the global switch, endpoint switch, URL, and subscribed event. |
-| Endpoint receives some events only | Confirm the endpoint is subscribed to each event you expect. |
-| Signature does not match | Verify against the raw body and `X-AIPKit-Timestamp`. Do not parse and re-stringify JSON before verification. |
-| Duplicate processing | Deduplicate with `X-AIPKit-Idempotency-Key` or `X-AIPKit-Event-Id`. |
-| Endpoint times out | Return quickly from your receiver and process the work in your own queue. |
-| Failed delivery remains visible | Retry it from the delivery issues panel or clear it if the event no longer matters. |
+<AccordionGroup>
+<Accordion title="No request arrives">
 
-## WordPress hooks
+Check these first:
 
-These hooks are available for custom integrations.
+1. **Event Webhooks** is enabled.
+2. The endpoint is enabled.
+3. The endpoint URL is correct and reachable from the WordPress server.
+4. The endpoint is subscribed to the event you triggered.
+5. Your server or firewall is not blocking outbound HTTP requests.
+
+</Accordion>
+
+<Accordion title="Only some events arrive">
+
+Each endpoint has its own event subscriptions. Edit the endpoint and confirm every expected event is selected.
+
+</Accordion>
+
+<Accordion title="Signature does not match">
+
+Verify against the raw request body and `X-AIPKit-Timestamp`.
+
+Common causes:
+
+- The receiver parses and re-stringifies JSON before verification.
+- The wrong signing secret is used.
+- The receiver includes a different timestamp in the base string.
+- The receiver strips or changes the raw body before verification.
+
+</Accordion>
+
+<Accordion title="Endpoint times out">
+
+Return a quick `2xx` response first, then do longer work in your own queue. AI Puffer waits up to 5 seconds for the endpoint response by default.
+
+</Accordion>
+
+<Accordion title="Duplicate processing">
+
+Retries can send the same event again. Deduplicate with `X-AIPKit-Idempotency-Key` or `X-AIPKit-Event-Id`.
+
+</Accordion>
+
+<Accordion title="Failed delivery stays visible">
+
+Open **AI Puffer > Settings > Developers**. Use **Retry** if the endpoint is fixed. Use **Clear** if you no longer need that failed job.
+
+</Accordion>
+</AccordionGroup>
+
+## WordPress Hooks
+
+Use these hooks for custom integrations.
 
 | Hook | Type | Use |
 | --- | --- | --- |
-| `aipkit_event_webhooks_envelope` | Filter | Modify the envelope before target matching and delivery. |
-| `aipkit_event_webhooks_targets` | Filter | Modify the endpoint target list for an event. |
+| `aipkit_event_webhooks_envelope` | Filter | Modify the envelope before delivery. |
+| `aipkit_event_webhooks_targets` | Filter | Modify endpoint targets for an event. |
 | `aipkit_event_webhooks_request_headers` | Filter | Add or modify outgoing request headers. |
 | `aipkit_event_webhooks_request_args` | Filter | Modify `wp_remote_post` arguments. |
 | `aipkit_event_webhooks_should_retry` | Filter | Change retry behavior for failed attempts. |
 | `aipkit_event_webhooks_retry_delays` | Filter | Change retry delays. |
-| `aipkit_event_delivery_queue_async_enabled` | Filter | Change whether an event should use async delivery. |
+| `aipkit_event_delivery_queue_async_enabled` | Filter | Change whether an event uses async delivery. |
 | `aipkit_event_delivery_queue_processing_enabled` | Filter | Enable or disable queue processing. |
 | `aipkit_event_webhooks_emitted` | Action | Run code after an event is emitted. |
 | `aipkit_event_webhooks_delivery_completed` | Action | Run code after a delivery succeeds. |
