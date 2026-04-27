@@ -53,7 +53,7 @@ To create a task:
 3. Select a task type.
 4. Configure the task source.
 5. Select the model.
-6. Open **Customize** if you need to edit prompts.
+6. In the right-side **General** card, click **Customize** next to **Prompts** if you need to edit prompts.
 7. Set the task status and frequency.
 8. Save the task.
 
@@ -368,7 +368,7 @@ Use placeholders in rewrite prompts to include existing post data.
 
 </Accordion>
 
-Rewrite Content can optionally use Knowledge Base context.
+Rewrite Content can optionally use vector context from the right-side **Advanced** card.
 
 | Provider | Required setup |
 | --- | --- |
@@ -391,7 +391,7 @@ To create a Rewrite Content automation:
 5. Choose whether to queue all matching content now.
 6. Select the fields AI Puffer should update.
 7. Review the prompt for each selected field.
-8. Add Knowledge Base context if needed.
+8. In **Advanced**, set **Context** if the rewrite should use stored knowledge.
 9. Set the task frequency.
 10. Save the task.
 
@@ -442,7 +442,7 @@ To create a WooCommerce product update automation:
 5. Choose whether to queue matching products now.
 6. Select the product fields AI Puffer should update.
 7. Review the prompt for each selected field.
-8. Add Knowledge Base context if product copy should use stored product or business information.
+8. In **Advanced**, set **Context** if product copy should use stored product or business information.
 9. Set the task frequency.
 10. Save the task.
 
@@ -544,7 +544,7 @@ Automation settings appear in the right-side cards after you choose a task type.
 
 ### Task Schedule
 
-Task schedule controls whether the task is active and when AI Puffer checks for work.
+Task schedule controls whether the task is active and when AI Puffer checks for work. These settings are in the right-side **Schedule** card.
 
 | Setting | What it does |
 | --- | --- |
@@ -579,13 +579,11 @@ AI settings choose the model that writes the content.
 
 To set the model:
 
-1. Select the task type.
-2. Open the model selector.
-3. Choose the provider and model.
-4. Select the content **Length** for content creation tasks.
-5. Click the settings icon next to the model.
-6. Adjust **Temperature** if you want more or less variation.
-7. Set **Reasoning** only for models that support it. Keep it on **None** for faster runs.
+1. In the right-side **General** card, use **Model** to choose the provider and model.
+2. Select **Length** for content creation tasks.
+3. Click the settings icon next to **Model** to open **Model settings**.
+4. Adjust **Temperature** if you want more or less variation.
+5. Set **Reasoning** only for models that support it. Keep it on **None** for faster runs.
 
 | Setting | What it does |
 | --- | --- |
@@ -619,7 +617,7 @@ Prompts are the instructions Automations sends to the selected model. Content cr
 
 To customize prompts:
 
-1. Click **Customize** next to **Prompts**.
+1. In the right-side **General** card, click **Customize** next to **Prompts**.
 2. Enable the outputs you want AI Puffer to generate.
 3. Click the edit icon next to an output.
 4. Select a saved prompt or edit the prompt text directly.
@@ -660,10 +658,10 @@ Use SEO settings when generated posts should include search metadata. AI Puffer 
 
 To generate SEO output:
 
-1. Open **Prompts**.
+1. In the right-side **General** card, click **Customize** next to **Prompts**.
 2. Enable **Meta Description**, **Focus Keyword**, or **Tags**.
 3. Edit the enabled prompts if needed.
-4. Open **Publishing**.
+4. In the right-side **Schedule** card, click the settings icon next to **Status** to open **Post settings**.
 5. Enable **Optimize URL** if AI Puffer should update the post slug.
 6. Save and test the task.
 
@@ -706,15 +704,13 @@ Publishing settings control the WordPress post created by a content creation tas
 
 To set the post target:
 
-1. Select the task type.
-2. Open the publishing settings.
-3. Select the post **Status**.
-4. Click the settings icon next to **Status**.
-5. Select the **Post Type**.
-6. Select the **Author**.
-7. Select categories if the post type supports categories.
-8. Enable **Table of Contents** if needed.
-9. Enable **Optimize URL** if AI Puffer should generate a cleaner slug.
+1. In the right-side **Schedule** card, select the post **Status**.
+2. Click the settings icon next to **Status** to open **Post settings**.
+3. Select the **Post Type**.
+4. Select the **Author**.
+5. Select categories if the post type supports categories.
+6. Enable **Table of Contents** if needed.
+7. Enable **Optimize URL** if AI Puffer should generate a cleaner slug.
 
 | Setting | What it does |
 | --- | --- |
@@ -763,13 +759,11 @@ Image settings can add images inside generated content, set a featured image, or
 
 To enable images:
 
-1. Open **Images**.
-2. Select **Content**, **Featured**, or **Content + Featured**.
-3. Select the image source.
-4. Select the image model when the source has models.
-5. Click the settings icon.
-6. Set count, placement, size, and alignment for content images.
-7. Open **Prompts** if you want to change the image or featured image prompt.
+1. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+2. Select the image provider or model from **Image source**.
+3. Click the settings icon beside **Image source** to open **Image settings**.
+4. Set count, placement, size, and alignment for content images.
+5. To change image prompts, in the right-side **General** card, click **Customize** next to **Prompts** and edit **Content Image** or **Featured Image**.
 
 | Mode | Result |
 | --- | --- |
@@ -821,9 +815,8 @@ To set it up:
 2. Select **OpenAI**.
 3. Add your OpenAI API key.
 4. Sync models.
-5. In the automation task, open **Images**.
-6. Select an image mode.
-7. Select an OpenAI image model from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select an OpenAI image model from **Image source**.
 
 #### Google
 
@@ -835,9 +828,8 @@ To set it up:
 2. Select **Google**.
 3. Add your Google API key.
 4. Sync models.
-5. In the automation task, open **Images**.
-6. Select an image mode.
-7. Select a Google image model from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select a Google image model from **Image source**.
 
 #### OpenRouter
 
@@ -849,9 +841,8 @@ To set it up:
 2. Select **OpenRouter**.
 3. Add your OpenRouter API key.
 4. Sync models.
-5. In the automation task, open **Images**.
-6. Select an image mode.
-7. Select an OpenRouter image model from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select an OpenRouter image model from **Image source**.
 
 If a selected OpenRouter model does not return images, choose another image-capable model from the synced list.
 
@@ -865,9 +856,8 @@ To set it up:
 2. Select **Azure**.
 3. Add the Azure endpoint and API key.
 4. Add or sync the image deployment you want to use.
-5. In the automation task, open **Images**.
-6. Select an image mode.
-7. Select the Azure image deployment from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select the Azure image deployment from **Image source**.
 
 #### Replicate
 
@@ -879,9 +869,8 @@ To set it up:
 2. Select **Replicate**.
 3. Add your Replicate API key.
 4. Sync Replicate models.
-5. In the automation task, open **Images**.
-6. Select an image mode.
-7. Select a Replicate model from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select a Replicate model from **Image source**.
 
 #### Pexels
 
@@ -892,11 +881,10 @@ To set it up:
 1. Go to **AI Puffer > Settings > Integrations**.
 2. Select **Pexels**.
 3. Add your Pexels API key, or use the **Get Key** link to create one.
-4. In the automation task, open **Images**.
-5. Select an image mode.
-6. Select **Pexels** from **Image source**.
-7. Click the settings icon.
-8. Set **Orientation**, **Size**, and **Color** if you want to filter results.
+4. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+5. Select **Pexels** from **Image source**.
+6. Click the settings icon beside **Image source** to open **Image settings**.
+7. Set **Orientation**, **Size**, and **Color** if you want to filter results.
 
 #### Pixabay
 
@@ -907,15 +895,14 @@ To set it up:
 1. Go to **AI Puffer > Settings > Integrations**.
 2. Select **Pixabay**.
 3. Add your Pixabay API key, or use the **Get Key** link to create one.
-4. In the automation task, open **Images**.
-5. Select an image mode.
-6. Select **Pixabay** from **Image source**.
-7. Click the settings icon.
-8. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
+4. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+5. Select **Pixabay** from **Image source**.
+6. Click the settings icon beside **Image source** to open **Image settings**.
+7. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
 
 #### Image Prompts
 
-For AI image providers, the image prompt controls content images and the featured image prompt controls the featured image.
+For AI image providers, the image prompt controls content images and the featured image prompt controls the featured image. To edit them, in the right-side **General** card, click **Customize** next to **Prompts** and open **Content Image** or **Featured Image**.
 
 You can use these placeholders:
 
@@ -932,20 +919,23 @@ You can use these placeholders:
 
 ### Knowledge Base
 
-Knowledge Base lets content creation and rewrite tasks use vector data from **AI Puffer > Knowledge Base**.
+Knowledge Base lets content creation and Rewrite Content tasks use vector data from **AI Puffer > Knowledge Base**.
 
 When enabled, AI Puffer searches the selected source and adds matching context to the generation request.
 
 To enable it:
 
 1. Add data in **AI Puffer > Knowledge Base**.
-2. Open **Knowledge Base** in the automation task.
-3. Select **OpenAI**, **Pinecone**, or **Qdrant** from **Context**.
-4. Select the vector store, index, or collection.
-5. Click the settings icon.
-6. Set **Results Limit** and **Confidence Threshold**.
-7. For Pinecone or Qdrant, select the embedding provider and model.
-8. Save and test the task.
+2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, or **Qdrant**.
+3. Select the vector store, index, or collection in **Source**.
+4. Click the settings icon beside **Source** to open **Context settings**.
+5. Set **Results Limit**. For content creation tasks, you can also set **Confidence Threshold**.
+6. For Pinecone or Qdrant, select the embedding provider and model in **Context settings**.
+7. Save and test the task.
+
+<Frame>
+  <img src="/images/screenshots/automations/kb.png" alt="Vector" />
+</Frame>
 
 | Provider | Required setup |
 | --- | --- |
@@ -954,21 +944,37 @@ To enable it:
 | **Qdrant** | Select a Qdrant collection and the embedding model used when the data was added. |
 
 <Warning>
-For Pinecone and Qdrant, use the same embedding model when adding data and when enabling Knowledge Base in Automations.
+For Pinecone and Qdrant, use the same embedding model when adding data and when selecting **Context** in an automation task.
 </Warning>
 
 #### OpenAI
 
 OpenAI uses OpenAI Vector Stores.
 
+To prepare a vector store:
+
+1. Go to **AI Puffer > Knowledge Base**.
+2. Select **OpenAI** as the provider.
+3. Click **Create new vector store**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/openai-create-new-vector.png" alt="OpenAI Create Vector" />
+</Frame>
+
+4. Enter a store name and create it.
+5. Add data to the store.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/openai-add-data.png" alt="OpenAI Add Data" />
+</Frame>
+
 To use it in Automations:
 
 1. Add data to an OpenAI Vector Store in **AI Puffer > Knowledge Base**.
-2. Open the automation task.
-3. Open **Knowledge Base**.
-4. Set **Context** to **OpenAI**.
-5. Select one or more vector stores.
-6. Adjust the limit or threshold if needed.
+2. Create or edit the automation task.
+3. In the right-side **Advanced** card, set **Context** to **OpenAI**.
+4. Select one or more vector stores in **Source**.
+5. Click the settings icon beside **Source** to adjust **Results Limit**. Content creation tasks also show **Confidence Threshold**.
 
 #### Pinecone
 
@@ -976,16 +982,38 @@ Pinecone stores vectors in an index. AI Puffer creates and searches those vector
 
 The Pinecone index dimension <u>must match</u> the embedding model. For example, if your index is **3072 dimensions**, use a **3072-dimension** embedding model.
 
-To use it in Automations:
+To prepare an index:
 
 1. Add your Pinecone credentials in **AI Puffer > Settings > Integrations**.
-2. Add data to Pinecone from **AI Puffer > Knowledge Base**.
-3. Open the automation task.
-4. Open **Knowledge Base**.
-5. Set **Context** to **Pinecone**.
-6. Select the Pinecone index.
-7. Select the same embedding provider and model used when you added the data.
-8. Adjust the limit or threshold if needed.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-api-key.png" alt="Pinecone API key" />
+</Frame>
+
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Pinecone** as the provider.
+4. Select the embedding model you want to use.
+5. Click **Create new index**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
+</Frame>
+
+6. Enter an index name and use the dimension for the selected embedding model.
+7. Create the index, then add data with the same embedding model.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-create-index2.png" alt="Pinecone Create Index" />
+</Frame>
+
+To use it in Automations:
+
+1. Create or edit the automation task.
+2. In the right-side **Advanced** card, set **Context** to **Pinecone**.
+3. Select the Pinecone index in **Source**.
+4. Click the settings icon beside **Source** to open **Context settings**.
+5. Select the same embedding provider and model used when you added the data.
+6. Adjust **Results Limit**. Content creation tasks also show **Confidence Threshold**.
 
 #### Qdrant
 
@@ -993,16 +1021,38 @@ Qdrant stores vectors in a collection. AI Puffer creates and searches those vect
 
 The Qdrant collection size <u>must match</u> the embedding model. For example, if your collection is **3072 dimensions**, use a **3072-dimension** embedding model.
 
-To use it in Automations:
+To prepare a collection:
 
 1. Add your Qdrant URL and API key in **AI Puffer > Settings > Integrations**.
-2. Add data to Qdrant from **AI Puffer > Knowledge Base**.
-3. Open the automation task.
-4. Open **Knowledge Base**.
-5. Set **Context** to **Qdrant**.
-6. Select the Qdrant collection.
-7. Select the same embedding provider and model used when you added the data.
-8. Adjust the limit or threshold if needed.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-api-key.png" alt="Qdrant API key" />
+</Frame>
+
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Qdrant** as the provider.
+4. Select the embedding model you want to use.
+5. Click **Create new collection**.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
+</Frame>
+
+6. Enter a collection name and use the dimension for the selected embedding model.
+7. Create the collection, then add data with the same embedding model.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-create-collection2.png" alt="Qdrant Create collection" />
+</Frame>
+
+To use it in Automations:
+
+1. Create or edit the automation task.
+2. In the right-side **Advanced** card, set **Context** to **Qdrant**.
+3. Select the Qdrant collection in **Source**.
+4. Click the settings icon beside **Source** to open **Context settings**.
+5. Select the same embedding provider and model used when you added the data.
+6. Adjust **Results Limit**. Content creation tasks also show **Confidence Threshold**.
 
 #### Limit and Threshold
 
@@ -1013,11 +1063,18 @@ Use these settings to control how much vector context is added to the task.
 | **Results Limit** | Maximum number of matching knowledge pieces AI Puffer can use. |
 | **Confidence Threshold** | How closely a result must match before AI Puffer includes it. |
 
+<Frame>
+  <img src="/images/screenshots/automations/kb-options.png" alt="Vector" />
+</Frame>
+
 ## Queue
 
 The queue shows work created by saved tasks and Run Now actions.
 
-> Screenshot placeholder: Queue table with status filter, search field, pending count, failed count, and retry action.
+<Frame>
+  <img src="/images/screenshots/automations/queue.png" alt="queue" />
+</Frame>
+
 
 | Status | Meaning |
 | --- | --- |
@@ -1048,8 +1105,6 @@ Automations can send task results to Connected Apps and webhooks.
 | `task.item_completed` | After a queue item finishes successfully. |
 
 Use these events when another system needs the generated post, task result, or queue item details. Recipe templates include generated content or completed task notifications for apps such as Slack, Notion, Zapier, and Make.
-
-> Screenshot placeholder: Apps or Recipes screen showing a recipe triggered by `content.generated`.
 
 ## Logs
 

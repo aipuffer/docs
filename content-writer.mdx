@@ -36,7 +36,7 @@ Single Entry is for one content item.
 3. Enter the topic.
 4. Add keywords if needed.
 5. Choose the provider, model, and content length.
-6. Open **Prompts** if you want to edit the instructions.
+6. In the right-side **General** card, click **Customize** next to **Prompts** if you want to edit the instructions.
 7. Set the post type, status, author, categories, table of contents, and URL option.
 8. Click **Generate**.
 9. Review the output.
@@ -364,7 +364,7 @@ Rewrite Content updates selected WordPress content directly. Test with one item 
 1. Select **Rewrite Content**.
 2. Filter by type, status, or search term.
 3. Select one or more rows.
-4. Open **Prompts** and choose the fields to update.
+4. In the right-side **General** card, click **Customize** next to **Prompts** and choose the fields to update.
 5. Click **Update**.
 
 <Frame>
@@ -408,7 +408,7 @@ Image Metadata writes to media attachment fields directly. Enable only the field
 1. Select **Image Metadata**.
 2. Filter images by media type, unattached items, owner, or search term.
 3. Select the image.
-4. Open **Prompts**.
+4. In the right-side **General** card, click **Customize** next to **Prompts**.
 5. Enable the metadata fields you want to update.
 6. Click **Update**.
 
@@ -454,11 +454,11 @@ To update products:
 2. Select **Optimize Products** under **Optimize**.
 3. Use **Status** and **Search** to find products.
 4. Select one or more products.
-5. Open **Prompts**.
+5. In the right-side **General** card, click **Customize** next to **Prompts**.
 6. Enable the product fields you want to update.
 7. Edit the prompts if needed.
 8. Choose the AI provider, model, and length.
-9. Enable **Knowledge Base** context if product copy should use stored business or product information.
+9. In the right-side **Advanced** card, set **Context** if product copy should use stored business or product information.
 10. Click **Update**.
 
 <Frame>
@@ -563,14 +563,13 @@ Prompts are the instructions Content Writer sends to the selected model. Each ou
 
 To customize prompts:
 
-1. In the right settings panel, open **Prompts**.
-2. Click **Customize**.
-3. Enable the outputs you want Content Writer to generate.
-4. Click the edit icon next to an output.
-5. Select **Default** or a saved prompt from the dropdown, or edit the prompt text directly.
-6. Use the variables shown under the editor. Click a variable to copy it.
-7. Click **Apply changes** if the button appears.
-8. Generate one item and review the result before running a batch.
+1. In the right-side **General** card, click **Customize** next to **Prompts**.
+2. Enable the outputs you want Content Writer to generate.
+3. Click the edit icon next to an output.
+4. Select **Default** or a saved prompt from the dropdown, or edit the prompt text directly.
+5. Use the variables shown under the editor. Click a variable to copy it.
+6. Click **Apply changes** if the button appears.
+7. Generate one item and review the result before running a batch.
 
 <Frame>
   <img src="/images/screenshots/content-writer/prompts.png" alt="Prompts Settings" />
@@ -605,12 +604,13 @@ Use SEO settings when the generated post should leave Content Writer with search
 
 To use SEO output:
 
-1. In the right panel, open **Prompts**.
+1. In the right-side **General** card, click **Customize** next to **Prompts**.
 2. Enable **Meta Description**, **Focus Keyword**, or **Tags**.
 3. Edit the prompt for each enabled output if the default instruction does not match your site.
-4. Open **Publishing** and enable **Optimize URL** if you want AI Puffer to update the post <Tooltip headline="Slug" tip="The URL-friendly part of a WordPress post address.">slug</Tooltip>.
-5. Generate the content.
-6. Review the SEO fields in the output panel before saving the post.
+4. In the right-side **General** card, click the settings icon next to **Status** to open **Post settings**.
+5. Enable **Optimize URL** if you want AI Puffer to update the post <Tooltip headline="Slug" tip="The URL-friendly part of a WordPress post address.">slug</Tooltip>.
+6. Generate the content.
+7. Review the SEO fields in the output panel before saving the post.
 
 <Frame>
   <img src="/images/screenshots/content-writer/seo.png" alt="SEO" />
@@ -659,14 +659,13 @@ Publishing controls the WordPress post that gets created after generation.
 
 To set the post target:
 
-1. In the right panel, open **Publishing**.
-2. Select the post **Status**.
-3. Click the settings icon next to **Status**.
-4. Select the **Post Type**.
-5. Select the **Author**.
-6. Select categories if the post type supports them.
-7. Enable **Table of Contents** if you want a generated table of contents added to the top of the post.
-8. Enable **Optimize URL** if you want AI Puffer to generate a cleaner WordPress slug.
+1. In the right-side **General** card, select the post **Status**.
+2. Click the settings icon next to **Status** to open **Post settings**.
+3. Select the **Post Type**.
+4. Select the **Author**.
+5. Select categories if the post type supports them.
+6. Enable **Table of Contents** if you want a generated table of contents added to the top of the post.
+7. Enable **Optimize URL** if you want AI Puffer to generate a cleaner WordPress slug.
 
 <Frame>
   <img src="/images/screenshots/content-writer/publishing.png" alt="Publishing" />
@@ -729,13 +728,11 @@ Images can be inserted into the article content, set as the featured image, or b
 
 To use images, first choose what AI Puffer should create:
 
-1. In the right panel, open **Images**.
-2. Select **Content**, **Featured**, or **Content + Featured**.
-3. Select an image source.
-4. Select the image model when the source has models.
-5. Click the settings icon.
-6. Set the image count, placement, WordPress image size, and alignment.
-7. Generate one item and review the image previews before saving the post.
+1. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+2. Select the image provider or model from **Image source**.
+3. Click the settings icon beside **Image source** to open **Image settings**.
+4. Set the image count, placement, WordPress image size, and alignment.
+5. Generate one item and review the image previews before saving the post.
 
 <Frame>
   <img src="/images/screenshots/content-writer/images.png" alt="Images" />
@@ -789,10 +786,9 @@ To set it up:
 2. Select **OpenAI**.
 3. Add your OpenAI API key.
 4. Sync models.
-5. In Content Writer, open **Images**.
-6. Select an image mode.
-7. Select an OpenAI image model from **Image source**.
-8. Open **Prompts** if you want to change the image prompt or featured image prompt.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select an OpenAI image model from **Image source**.
+7. In the right-side **General** card, click **Customize** next to **Prompts** if you want to change the image prompt or featured image prompt.
 
 <Frame>
   <img src="/images/screenshots/content-writer/image-prompts1.png" alt="Image Prompts" />
@@ -808,10 +804,9 @@ To set it up:
 2. Select **Google**.
 3. Add your Google API key.
 4. Sync models.
-5. In Content Writer, open **Images**.
-6. Select an image mode.
-7. Select a Google image model from **Image source**.
-8. Edit the image prompts if needed.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select a Google image model from **Image source**.
+7. In the right-side **General** card, click **Customize** next to **Prompts** if you want to change the image prompt or featured image prompt.
 
 #### OpenRouter
 
@@ -823,9 +818,8 @@ To set it up:
 2. Select **OpenRouter**.
 3. Add your OpenRouter API key.
 4. Sync models.
-5. In Content Writer, open **Images**.
-6. Select an image mode.
-7. Select an OpenRouter image model from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select an OpenRouter image model from **Image source**.
 
 If a selected OpenRouter model does not return images, choose another image-capable model from the synced list.
 
@@ -839,9 +833,8 @@ To set it up:
 2. Select **Azure**.
 3. Add the Azure endpoint and API key.
 4. Add or sync the image deployment you want to use.
-5. In Content Writer, open **Images**.
-6. Select an image mode.
-7. Select the Azure image deployment from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select the Azure image deployment from **Image source**.
 
 #### Replicate
 
@@ -853,9 +846,8 @@ To set it up:
 2. Select **Replicate**.
 3. Add your Replicate API key.
 4. Sync Replicate models.
-5. In Content Writer, open **Images**.
-6. Select an image mode.
-7. Select a Replicate model from **Image source**.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select a Replicate model from **Image source**.
 
 #### Pexels
 
@@ -866,12 +858,11 @@ To set it up:
 1. Go to **AI Puffer > Settings > Integrations**.
 2. Select **Pexels**.
 3. Add your Pexels API key, or use the **Get Key** link to create one.
-4. In Content Writer, open **Images**.
-5. Select an image mode.
-6. Select **Pexels** from **Image source**.
-7. Click the settings icon.
-8. Set **Orientation**, **Size**, and **Color** if you want to filter results.
-9. Generate one item and review the selected photo.
+4. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+5. Select **Pexels** from **Image source**.
+6. Click the settings icon beside **Image source** to open **Image settings**.
+7. Set **Orientation**, **Size**, and **Color** if you want to filter results.
+8. Generate one item and review the selected photo.
 
 #### Pixabay
 
@@ -882,12 +873,11 @@ To set it up:
 1. Go to **AI Puffer > Settings > Integrations**.
 2. Select **Pixabay**.
 3. Add your Pixabay API key, or use the **Get Key** link to create one.
-4. In Content Writer, open **Images**.
-5. Select an image mode.
-6. Select **Pixabay** from **Image source**.
-7. Click the settings icon.
-8. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
-9. Generate one item and review the selected image.
+4. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+5. Select **Pixabay** from **Image source**.
+6. Click the settings icon beside **Image source** to open **Image settings**.
+7. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
+8. Generate one item and review the selected image.
 
 #### Image Prompts
 
@@ -910,7 +900,7 @@ You can use these placeholders:
 
 To generate image metadata:
 
-1. Open **Prompts**.
+1. In the right-side **General** card, click **Customize** next to **Prompts**.
 2. Enable the image metadata fields you want: **Title**, **Alt Text**, **Caption**, or **Description**.
 3. Edit the metadata prompts if needed.
 4. Generate the content and images.
@@ -930,10 +920,10 @@ When Knowledge Base is enabled, AI Puffer searches the selected vector source wi
 To enable it:
 
 1. Add data in **AI Puffer > Knowledge Base** first.
-2. In Content Writer, open **Knowledge Base**.
-3. Select **OpenAI**, **Pinecone**, or **Qdrant** from **Context**.
-4. Select the vector store, index, or collection.
-5. Click the settings icon.
+2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, or **Qdrant**.
+3. Select the vector store, index, or collection in **Source**.
+4. Click the settings icon beside **Source** to open **Context settings**.
+5. For Pinecone or Qdrant, select the embedding provider and model in **Context settings**.
 6. Set **Results Limit** and **Confidence Threshold**.
 7. Generate one item and check the output.
 
@@ -968,10 +958,9 @@ To create a store:
 
 To use it in Content Writer:
 
-1. Open **Knowledge Base**.
-2. Set **Context** to **OpenAI**.
-3. Select one or more vector stores.
-4. Click the settings icon and adjust the limit or threshold if needed.
+1. In the right-side **Advanced** card, set **Context** to **OpenAI**.
+2. Select one or more vector stores in **Source**.
+3. Click the settings icon beside **Source** if you need to adjust **Results Limit** or **Confidence Threshold**.
 
 When Content Writer uses an OpenAI model, AI Puffer can pass the selected vector stores to OpenAI file search. With other content models, AI Puffer searches the stores first and adds matching text to the prompt.
 
@@ -1011,12 +1000,11 @@ To create an index:
 
 To use it in Content Writer:
 
-1. Open **Knowledge Base**.
-2. Set **Context** to **Pinecone**.
-3. Select the Pinecone index.
-4. Click the settings icon.
-5. Select the same embedding provider and model used when you added the data.
-6. Adjust the limit or threshold if needed.
+1. In the right-side **Advanced** card, set **Context** to **Pinecone**.
+2. Select the Pinecone index in **Source**.
+3. Click the settings icon beside **Source** to open **Context settings**.
+4. Select the same embedding provider and model used when you added the data.
+5. Adjust **Results Limit** or **Confidence Threshold** if needed.
 
 #### Qdrant
 
@@ -1054,12 +1042,11 @@ To create a collection:
 
 To use it in Content Writer:
 
-1. Open **Knowledge Base**.
-2. Set **Context** to **Qdrant**.
-3. Select the Qdrant collection.
-4. Click the settings icon.
-5. Select the same embedding provider and model used when you added the data.
-6. Adjust the limit or threshold if needed.
+1. In the right-side **Advanced** card, set **Context** to **Qdrant**.
+2. Select the Qdrant collection in **Source**.
+3. Click the settings icon beside **Source** to open **Context settings**.
+4. Select the same embedding provider and model used when you added the data.
+5. Adjust **Results Limit** or **Confidence Threshold** if needed.
 
 #### Limit and Threshold
 

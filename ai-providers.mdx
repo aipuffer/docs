@@ -184,11 +184,12 @@ Do not expose Ollama publicly without access controls. Anyone who can reach the 
 
 ## Troubleshooting
 
-### Quota Exceeded
+<AccordionGroup>
+<Accordion title="Quota exceeded">
 
 The provider account is out of credits, has reached a spend limit, or is blocked by billing settings.
 
-Fix:
+Check these items:
 
 1. Open the provider billing page.
 2. Check credits, usage limits, and monthly spend limits.
@@ -197,11 +198,12 @@ Fix:
 
 For OpenAI, see [error codes](https://developers.openai.com/api/docs/guides/error-codes).
 
-### Incorrect API Key
+</Accordion>
+<Accordion title="Incorrect API key">
 
 The saved key is wrong, old, revoked, copied with extra spaces, or belongs to a different account or organization.
 
-Fix:
+Check these items:
 
 1. Create or copy a fresh API key from the provider dashboard.
 2. Paste it again in **AI Puffer > Settings > AI**.
@@ -210,11 +212,12 @@ Fix:
 
 For OpenAI, see [Incorrect API key provided](https://help.openai.com/en/articles/6882433-incorrect-api-key-provided).
 
-### Model Is Missing
+</Accordion>
+<Accordion title="Model is missing">
 
 AI Puffer syncs models when you switch providers, but the list can be out of date.
 
-Fix:
+Check these items:
 
 1. Open **AI Puffer > Settings > AI**.
 2. Select the provider.
@@ -232,11 +235,12 @@ Fix:
 
 If the model still does not appear, confirm the provider account has access to that model.
 
-### Organization Must Be Verified
+</Accordion>
+<Accordion title="Organization must be verified">
 
 Some OpenAI models require a verified API organization.
 
-Fix:
+Check these items:
 
 1. Open OpenAI Platform settings.
 2. Go to **Organization > General**.
@@ -247,14 +251,18 @@ Fix:
 
 For OpenAI, see [API Organization Verification](https://help.openai.com/en/articles/10910291-api-organisation-verifiering).
 
-### Unexpected JSON Error
+</Accordion>
+<Accordion title="Unexpected JSON error">
 
 A WordPress security plugin or firewall may be blocking AI Puffer settings requests.
 
-Fix:
+Check these items:
 
 1. Check your security plugin or firewall logs.
 2. Whitelist AI Puffer admin requests if your tool supports allow rules.
 3. If using Wordfence or a similar firewall, switch to learning mode.
 4. Save AI Puffer settings and use the affected module a few times.
 5. Switch the firewall back to normal mode after it learns the requests.
+
+</Accordion>
+</AccordionGroup>
