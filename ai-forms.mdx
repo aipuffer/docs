@@ -5,54 +5,50 @@ description: "Create and embed AI-powered forms in WordPress."
 
 ## Overview
 
-Use AI Forms to collect visitor input, insert the values into a prompt template, and stream the AI response on the page. Each form has its own fields, prompt, model, labels, optional knowledge base, optional web search, limits, and connected apps.
+AI Forms collect visitor input, insert the submitted values into a prompt, and stream the AI response on the page.
+
+Use them for generators, support reply tools, calculators, lead forms, summaries, and other workflows where the visitor provides structured input.
 
 In WordPress admin, go to **AI Puffer > AI Forms**.
 
-> Screenshot placeholder: AI Forms screen showing the form list, Create New Form button, Settings button, and table actions.
+<Frame>
+  <img src="/images/screenshots/ai-forms/aiforms.png" alt="AI Forms" />
+</Frame>
 
-## Before You Start
-
-Set up at least one AI provider before creating a form.
-
-If the model list is empty, configure the provider first in [AI Providers](/ai-providers).
-
-## Manage Forms
-
-The AI Forms screen lists saved forms.
-
-| Action | What it does |
-| --- | --- |
-| **Edit** | Opens the form builder. |
-| **Preview** | Opens a preview from the admin screen. |
-| **Duplicate** | Creates a copy of the form. |
-| **Export** | Downloads the form as JSON. |
-| **Delete** | Deletes the form. |
-| **Export All** | Downloads all forms as JSON. |
-| **Import** | Imports forms from an exported JSON file. |
-| **Delete All** | Deletes all AI Forms. |
-
-Imported forms are added as new forms. Existing forms are not overwritten.
-
-AI Puffer also creates example forms on activation, including a blog post generator, YouTube script writer, and customer support reply builder.
+<Info>
+Set up at least one AI provider before creating a form. If the model list is empty, configure and sync a provider in [AI Providers](/ai-providers).
+</Info>
 
 ## Create a Form
 
 1. Click **Create New Form**.
-2. Enter a form title.
-3. Drag a layout into the designer.
-4. Drag fields into the layout columns.
-5. Click a field to edit its label, variable name, placeholder, required setting, help text, and options.
-6. Write the prompt in the right panel.
-7. Select **Engine** and **Model**.
-8. Open **Settings** if you need parameters, knowledge base, or web search.
-9. Save the form.
+2. Enter the form title.
+3. In the left **Layouts** accordion, drag a layout into the center designer.
+4. In the left **Form Elements** accordion, drag fields into the layout columns.
+5. Click a field in the designer to edit it in **Element Settings**.
+6. In the right-side panel, select **Engine** and **Model**.
+7. Write the form prompt in **Prompt**.
+8. Click **Validate Prompt** to check field placeholders.
+9. Click **Save**.
+10. Click **Preview** to test the form from the admin screen.
 
-> Screenshot placeholder: Form editor with field palette on the left, designer in the center, and prompt/model settings on the right.
+<Frame>
+  <img src="/images/screenshots/ai-forms/form-editor.png" alt="AI Forms Editor" />
+</Frame>
 
-## Fields and Layout
+You can also click **Generate Form** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving.
 
-### Field Types
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-generator-modal.png" alt="AI Form generator modal" />
+</Frame>
+
+### Form Elements
+
+Form elements collect the values used by the prompt.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-form-elements.png" alt="AI Form elements panel" />
+</Frame>
 
 | Field | Use it for |
 | --- | --- |
@@ -61,28 +57,39 @@ AI Puffer also creates example forms on activation, including a blog post genera
 | **Dropdown** | One selected option from a list. |
 | **Checkbox** | One or more selected options. |
 | **Radio Buttons** | One selected option from a visible list. |
-| **File Upload** | Upload a `.txt` or `.pdf` file and use the extracted text in the prompt. |
+| **File Upload** | TXT or PDF upload. The extracted text is passed into the prompt. |
 
-File Upload parses text from TXT and PDF files. It does not parse Word documents.
+When you click a field, **Element Settings** replaces the left palette. Edit **Label Text**, **Field Variable Name**, placeholder text, required state, help text, and options.
 
-### Field Settings
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-field-settings.png" alt="AI Form field settings" />
+</Frame>
 
-Click a field in the designer to edit its settings.
+<Tip>
+The field variable name is the value you use in the prompt. It can contain letters, numbers, and underscores. It must be unique inside the form.
+</Tip>
 
-| Setting | What it does |
-| --- | --- |
-| **Label Text** | Label shown above the field. |
-| **Field Variable Name** | Placeholder name used in the prompt. |
-| **Placeholder Text** | Placeholder shown in text, textarea, and dropdown fields. |
-| **Required Field** | Requires a value before submission. |
-| **Help Text** | Small help text shown under the field. |
-| **Options** | Option values for dropdown, checkbox, and radio fields. |
+For **File Upload**, the visitor uploads a TXT or PDF file. AI Puffer extracts the file text during upload and stores that text as the field value.
 
-The field variable name can contain letters, numbers, and underscores. It must be unique inside the form.
+Add the file field placeholder to the prompt where you want the extracted text to be used.
+
+AI Puffer does not summarize the file before the form runs. If you want a summary, ask for it in the prompt.
+
+<Info>
+File Upload sends extracted text in the prompt. It works with the AI Forms text providers: OpenAI, Google, Claude, OpenRouter, Azure, Ollama, and DeepSeek. It does not use Knowledge Base or vector provider settings.
+</Info>
+
+<Warning>
+File Upload is available on Pro sites. It accepts `.txt` and `.pdf` files. Text-based PDFs work best; scanned PDFs may not provide usable text. Large files still count against the selected model's context limit.
+</Warning>
 
 ### Layouts
 
-Use layouts to control how fields are arranged.
+Layouts control the frontend rows and columns.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-layouts.png" alt="AI Form layouts panel" />
+</Frame>
 
 | Layout | Columns |
 | --- | --- |
@@ -92,21 +99,94 @@ Use layouts to control how fields are arranged.
 | **2 Columns (70/30)** | Wide left, narrow right |
 | **3 Columns** | 3 equal columns |
 
-Layouts become rows in the frontend form. Multi-step forms also use rows as steps.
+### Multi-Step
 
-## Prompt Template
+Multi-Step shows one layout row at a time. Use it when the form should feel like a guided flow.
 
-AI Forms use prompt templates. Add a field value to the prompt by wrapping its variable name in braces.
+In the left **Multi-Step** accordion:
 
-Example field variable names:
+1. Turn on **Enable Multi-Step**.
+2. Choose **Display Progress**.
+3. Hover a row in the designer.
+4. Click the chat bubble icon to configure that row as a step.
+5. Add a step title and description if needed.
+6. Add a condition if the step should appear only for specific answers.
+7. Save the form.
 
-| Field label | Variable name | Prompt placeholder |
-| --- | --- | --- |
-| Customer Message | `customer_message` | `{customer_message}` |
-| Tone | `tone` | `{tone}` |
-| Next Step | `next_step` | `{next_step}` |
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-multi-step.png" alt="AI Form Multi-Step settings" />
+</Frame>
 
-Example prompt:
+| Progress option | What it shows |
+| --- | --- |
+| **Full** | Step title, description, and progress. |
+| **Compact** | Step title and progress. |
+| **Minimal** | Step title only. |
+| **None** | No step header or progress UI. |
+
+Skipped step inputs are cleared before submission.
+
+### Labels
+
+Use the left **Labels** accordion to change frontend button text and field selector labels.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-labels.png" alt="AI Form labels panel" />
+</Frame>
+
+| Label | Default |
+| --- | --- |
+| **Generate** | Generate |
+| **Stop** | Stop |
+| **Download** | Download |
+| **Save** | Save |
+| **Copy** | Copy |
+| **Engine** | Engine |
+| **Model** | Model |
+| **Back** | Back |
+| **Next** | Next |
+| **Step Title** | Step `{number}` |
+| **Step Progress** | Step `{current} of {total}` |
+| **Validation Msg** | Please complete this step before continuing. |
+
+Multi-step labels are used only when Multi-Step is enabled.
+
+### AI
+
+Each form has its own **Engine** and **Model** in the right-side panel.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-ai-engine-model.png" alt="AI Form engine and model settings" />
+</Frame>
+
+Click the settings icon beside **Model** to open **Settings**, then choose **Parameters**.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-ai-parameters.png" alt="AI Form parameters popover" />
+</Frame>
+
+| Setting | Use it for |
+| --- | --- |
+| **Temperature** | Response variation. Lower values are more predictable. |
+| **Max Tokens** | Maximum response size. |
+| **Top P** | Sampling control. Leave at the default unless you know why you are changing it. |
+| **Frequency Penalty** | Reduces repeated wording. |
+| **Presence Penalty** | Encourages the model to introduce new wording or topics. |
+| **Reasoning Effort** | Reasoning level for supported models. Keep it set to **None** for faster responses. |
+
+<Info>
+AI Forms use the providers configured in [AI Providers](/ai-providers). Ollama appears in the Engine list only on Pro sites.
+</Info>
+
+### Prompt
+
+AI Forms use field placeholders inside the prompt. Add a field value by wrapping its variable name in braces.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-prompt.png" alt="AI Form prompt editor" />
+</Frame>
+
+Example:
 
 ```text
 Write a customer support reply.
@@ -121,155 +201,111 @@ Next step:
 {next_step}
 ```
 
-For dropdown and radio fields, AI Puffer inserts the selected option label. For checkbox fields, it inserts the selected option labels separated by commas. If a field is missing, its placeholder is replaced with an empty value.
+For dropdown and radio fields, AI Puffer inserts the selected option label. For checkbox fields, it inserts selected option labels separated by commas. If a field is empty, the placeholder is replaced with an empty value.
 
-AI Forms do not use chat history. Each submission is built from the current form values and the form configuration.
+Use the expand icon inside **Prompt** when you want a larger prompt editor.
 
-### Draft Generator
+AI Forms do not keep chat history. Each submission uses the current form values and the saved form configuration.
 
-Use **Generate Form** to create a draft layout and prompt from a short description.
+### Knowledge Base
 
-1. Click **Generate Form**.
-2. Describe the form you want.
-3. Generate the draft.
-4. Review the fields, variable names, layout, and prompt.
-5. Edit anything that needs to change.
+Knowledge base lets a form use trained content before generating the response.
+
+Click the settings icon beside **Model** to open **Settings**, then choose **Context**.
+
+1. Turn on **Knowledge base**.
+2. Select **Vector provider**.
+3. Choose the vector store, index, or collection.
+4. For Pinecone or Qdrant, select the same **Embedding** model used when the content was indexed.
+5. Set **Limit** and **Score threshold**.
 6. Save the form.
 
-The draft generator can create text input, textarea, dropdown, checkbox, and radio fields. It does not add file upload fields.
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-context-settings.png" alt="AI Form context settings" />
+</Frame>
 
-## Model Settings
-
-Each form has its own provider and model.
-
-| Provider | Notes |
+| Vector provider | Required setup |
 | --- | --- |
-| OpenAI | Uses configured OpenAI models. |
-| Google | Uses configured Gemini models. |
-| Claude | Uses configured Claude models. |
-| OpenRouter | Uses configured OpenRouter models. |
-| Azure | Uses configured Azure deployments. |
-| DeepSeek | Uses configured DeepSeek models. |
-| Ollama | Uses local or self-hosted Ollama models. |
+| **OpenAI** | Select up to two **Vector stores**. |
+| **Pinecone** | Select **Index**, add the Pinecone API key if needed, and select **Embedding**. |
+| **Qdrant** | Add **URL**, API key if needed, select **Collection**, and select **Embedding**. |
 
-Click the settings icon beside **Model** to open **Model settings**, then open **Parameters**.
+<Warning>
+For Pinecone and Qdrant, the <Tooltip headline="Embedding model" tip="A model that converts text into vectors so Pinecone or Qdrant can search by meaning.">embedding model</Tooltip> must match the model used when the content was added to the index or collection.
+</Warning>
 
-| Setting | What it controls |
+**Limit** controls how many matching chunks AI Puffer can include. **Score threshold** controls how strict the match must be. A lower threshold allows more matches; a higher threshold only uses stronger matches.
+
+### Web Search
+
+Web search lets supported providers use current web results while generating the form response.
+
+Click the settings icon beside **Model** to open **Settings**, then choose **Tools**. The available web search options depend on the selected **Engine**.
+
+1. Select **OpenAI**, **Google**, **Claude**, or **OpenRouter** as the form **Engine**.
+2. Choose **Tools**.
+3. Turn on **Web Search**.
+4. Configure the provider options.
+5. Save the form.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-web-search-settings.png" alt="AI Form web search settings" />
+</Frame>
+
+<Tabs>
+  <Tab title="OpenAI">
+
+| Option | Use it for |
 | --- | --- |
-| **Temperature** | Response variation. |
-| **Max Tokens** | Maximum response size. |
-| **Top P** | Nucleus sampling. |
-| **Frequency Penalty** | Reduces repeated tokens. |
-| **Presence Penalty** | Encourages topic variation. |
-| **Reasoning Effort** | Reasoning level for supported OpenAI and Ollama models. |
+| **Search Context Size** | How much web context OpenAI can use. |
+| **User Location** | Optional approximate country, city, region, and timezone. |
 
-## Knowledge Base
+  </Tab>
+  <Tab title="Google">
 
-Knowledge base adds vector store context to a form response.
-
-1. Open a form.
-2. Click the model **Settings** button.
-3. Open **Context**.
-4. Enable **Knowledge base**.
-5. Choose a vector provider.
-6. Select the store, index, or collection.
-7. Set the result limit and score threshold.
-8. Save the form.
-
-> Screenshot placeholder: AI Form Context settings with Knowledge base enabled and vector provider selected.
-
-| Vector provider | Required settings |
+| Option | Use it for |
 | --- | --- |
-| **OpenAI** | Select up to two vector stores. |
-| **Pinecone** | Select an index, add an API key, and choose an embedding model. |
-| **Qdrant** | Add URL, API key, collection, and embedding model. |
+| **Grounding Mode** | How Google Search grounding is used. |
+| **Dynamic Retrieval Threshold** | Threshold used when Dynamic Retrieval is selected. |
 
-The result limit can be set from 1 to 20. The score threshold is a percentage.
+  </Tab>
+  <Tab title="Claude">
 
-When OpenAI is both the AI provider and vector provider, AI Puffer can pass the selected OpenAI vector stores as a file search tool. For Pinecone and Qdrant, AI Puffer retrieves matching context and adds it to the system instruction.
-
-## Web Search
-
-Web search is configured per form.
-
-1. Open a form.
-2. Click the model **Settings** button.
-3. Open **Tools**.
-4. Enable web search for the selected provider.
-5. Set provider-specific options.
-6. Save the form.
-
-| Provider | Options |
+| Option | Use it for |
 | --- | --- |
-| **OpenAI** | Search context size and optional approximate user location. |
-| **Google** | Grounding mode and dynamic retrieval threshold. |
-| **Claude** | Max uses, optional location, allowed domains, blocked domains, and cache TTL. |
-| **OpenRouter** | Engine, max results, and optional search prompt. |
+| **Max Uses** | Maximum number of web search calls for one response. |
+| **User Location** | Optional approximate country, city, region, and timezone. |
+| **Allowed Domains** | Limit search to specific domains. |
+| **Blocked Domains** | Prevent search from using specific domains. |
+| **Cache TTL** | Optional cache window for Claude web search. |
 
-Web search is available for OpenAI, Google, Claude, and OpenRouter. Availability can also depend on the selected model.
+  </Tab>
+  <Tab title="OpenRouter">
 
-## Multi-Step Forms
-
-Use multi-step forms when you want to show one row at a time.
-
-1. Add two or more layout rows.
-2. Open **Multi-Step**.
-3. Enable **Multi-Step**.
-4. Choose the progress display style.
-5. Hover a row and open its step settings.
-6. Add a step title and description if needed.
-7. Add a condition if the step should only appear for some answers.
-8. Save the form.
-
-> Screenshot placeholder: Multi-step settings and a row step configuration panel.
-
-Progress display options:
-
-| Option | What it shows |
+| Option | Use it for |
 | --- | --- |
-| **Full** | Step title, description, and progress. |
-| **Compact** | Step title and progress. |
-| **Minimal** | Step title only. |
-| **None** | No step header or progress UI. |
+| **Engine** | Auto, Native, or Exa. |
+| **Max Results** | Maximum search results to include. |
+| **Search Prompt** | Optional search intent hint. |
 
-Condition operators:
+  </Tab>
+</Tabs>
 
-| Operator | What it checks |
-| --- | --- |
-| **equals** | Field value equals the condition value. |
-| **not_equals** | Field value does not equal the condition value. |
-| **contains** | Field value contains the condition value. |
-| **not_contains** | Field value does not contain the condition value. |
-| **filled** | Field has a value. |
-| **empty** | Field has no value. |
+Web search is not shown for Azure, DeepSeek, or Ollama forms.
 
-Conditions can use fields from earlier rows. Skipped step inputs are cleared before submission.
+### Connected Apps
 
-## Connected Apps
+Connected Apps send completed form submissions to external apps through recipes. The `form.submitted` event is emitted after the AI response is complete, so mappings can use both submitted inputs and the generated response.
 
-AI Forms can send completed submissions to connected apps through recipes. The event is emitted after the AI response is complete, so mappings can include both submitted inputs and the generated response.
+Supported destinations are Slack, HubSpot, Notion, Pipedrive, Zapier, Make, and n8n.
 
-Supported destinations:
-
-| App | Action |
-| --- | --- |
-| Slack | Create a Slack message. |
-| HubSpot | Create or update a contact. |
-| Notion | Create a page or database item. |
-| Pipedrive | Create or update a person. |
-| Zapier | Trigger a webhook. |
-| Make | Trigger a webhook. |
-| n8n | Trigger a webhook. |
-
-Set up connected apps in **AI Puffer > Settings > Apps**. Then return to the form editor and use the **Connected Apps** panel.
-
-Recipe scope options:
-
-| Scope | What it means |
-| --- | --- |
-| **All AI Forms** | Runs for every AI Form. |
-| **This AI Form** | Runs only for the current form. |
-| **Selected AI Forms** | Runs for selected forms. |
+1. Go to **AI Puffer > Settings > Apps**.
+2. Connect the app account or webhook destination.
+3. Create or enable a recipe that uses the **AI Form Submitted** event.
+4. Choose the scope: **All AI Forms**, **This AI Form**, or **Selected AI Forms**.
+5. Return to **AI Puffer > AI Forms**.
+6. Edit the form and check the right-side **Connected Apps** card.
+7. Submit the form on the frontend to test the recipe.
 
 Common mapping sources:
 
@@ -280,18 +316,34 @@ Common mapping sources:
 | `data.submission.id` | Submission ID. |
 | `data.submission.count` | Submission count for the form. |
 | `data.actor.type` | `guest` or `user`. |
-| `data.actor.user_id` | WordPress user ID when available. |
 | `data.ai.provider` | Provider used for the submission. |
 | `data.ai.model` | Model used for the submission. |
 | `data.response.text` | Generated AI response. |
 | `data.inputs` | Submitted field values. |
 | `data.inputs.{field_id}` | A specific submitted field value. |
 
-## Publish a Form
+## Manage Forms
 
-You can embed an AI Form with a shortcode or the AI Form block.
+The AI Forms screen lists saved forms with their title, model, shortcode, and actions.
 
-Basic shortcode:
+| Action | What it does |
+| --- | --- |
+| **Edit** | Opens the form builder. |
+| **Preview** | Opens an admin preview. |
+| **Duplicate** | Creates a copy of the form. |
+| **Export** | Downloads one form as JSON. |
+| **Delete** | Deletes the form. |
+| **Export All** | Downloads all forms as JSON. |
+| **Import** | Imports forms from an exported JSON file. |
+| **Delete All** | Deletes all AI Forms. |
+
+Imported forms are added as new forms. Existing forms are not overwritten.
+
+## Publish
+
+### Shortcode
+
+Each saved form has a <Tooltip headline="Shortcode" tip="A bracketed WordPress tag that renders plugin output inside a page, post, block, or shortcode area.">shortcode</Tooltip> in the form list.
 
 ```text
 [aipkit_ai_form id=123]
@@ -299,17 +351,20 @@ Basic shortcode:
 
 Replace `123` with the form ID.
 
-### Shortcode Attributes
+Click the shortcode settings icon in the form list to enable display options and copy the updated shortcode.
 
-| Attribute | Values | Default | What it does |
-| --- | --- | --- | --- |
-| `id` | Form ID | Required | Selects the form to render. |
-| `theme` | `light`, `dark`, `custom` | `light` | Sets the frontend theme. |
-| `show_provider` | `true`, `false` | `false` | Shows the provider selector. |
-| `show_model` | `true`, `false` | `false` | Shows the model selector. |
-| `save_button` | `true`, `false` | `false` | Shows Save as Post after output. |
-| `pdf_download` | `true`, `false` | `false` | Shows PDF download after output. |
-| `copy_button` | `true`, `false` | `false` | Shows a copy button after output. |
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-shortcode-settings.png" alt="AI Form shortcode settings" />
+</Frame>
+
+| Option | Shortcode attribute |
+| --- | --- |
+| **Show Provider Select** | `show_provider="true"` |
+| **Show Model Select** | `show_model="true"` |
+| **Copy Button** | `copy_button="true"` |
+| **Save as Post** | `save_button="true"` |
+| **Save as PDF** | `pdf_download="true"` |
+| **Theme** | `theme="light"`, `theme="dark"`, or `theme="custom"` |
 
 Examples:
 
@@ -324,105 +379,48 @@ Examples:
 
 Use the AI Form block if you prefer the block editor.
 
-1. Open the page or post.
+1. Edit the page or post.
 2. Add the **AI Form** block.
-3. Select a form.
-4. Set the theme and display options.
+3. Select the form.
+4. Choose the theme and display options.
 5. Save the page.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-form-block-editor.png" alt="AI Form block in the WordPress block editor" />
+</Frame>
 
 The block renders the same form as the shortcode.
 
-## Result Actions
+### Result Actions
 
-| Action | What it does | Requirements |
-| --- | --- | --- |
-| **Copy** | Copies the generated response. | Available after output. |
-| **Save as Post** | Saves the generated response as a draft WordPress post. | Logged-in user with `edit_posts`. |
-| **Download PDF** | Downloads the generated response as a PDF. | Shortcode uses `pdf_download="true"`. |
+Result actions appear after the form generates an output.
+
+| Action | What it does |
+| --- | --- |
+| **Copy** | Copies the generated response. |
+| **Save as Post** | Saves the generated response as a draft WordPress post. The user must be logged in and allowed to edit posts. |
+| **Save as PDF** | Downloads the generated response as a PDF when `pdf_download="true"` is enabled. |
 
 Save as Post uses the form title as the post title and saves the output as draft content.
 
-## File Upload
+## Settings
 
-1. Add a **File Upload** field to the form.
-2. Set the field variable name.
-3. Add the placeholder to the prompt.
-4. Publish the form.
+### Limits
 
-Example:
+Limits control how much AI Forms usage is allowed for guests and logged-in users.
 
-```text
-Summarize this document:
+Go to **AI Puffer > AI Forms**, click the header **Settings** button, then choose **Limits**.
 
-{uploaded_file}
-```
+1. Set **Guest quota**.
+2. Choose **Quota mode** for logged-in users.
+3. Set **User quota** or **Role-based quotas**.
+4. Choose **Reset period**.
+5. Edit **Quota reached message**.
+6. Configure optional primary and secondary buttons.
 
-Supported frontend file types:
-
-| File type | Notes |
-| --- | --- |
-| `.txt` | Text is read directly. |
-| `.pdf` | Text is extracted with the PDF parser. |
-
-The frontend upload script checks for TXT or PDF files and a maximum file size of 20 MB.
-
-## Appearance
-
-### Labels
-
-Open **Labels** in the form editor to change frontend text.
-
-| Label | Default |
-| --- | --- |
-| Generate | Generate |
-| Stop | Stop |
-| Download | Download |
-| Save | Save |
-| Copy | Copy |
-| Provider label | AI Provider |
-| Model label | AI Model |
-| Back | Back |
-| Next | Next |
-| Step title | Step `{number}` |
-| Step progress | Step `{current}` of `{total}` |
-| Validation message | Please complete this step before continuing. |
-
-Multi-step labels are used only when multi-step mode is enabled.
-
-### Custom CSS
-
-AI Forms include light, dark, and custom themes.
-
-To use custom CSS:
-
-1. Open **AI Forms > Settings**.
-2. Open **Custom CSS**.
-3. Add CSS rules.
-4. Embed the form with `theme="custom"`.
-
-Target the custom theme wrapper:
-
-```css
-.aipkit-ai-form-wrapper.aipkit-theme-custom {
-  /* custom form styles */
-}
-```
-
-## Limits
-
-AI Forms have module-level usage limits.
-
-1. Open **AI Forms**.
-2. Click **Settings**.
-3. Open **Limits**.
-4. Set the guest quota.
-5. Choose the logged-in user quota mode.
-6. Set the user quota or role-based quotas.
-7. Choose the reset period.
-8. Edit the quota reached message.
-9. Configure optional action buttons.
-
-Quota values:
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-forms-limits-settings.png" alt="AI Forms limits settings" />
+</Frame>
 
 | Value | Meaning |
 | --- | --- |
@@ -434,22 +432,43 @@ Reset periods are **Never**, **Daily**, **Weekly**, and **Monthly**.
 
 Action buttons can link users to the usage dashboard, credits dashboard, purchases dashboard, buy credits page, or a custom URL.
 
+<Info>
+For credit-based form access, define pricing rules in [Usage](/usage#pricing-rules). To sell prepaid credits, create WooCommerce credit packages in [Usage](/usage#woocommerce-credit-packages).
+</Info>
+
+### Custom CSS
+
+Custom CSS applies to forms embedded with `theme="custom"`.
+
+Go to **AI Puffer > AI Forms**, click the header **Settings** button, then choose **Custom CSS**.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-forms-custom-css-settings.png" alt="AI Forms custom CSS settings" />
+</Frame>
+
+```css
+.aipkit-ai-form-wrapper.aipkit-theme-custom {
+  /* custom form styles */
+}
+```
+
 ### Provider Filtering
 
-Provider filtering controls which models visitors can select when `show_provider` or `show_model` is enabled.
+Provider filtering controls which models visitors can select when the shortcode or block shows the frontend provider or model selector.
 
-1. Open **AI Forms > Settings**.
-2. Open **Provider filtering**.
-3. Select the models visitors can use.
-4. Save the settings.
+Go to **AI Puffer > AI Forms**, click the header **Settings** button, choose **Provider filtering**, then select the models visitors can use. If no models are selected, all configured frontend models are allowed.
 
-If no models are selected, all configured frontend models are allowed.
+<Frame>
+  <img src="/images/screenshots/ai-forms/ai-forms-provider-filtering-settings.png" alt="AI Forms provider filtering settings" />
+</Frame>
 
 ## Logs
 
-Each form submission creates logs for the user request and the AI response. Logs include the form ID, submitted inputs, constructed prompt, provider, model, token usage, and response.
+Each form submission creates logs for the submitted request and the AI response.
 
-AI Forms also record usage for billing and credit rules with:
+Logs include the form ID, submitted inputs, constructed prompt, provider, model, token usage, vector search scores when knowledge base is used, and the generated response.
+
+AI Forms usage is recorded with:
 
 | Field | Value |
 | --- | --- |
@@ -458,17 +477,40 @@ AI Forms also record usage for billing and credit rules with:
 | Scope type | `ai_form` |
 | Scope ID | Form ID |
 
-This allows usage rules to target all AI Forms or a specific form.
+This lets usage rules target all AI Forms or a specific form.
 
 ## Troubleshooting
 
-| Issue | Check |
-| --- | --- |
-| Form does not render | Make sure the form ID is correct and the form is published. Admins see shortcode errors; visitors see empty output. |
-| Model dropdown is empty | Sync or configure the provider in [AI Providers](/ai-providers). |
-| Placeholder stays blank | Check that the field variable name matches the prompt placeholder. |
-| Required checkbox does not validate | Make sure at least one option exists and one option is selected. |
-| File upload fails | Confirm the file is TXT or PDF and contains readable text. |
-| Save as Post fails | The current user must be logged in and have permission to edit posts. |
-| PDF button does not appear | Confirm the shortcode uses `pdf_download="true"`. |
-| App recipe does not run | Confirm the recipe is enabled, connected, scoped to the form, and uses the `form.submitted` event. |
+<AccordionGroup>
+  <Accordion title="Form does not render">
+    Check the form ID in the shortcode or block. The form must exist and be published. Admin users see shortcode errors; visitors see empty output.
+  </Accordion>
+
+  <Accordion title="Model dropdown is empty">
+    Configure and sync the provider in [AI Providers](/ai-providers). If the frontend selector is enabled, also check **AI Puffer > AI Forms**, header **Settings** > **Provider filtering**.
+  </Accordion>
+
+  <Accordion title="Prompt value is blank">
+    Check the field's **Field Variable Name** in **Element Settings** and make sure the prompt uses the same placeholder, for example `{customer_message}`.
+  </Accordion>
+
+  <Accordion title="Required checkbox does not validate">
+    Make sure the checkbox field has options and that the visitor selects at least one option before submitting.
+  </Accordion>
+
+  <Accordion title="File upload fails">
+    Use a TXT or text-based PDF file. If the server rejects uploads, check WordPress upload limits and security plugin rules.
+  </Accordion>
+
+  <Accordion title="Save as Post fails">
+    The visitor must be logged in and must have permission to create or edit posts.
+  </Accordion>
+
+  <Accordion title="PDF button does not appear">
+    Enable **Save as PDF** in the shortcode settings, or add `pdf_download="true"` to the shortcode.
+  </Accordion>
+
+  <Accordion title="Connected app recipe does not run">
+    Check that the recipe is enabled, the app connection is valid, the scope includes this form, and the recipe uses the **AI Form Submitted** event.
+  </Accordion>
+</AccordionGroup>
