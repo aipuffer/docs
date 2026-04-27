@@ -1,125 +1,136 @@
 ---
 title: "Usage"
-description: "Track logs, set quotas, manage credits, and sell credit packages."
+description: "Review logs, manage credits, define pricing rules, and sell credit packages."
 ---
 
 ## Overview
 
-Use Usage to inspect activity, set quotas, define credit pricing, manage balances, and create WooCommerce credit packages.
+Usage is where you review saved AI activity and manage AI Puffer credits.
 
 In WordPress admin, go to **AI Puffer > Usage**.
 
-The Usage screen has two main areas:
+The screen has two tabs: **Logs** and **Billing**. Logs are for reviewing saved requests and conversations. Billing is for pricing rules, ledger activity, user balances, and WooCommerce credit packages.
 
-| Area | Use it for |
+<Info>
+AI Puffer credits are internal plugin credits. They do not replace OpenAI, Google, Claude, Replicate, or other provider billing. Provider API usage is still billed by the provider account you connect.
+</Info>
+
+<Columns cols={2}>
+  <Card title="Logs" icon="list" href="#logs" horizontal>
+    Search, inspect, export, delete, and retain saved activity.
+  </Card>
+
+  <Card title="Pricing" icon="chart-line" href="#pricing" horizontal>
+    Define how model usage is converted into AI Puffer credits.
+  </Card>
+
+  <Card title="Activity" icon="bolt" href="#activity" horizontal>
+    Review credits added, debited balances, and usage entries.
+  </Card>
+
+  <Card title="Balances" icon="database" href="#balances" horizontal>
+    Edit user balances and reset periodic usage.
+  </Card>
+
+  <Card title="WooCommerce Integration" icon="shopping-cart" href="#woocommerce-integration" horizontal>
+    Sell credit packages and publish a customer dashboard.
+  </Card>
+
+  <Card title="Troubleshooting" icon="wrench" href="#troubleshooting" horizontal>
+    Check common setup and billing issues.
+  </Card>
+</Columns>
+
+<Frame>
+  <img src="/images/screenshots/usage/usage-overview.png" alt="Usage screen with Logs and Billing tabs" />
+</Frame>
+
+Key terms:
+
+| Term | Meaning |
 | --- | --- |
-| **Logs** | Search, inspect, export, delete, and retain saved conversations. |
-| **Billing** | Configure pricing rules, review ledger activity, manage user balances, and set up WooCommerce credit packages. |
-
-> Screenshot placeholder: Usage screen showing the Logs tab, Billing tab, and billing sub-tabs.
-
-## Key Concepts
-
-| Concept | Meaning |
-| --- | --- |
-| **Credits** | Internal AI Puffer units stored on a logged-in user's account. |
-| **Credit balance** | The user's available prepaid credits. |
+| **Credit** | An internal AI Puffer unit stored on a logged-in user's account. |
+| **Balance** | The user's available prepaid credits. |
 | **Quota** | A periodic usage limit for guests, users, or roles. |
-| **Pricing rule** | A rule that converts model usage into AI Puffer credits. |
+| **Pricing rule** | A rule that turns model usage into credits. |
 | **Ledger** | A record of purchases, admin balance changes, and usage. |
-| **Quota-only usage** | Usage that was counted against a quota but did not deduct a credit balance. |
-
-AI Puffer credits are separate from provider API billing. OpenAI, Google, Azure, OpenRouter, DeepSeek, Ollama, Claude, Replicate, or other providers still bill according to your provider account.
 
 ## Logs
 
-Open **Usage > Logs**.
+Open **AI Puffer > Usage > Logs**.
 
-Use logs to review saved interactions across modules.
+Logs show saved activity from AI Puffer modules. Use them to review conversations, inspect request metadata, check vector search results, export records, and control retention.
 
-Available filters:
-
-| Filter | What it does |
+| Control | Use it for |
 | --- | --- |
-| **Search logs** | Searches saved log content. |
-| **Chatbot** | Shows all bots, one bot, or logs with no bot. |
-| **Module** | Filters by module, such as Chatbot, Content Writer, Automation, Images, AI Forms, Automate, or Content Assistant. |
-| **Date range** | Shows the last 7, 30, or 90 days. |
+| **Search logs** | Search saved log content. |
+| **Chatbot** | Show all bots, one bot, or logs with no bot. |
+| **Module** | Filter by module. |
+| **Date range** | Show the last 7, 30, or 90 days. |
+| **Export logs** | Download matching logs as a CSV file. |
+| **Delete logs** | Delete logs matching the active filters. |
 
-The log table shows:
+Click a row to open **Conversation Details**. The detail panel shows the full exchange, timestamps, provider and model metadata, usage tokens, request payloads when saved, and a delete button for that single log.
 
-| Column | What it shows |
-| --- | --- |
-| **Date** | Last message time. |
-| **User** | Logged-in user or guest. |
-| **Source** | Chatbot or source label when available. |
-| **Messages** | Message count in the saved exchange. |
-| **Tokens** | Total tokens stored for the exchange when available. |
-| **Message** | A preview of the latest message. |
-
-Click a row to open **Conversation Details**.
-
-The detail panel can show the full exchange, timestamps, request payloads, and vector search results when that metadata was saved.
-
-> Screenshot placeholder: Conversation Details panel with a selected log row.
+<Frame>
+  <img src="/images/screenshots/usage/usage-logs-details.png" alt="Usage logs with filters and conversation details" />
+</Frame>
 
 ### Vector Scores
 
-When a request uses vector search, the bot message can show a **Score** badge in the conversation detail panel.
+When a chatbot, Content Writer request, or other AI request uses vector context, the assistant message can show a **Score** badge.
 
-The score is the strongest vector match found for that request. Click the badge to see the vector search results, including the provider, source, score, and a short content preview.
+The score shows how closely the retrieved content matched the user's request. Click the badge to see the vector provider, source, score, and content preview.
 
-> Screenshot placeholder: Conversation Details panel with the Score badge expanded.
+<Tip>
+Use scores to tune Knowledge Base retrieval. If useful content is not being used, lower the threshold or increase the result limit. If unrelated content is used, raise the threshold.
+</Tip>
 
-Scores are shown as percentages.
-
-| Score | Meaning | What to do |
-| --- | --- | --- |
-| **85%+** | Strong match. | The retrieved content is likely relevant. |
-| **70-84%** | Useful match. | Usually fine for support, product, and documentation answers. |
-| **50-69%** | Weak match. | Review the matched content and consider improving the source text. |
-| **Below 50%** | Poor match. | The chatbot may be using unrelated context. |
-
-Use scores to tune vector settings:
-
-| What you see | Recommendation |
+| Score | Meaning |
 | --- | --- |
-| Good answers with high scores | Keep the current threshold and limit. |
-| Correct content exists, but scores are low or no result is used | Lower the threshold, increase the limit, or check that the right source is selected. |
-| Unrelated content is used | Raise the threshold or lower the limit. |
-| Scores are low after switching embedding models | Re-index the source with the same embedding model used by the chatbot. |
-| No Score badge appears | The request did not use saved vector results, or no vector match passed the threshold. |
+| **85%+** | Strong match. |
+| **70-84%** | Usually useful. |
+| **50-69%** | Weak match. Review the source text. |
+| **Below 50%** | Poor match. The answer may be using unrelated context. |
 
-Scores help explain retrieval quality. They do not grade the final AI answer.
+Scores explain retrieval quality. They do not grade the final AI answer.
 
-### Export Logs
+<Frame>
+  <img src="/images/screenshots/usage/usage-vector-score.png" alt="Conversation details with vector score results" />
+</Frame>
 
-1. Open **Usage > Logs**.
+### Export and Delete
+
+To export logs:
+
+1. Open **AI Puffer > Usage > Logs**.
 2. Apply filters if needed.
-3. Open the log actions menu.
+3. Open the actions menu.
 4. Click **Export logs**.
 
-AI Puffer exports a CSV file with log ID, date, user, source, module, message count, token count, preview, and conversation UUID.
+The CSV includes log ID, date, user, source, module, message count, token count, preview, and conversation UUID.
 
-### Delete Logs
+To delete logs:
 
-1. Open **Usage > Logs**.
-2. Apply filters if you want to delete only a subset.
-3. Open the log actions menu.
+1. Open **AI Puffer > Usage > Logs**.
+2. Apply filters if you only want to delete part of the log history.
+3. Open the actions menu.
 4. Click **Delete logs**.
 5. Confirm the action.
 
-To delete one conversation, open the conversation detail panel and use the delete action there.
+To delete one conversation, open the row and click **Delete** in Conversation Details.
 
-## Log Retention
+### Log Retention
 
-Log retention controls how long saved conversation logs stay in the database.
+Log retention automatically removes old logs.
 
-1. Open **Usage > Logs**.
+To configure it:
+
+1. Open **AI Puffer > Usage > Logs**.
 2. Click **Set retention**.
 3. Enable **Auto-delete logs**.
 4. Choose **Delete logs older than**.
-5. Save.
+5. Save the setting.
 
 Available retention periods:
 
@@ -135,87 +146,79 @@ Available retention periods:
 1 year
 ```
 
-The retention panel also shows the pruning schedule status and the last run time.
+The retention modal also shows the pruning schedule and last run time.
 
-> Screenshot placeholder: Log Retention modal with auto-delete enabled and a retention period selected.
+<Frame>
+  <img src="/images/screenshots/usage/usage-log-retention.png" alt="Log Retention modal" />
+</Frame>
 
-## Pricing Rules
+## Billing
 
-Open **Usage > Billing > Pricing**.
+Open **AI Puffer > Usage > Billing**.
+
+Billing connects three things:
+
+1. **Pricing rules** decide how much a request costs in AI Puffer credits.
+2. **Balances** store prepaid credits for logged-in users.
+3. **Quotas** limit usage for guests, users, or roles when a balance is not enough.
+
+For logged-in users, AI Puffer deducts from the credit balance first. If the balance does not cover the full request cost, the remaining usage is counted against the user's quota. For guests, there is no persistent balance, so usage is checked against the guest quota.
+
+<Warning>
+Quotas are configured inside the module that uses them: Chatbots, AI Forms, or Images. The Usage screen shows and resets recorded usage, but it is not where you configure module limits.
+</Warning>
+
+### Pricing
+
+Open **AI Puffer > Usage > Billing > Pricing**.
 
 Pricing rules tell AI Puffer how many credits a model operation should cost.
 
-Pricing rules currently apply to these billing modules:
+To create a pricing rule:
 
-| Module | Operations |
+1. Click **New Pricing**.
+2. Select **Usage type**.
+3. Select **Provider & Model**.
+4. Select **Billing method**.
+5. Enter the rate.
+6. Click **Save Rule**.
+
+<Frame>
+  <img src="/images/screenshots/usage/usage-pricing.png" alt="Billing Pricing tab" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/usage/usage-pricing-new-rule.png" alt="New Pricing rule modal" />
+</Frame>
+
+Supported usage types:
+
+| Module | Usage type |
 | --- | --- |
 | **Chatbot** | Chat |
-| **AI Forms** | Form submit |
-| **Images** | Generate, Edit, Video |
+| **AI Forms** | Form Submit |
+| **Image Generator** | Generate, Edit, Video |
 
-### Create a Pricing Rule
+Supported billing methods:
 
-1. Open **Usage > Billing > Pricing**.
-2. Click **New Pricing**.
-3. Select the usage type.
-4. Select the provider and model.
-5. Select the billing method.
-6. Enter the rate.
-7. Click **Save Rule**.
-
-> Screenshot placeholder: New Pricing modal showing usage type, provider/model, billing method, and rate fields.
-
-### Billing Methods
-
-| Billing method | Used by | Rate fields |
+| Billing method | Applies to | Rate field |
 | --- | --- | --- |
-| **Per 1K Tokens** | Chatbot, AI Forms | Input rate and output rate. |
-| **Flat** | Chatbot, AI Forms, Images | Unit rate. |
+| **Per 1K Tokens** | Chat and AI Forms | Input rate and output rate. |
 | **Per Image** | Image generation and image editing | Unit rate per image. |
 | **Per Video** | Video generation | Unit rate per video. |
+| **Flat** | Any supported usage type | One fixed unit rate per request. |
 
-For token-based rules, AI Puffer uses input and output token counts when the provider response includes them. If separate input and output values are not available, it can use the total usage value.
+Pricing rules can be enabled, disabled, edited, or deleted from the Pricing table.
 
-If no pricing rule matches a request, AI Puffer falls back to the raw recorded units for credit calculation.
+<Info>
+If a matching pricing rule exists, AI Puffer uses that rule to estimate and record credit usage. If no rule matches, it falls back to the raw recorded usage units.
+</Info>
 
-### Manage Pricing Rules
+### Activity
 
-The Pricing table shows module, provider/model, pricing, status, and actions.
+Open **AI Puffer > Usage > Billing > Activity**.
 
-Available actions:
-
-| Action | What it does |
-| --- | --- |
-| **Enable / disable** | Turns a pricing rule on or off. |
-| **Edit** | Opens the rule in the pricing modal. |
-| **Delete** | Removes the rule. |
-
-## Credits
-
-### How Credits Are Charged
-
-AI Puffer checks usage before a request and records usage after the request.
-
-For logged-in users:
-
-1. AI Puffer estimates the required credits for the operation.
-2. If the user has a credit balance, AI Puffer deducts from that balance first.
-3. If the balance does not cover the full amount, the remaining amount counts against the user's quota.
-4. A ledger entry is recorded.
-
-For guests:
-
-1. No persistent credit balance is used.
-2. Usage is checked against the guest quota.
-3. Usage is stored against the guest session.
-
-Credit balance and quota are not the same setting. A user can have a balance and still have a periodic quota configured. When a balance covers the estimated request cost, that request does not need remaining quota.
-
-### Ledger Activity
-
-Open **Usage > Billing > Activity**.
-
-Ledger activity shows credit movement and usage records for the selected time range.
+Activity shows the ledger for the selected time range.
 
 Available ranges:
 
@@ -229,217 +232,143 @@ Summary cards:
 
 | Card | Meaning |
 | --- | --- |
-| **Credits Added** | Total positive credit changes, such as purchases or admin adjustments. |
-| **Balance Debited** | Total credits deducted from user balances. |
-| **Quota-Only Usage** | Usage records that did not deduct a credit balance. |
-| **Ledger Entries** | Total ledger entries in the selected range. |
+| **Credits Added** | Credits added through purchases or admin adjustments. |
+| **Balance Debited** | Credits deducted from user balances. |
+| **Quota-Only Usage** | Usage that did not deduct a balance. |
+| **Ledger Entries** | Total ledger records in the selected range. |
 
-The ledger table shows time, actor, entry type, module/model, credit delta, and usage units.
+The ledger table shows time, actor, type, module/model, credit change, and usage units.
 
-> Screenshot placeholder: Ledger Activity tab with summary cards and recent ledger entries.
+<Frame>
+  <img src="/images/screenshots/usage/usage-activity.png" alt="Billing Activity tab" />
+</Frame>
 
-### User Balances
+### Balances
 
-Open **Usage > Billing > Balances**.
+Open **AI Puffer > Usage > Billing > Balances**.
 
-Use Balances to find users, edit balances, inspect periodic usage, and reset usage counters.
+Balances is for logged-in WordPress users. Use it to search users, edit credit balances, review periodic usage, reset usage, and view purchase history.
 
-The table shows:
+The table includes:
 
-| Column | What it shows |
+| Column | Meaning |
 | --- | --- |
 | **User** | Display name and email. |
-| **Credit Balance** | Editable credit balance. |
-| **Usage** | Total periodic usage and active usage scopes. |
-| **Latest Reset** | Most recent reset timestamp. |
+| **Credit Balance** | Editable prepaid credit balance. |
+| **Usage** | Recorded periodic usage and active scopes. |
+| **Latest Reset** | Most recent usage reset time. |
 | **Actions** | Details, Reset all, and History when available. |
 
-#### Edit a Balance
+To edit a balance:
 
-1. Open **Usage > Billing > Balances**.
-2. Search for the user.
-3. Edit the **Credit Balance** field.
-4. Press **Enter** or click outside the field.
+1. Search for the user.
+2. Edit **Credit Balance**.
+3. Press **Enter** or click outside the field.
 
-AI Puffer stores the new balance and records the difference as an admin adjustment in the ledger.
+AI Puffer saves the new balance and records the difference as an admin adjustment in the ledger.
 
-#### Reset Usage
+To reset usage:
 
-Use **Details** to view periodic usage by scope.
-
-Supported reset scopes:
-
-| Scope | What it resets |
-| --- | --- |
-| **Chatbot** | Usage for one chatbot. |
-| **Images** | Images periodic usage. |
-| **AI Forms** | AI Forms periodic usage. |
-| **All** | All tracked periodic usage scopes for the user. |
+1. Click **Details** for a user.
+2. Click **Reset usage** for one scope, or **Reset all** for all scopes.
+3. Confirm the reset.
 
 Resetting usage does not change the user's credit balance.
 
-#### Purchase History
+<Frame>
+  <img src="/images/screenshots/usage/usage-balances.png" alt="Billing Balances tab" />
+</Frame>
 
-If the user has completed WooCommerce credit orders, the **History** button shows recent credit purchases.
+<Frame>
+  <img src="/images/screenshots/usage/usage-balances-details.png" alt="Billing Balances tab with periodic usage details" />
+</Frame>
 
-Purchase history is based on completed WooCommerce orders that contain AI Puffer credit package products.
+### WooCommerce Integration
 
-> Screenshot placeholder: User Credits table with a user row expanded to show periodic usage details.
+Open **AI Puffer > Usage > Billing > WooCommerce**.
 
-## Quotas
+Use this tab to publish a customer dashboard and connect WooCommerce products to AI Puffer credits.
 
-Quotas are configured inside the module that consumes usage.
+<Info>
+WooCommerce credit delivery requires a WordPress user account. Guest checkout orders without a linked user cannot receive credits automatically.
+</Info>
 
-| Module | Where to configure |
-| --- | --- |
-| **Chatbot** | Go to **AI Puffer > Chatbots**, edit the chatbot, then open **Limits**. |
-| **AI Forms** | Open **AI Forms > Settings > Limits**. |
-| **Images** | Open **Images > Settings > Limits**. |
-
-Quota fields:
-
-| Field | What it does |
-| --- | --- |
-| **Guest quota** | Limit for visitors who are not logged in. |
-| **Quota mode** | Use one quota for all logged-in users or role-based quotas. |
-| **User quota** | Limit for logged-in users when quota mode is general. |
-| **Role-based quotas** | Separate limits by WordPress role. |
-| **Reset period** | Never, daily, weekly, or monthly. |
-| **Quota reached message** | Message shown when access is blocked by quota. |
-| **Primary button** | Optional action shown with the quota message. |
-| **Secondary button** | Optional second action shown with the quota message. |
-
-Quota values:
-
-| Value | Meaning |
-| --- | --- |
-| Empty | Unlimited. |
-| `0` | Disabled. |
-| Positive number | Maximum usage units for the reset period. |
-
-Quota action options:
-
-| Action | What it links to |
-| --- | --- |
-| **No button** | No action button. |
-| **Customer dashboard: Usage** | Usage section of the customer dashboard page. |
-| **Customer dashboard: Credits** | Credits section of the customer dashboard page. |
-| **Customer dashboard: Purchases** | Purchase history section of the customer dashboard page. |
-| **Buy credits page** | The configured buy credits URL or WooCommerce shop URL. |
-| **Custom URL** | A URL you enter manually. |
-
-> Screenshot placeholder: Limits settings showing guest quota, user quota, reset period, and quota action buttons.
-
-## WooCommerce Credit Packages
-
-AI Puffer can grant credits from WooCommerce product purchases.
-
-Requirements:
-
-| Requirement | Notes |
-| --- | --- |
-| WooCommerce | Must be active. |
-| WordPress user account | Credits are granted to the order's user account. |
-| Completed order | Credits are granted when the WooCommerce order status becomes completed. |
-| Credit package product | The product must be marked as an AI Puffer credit package. |
-
-Guest checkout orders without a linked WordPress user account cannot receive credits automatically.
-
-### Create a Credit Package
-
-1. Open **WooCommerce > Products**.
-2. Create or edit a product.
-3. Find the **AI Puffer: Credit Package** box.
-4. Enable **Sell this product as an AI Puffer credit package**.
-5. Enter **Credits Granted Per Quantity**.
-6. Set the WooCommerce product price.
-7. Publish or update the product.
-
-If a customer buys quantity `3`, AI Puffer grants the credit amount three times.
-
-> Screenshot placeholder: WooCommerce product editor with the AI Puffer: Credit Package box enabled.
-
-### Package Previews
-
-When pricing rules exist, the product editor can show an approximate package value.
-
-Examples:
-
-| Operation | Preview assumption |
-| --- | --- |
-| Chat | About 1K input tokens plus 1K output tokens per request. |
-| AI Form submit | About 1K input tokens plus 1K output tokens per submit. |
-| Image generation | One generated image. |
-| Video generation | One generated video. |
-
-The preview uses current pricing rules. It is only for package sizing.
-
-## Customer Dashboard
-
-Use `[aipkit_token_usage]` to show a logged-in customer their credits, purchases, and quota usage.
+Customer dashboard:
 
 1. Create a WordPress page, such as **Credits & Usage**.
-2. Add the shortcode:
+2. Add this shortcode:
 
 ```text
 [aipkit_token_usage]
 ```
 
 3. Publish the page.
-4. Open **Usage > Billing > WooCommerce**.
+4. Open **AI Puffer > Usage > Billing > WooCommerce**.
 5. Set **Customer dashboard URL** to that page.
-6. Set **Default buy credits URL** if you want the dashboard and quota buttons to send users to a specific page.
+6. Set **Default buy credits URL** if you want dashboard buttons and quota messages to send users to a specific page.
 
-The shortcode requires the visitor to be logged in.
+The dashboard shows credit balance, recent purchases, and quota usage for Chatbots, AI Forms, and Images.
 
-> Screenshot placeholder: Frontend customer dashboard showing available credits, recent purchases, and quota usage.
+<Frame>
+  <img src="/images/screenshots/usage/usage-woocommerce.png" alt="Billing WooCommerce tab" />
+</Frame>
 
-### Shortcode Options
+Shortcode options:
 
-Use attributes to hide sections or change text.
+| Attribute | Default | Use it for |
+| --- | --- | --- |
+| `chatbot` | `true` | Show or hide chatbot quota usage. |
+| `aiforms` | `true` | Show or hide AI Forms quota usage. |
+| `imagegenerator` | `true` | Show or hide Images quota usage. |
+| `title` | `Credits & Usage` | Dashboard title. |
+| `intro` | `View your credits, purchases, and quotas.` | Intro text. |
+| `buycredits` | `true` | Show or hide the buy credits button. |
+| `buycreditslabel` | `Buy credits` | Buy credits button label. |
+| `buycreditsurl` | Empty | Override the buy credits URL. |
+| `purchasehistory` | `true` | Show or hide recent purchase history. |
+
+Examples:
 
 ```text
 [aipkit_token_usage chatbot="false"]
-```
-
-```text
-[aipkit_token_usage aiforms="false" imagegenerator="false"]
-```
-
-```text
 [aipkit_token_usage title="Credits" intro="View your balance and usage."]
-```
-
-```text
 [aipkit_token_usage buycreditslabel="Buy more credits" buycreditsurl="https://example.com/credits"]
 ```
 
-Supported attributes:
+Credit packages:
 
-| Attribute | Default | What it controls |
-| --- | --- | --- |
-| `chatbot` | `true` | Shows or hides chatbot quota usage. |
-| `aiforms` | `true` | Shows or hides AI Forms quota usage. |
-| `imagegenerator` | `true` | Shows or hides Images quota usage. |
-| `title` | `Credits & Usage` | Dashboard title. |
-| `intro` | `View your credits, purchases, and quotas.` | Intro text. |
-| `buycredits` | `true` | Shows or hides the buy credits button. |
-| `buycreditslabel` | `Buy credits` | Buy credits button label. |
-| `buycreditsurl` | Empty | Overrides the buy credits URL. |
-| `purchasehistory` | `true` | Shows or hides recent purchase history. |
+1. Open **WooCommerce > Products**.
+2. Create or edit a product.
+3. Find the **AI Puffer: Credit Package** box.
+4. Enable **Sell this product as an AI Puffer credit package**.
+5. Enter **Credits Granted Per Quantity**.
+6. Set the normal WooCommerce product price.
+7. Publish or update the product.
 
-The Usage screen can generate the shortcode for you from the WooCommerce tab options.
+Credits are granted when the WooCommerce order becomes **Completed**. Quantity is multiplied by **Credits Granted Per Quantity**.
+
+<Frame>
+  <img src="/images/screenshots/usage/usage-woocommerce-credit-package.png" alt="AI Puffer credit package box in WooCommerce product editor" />
+</Frame>
+
+If pricing rules exist, the product editor can show a rough package value, such as how many chat requests, form submissions, images, or videos the package may cover at current pricing.
+
+<Tip>
+Package previews are for sizing only. The real cost depends on the actual provider response, token usage, selected model, and matching pricing rule.
+</Tip>
 
 ## Troubleshooting
 
-### Pricing Model Is Missing
+<AccordionGroup>
+<Accordion title="Pricing model is missing">
 
 1. Open [AI Providers](/ai-providers).
-2. Check the provider API settings.
-3. Sync models.
+2. Confirm the provider API settings are saved.
+3. Sync models for that provider.
 4. Return to **Usage > Billing > Pricing** and create the rule again.
 
-### Credits Were Not Granted After Purchase
+</Accordion>
+<Accordion title="Credits were not granted after purchase">
 
 Check these items:
 
@@ -450,26 +379,43 @@ Check these items:
 | Product setting | Marked as an AI Puffer credit package. |
 | Credit amount | Greater than `0`. |
 
-### Customer Dashboard Does Not Show Usage
+</Accordion>
+<Accordion title="Customer dashboard does not show usage">
 
 1. Confirm the visitor is logged in.
-2. Confirm the shortcode is on the page.
-3. Check role access for the customer dashboard module if role access is enabled.
+2. Confirm the page contains `[aipkit_token_usage]`.
+3. Check role access if role access is enabled.
 4. Confirm the related module has recorded usage for that user.
+5. Confirm the shortcode attribute for that module is not set to `false`.
 
-### User Sees a Quota Message After Buying Credits
+</Accordion>
+<Accordion title="User sees a quota message after buying credits">
 
 Check these items:
 
-1. Confirm the order is completed.
+1. Confirm the WooCommerce order is completed.
 2. Confirm the user's credit balance increased in **Usage > Billing > Balances**.
 3. Confirm the user is logged in.
 4. Confirm the module has a matching pricing rule.
-5. Confirm the request cost does not exceed the remaining balance plus available quota.
+5. Confirm the request cost does not exceed the user's remaining balance plus available quota.
 
-### Logs Are Growing Too Large
+</Accordion>
+<Accordion title="Logs are growing too large">
 
 1. Open **Usage > Logs**.
-2. Delete old logs manually if needed.
-3. Enable log retention if it is available in your installed plugin version.
-4. Use a shorter retention period.
+2. Click **Set retention**.
+3. Enable **Auto-delete logs**.
+4. Choose a shorter retention period.
+5. Delete old logs manually if needed.
+
+</Accordion>
+<Accordion title="Balance changes are not visible in Activity">
+
+1. Open **Usage > Billing > Activity**.
+2. Select a date range that includes the change.
+3. Check whether the balance was changed from **Usage > Billing > Balances** or through a completed WooCommerce order.
+
+Manual balance edits and completed credit package orders create ledger entries.
+
+</Accordion>
+</AccordionGroup>
