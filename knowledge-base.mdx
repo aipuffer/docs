@@ -14,15 +14,15 @@ Use it for support answers, product details, documentation, policies, posts, pag
     Use OpenAI Vector Stores, Pinecone, Qdrant, or Chroma.
   </Card>
 
-  <Card title="Stores Tab" icon="box" href="#stores-tab" horizontal>
+  <Card title="Manage Vector Stores" icon="box" href="#manage-vector-stores" horizontal>
     Create, select, or delete vector targets.
   </Card>
 
-  <Card title="Data Tab" icon="file-plus" href="#data-tab" horizontal>
+  <Card title="Add Data" icon="file-plus" href="#add-data" horizontal>
     Add data and manage source records.
   </Card>
 
-  <Card title="Settings Tab" icon="gear" href="#settings-tab" horizontal>
+  <Card title="Settings" icon="gear" href="#settings" horizontal>
     Configure visibility, chunking, content rules, and search.
   </Card>
 
@@ -52,7 +52,9 @@ For example, if your Pinecone index, Qdrant collection, or Chroma collection is 
 If the dimension does not match, the vector provider can reject the data or return unusable search results.
 </Warning>
 
-## Stores Tab
+<div id="stores-tab" />
+
+## Manage Vector Stores
 
 Use **AI Puffer > Knowledge Base > Stores** to create, refresh, inspect, or delete vector targets.
 
@@ -134,7 +136,9 @@ Use **Refresh** when you need AI Puffer to fetch the latest stores, indexes, or 
 
 To delete a target, use the available action in the Stores table.
 
-## Data Tab
+<div id="data-tab" />
+
+## Add Data
 
 Use **AI Puffer > Knowledge Base > Data** to add new source data and manage existing source records.
 
@@ -261,7 +265,9 @@ Available actions:
   <img src="/images/screenshots/knowledgebase/knowledge-base-edit-source.png" alt="Knowledge Base edit source" />
 </Frame>
 
-## Settings Tab
+<div id="settings-tab" />
+
+## Settings
 
 Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behavior.
 
@@ -269,9 +275,11 @@ Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behav
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings.png" alt="Knowledge Base settings" />
 </Frame>
 
-### Basics
+<div id="basics" />
 
-Basics controls how Knowledge Base records and indexing buttons appear in the admin.
+### General
+
+General controls how Knowledge Base records and indexing buttons appear in the admin.
 
 | Setting | What it does |
 | --- | --- |
@@ -282,7 +290,9 @@ Basics controls how Knowledge Base records and indexing buttons appear in the ad
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
 </Frame>
 
-### Chunking
+<div id="chunking" />
+
+### Document Chunking
 
 Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone, Qdrant, or Chroma.
 
@@ -306,12 +316,14 @@ OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the 
   <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base document chunking settings" />
 </Frame>
 
-### Content Rules
+<div id="content-rules" />
 
-Content rules define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
+### Indexing Controls
+
+Indexing controls define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
 
 1. Go to **AI Puffer > Knowledge Base > Settings**.
-2. In **Content Rules**, click **Configure**.
+2. In **Indexing Controls**, click **Configure**.
 3. Select a post type.
 4. Adjust **Basic Labels** if you want different labels for source URL, title, excerpt, or content.
 5. Enable or disable custom fields.
