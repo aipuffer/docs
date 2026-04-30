@@ -345,11 +345,12 @@ Rewrite Content can optionally use vector context from the right-side **Advanced
 | **OpenAI** | Select OpenAI Vector Stores. |
 | **Pinecone** | Select a Pinecone index and embedding model. |
 | **Qdrant** | Select a Qdrant collection and embedding model. |
+| **Chroma** | Select a Chroma collection and embedding model. |
 
 The task searches the selected knowledge source using the post title and adds matching context to the AI request.
 
 <Info>
-For Pinecone and Qdrant, use the same <Tooltip headline="Embedding model" tip="A model that converts text into vectors so Pinecone or Qdrant can search by meaning.">embedding model</Tooltip> that was used when the data was added.
+For Pinecone, Qdrant, and Chroma, use the same <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> that was used when the data was added.
 </Info>
 
 To create a Rewrite Content automation:
@@ -431,11 +432,12 @@ Use Content Indexing to add WordPress content to a vector store for later retrie
 | **OpenAI** | Select an OpenAI Vector Store. |
 | **Pinecone** | Select a Pinecone index and embedding provider/model. |
 | **Qdrant** | Select a Qdrant collection and embedding provider/model. |
+| **Chroma** | Select a Chroma collection and embedding provider/model. |
 
-Pinecone and Qdrant require an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so Pinecone or Qdrant can search by meaning.">embedding model</Tooltip> because AI Puffer needs to create embeddings before writing vectors.
+Pinecone, Qdrant, and Chroma require an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> because AI Puffer needs to create embeddings before writing vectors.
 
 <Warning>
-For Pinecone and Qdrant, the index or collection dimension must match the embedding model.
+For Pinecone, Qdrant, and Chroma, the index or collection dimension must match the embedding model.
 </Warning>
 
 Content selection settings:
@@ -455,9 +457,9 @@ To create a Content Indexing automation:
 
 1. Click **New Task**.
 2. Select **Content Indexing**.
-3. Choose OpenAI, Pinecone, or Qdrant as the destination.
+3. Choose OpenAI, Pinecone, Qdrant, or Chroma as the destination.
 4. Select the vector store, index, or collection.
-5. For Pinecone or Qdrant, select the embedding provider and model.
+5. For Pinecone, Qdrant, or Chroma, select the embedding provider and model.
 6. Select the public post types to index.
 7. Choose whether to queue existing content now.
 8. Choose whether new and updated content should be indexed automatically.
@@ -902,11 +904,11 @@ When enabled, AI Puffer searches the selected source and adds matching context t
 To enable it:
 
 1. Add data in **AI Puffer > Knowledge Base**.
-2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, or **Qdrant**.
+2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
 3. Select the vector store, index, or collection in **Source**.
 4. Click the settings icon beside **Source** to open **Context settings**.
 5. Set **Results Limit**. For content creation tasks, you can also set **Confidence Threshold**.
-6. For Pinecone or Qdrant, select the embedding provider and model in **Context settings**.
+6. For Pinecone, Qdrant, or Chroma, select the embedding provider and model in **Context settings**.
 7. Save and test the task.
 
 <Frame>
@@ -918,9 +920,10 @@ To enable it:
 | **OpenAI** | Select one or more OpenAI Vector Stores. |
 | **Pinecone** | Select a Pinecone index and the embedding model used when the data was added. |
 | **Qdrant** | Select a Qdrant collection and the embedding model used when the data was added. |
+| **Chroma** | Select a Chroma collection and the embedding model used when the data was added. |
 
 <Warning>
-For Pinecone and Qdrant, use the same embedding model when adding data and when selecting **Context** in an automation task.
+For Pinecone, Qdrant, and Chroma, use the same embedding model when adding data and when selecting **Context** in an automation task.
 </Warning>
 
 #### OpenAI
@@ -1026,6 +1029,30 @@ To use it in Automations:
 1. Create or edit the automation task.
 2. In the right-side **Advanced** card, set **Context** to **Qdrant**.
 3. Select the Qdrant collection in **Source**.
+4. Click the settings icon beside **Source** to open **Context settings**.
+5. Select the same embedding provider and model used when you added the data.
+6. Adjust **Results Limit**. Content creation tasks also show **Confidence Threshold**.
+
+#### Chroma
+
+Chroma stores vectors in a collection. AI Puffer creates and searches those vectors with the embedding model you choose.
+
+Chroma collections do not require a dimension when they are created in AI Puffer, but stored vectors still need a consistent dimension.
+
+To prepare a collection:
+
+1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Chroma** as the provider.
+4. Click **Create new collection**.
+5. Enter a collection name.
+6. Create the collection, then add data with the same embedding model.
+
+To use it in Automations:
+
+1. Create or edit the automation task.
+2. In the right-side **Advanced** card, set **Context** to **Chroma**.
+3. Select the Chroma collection in **Source**.
 4. Click the settings icon beside **Source** to open **Context settings**.
 5. Select the same embedding provider and model used when you added the data.
 6. Adjust **Results Limit**. Content creation tasks also show **Confidence Threshold**.
@@ -1149,7 +1176,7 @@ Check these items:
 Check these items:
 
 1. The selected vector store, index, or collection exists.
-2. Pinecone and Qdrant have an embedding provider and model selected.
+2. Pinecone, Qdrant, and Chroma have an embedding provider and model selected.
 3. The selected post types contain published content.
 4. The provider API key is configured in [AI Providers](/ai-providers).
 

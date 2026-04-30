@@ -317,9 +317,39 @@ To use it in a chatbot:
   <img src="/images/screenshots/chatbots/qdrant-chatbot-settings.png" alt="Qdrant Chatbot" />
 </Frame>
 
+#### Chroma
+
+Chroma stores vectors in collections. AI Puffer creates those vectors with the embedding model you choose.
+
+Chroma collections do not require a dimension when they are created in AI Puffer, but stored vectors still need a consistent dimension.
+
+Use the same embedding model when adding data and when enabling Chroma in the chatbot.
+
+<Warning>
+If the Chroma collection contains vectors from a different embedding model, search can fail or return poor context.
+</Warning>
+
+To create a collection:
+
+1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Chroma** as the provider.
+4. Click **Create new collection**.
+5. Enter a collection name.
+6. Create the collection, then add training data with the same embedding model.
+
+To use it in a chatbot:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. In **Knowledge**, select **Vector** as a data source.
+3. Set **Vector provider** to **Chroma**.
+4. Select one or more collections.
+5. Select the same embedding provider and model used when you added the data.
+6. Save the chatbot.
+
 #### Limit and Threshold
 
-For OpenAI, Pinecone, and Qdrant, use these settings to control how much vector context is added to the answer.
+For OpenAI, Pinecone, Qdrant, and Chroma, use these settings to control how much vector context is added to the answer.
 
 | Setting | How it works | Example |
 | --- | --- | --- |
@@ -346,12 +376,12 @@ Scores show which vector results matched the visitor question and help you tune 
 
 #### Embedding Models
 
-Pinecone and Qdrant need an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so Pinecone or Qdrant can search by meaning.">embedding model</Tooltip> because AI Puffer must turn your content and the visitor question into vectors before it can search.
+Pinecone, Qdrant, and Chroma need an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> because AI Puffer must turn your content and the visitor question into vectors before it can search.
 
 OpenAI Vector Stores do not need this setting in AI Puffer. OpenAI handles the vector store search on its side.
 
 <Info>
-For Pinecone and Qdrant, use the same embedding model when adding training data and when enabling the chatbot vector provider.
+For Pinecone, Qdrant, and Chroma, use the same embedding model when adding training data and when enabling the chatbot vector provider.
 </Info>
 
 <AccordionGroup>
@@ -478,7 +508,7 @@ Enable only the tools you want your chatbot to offer.
 
 File upload lets visitors attach a document to the current chat. AI Puffer reads the file, prepares it for the selected vector provider, and uses the matching file content as context for the visitor's next messages.
 
-File upload uses the chatbot's **Vector provider** setting: OpenAI, Pinecone, Qdrant, or Claude Files when the chatbot provider is Claude.
+File upload uses the chatbot's **Vector provider** setting: OpenAI, Pinecone, Qdrant, Chroma, or Claude Files when the chatbot provider is Claude.
 
 Visitors can upload `.txt` and `.pdf` files. The frontend limit is **20 MB**, but your WordPress or server upload limit can be lower.
 

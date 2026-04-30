@@ -131,6 +131,7 @@ To show or hide the **Index** button:
 | **OpenAI** | Vector store | Select an existing OpenAI vector store. |
 | **Pinecone** | Index | Select the same embedding model that matches the index dimension. |
 | **Qdrant** | Collection | Select the same embedding model that matches the collection dimension. |
+| **Chroma** | Collection | Select the same embedding model used when the collection was indexed. |
 
 To index selected posts:
 
@@ -138,9 +139,9 @@ To index selected posts:
 2. Go to a supported WordPress post list.
 3. Select one or more rows.
 4. Click **Index** next to **Add New**.
-5. Select **OpenAI**, **Pinecone**, or **Qdrant**.
+5. Select **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
 6. Select the target vector store, index, or collection.
-7. For Pinecone or Qdrant, select the embedding model.
+7. For Pinecone, Qdrant, or Chroma, select the embedding model.
 8. Click **Start Indexing**.
 
 <Frame>
@@ -152,7 +153,7 @@ To index selected posts:
 </Frame>
 
 <Warning>
-For Pinecone and Qdrant, the embedding model dimension must match the index or collection dimension. For example, a 3072-dimension index needs a 3072-dimension embedding model.
+For Pinecone, Qdrant, and Chroma, the embedding model dimension must match the index or collection dimension. For example, a 3072-dimension index or collection needs a 3072-dimension embedding model.
 </Warning>
 
 The post list includes an **Index Status** filter with **Indexed** and **Not Indexed** options.
@@ -273,7 +274,7 @@ If the generated output includes headings, lists, or paragraphs, AI Puffer can i
     Edit the action prompt and include `%s`. AI Puffer replaces `%s` with the selected editor text before sending the request.
   </Accordion>
 
-  <Accordion title="Pinecone or Qdrant indexing fails">
+  <Accordion title="Pinecone, Qdrant, or Chroma indexing fails">
     Check the provider credentials, sync targets again, and confirm the selected embedding model dimension matches the index or collection dimension.
   </Accordion>
 

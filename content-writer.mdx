@@ -958,10 +958,10 @@ When Knowledge Base is enabled, AI Puffer searches the selected vector source wi
 To enable it:
 
 1. Add data in **AI Puffer > Knowledge Base** first.
-2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, or **Qdrant**.
+2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
 3. Select the vector store, index, or collection in **Source**.
 4. Click the settings icon beside **Source** to open **Context settings**.
-5. For Pinecone or Qdrant, select the embedding provider and model in **Context settings**.
+5. For Pinecone, Qdrant, or Chroma, select the embedding provider and model in **Context settings**.
 6. Set **Results Limit** and **Confidence Threshold**.
 7. Generate one item and check the output.
 
@@ -1082,6 +1082,29 @@ To use it in Content Writer:
 
 1. In the right-side **Advanced** card, set **Context** to **Qdrant**.
 2. Select the Qdrant collection in **Source**.
+3. Click the settings icon beside **Source** to open **Context settings**.
+4. Select the same embedding provider and model used when you added the data.
+5. Adjust **Results Limit** or **Confidence Threshold** if needed.
+
+#### Chroma
+
+Chroma stores vectors in a collection. AI Puffer creates and searches those vectors with the embedding model you choose.
+
+Chroma collections do not require a dimension when they are created in AI Puffer, but stored vectors still need a consistent dimension. Use the same embedding model when adding data to Chroma and when enabling Chroma in Content Writer.
+
+To create a collection:
+
+1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Chroma** as the provider.
+4. Click **Create new collection**.
+5. Enter a collection name.
+6. Create the collection, then add data with the same embedding model.
+
+To use it in Content Writer:
+
+1. In the right-side **Advanced** card, set **Context** to **Chroma**.
+2. Select the Chroma collection in **Source**.
 3. Click the settings icon beside **Source** to open **Context settings**.
 4. Select the same embedding provider and model used when you added the data.
 5. Adjust **Results Limit** or **Confidence Threshold** if needed.

@@ -11,7 +11,7 @@ Use it for support answers, product details, documentation, policies, posts, pag
 
 <Columns cols={2}>
   <Card title="Providers" icon="database" href="#providers" horizontal>
-    Use OpenAI Vector Stores, Pinecone, or Qdrant.
+    Use OpenAI Vector Stores, Pinecone, Qdrant, or Chroma.
   </Card>
 
   <Card title="Vector Stores" icon="box" href="#manage-vector-stores" horizontal>
@@ -46,13 +46,14 @@ Use it for support answers, product details, documentation, policies, posts, pag
 | **OpenAI** | Vector store | AI Puffer sends the source data to OpenAI Vector Stores. No separate embedding model is selected in AI Puffer for this target. |
 | **Pinecone** | Index | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Pinecone index. |
 | **Qdrant** | Collection | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Qdrant collection. |
+| **Chroma** | Collection | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Chroma collection. |
 
-For Pinecone and Qdrant, the index or collection dimension must match the embedding model.
+For Pinecone, Qdrant, and Chroma, the index or collection dimension must match the embedding model.
 
-For example, if your Pinecone index or Qdrant collection is **3072 dimensions**, use a **3072-dimension** embedding model when adding data and when searching that data later.
+For example, if your Pinecone index, Qdrant collection, or Chroma collection is **3072 dimensions**, use a **3072-dimension** embedding model when adding data and when searching that data later.
 
 <Warning>
-If the dimension does not match, Pinecone or Qdrant can reject the data or return unusable search results.
+If the dimension does not match, the vector provider can reject the data or return unusable search results.
 </Warning>
 
 ## Manage Vector Stores
@@ -120,6 +121,17 @@ Use the same embedding model when you add data to the collection and when a modu
   <img src="/images/screenshots/knowledgebase/qdrant-create-collection2.png" alt="Qdrant Create collection" />
 </Frame>
 
+### Chroma Collections
+
+1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
+2. Go to **AI Puffer > Knowledge Base**.
+3. Select **Chroma** as the provider.
+4. Click **Create new collection**.
+5. Enter a collection name.
+6. Click **Create**.
+
+Chroma collections do not require a dimension when they are created in AI Puffer. Use the same embedding model when you add data to the collection and when a module searches that collection.
+
 To delete a target, select the provider, open the target selector, choose the target, then use **Delete** in the selector footer.
 
 ## Add Data
@@ -128,7 +140,7 @@ Before adding data:
 
 1. Select a provider.
 2. Select the target vector store, index, or collection.
-3. For Pinecone or Qdrant, select the embedding model.
+3. For Pinecone, Qdrant, or Chroma, select the embedding model.
 4. Click **Add data**.
 
 <Frame>
@@ -183,7 +195,7 @@ Supported file extensions:
 .pdf, .docx, .txt, .md, .csv, .json
 ```
 
-For Pinecone and Qdrant, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection.
+For Pinecone, Qdrant, and Chroma, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection.
 
 File size is limited by your WordPress/PHP upload settings. OpenAI Vector Store uploads also use OpenAI's file limits.
 
@@ -271,7 +283,7 @@ General controls how Knowledge Base records and indexing buttons appear in the a
 
 ### Document Chunking
 
-Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone or Qdrant.
+Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone, Qdrant, or Chroma.
 
 | Setting | Default | Range | Use it for |
 | --- | --- | --- | --- |
@@ -314,11 +326,11 @@ When **Show index button** is enabled, supported WordPress list screens can show
 
 ## Semantic Search
 
-Semantic Search publishes a search form that queries a Pinecone index or Qdrant collection from the frontend.
+Semantic Search publishes a search form that queries a Pinecone index, Qdrant collection, or Chroma collection from the frontend.
 
 Open **AI Puffer > Knowledge Base > Settings > Semantic search**.
 
-1. Select **Vector DB**: Pinecone or Qdrant.
+1. Select **Vector DB**: Pinecone, Qdrant, or Chroma.
 2. Select the index or collection.
 3. Select the embedding model.
 4. Set **Number of Results**.
@@ -332,7 +344,7 @@ Open **AI Puffer > Knowledge Base > Settings > Semantic search**.
 
 Semantic Search uses the global settings from this panel. It does not use OpenAI Vector Stores in the current UI.
 
-Use the same embedding model that was used when the Pinecone or Qdrant data was added.
+Use the same embedding model that was used when the Pinecone, Qdrant, or Chroma data was added.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-semantic-search.png" alt="Knowledge Base Semantic Search settings" />
@@ -345,7 +357,7 @@ Use the same embedding model that was used when the Pinecone or Qdrant data was 
     Configure the provider credentials, then sync or create the vector target again.
   </Accordion>
 
-  <Accordion title="Pinecone or Qdrant training fails">
+  <Accordion title="Pinecone, Qdrant, or Chroma training fails">
     Confirm the embedding model dimension matches the index or collection dimension.
   </Accordion>
 

@@ -256,7 +256,7 @@ Click the settings icon beside **Model** to open **Settings**, then choose **Con
 1. Turn on **Knowledge base**.
 2. Select **Vector provider**.
 3. Choose the vector store, index, or collection.
-4. For Pinecone or Qdrant, select the same **Embedding** model used when the content was indexed.
+4. For Pinecone, Qdrant, or Chroma, select the same **Embedding** model used when the content was indexed.
 5. Set **Limit** and **Score threshold**.
 6. Save the form.
 
@@ -269,9 +269,10 @@ Click the settings icon beside **Model** to open **Settings**, then choose **Con
 | **OpenAI** | Select up to two **Vector stores**. |
 | **Pinecone** | Select **Index**, add the Pinecone API key if needed, and select **Embedding**. |
 | **Qdrant** | Add **URL**, API key if needed, select **Collection**, and select **Embedding**. |
+| **Chroma** | Add endpoint, tenant, database, and API key if needed, select **Collection**, and select **Embedding**. |
 
 <Warning>
-For Pinecone and Qdrant, the <Tooltip headline="Embedding model" tip="A model that converts text into vectors so Pinecone or Qdrant can search by meaning.">embedding model</Tooltip> must match the model used when the content was added to the index or collection.
+For Pinecone, Qdrant, and Chroma, the <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> must match the model used when the content was added to the index or collection.
 </Warning>
 
 **Limit** controls how many matching chunks AI Puffer can include. **Score threshold** controls how strict the match must be. A lower threshold allows more matches; a higher threshold only uses stronger matches.

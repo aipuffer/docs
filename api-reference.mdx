@@ -56,7 +56,7 @@ curl https://your-site.com/wp-json/aipkit/v1/logs?aipkit_api_key=YOUR_API_KEY
 | `/embeddings` | `POST` | Create embeddings from text. |
 | `/chat/{bot_id}/message` | `POST` | Send a message to a chatbot. |
 | `/logs` | `GET` | Read saved chat logs. |
-| `/vector-stores/upsert` | `POST` | Embed text and upsert it into Pinecone or Qdrant. |
+| `/vector-stores/upsert` | `POST` | Embed text and upsert it into Pinecone, Qdrant, or Chroma. |
 | `/chatbots/{bot_id}/embed-config` | `GET` | Read the embed config and HTML for an external chatbot widget. |
 
 ## Text generation
@@ -332,7 +332,7 @@ curl "https://your-site.com/wp-json/aipkit/v1/logs?per_page=10&bot_id=123" \
 
 ## Vector store upsert
 
-Embed text and add the vectors to Pinecone or Qdrant.
+Embed text and add the vectors to Pinecone, Qdrant, or Chroma.
 
 The target index or collection must already exist. AI Puffer creates embeddings, then sends vectors to the selected vector database.
 
@@ -344,12 +344,12 @@ POST /wp-json/aipkit/v1/vector-stores/upsert
 
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `provider` | string | Yes | `pinecone` or `qdrant`. |
-| `target_id` | string | Yes | Pinecone index name or Qdrant collection name. |
+| `provider` | string | Yes | `pinecone`, `qdrant`, or `chroma`. |
+| `target_id` | string | Yes | Pinecone index name, Qdrant collection name, or Chroma collection name. |
 | `vectors` | array | Yes | Objects with `content`. Optional `id` and `metadata`. |
 | `embedding_provider` | string | Yes | `openai`, `google`, `azure`, or `openrouter`. |
 | `embedding_model` | string | Yes | Embedding model ID or Azure deployment ID. |
-| `namespace` | string | No | Pinecone namespace. Ignored by Qdrant. |
+| `namespace` | string | No | Pinecone namespace. Ignored by Qdrant and Chroma. |
 
 Each `vectors` item must include:
 
