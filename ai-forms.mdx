@@ -271,6 +271,16 @@ Click the settings icon beside **Model** to open **Settings**, then choose **Con
 | **Qdrant** | Add **URL**, API key if needed, select **Collection**, and select **Embedding**. |
 | **Chroma** | Add endpoint, tenant, database, and API key if needed, select **Collection**, and select **Embedding**. |
 
+For Chroma, configure the connection and collection in **AI Puffer > Settings > Integrations** and **AI Puffer > Knowledge Base > Stores** first.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/chroma-api-key.png" alt="Chroma API key" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/chroma-create-collection1.png" alt="Chroma Create collection" />
+</Frame>
+
 <Warning>
 For Pinecone, Qdrant, and Chroma, the <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> must match the model used when the content was added to the index or collection.
 </Warning>
