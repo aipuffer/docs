@@ -189,16 +189,16 @@ OpenAI Vector Stores are the simplest option when the chatbot uses OpenAI.
 
 To create a store:
 
-1. Go to **AI Puffer > Knowledge Base**.
+1. Go to **AI Puffer > Knowledge Base > Stores**.
 2. Select **OpenAI** as the provider.
-3. Click **Create new vector store**.
+3. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/openai-create-new-vector.png" alt="OpenAI Create Vector" />
 </Frame>
 
 4. Enter a store name and create it.
-5. Add training data to the store.
+5. Go to **AI Puffer > Knowledge Base > Data** and add training data to the store.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/openai-add-data.png" alt="OpenAI Add Data" />
@@ -239,10 +239,10 @@ To create an index:
   <img src="/images/screenshots/knowledgebase/pinecone-api-key.png" alt="Pinecone API key" />
 </Frame>
 
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Pinecone** as the provider.
 4. Select the embedding model you want to use.
-5. Click **Create new index**.
+5. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
@@ -288,10 +288,10 @@ To create a collection:
   <img src="/images/screenshots/knowledgebase/qdrant-api-key.png" alt="Qdrant API key" />
 </Frame>
 
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Qdrant** as the provider.
 4. Select the embedding model you want to use.
-5. Click **Create new collection**.
+5. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
@@ -332,9 +332,9 @@ If the Chroma collection contains vectors from a different embedding model, sear
 To create a collection:
 
 1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Chroma** as the provider.
-4. Click **Create new collection**.
+4. Click **Create Store**.
 5. Enter a collection name.
 6. Create the collection, then add training data with the same embedding model.
 
@@ -476,7 +476,7 @@ When Vector is enabled, use **Training Data** to add sources.
 | **Files** | Upload `.pdf`, `.docx`, `.txt`, `.md`, `.csv`, or `.json` files. |
 | **Website** | Add WordPress content by post type and status, or select specific posts. |
 
-Click **Train** after selecting or entering the source. Use **Knowledge Base** to review and manage existing sources.
+Use **AI Puffer > Knowledge Base > Data** to review and manage existing sources.
 
 <Frame>
   <img src="/images/screenshots/chatbots/add-training-data-chatbot.png" alt="Training Data" />

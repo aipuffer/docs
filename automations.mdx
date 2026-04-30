@@ -897,13 +897,13 @@ You can use these placeholders:
 
 ### Knowledge Base
 
-Knowledge Base lets content creation and Rewrite Content tasks use vector data from **AI Puffer > Knowledge Base**.
+Knowledge Base lets content creation and Rewrite Content tasks use vector data from **AI Puffer > Knowledge Base > Data**.
 
 When enabled, AI Puffer searches the selected source and adds matching context to the generation request.
 
 To enable it:
 
-1. Add data in **AI Puffer > Knowledge Base**.
+1. Add data in **AI Puffer > Knowledge Base > Data**.
 2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
 3. Select the vector store, index, or collection in **Source**.
 4. Click the settings icon beside **Source** to open **Context settings**.
@@ -932,16 +932,16 @@ OpenAI uses OpenAI Vector Stores.
 
 To prepare a vector store:
 
-1. Go to **AI Puffer > Knowledge Base**.
+1. Go to **AI Puffer > Knowledge Base > Stores**.
 2. Select **OpenAI** as the provider.
-3. Click **Create new vector store**.
+3. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/openai-create-new-vector.png" alt="OpenAI Create Vector" />
 </Frame>
 
 4. Enter a store name and create it.
-5. Add data to the store.
+5. Go to **AI Puffer > Knowledge Base > Data** and add data to the store.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/openai-add-data.png" alt="OpenAI Add Data" />
@@ -949,7 +949,7 @@ To prepare a vector store:
 
 To use it in Automations:
 
-1. Add data to an OpenAI Vector Store in **AI Puffer > Knowledge Base**.
+1. Add data to an OpenAI Vector Store in **AI Puffer > Knowledge Base > Data**.
 2. Create or edit the automation task.
 3. In the right-side **Advanced** card, set **Context** to **OpenAI**.
 4. Select one or more vector stores in **Source**.
@@ -969,10 +969,10 @@ To prepare an index:
   <img src="/images/screenshots/knowledgebase/pinecone-api-key.png" alt="Pinecone API key" />
 </Frame>
 
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Pinecone** as the provider.
 4. Select the embedding model you want to use.
-5. Click **Create new index**.
+5. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
@@ -1008,10 +1008,10 @@ To prepare a collection:
   <img src="/images/screenshots/knowledgebase/qdrant-api-key.png" alt="Qdrant API key" />
 </Frame>
 
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Qdrant** as the provider.
 4. Select the embedding model you want to use.
-5. Click **Create new collection**.
+5. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
@@ -1042,9 +1042,9 @@ Chroma collections do not require a dimension when they are created in AI Puffer
 To prepare a collection:
 
 1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Chroma** as the provider.
-4. Click **Create new collection**.
+4. Click **Create Store**.
 5. Enter a collection name.
 6. Create the collection, then add data with the same embedding model.
 

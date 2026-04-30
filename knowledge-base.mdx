@@ -14,20 +14,16 @@ Use it for support answers, product details, documentation, policies, posts, pag
     Use OpenAI Vector Stores, Pinecone, Qdrant, or Chroma.
   </Card>
 
-  <Card title="Vector Stores" icon="box" href="#manage-vector-stores" horizontal>
+  <Card title="Stores Tab" icon="box" href="#stores-tab" horizontal>
     Create, select, or delete vector targets.
   </Card>
 
-  <Card title="Add Data" icon="file-plus" href="#add-data" horizontal>
-    Add Q&A, text, files, or WordPress content.
+  <Card title="Data Tab" icon="file-plus" href="#data-tab" horizontal>
+    Add data and manage source records.
   </Card>
 
-  <Card title="Manage Data" icon="list" href="#manage-data" horizontal>
-    View, edit, retrain, or delete source records.
-  </Card>
-
-  <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure visibility, chunking, and indexing controls.
+  <Card title="Settings Tab" icon="gear" href="#settings-tab" horizontal>
+    Configure visibility, chunking, content rules, and search.
   </Card>
 
   <Card title="Semantic Search" icon="search" href="#semantic-search" horizontal>
@@ -56,9 +52,11 @@ For example, if your Pinecone index, Qdrant collection, or Chroma collection is 
 If the dimension does not match, the vector provider can reject the data or return unusable search results.
 </Warning>
 
-## Manage Vector Stores
+## Stores Tab
 
-Use the provider and target selectors at the top of **AI Puffer > Knowledge Base** to create, select, or delete vector targets.
+Use **AI Puffer > Knowledge Base > Stores** to create, refresh, inspect, or delete vector targets.
+
+The Stores tab is where you manage OpenAI vector stores, Pinecone indexes, Qdrant collections, and Chroma collections. The Data tab uses these targets when you add content.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-provider-selector.png" alt="Knowledge Base provider selector" />
@@ -67,9 +65,9 @@ Use the provider and target selectors at the top of **AI Puffer > Knowledge Base
 ### OpenAI Vector Stores
 
 1. Add your OpenAI API key in **AI Puffer > Settings > AI**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **OpenAI** as the provider.
-4. Click **Create new vector store**.
+4. Click **Create Store**.
 5. Enter a store name.
 6. Click **Create**.
 
@@ -82,10 +80,10 @@ OpenAI handles the vector store search on its side. AI Puffer stores a local sou
 ### Pinecone Indexes
 
 1. Add your Pinecone API key in **AI Puffer > Settings > Integrations**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Pinecone** as the provider.
 4. Select the embedding model you plan to use.
-5. Click **Create new index**.
+5. Click **Create Store**.
 6. Enter an index name.
 7. Enter the dimension for the selected embedding model.
 8. Click **Create**.
@@ -103,10 +101,10 @@ Use the same embedding model when you add data to the index and when a module se
 ### Qdrant Collections
 
 1. Add your Qdrant URL and API key in **AI Puffer > Settings > Integrations**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Qdrant** as the provider.
 4. Select the embedding model you plan to use.
-5. Click **Create new collection**.
+5. Click **Create Store**.
 6. Enter a collection name.
 7. Enter the dimension for the selected embedding model.
 8. Click **Create**.
@@ -124,24 +122,29 @@ Use the same embedding model when you add data to the collection and when a modu
 ### Chroma Collections
 
 1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Chroma** as the provider.
-4. Click **Create new collection**.
+4. Click **Create Store**.
 5. Enter a collection name.
 6. Click **Create**.
 
 Chroma collections do not require a dimension when they are created in AI Puffer. Use the same embedding model when you add data to the collection and when a module searches that collection.
 
-To delete a target, select the provider, open the target selector, choose the target, then use **Delete** in the selector footer.
+Use **Refresh** when you need AI Puffer to fetch the latest stores, indexes, or collections from the selected provider.
 
-## Add Data
+To delete a target, use the available action in the Stores table.
+
+## Data Tab
+
+Use **AI Puffer > Knowledge Base > Data** to add new source data and manage existing source records.
 
 Before adding data:
 
-1. Select a provider.
-2. Select the target vector store, index, or collection.
-3. For Pinecone, Qdrant, or Chroma, select the embedding model.
-4. Click **Add data**.
+1. Go to **AI Puffer > Knowledge Base > Data**.
+2. Select a provider.
+3. Select the target vector store, index, or collection.
+4. For Pinecone, Qdrant, or Chroma, select the embedding model.
+5. Click **+ Add Data**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-add-data.png" alt="Knowledge Base Add data panel" />
@@ -154,7 +157,7 @@ Use Q&A for short answers that should be easy to retrieve later.
 1. Select **Q&A**.
 2. Enter the question.
 3. Enter the answer.
-4. Click **Train**.
+4. Click **Add Q&A**.
 
 AI Puffer stores the pair as text:
 
@@ -173,7 +176,7 @@ Use Text for policies, instructions, product notes, support snippets, or any sou
 
 1. Select **Text**.
 2. Paste the source text.
-3. Click **Train**.
+3. Click **Add Text**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-text.png" alt="Knowledge Base Text tab" />
@@ -208,13 +211,12 @@ File size is limited by your WordPress/PHP upload settings. OpenAI Vector Store 
 Use Website when the source is WordPress content.
 
 1. Select **Website**.
-2. Choose **All** or **Specific**.
-3. Choose the content status: **Published**, **Draft**, or **Any**.
-4. Select post types.
-5. If using **Specific**, select the individual items.
-6. Click **Train**.
+2. Choose **All** or **Choose items**.
+3. Select the content types.
+4. If using **Choose items**, select the individual published items.
+5. Click **Add Items**.
 
-Posts and pages are selected by default. WooCommerce products appear when WooCommerce is active. Public custom post types can also appear.
+Website training uses published content. Posts and pages are selected by default. WooCommerce products appear when WooCommerce is active. Public custom post types can also appear.
 
 When WordPress content is indexed, AI Puffer builds the source text from the URL, title, excerpt, content, public custom fields, public taxonomies, and available WooCommerce product data.
 
@@ -226,17 +228,16 @@ When WordPress content is indexed, AI Puffer builds the source text from the URL
   <img src="/images/screenshots/knowledgebase/knowledge-base-website-specific.png" alt="Knowledge Base Website specific mode" />
 </Frame>
 
-## Manage Data
+### Manage Data
 
-The source table shows the local records created while adding data.
+The source table in the Data tab shows the local records created while adding data.
 
 | Column | What it shows |
 | --- | --- |
-| **Time** | When the source was added or updated. |
-| **Index** | Provider and target vector store, index, or collection. |
-| **Type** | Site Content, Text, or File Upload. |
-| **Source** | Post title, text preview, file name, or source identifier. |
 | **Status** | Trained, Processing, Failed, or another provider status. |
+| **Item** | Post title, text preview, file name, or source identifier. Provider, target, and embedding details appear below the item name. |
+| **Type** | Site Content, Text, Q&A, File Upload, or User Upload. |
+| **Updated** | Last update time and relative age. |
 | **Actions** | Available actions for the source. |
 
 <Frame>
@@ -260,17 +261,17 @@ Available actions:
   <img src="/images/screenshots/knowledgebase/knowledge-base-edit-source.png" alt="Knowledge Base edit source" />
 </Frame>
 
-## Settings
+## Settings Tab
 
-Click **Settings** in **AI Puffer > Knowledge Base** to open Knowledge Base settings.
+Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behavior.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings.png" alt="Knowledge Base settings" />
 </Frame>
 
-### General
+### Basics
 
-General controls how Knowledge Base records and indexing buttons appear in the admin.
+Basics controls how Knowledge Base records and indexing buttons appear in the admin.
 
 | Setting | What it does |
 | --- | --- |
@@ -281,7 +282,7 @@ General controls how Knowledge Base records and indexing buttons appear in the a
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
 </Frame>
 
-### Document Chunking
+### Chunking
 
 Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone, Qdrant, or Chroma.
 
@@ -293,16 +294,24 @@ Document chunking controls how AI Puffer splits large uploaded files before embe
 
 Use smaller chunks when an embedding provider rejects long input. Keep some overlap for long documents where meaning continues across sections.
 
+OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the Pinecone, Qdrant, and Chroma chunking settings above.
+
+| OpenAI File Search setting | Default | Range | Use it for |
+| --- | --- | --- | --- |
+| **Indexing strategy** | `Auto` | `Auto` or `Custom` | Lets OpenAI choose chunking automatically, or lets AI Puffer send custom chunking values. |
+| **Max chunk size tokens** | `800` | `100` to `4096` | Sets the maximum OpenAI File Search chunk size when **Custom** is selected. |
+| **Chunk overlap tokens** | `400` | `0` to half of max chunk size | Repeats part of the previous OpenAI File Search chunk when **Custom** is selected. |
+
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base document chunking settings" />
 </Frame>
 
-### Indexing Controls
+### Content Rules
 
-Indexing controls define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
+Content rules define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
 
-1. Click **Settings** in **AI Puffer > Knowledge Base**.
-2. Open **Indexing controls**.
+1. Go to **AI Puffer > Knowledge Base > Settings**.
+2. In **Content Rules**, click **Configure**.
 3. Select a post type.
 4. Adjust **Basic Labels** if you want different labels for source URL, title, excerpt, or content.
 5. Enable or disable custom fields.
@@ -328,7 +337,7 @@ When **Show index button** is enabled, supported WordPress list screens can show
 
 Semantic Search publishes a search form that queries a Pinecone index, Qdrant collection, or Chroma collection from the frontend.
 
-Open **AI Puffer > Knowledge Base > Settings > Semantic search**.
+Open **AI Puffer > Knowledge Base > Settings**. In **Semantic Search**, click **Configure**.
 
 1. Select **Vector DB**: Pinecone, Qdrant, or Chroma.
 2. Select the index or collection.
@@ -362,11 +371,11 @@ Use the same embedding model that was used when the Pinecone, Qdrant, or Chroma 
   </Accordion>
 
   <Accordion title="Website content is missing fields">
-    Check **Settings > Indexing controls** for that post type.
+    Check **Knowledge Base > Settings > Content Rules** for that post type.
   </Accordion>
 
   <Accordion title="WordPress list indexing controls are missing">
-    Enable **Settings > General > Show index button** and confirm the user role can access the vector content indexer module.
+    Enable **Knowledge Base > Settings > Basics > Show index button** and confirm the user role can access the vector content indexer module.
   </Accordion>
 
   <Accordion title="Semantic Search returns no results">

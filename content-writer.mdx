@@ -951,13 +951,13 @@ AI Puffer saves generated metadata to the WordPress media attachment fields. Alt
 
 ### Knowledge Base
 
-Knowledge Base lets Content Writer use vector data you already added in **AI Puffer > Knowledge Base**.
+Knowledge Base lets Content Writer use vector data you already added in **AI Puffer > Knowledge Base > Data**.
 
 When Knowledge Base is enabled, AI Puffer searches the selected vector source with the current generation prompt and adds the closest matches to the request.
 
 To enable it:
 
-1. Add data in **AI Puffer > Knowledge Base** first.
+1. Add data in **AI Puffer > Knowledge Base > Data** first.
 2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
 3. Select the vector store, index, or collection in **Source**.
 4. Click the settings icon beside **Source** to open **Context settings**.
@@ -979,16 +979,16 @@ OpenAI uses OpenAI Vector Stores.
 
 To create a store:
 
-1. Go to **AI Puffer > Knowledge Base**.
+1. Go to **AI Puffer > Knowledge Base > Stores**.
 2. Select **OpenAI** as the provider.
-3. Click **Create new vector store**.
+3. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/openai-create-new-vector.png" alt="OpenAI Create Vector" />
 </Frame>
 
 4. Enter a store name and create it.
-5. Add data to the store.
+5. Go to **AI Puffer > Knowledge Base > Data** and add data to the store.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/openai-add-data.png" alt="OpenAI Add Data" />
@@ -1020,10 +1020,10 @@ To create an index:
   <img src="/images/screenshots/knowledgebase/pinecone-api-key.png" alt="Pinecone API key" />
 </Frame>
 
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Pinecone** as the provider.
 4. Select the embedding model you want to use.
-5. Click **Create new index**.
+5. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
@@ -1062,10 +1062,10 @@ To create a collection:
   <img src="/images/screenshots/knowledgebase/qdrant-api-key.png" alt="Qdrant API key" />
 </Frame>
 
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Qdrant** as the provider.
 4. Select the embedding model you want to use.
-5. Click **Create new collection**.
+5. Click **Create Store**.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
@@ -1095,9 +1095,9 @@ Chroma collections do not require a dimension when they are created in AI Puffer
 To create a collection:
 
 1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
-2. Go to **AI Puffer > Knowledge Base**.
+2. Go to **AI Puffer > Knowledge Base > Stores**.
 3. Select **Chroma** as the provider.
-4. Click **Create new collection**.
+4. Click **Create Store**.
 5. Enter a collection name.
 6. Create the collection, then add data with the same embedding model.
 
