@@ -52,7 +52,63 @@ For example, if your Pinecone index, Qdrant collection, or Chroma collection is 
 If the dimension does not match, the vector provider can reject the data or return unusable search results.
 </Warning>
 
-<div id="stores-tab" />
+### OpenAI
+
+OpenAI Vector Stores use your OpenAI account directly.
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **OpenAI** as the AI provider.
+3. Enter your OpenAI API key.
+4. Sync models if needed.
+5. Go to **AI Puffer > Knowledge Base > Stores** to create or refresh OpenAI vector stores.
+
+OpenAI Vector Stores do not require a separate embedding model selection in Knowledge Base. OpenAI handles file storage, chunking, embedding, and vector search on its side.
+
+### Pinecone
+
+Pinecone is configured from the Integrations settings.
+
+1. Go to **AI Puffer > Settings > Integrations**.
+2. Select **Pinecone**.
+3. Enter your **Pinecone API Key**.
+4. Click **Sync Indexes** to load indexes from Pinecone.
+5. Go to **AI Puffer > Knowledge Base > Stores** to create, refresh, or delete indexes.
+
+When you create a Pinecone index in AI Puffer, enter the dimension that matches the embedding model you plan to use.
+
+### Qdrant
+
+Qdrant requires both an endpoint URL and an API key.
+
+1. Go to **AI Puffer > Settings > Integrations**.
+2. Select **Qdrant**.
+3. Enter your **Qdrant URL**.
+4. Enter your **Qdrant API Key**.
+5. Click **Sync Collections** to load collections from Qdrant.
+6. Go to **AI Puffer > Knowledge Base > Stores** to create, refresh, or delete collections.
+
+When you create a Qdrant collection in AI Puffer, enter the dimension that matches the embedding model you plan to use.
+
+### Chroma
+
+Chroma uses endpoint, tenant, and database settings.
+
+1. Go to **AI Puffer > Settings > Integrations**.
+2. Select **Chroma**.
+3. Enter your **Chroma URL**.
+4. Enter your **Chroma API Key** if you use Chroma Cloud or an authenticated server.
+5. Enter the **Tenant**.
+6. Enter the **Database**.
+7. Click **Sync Collections** to load collections from Chroma.
+8. Go to **AI Puffer > Knowledge Base > Stores** to create, refresh, or delete collections.
+
+For local Chroma, the default tenant is `default_tenant` and the default database is `default_database`.
+
+### Embedding Providers
+
+Pinecone, Qdrant, and Chroma store vectors that AI Puffer creates with a selected embedding model. Before adding data to these providers, configure the embedding provider you want to use in **AI Puffer > Settings > AI**.
+
+Supported embedding providers include OpenAI, Google, Azure, and OpenRouter. The selected embedding model must match the dimension of the Pinecone index, Qdrant collection, or Chroma collection.
 
 ## Manage Vector Stores
 
@@ -135,8 +191,6 @@ Chroma collections do not require a dimension when they are created in AI Puffer
 Use **Refresh** when you need AI Puffer to fetch the latest stores, indexes, or collections from the selected provider.
 
 To delete a target, use the available action in the Stores table.
-
-<div id="data-tab" />
 
 ## Add Data
 
@@ -265,8 +319,6 @@ Available actions:
   <img src="/images/screenshots/knowledgebase/knowledge-base-edit-source.png" alt="Knowledge Base edit source" />
 </Frame>
 
-<div id="settings-tab" />
-
 ## Settings
 
 Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behavior.
@@ -274,8 +326,6 @@ Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behav
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings.png" alt="Knowledge Base settings" />
 </Frame>
-
-<div id="basics" />
 
 ### General
 
@@ -289,8 +339,6 @@ General controls how Knowledge Base records and indexing buttons appear in the a
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
 </Frame>
-
-<div id="chunking" />
 
 ### Document Chunking
 
@@ -315,8 +363,6 @@ OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base document chunking settings" />
 </Frame>
-
-<div id="content-rules" />
 
 ### Indexing Controls
 
