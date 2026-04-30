@@ -64,6 +64,10 @@ OpenAI Vector Stores use your OpenAI account directly.
 
 OpenAI Vector Stores do not require a separate embedding model selection in Knowledge Base. OpenAI handles file storage, chunking, embedding, and vector search on its side.
 
+<Frame>
+  <img src="/images/screenshots/ai-providers/openai-api-key-settings.png" alt="OpenAI API key settings" />
+</Frame>
+
 ### Pinecone
 
 Pinecone is configured from the Integrations settings.
@@ -75,6 +79,10 @@ Pinecone is configured from the Integrations settings.
 5. Go to **AI Puffer > Knowledge Base > Stores** to create, refresh, or delete indexes.
 
 When you create a Pinecone index in AI Puffer, enter the dimension that matches the embedding model you plan to use.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/pinecone-api-key.png" alt="Pinecone API key" />
+</Frame>
 
 ### Qdrant
 
@@ -89,13 +97,17 @@ Qdrant requires both an endpoint URL and an API key.
 
 When you create a Qdrant collection in AI Puffer, enter the dimension that matches the embedding model you plan to use.
 
+<Frame>
+  <img src="/images/screenshots/knowledgebase/qdrant-api-key.png" alt="Qdrant API key" />
+</Frame>
+
 ### Chroma
 
 Chroma uses endpoint, tenant, and database settings.
 
 1. Go to **AI Puffer > Settings > Integrations**.
 2. Select **Chroma**.
-3. Enter your **Chroma URL**.
+3. Enter your **Chroma URL**. For Cloud, you can use https://api.trychroma.com
 4. Enter your **Chroma API Key** if you use Chroma Cloud or an authenticated server.
 5. Enter the **Tenant**.
 6. Enter the **Database**.
@@ -103,6 +115,10 @@ Chroma uses endpoint, tenant, and database settings.
 8. Go to **AI Puffer > Knowledge Base > Stores** to create, refresh, or delete collections.
 
 For local Chroma, the default tenant is `default_tenant` and the default database is `default_database`.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/chroma-api-key.png" alt="Chroma API key" />
+</Frame>
 
 ### Embedding Providers
 
@@ -152,10 +168,6 @@ Use the same embedding model when you add data to the index and when a module se
   <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
 </Frame>
 
-<Frame>
-  <img src="/images/screenshots/knowledgebase/pinecone-create-index2.png" alt="Pinecone Create Index" />
-</Frame>
-
 ### Qdrant Collections
 
 1. Add your Qdrant URL and API key in **AI Puffer > Settings > Integrations**.
@@ -173,10 +185,6 @@ Use the same embedding model when you add data to the collection and when a modu
   <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
 </Frame>
 
-<Frame>
-  <img src="/images/screenshots/knowledgebase/qdrant-create-collection2.png" alt="Qdrant Create collection" />
-</Frame>
-
 ### Chroma Collections
 
 1. Add your Chroma endpoint, tenant, database, and API key in **AI Puffer > Settings > Integrations**.
@@ -187,6 +195,10 @@ Use the same embedding model when you add data to the collection and when a modu
 6. Click **Create**.
 
 Chroma collections do not require a dimension when they are created in AI Puffer. Use the same embedding model when you add data to the collection and when a module searches that collection.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/chroma-create-collection1.png" alt="Chroma Create collection" />
+</Frame>
 
 Use **Refresh** when you need AI Puffer to fetch the latest stores, indexes, or collections from the selected provider.
 
@@ -282,10 +294,6 @@ When WordPress content is indexed, AI Puffer builds the source text from the URL
   <img src="/images/screenshots/knowledgebase/knowledge-base-website-all.png" alt="Knowledge Base Website all mode" />
 </Frame>
 
-<Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-website-specific.png" alt="Knowledge Base Website specific mode" />
-</Frame>
-
 ### Manage Data
 
 The source table in the Data tab shows the local records created while adding data.
@@ -311,12 +319,13 @@ Available actions:
 | **Retrain** | Re-index a WordPress content source after the content changes. |
 | **Delete** | Remove the source from the external provider and from the local source table. |
 
+
 <Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-source-preview.png" alt="Knowledge Base source preview" />
+  <img src="/images/screenshots/knowledgebase/knowledge-base-source-actions.png" alt="Knowledge Base source table" />
 </Frame>
 
 <Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-edit-source.png" alt="Knowledge Base edit source" />
+  <img src="/images/screenshots/knowledgebase/knowledge-base-source-preview.png" alt="Knowledge Base source preview" />
 </Frame>
 
 ## Settings
