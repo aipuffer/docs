@@ -9,7 +9,7 @@ AI Forms collect visitor input, insert the submitted values into a prompt, and s
 
 Use them for generators, support reply tools, calculators, lead forms, summaries, and other workflows where the visitor provides structured input.
 
-In WordPress admin, go to **AI Puffer > AI Forms**.
+In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to create, search, edit, preview, and publish forms. Use the **Settings** tab for module-wide limits, custom CSS, and frontend model access.
 
 <Card
   title="Live AI Forms demos"
@@ -47,7 +47,7 @@ In WordPress admin, go to **AI Puffer > AI Forms**.
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure limits, custom CSS, and provider filtering.
+    Configure limits, custom CSS, and frontend model access.
   </Card>
 
   <Card title="Logs" icon="list" href="#logs" horizontal>
@@ -57,22 +57,23 @@ In WordPress admin, go to **AI Puffer > AI Forms**.
 
 ## Create a Form
 
-1. Click **Create New Form**.
-2. Enter the form title.
-3. In the left **Layouts** accordion, drag a layout into the center designer.
-4. In the left **Form Elements** accordion, drag fields into the layout columns.
-5. Click a field in the designer to edit it in **Element Settings**.
-6. In the right-side panel, select **Engine** and **Model**.
-7. Write the form prompt in **Prompt**.
-8. Click **Validate Prompt** to check field placeholders.
-9. Click **Save**.
-10. Click **Preview** to test the form from the admin screen.
+1. Open **AI Puffer > AI Forms > Forms**.
+2. Click **Create New Form**.
+3. Enter the form title.
+4. In the left **Layouts** accordion, drag a layout into the center designer.
+5. In the left **Form Elements** accordion, drag fields into the layout columns.
+6. Click a field in the designer to edit it in **Element Settings**.
+7. In the right **AI** container, select the model.
+8. Write the form prompt in the **AI** container.
+9. Click **Validate Prompt** to check field placeholders.
+10. Click **Save**.
+11. Click **Preview** to test the form from the admin screen.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/form-editor.png" alt="AI Forms Editor" />
 </Frame>
 
-You can also click **Generate Form** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving.
+You can also click **Generate with AI** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-generator-modal.png" alt="AI Form generator modal" />
@@ -193,13 +194,13 @@ Multi-step labels are used only when Multi-Step is enabled.
 
 ### AI
 
-Each form has its own **Engine** and **Model** in the right-side panel.
+Each form has its own model selection in the right-side **AI** container.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-ai-engine-model.png" alt="AI Form engine and model settings" />
 </Frame>
 
-Click the settings icon beside **Model** to open **Settings**, then choose **Parameters**.
+Click the settings icon beside the model list to open **Model settings**.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-ai-parameters.png" alt="AI Form parameters popover" />
@@ -215,7 +216,7 @@ Click the settings icon beside **Model** to open **Settings**, then choose **Par
 | **Reasoning Effort** | Reasoning level for supported models. Keep it set to **None** for faster responses. |
 
 <Info>
-AI Forms use the providers configured in [AI Providers](/ai-providers). Ollama appears in the Engine list only on Pro sites.
+AI Forms use the providers configured in [AI Providers](/ai-providers). Ollama models appear only on Pro sites.
 </Info>
 
 ### Prompt
@@ -251,14 +252,15 @@ AI Forms do not keep chat history. Each submission uses the current form values 
 
 Knowledge base lets a form use trained content from **AI Puffer > Knowledge Base > Data** before generating the response.
 
-Click the settings icon beside **Model** to open **Settings**, then choose **Context**.
+Use the right-side **Context** container to enable Knowledge Base and configure its retrieval options.
 
-1. Turn on **Knowledge base**.
-2. Select **Vector provider**.
-3. Choose the vector store, index, or collection.
-4. For Pinecone, Qdrant, or Chroma, select the same **Embedding** model used when the content was indexed.
-5. Set **Limit** and **Score threshold**.
-6. Save the form.
+1. Turn on **Knowledge Base**.
+2. Click the settings icon beside **Knowledge Base**.
+3. Select **Vector provider**.
+4. Choose the vector store, index, or collection.
+5. For Pinecone, Qdrant, or Chroma, select the same **Embedding** model used when the content was indexed.
+6. Set **Limit** and **Score threshold**.
+7. Save the form.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-context-settings.png" alt="AI Form context settings" />
@@ -267,9 +269,9 @@ Click the settings icon beside **Model** to open **Settings**, then choose **Con
 | Vector provider | Required setup |
 | --- | --- |
 | **OpenAI** | Select up to two **Vector stores**. |
-| **Pinecone** | Select **Index**, add the Pinecone API key if needed, and select **Embedding**. |
-| **Qdrant** | Add **URL**, API key if needed, select **Collection**, and select **Embedding**. |
-| **Chroma** | Add endpoint, tenant, database, and API key if needed, select **Collection**, and select **Embedding**. |
+| **Pinecone** | Select **Index** and **Embedding**. Configure the Pinecone connection in **AI Puffer > Settings > Integrations** first. |
+| **Qdrant** | Select **Collection** and **Embedding**. Configure the Qdrant connection in **AI Puffer > Settings > Integrations** first. |
+| **Chroma** | Select **Collection** and **Embedding**. Configure the Chroma connection in **AI Puffer > Settings > Integrations** first. |
 
 For Chroma, configure the connection and collection in **AI Puffer > Settings > Integrations** and **AI Puffer > Knowledge Base > Stores** first.
 
@@ -291,11 +293,11 @@ For Pinecone, Qdrant, and Chroma, the <Tooltip headline="Embedding model" tip="A
 
 Web search lets supported providers use current web results while generating the form response.
 
-Click the settings icon beside **Model** to open **Settings**, then choose **Tools**. The available web search options depend on the selected **Engine**.
+Use the right-side **Context** container to enable Web Search. The available options depend on the selected model provider.
 
-1. Select **OpenAI**, **Google**, **Claude**, or **OpenRouter** as the form **Engine**.
-2. Choose **Tools**.
-3. Turn on **Web Search**.
+1. Select an OpenAI, Google, Claude, or OpenRouter model.
+2. Turn on **Web Search**.
+3. Click the settings icon beside **Web Search**.
 4. Configure the provider options.
 5. Save the form.
 
@@ -355,7 +357,7 @@ Supported destinations are Slack, HubSpot, Notion, Pipedrive, Zapier, Make, and 
 3. Create or enable a recipe that uses the **AI Form Submitted** event.
 4. Choose the scope: **All AI Forms**, **This AI Form**, or **Selected AI Forms**.
 5. Return to **AI Puffer > AI Forms**.
-6. Edit the form and check the right-side **Connected Apps** card.
+6. Edit the form and check the right-side **Connected Apps** container.
 7. Submit the form on the frontend to test the recipe.
 
 Common mapping sources:
@@ -375,7 +377,7 @@ Common mapping sources:
 
 ## Manage Forms
 
-The AI Forms screen lists saved forms with their title, model, shortcode, and actions.
+The **Forms** tab lists saved forms with their title, model, shortcode, updated date, and actions.
 
 | Action | What it does |
 | --- | --- |
@@ -402,7 +404,7 @@ Each saved form has a <Tooltip headline="Shortcode" tip="A bracketed WordPress t
 
 Replace `123` with the form ID.
 
-Click the shortcode settings icon in the form list to enable display options and copy the updated shortcode.
+Click the shortcode snippet to copy it. Click **Options** beside the snippet to enable display options; the snippet updates as you change those options.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-shortcode-settings.png" alt="AI Form shortcode settings" />
@@ -460,7 +462,7 @@ Save as Post uses the form title as the post title and saves the output as draft
 
 Limits control how much AI Forms usage is allowed for guests and logged-in users.
 
-Go to **AI Puffer > AI Forms**, click the header **Settings** button, then choose **Limits**.
+Go to **AI Puffer > AI Forms > Settings**, then use the **Limits** section.
 
 1. Set **Guest quota**.
 2. Choose **Quota mode** for logged-in users.
@@ -491,7 +493,7 @@ For credit-based form access, define pricing rules in [Usage](/usage#pricing-rul
 
 Custom CSS applies to forms embedded with `theme="custom"`.
 
-Go to **AI Puffer > AI Forms**, click the header **Settings** button, then choose **Custom CSS**.
+Go to **AI Puffer > AI Forms > Settings**, then use the **Custom CSS** section.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-forms-custom-css-settings.png" alt="AI Forms custom CSS settings" />
@@ -507,7 +509,7 @@ Go to **AI Puffer > AI Forms**, click the header **Settings** button, then choos
 
 Provider filtering controls which models visitors can select when the shortcode or block shows the frontend provider or model selector.
 
-Go to **AI Puffer > AI Forms**, click the header **Settings** button, choose **Provider filtering**, then select the models visitors can use. If no models are selected, all configured frontend models are allowed.
+Go to **AI Puffer > AI Forms > Settings**, then use the **Frontend Models** section to select the models visitors can use. If no models are selected, all configured frontend models are allowed.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-forms-provider-filtering-settings.png" alt="AI Forms provider filtering settings" />
@@ -538,7 +540,7 @@ This lets usage rules target all AI Forms or a specific form.
   </Accordion>
 
   <Accordion title="Model dropdown is empty">
-    Configure and sync the provider in [AI Providers](/ai-providers). If the frontend selector is enabled, also check **AI Puffer > AI Forms**, header **Settings** > **Provider filtering**.
+    Configure and sync the provider in [AI Providers](/ai-providers). If the frontend selector is enabled, also check **AI Puffer > AI Forms > Settings > Frontend Models**.
   </Accordion>
 
   <Accordion title="Prompt value is blank">

@@ -9,6 +9,8 @@ Images adds a frontend generator to a WordPress page. Visitors enter a prompt, c
 
 Use it for image generation, image editing, Google video generation, logged-in user history, usage limits, logs, and connected app recipes.
 
+In WordPress admin, go to **AI Puffer > Images**. Use the **Image Generator** tab to preview and publish the generator shortcode. Use the **Settings** tab for limits, UI text, custom CSS, and frontend model access.
+
 <Card
   title="Live image generator demo"
   icon="play"
@@ -41,7 +43,7 @@ Use it for image generation, image editing, Google video generation, logged-in u
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure limits, UI text, custom CSS, and provider filtering.
+    Configure limits, UI text, custom CSS, and frontend model access.
   </Card>
 
   <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
@@ -92,11 +94,12 @@ Use edit mode when visitors should upload an image and describe the change they 
 
 To enable edit mode from the Images screen:
 
-1. Click the settings icon next to the shortcode.
-2. Set **UI Mode** to **Edit only** or **Generate + Edit**.
-3. If you choose **Generate + Edit**, choose the **Default Mode** and whether to show the mode switch.
-4. Copy the shortcode.
-5. Add it to a page.
+1. Go to **AI Puffer > Images > Image Generator**.
+2. Click the settings icon next to the shortcode.
+3. Set **UI Mode** to **Edit only** or **Generate + Edit**.
+4. If you choose **Generate + Edit**, choose the **Default Mode** and whether to show the mode switch.
+5. Click the shortcode snippet to copy the updated shortcode.
+6. Add it to a page.
 
 To edit an image on the frontend:
 
@@ -159,10 +162,10 @@ Common examples:
 
 Use the shortcode settings panel when you want to build the shortcode from the UI.
 
-1. Go to **AI Puffer > Images**.
+1. Go to **AI Puffer > Images > Image Generator**.
 2. Click the settings icon beside the shortcode.
 3. Choose the options you want.
-4. Copy the generated shortcode.
+4. Click the shortcode snippet to copy the updated shortcode.
 5. Add it to a page or post.
 
 <Frame>
@@ -232,7 +235,7 @@ Guest generations are not shown in user history.
 
 ## Settings
 
-Open **AI Puffer > Images**, then click **Settings**.
+Open **AI Puffer > Images > Settings**.
 
 <Frame>
   <img src="/images/screenshots/images/images-settings.png" alt="Images settings panel" />
@@ -242,7 +245,7 @@ Open **AI Puffer > Images**, then click **Settings**.
 
 Limits control how much image generator usage is allowed for guests and logged-in users.
 
-Go to **AI Puffer > Images**, click **Settings**, then choose **Limits**.
+Go to **AI Puffer > Images > Settings**, then use the **Limits** section.
 
 1. Set **Guest quota**.
 2. Choose **Quota mode** for logged-in users.
@@ -271,7 +274,7 @@ For credit-based image access, define pricing rules in [Usage](/usage#pricing-ru
 
 UI Text changes the frontend labels without editing code.
 
-Go to **AI Puffer > Images**, click **Settings**, then choose **UI Text**.
+Go to **AI Puffer > Images > Settings**, then use the **UI Text** section.
 
 <Frame>
   <img src="/images/screenshots/images/images-ui-text-settings.png" alt="Images UI text settings" />
@@ -296,7 +299,7 @@ Go to **AI Puffer > Images**, click **Settings**, then choose **UI Text**.
 
 Custom CSS applies to generators using the custom theme.
 
-Go to **AI Puffer > Images**, click **Settings**, then choose **Custom CSS**.
+Go to **AI Puffer > Images > Settings**, then use the **Custom CSS** section.
 
 <Frame>
   <img src="/images/screenshots/images/images-custom-css-settings.png" alt="Images custom CSS settings" />
@@ -320,7 +323,7 @@ Then target the custom wrapper:
 
 Provider filtering controls which models visitors can select when the frontend provider or model selectors are visible.
 
-Go to **AI Puffer > Images**, click **Settings**, then choose **Provider filtering**.
+Go to **AI Puffer > Images > Settings**, then use the **Frontend Models** section.
 
 1. Select the models visitors can use.
 2. Leave all models unselected if you want to allow every configured image and video model.
