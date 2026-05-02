@@ -349,7 +349,7 @@ General controls how Knowledge Base records and indexing buttons appear in the a
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
 </Frame>
 
-### Chunking & Batches
+### Chunking
 
 Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone, Qdrant, or Chroma.
 
@@ -369,7 +369,7 @@ OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the 
 | **Max chunk size tokens** | `800` | `100` to `4096` | Sets the maximum OpenAI File Search chunk size when **Custom** is selected. |
 | **Chunk overlap tokens** | `400` | `0` to half of max chunk size | Repeats part of the previous OpenAI File Search chunk when **Custom** is selected. |
 
-#### Embedding Batches
+### Embedding Batches
 
 Embedding Batches controls how many file chunks AI Puffer sends to the embedding provider in one request.
 
