@@ -23,7 +23,7 @@ Use it for support answers, product details, documentation, policies, posts, pag
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure visibility, chunking, content rules, and search.
+    Configure visibility, chunking, embedding batches, content rules, and search.
   </Card>
 
   <Card title="Semantic Search" icon="search" href="#semantic-search" horizontal>
@@ -268,7 +268,7 @@ Supported file extensions:
 .pdf, .docx, .txt, .md, .csv, .json
 ```
 
-For Pinecone, Qdrant, and Chroma, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection.
+For Pinecone, Qdrant, and Chroma, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection. File chunks can be embedded in batches to reduce the number of embedding API requests.
 
 File size is limited by your WordPress/PHP upload settings. OpenAI Vector Store uploads also use OpenAI's file limits.
 
@@ -349,14 +349,14 @@ General controls how Knowledge Base records and indexing buttons appear in the a
   <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
 </Frame>
 
-### Document Chunking
+### Chunking & Batches
 
 Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone, Qdrant, or Chroma.
 
 | Setting | Default | Range | Use it for |
 | --- | --- | --- | --- |
-| **Avg chars per token** | `4` | `2` to `10` | Estimates how many characters equal one token. |
-| **Max tokens per chunk** | `3000` | `256` to `8000` | Sets the maximum chunk size before embedding. |
+| **Avg chars per token** | `4` | `2` to `4` | Estimates how many characters equal one token. |
+| **Max tokens per chunk** | `3000` | `256` to `6000` | Sets the maximum chunk size before embedding. |
 | **Overlap tokens** | `150` | `0` to `1000` | Repeats a small part of the previous chunk so context does not break sharply. |
 
 Use smaller chunks when an embedding provider rejects long input. Keep some overlap for long documents where meaning continues across sections.
@@ -369,8 +369,38 @@ OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the 
 | **Max chunk size tokens** | `800` | `100` to `4096` | Sets the maximum OpenAI File Search chunk size when **Custom** is selected. |
 | **Chunk overlap tokens** | `400` | `0` to half of max chunk size | Repeats part of the previous OpenAI File Search chunk when **Custom** is selected. |
 
+#### Embedding Batches
+
+Embedding Batches controls how many file chunks AI Puffer sends to the embedding provider in one request.
+
+1. Go to **AI Puffer > Knowledge Base > Settings**.
+2. Open **Chunking & Batches**.
+3. Click **Embedding Batches** to reveal the provider batch settings.
+4. Adjust the batch size for the embedding provider you use.
+5. Wait for the settings autosave to finish.
+
+| Provider | Default | Maximum |
+| --- | --- | --- |
+| **Google** | `100` | `100` |
+| **OpenAI** | `50` | `100` |
+| **OpenRouter** | `50` | `100` |
+| **Azure** | `50` | `100` |
+| **Ollama** | `10` | `100` |
+
 <Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base document chunking settings" />
+  <img src="/images/screenshots/knowledgebase/knowledge-base-batch-embeddings.png" alt="Knowledge Base Batch settings" />
+</Frame>
+
+For example, a batch size of `50` means AI Puffer sends up to 50 prepared file chunks to the embedding API at once. Larger batches can make file upload training much faster because they reduce repeated API calls.
+
+<Info>
+Embedding batch settings apply only to chunked file uploads for Pinecone, Qdrant, and Chroma. They do not change Q&A, Text, Website training, semantic search queries, or OpenAI Vector Store file uploads.
+</Info>
+
+If a provider returns rate limit errors such as HTTP `429`, lower that provider's batch size and try again. AI Puffer can pause and retry file upload processing when the provider sends a retry delay, but lowering the batch size is usually better for accounts with stricter quotas.
+
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base chunking and batches settings" />
 </Frame>
 
 ### Indexing Controls
