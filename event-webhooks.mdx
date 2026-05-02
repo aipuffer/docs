@@ -220,6 +220,8 @@ Use `type` or `X-AIPKit-Event` to decide which fields to read from `data`.
 | `data.queue_item.attempts` | Number of attempts. |
 | `data.result.message` | Result message. |
 | `data.result.generated_post_id` | Generated post ID when available. |
+| `data.ai.provider` | Provider used by the queue item when available. |
+| `data.ai.model` | Model used by the queue item when available. |
 
 </Accordion>
 
@@ -249,14 +251,14 @@ Use `type` or `X-AIPKit-Event` to decide which fields to read from `data`.
 | Field | Meaning |
 | --- | --- |
 | `data.prompt` | Prompt used for generation. |
-| `data.provider` | Image or video provider. |
+| `data.provider` | Image or video provider, for example `xAI`. |
 | `data.model` | Model used for generation. |
 | `data.mode` | Generation mode. |
 | `data.media_type` | `image` or `video`. |
 | `data.output_count` | Number of generated outputs. |
 | `data.outputs.images` | Image output data. |
 | `data.outputs.videos` | Video output data. |
-| `data.usage` | Usage details when returned by the provider. |
+| `data.usage` | Usage details when returned by the provider. xAI image responses can include `cost_in_usd_ticks` inside provider usage metadata. |
 | `data.actor.type` | `user` or `guest`. |
 
 </Accordion>

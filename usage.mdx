@@ -12,7 +12,7 @@ In WordPress admin, go to **AI Puffer > Usage**.
 The screen has two tabs: **Logs** and **Billing**. Logs are for reviewing saved requests and conversations. Billing is for pricing rules, ledger activity, user balances, and WooCommerce credit packages.
 
 <Info>
-AI Puffer credits are internal plugin credits. They do not replace OpenAI, Google, Claude, Replicate, or other provider billing. Provider API usage is still billed by the provider account you connect.
+AI Puffer credits are internal plugin credits. They do not replace OpenAI, Google, Anthropic, xAI, Replicate, or other provider billing. Provider API usage is still billed by the provider account you connect.
 </Info>
 
 <Columns cols={2}>
@@ -185,6 +185,8 @@ Credits are internal AI Puffer units. You decide how many credits each request s
 Use **Flat** when every request should cost the same amount. Use **Per 1K Tokens** when longer chat or form requests should cost more. Use **Per Image** or **Per Video** for media tools.
 
 For chat and AI forms, tokens are the pieces of text sent to and returned from the AI provider. **Input tokens** are the user message, instructions, and context sent to the model. **Output tokens** are the AI response.
+
+For xAI text requests, pricing rules use the token usage returned by the xAI response when it is available. For xAI image generation and image editing, AI Puffer records provider usage metadata when xAI returns it, but credit deduction still follows your configured image pricing rule such as **Per Image** or **Flat**.
 
 Example token rule:
 

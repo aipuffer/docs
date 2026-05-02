@@ -126,6 +126,8 @@ Pinecone, Qdrant, and Chroma store vectors that AI Puffer creates with a selecte
 
 Supported embedding providers include OpenAI, Google, Azure, and OpenRouter. The selected embedding model must match the dimension of the Pinecone index, Qdrant collection, or Chroma collection.
 
+xAI is not an embedding provider or vector store provider in the current integration. xAI chatbots, forms, and text workflows can still use retrieved Knowledge Base context from OpenAI, Pinecone, Qdrant, or Chroma because AI Puffer sends that context as text.
+
 ## Manage Vector Stores
 
 Use **AI Puffer > Knowledge Base > Stores** to create, refresh, inspect, or delete vector targets.

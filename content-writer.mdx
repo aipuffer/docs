@@ -559,7 +559,7 @@ Use the template menu to load, create, edit, rename, delete, and reset templates
 
 ### AI
 
-Content Writer uses the AI providers configured in AI Puffer, including hosted providers and local Ollama models.
+Content Writer uses the AI providers configured in AI Puffer, including hosted providers, xAI, and local Ollama models.
 
 To set the model:
 
@@ -786,7 +786,7 @@ To use images, first choose what AI Puffer should create:
 AI image sources use the image prompt. Stock photo sources use the generated keywords first. If there are no keywords, AI Puffer uses the topic or title as the search query.
 
 <Info>
-Image prompts are used for OpenAI, Google, OpenRouter, Azure, and Replicate. Pexels and Pixabay do not use image prompts because they search existing stock photos.
+Image prompts are used for OpenAI, Google, OpenRouter, Azure, xAI, and Replicate. Pexels and Pixabay do not use image prompts because they search existing stock photos.
 </Info>
 
 Image placement controls where content images are inserted after the post is saved.
@@ -873,6 +873,19 @@ To set it up:
 4. Add or sync the image deployment you want to use.
 5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
 6. Select the Azure image deployment from **Image source**.
+
+#### xAI
+
+xAI uses your xAI API key and synced xAI image models such as `grok-imagine-image`.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **xAI**.
+3. Add your xAI API key.
+4. Sync models.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select an xAI image model from **Image source**.
 
 #### Replicate
 

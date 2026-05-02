@@ -518,7 +518,7 @@ Enable only the tools you want your chatbot to offer.
 
 File upload lets visitors attach a document to the current chat. AI Puffer reads the file, prepares it for the selected vector provider, and uses the matching file content as context for the visitor's next messages.
 
-File upload uses the chatbot's **Vector provider** setting: OpenAI, Pinecone, Qdrant, Chroma, or Claude Files when the chatbot provider is Claude.
+File upload uses the chatbot's **Vector provider** setting: OpenAI, Pinecone, Qdrant, Chroma, or Anthropic Files when the chatbot provider is Anthropic.
 
 Visitors can upload `.txt` and `.pdf` files. The frontend limit is **20 MB**, but your WordPress or server upload limit can be lower.
 
@@ -557,7 +557,7 @@ Web Search lets a chatbot use online sources while answering. When enabled, the 
 
 If the frontend toggle is off, the chatbot answers without web search even when the tool is enabled in the admin.
 
-Web Search is available for OpenAI, Google, Claude, and OpenRouter models that support web search.
+Web Search is available for OpenAI, Google, Anthropic, OpenRouter, and xAI models that support web search.
 
 <Info>
 Web search has two controls: the admin tool setting enables the feature, and the frontend toggle decides whether a specific visitor message uses it.
@@ -566,7 +566,7 @@ Web search has two controls: the admin tool setting enables the feature, and the
 To enable web search:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **General**, select **OpenAI**, **Google**, **Claude**, or **OpenRouter** as the engine.
+2. In **General**, select **OpenAI**, **Google**, **Anthropic**, **OpenRouter**, or **xAI** as the engine.
 3. In **Tools**, add **Web search** to **Enabled tools**.
 4. Set **Web search** to **Yes**.
 5. Click **Options**.
@@ -594,6 +594,8 @@ These options appear for every web search provider:
 
 Provider-specific options are shown based on the chatbot engine.
 
+xAI uses the shared web search options above and does not add provider-specific web settings.
+
 <Tabs>
   <Tab title="OpenAI">
 
@@ -611,7 +613,7 @@ Provider-specific options are shown based on the chatbot engine.
 | **Retrieval threshold** | Applies only to Dynamic mode. Lower values search more often. |
 
   </Tab>
-  <Tab title="Claude">
+  <Tab title="Anthropic">
 
 | Option | What it does |
 | --- | --- |
@@ -619,7 +621,7 @@ Provider-specific options are shown based on the chatbot engine.
 | **User location** | Sends approximate country, city, region, or timezone. |
 | **Allowed domains** | Restricts web search to specific domains. |
 | **Blocked domains** | Excludes specific domains. |
-| **Cache TTL** | Sets optional Claude cache time: None, 5 minutes, or 1 hour. |
+| **Cache TTL** | Sets optional Anthropic cache time: None, 5 minutes, or 1 hour. |
 
   </Tab>
   <Tab title="OpenRouter">
@@ -653,14 +655,15 @@ Image analysis is model-dependent. If the option is missing or replies fail, cho
 | Provider | Support | Notes |
 | --- | --- | --- |
 | **OpenAI** | Yes | Uses the selected OpenAI chat model. |
-| **Claude** | Yes | Uses the selected Claude chat model. |
+| **Anthropic** | Yes | Uses the selected Claude chat model. |
+| **xAI** | Yes | Uses a selected Grok model that supports image input. |
 | **OpenRouter** | Model-dependent | The selected model must support image input. Sync models if the option does not appear. |
 | **Ollama** | Model-dependent | The selected local model must be vision-capable. Sync Ollama models first. |
 | **Google** | No | Chatbot image analysis is not exposed for Google. |
 | **Azure** | No | Chatbot image analysis is not exposed for Azure. |
 | **DeepSeek** | No | Chatbot image analysis is not exposed for DeepSeek. |
 
-Visitors can upload `.jpg`, `.jpeg`, `.png`, and `.webp` files. AI Puffer accepts one image per message, with a **20 MB** frontend limit.
+Visitors can upload one image per message, with a **20 MB** frontend limit. xAI image analysis accepts JPG/JPEG and PNG files. Other supported providers can also accept WEBP when their model supports it.
 
 To enable image analysis:
 
@@ -707,9 +710,10 @@ Image generation uses the image model selected in Tools, not the chatbot model s
 | **Google** | Yes | Synced Google image models. |
 | **Azure** | Yes | Synced Azure image deployments. |
 | **OpenRouter** | Model-dependent | Synced OpenRouter models with image output. |
+| **xAI** | Yes | Synced xAI image models such as `grok-imagine-image`. |
 | **Replicate** | Yes | Add the API key under **Settings > Integrations > Replicate**, then sync models. |
 
-The chatbot image generation model list includes those providers only.
+The chatbot image generation model list includes those image providers only.
 
 If a model is missing, configure the provider and sync models in [AI Providers](/ai-providers).
 

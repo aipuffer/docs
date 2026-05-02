@@ -117,7 +117,7 @@ Add the file field placeholder to the prompt where you want the extracted text t
 AI Puffer does not summarize the file before the form runs. If you want a summary, ask for it in the prompt.
 
 <Info>
-File Upload sends extracted text in the prompt. It works with the AI Forms text providers: OpenAI, Google, Claude, OpenRouter, Azure, Ollama, and DeepSeek. It does not use Knowledge Base or vector provider settings.
+File Upload sends extracted text in the prompt. It works with the AI Forms text providers: OpenAI, Google, Anthropic, OpenRouter, Azure, xAI, Ollama, and DeepSeek. It does not use Knowledge Base or vector provider settings.
 </Info>
 
 <Warning>
@@ -299,7 +299,7 @@ Web search lets supported providers use current web results while generating the
 
 Use the right-side **Context** container to enable Web Search. The available options depend on the selected model provider.
 
-1. Select an OpenAI, Google, Claude, or OpenRouter model.
+1. Select an OpenAI, Google, Anthropic, OpenRouter, or xAI model.
 2. Turn on **Web Search**.
 3. Click the settings icon beside **Web Search**.
 4. Configure the provider options.
@@ -326,7 +326,7 @@ Use the right-side **Context** container to enable Web Search. The available opt
 | **Dynamic Retrieval Threshold** | Threshold used when Dynamic Retrieval is selected. |
 
   </Tab>
-  <Tab title="Claude">
+  <Tab title="Anthropic">
 
 | Option | Use it for |
 | --- | --- |
@@ -334,7 +334,7 @@ Use the right-side **Context** container to enable Web Search. The available opt
 | **User Location** | Optional approximate country, city, region, and timezone. |
 | **Allowed Domains** | Limit search to specific domains. |
 | **Blocked Domains** | Prevent search from using specific domains. |
-| **Cache TTL** | Optional cache window for Claude web search. |
+| **Cache TTL** | Optional cache window for Anthropic web search. |
 
   </Tab>
   <Tab title="OpenRouter">
@@ -347,6 +347,8 @@ Use the right-side **Context** container to enable Web Search. The available opt
 
   </Tab>
 </Tabs>
+
+xAI web search uses the shared form setting and does not expose additional xAI-specific web options.
 
 Web search is not shown for Azure, DeepSeek, or Ollama forms.
 

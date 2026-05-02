@@ -71,7 +71,7 @@ POST /wp-json/aipkit/v1/generate
 
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `provider` | string | Yes | `openai`, `azure`, `google`, `openrouter`, `claude`, `deepseek`, or `ollama`. |
+| `provider` | string | Yes | `openai`, `azure`, `google`, `openrouter`, `claude` for Anthropic, `deepseek`, `xai`, or `ollama`. |
 | `model` | string | Yes | Model ID or Azure deployment ID. |
 | `messages` | array | Yes | Chat-style messages with `role` and `content`. Roles: `system`, `user`, `assistant`. |
 | `system_instruction` | string | No | Extra instruction text. Supports `[date]` and `[username]`. |

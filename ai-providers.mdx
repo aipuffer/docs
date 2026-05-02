@@ -8,7 +8,7 @@ description: "Connect the model providers and service integrations used by AI Pu
 AI Puffer uses a <Tooltip headline="Bring your own key" tip="You use your own provider account and API key. AI Puffer does not include provider credits.">bring-your-own-key</Tooltip> model. Add your provider credentials, sync models, then choose the provider and model inside each module.
 
 <Info>
-When you purchase AI Puffer Pro, you get access to additional plugin features. API usage is separate. You still need your own provider account and billing setup for OpenAI, Google, Claude, or any other provider you connect. AI Puffer does not include API credits.
+When you purchase AI Puffer Pro, you get access to additional plugin features. API usage is separate. You still need your own provider account and billing setup for OpenAI, Google, Anthropic, xAI, or any other provider you connect. AI Puffer does not include API credits.
 </Info>
 
 <Columns cols={2}>
@@ -20,7 +20,7 @@ When you purchase AI Puffer Pro, you get access to additional plugin features. A
     Gemini, images, video, embeddings, TTS, and grounding.
   </Card>
 
-  <Card title="Claude" icon="/images/logos/providers/claude.svg" href="#claude" horizontal>
+  <Card title="Anthropic" icon="/images/logos/providers/anthropic.svg" href="#anthropic" horizontal>
     Text, web search, and supported image analysis.
   </Card>
 
@@ -36,6 +36,10 @@ When you purchase AI Puffer Pro, you get access to additional plugin features. A
     Text generation for chat, writing, forms, and automations.
   </Card>
 
+  <Card title="xAI" icon="sparkles" href="#xai" horizontal>
+    Grok text models, web search, supported image analysis, and image generation.
+  </Card>
+
   <Card title="Ollama" icon="/images/logos/providers/ollama.svg" href="#ollama" horizontal>
     Local or self-hosted text and embedding models.
   </Card>
@@ -47,10 +51,11 @@ AI providers power text, image, audio, <Tooltip headline="Embeddings" tip="Numer
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | OpenAI | ✓ | ✓ | ✓ | TTS + STT | - | ✓ | ✓ |
 | Google | ✓ | ✓ | ✓ | TTS | ✓ | ✓ | - |
-| Claude | ✓ | - | - | - | - | ✓ | - |
+| Anthropic | ✓ | - | - | - | - | ✓ | - |
 | OpenRouter | ✓ | ✓ | ✓ | - | - | ✓ | - |
 | Azure | ✓ | ✓ | ✓ | STT | - | - | - |
 | DeepSeek | ✓ | - | - | - | - | - | - |
+| xAI | ✓ | ✓ | - | - | - | ✓ | - |
 | Ollama | ✓ | - | ✓ | - | - | - | - |
 
 `✓` means supported. `-` means not supported in the current provider strategy.
@@ -99,20 +104,20 @@ Google safety settings can block some responses. Change them only when the defau
   <img src="/images/screenshots/ai-providers/google-api-key-settings.png" alt="Google API key settings" />
 </Frame>
 
-## Claude
+## Anthropic
 
-Claude is available for text workflows, web search, and supported image analysis models.
+Anthropic is available for text workflows, web search, and supported Claude image analysis models.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **Claude**.
+2. Select **Anthropic**.
 3. Paste your Anthropic API key.
 4. Open **Advanced** and click **Sync Models**.
 5. Select the default model.
 
-Claude does not provide embeddings through the current AI Puffer provider strategy.
+Anthropic does not provide embeddings through the current AI Puffer provider strategy.
 
 <Frame>
-  <img src="/images/screenshots/ai-providers/claude-api-key-settings.png" alt="Claude API key settings" />
+  <img src="/images/screenshots/ai-providers/claude-api-key-settings.png" alt="Anthropic API key settings" />
 </Frame>
 
 ## OpenRouter
@@ -171,6 +176,24 @@ DeepSeek embeddings are not supported by the current provider strategy. Use Open
 <Frame>
   <img src="/images/screenshots/ai-providers/deepseek-api-key-settings.png" alt="DeepSeek API key settings" />
 </Frame>
+
+## xAI
+
+xAI is available for text workflows, Grok models, web search, supported image analysis models, and image generation.
+
+1. Open **AI Puffer > Settings > AI**.
+2. Select **xAI**.
+3. Paste your xAI API key.
+4. Keep the default base URL unless you use a compatible xAI endpoint.
+5. Keep the API version as `v1`.
+6. Open **Advanced** and click **Sync Models**.
+7. Select the default text model.
+
+AI Puffer uses xAI's Responses API for text generation and streaming. Legacy completions and chat completions are not used by this provider integration.
+
+xAI image generation and image editing use xAI image models such as `grok-imagine-image`. xAI image understanding uses Grok language models that support image input.
+
+xAI is not available as an embedding provider, vector store provider, video provider, speech provider, or realtime voice provider in the current integration.
 
 ## Ollama
 

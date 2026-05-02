@@ -555,6 +555,8 @@ The first run is scheduled shortly after the task is saved or resumed.
 
 AI settings choose the model that writes the content.
 
+xAI can be used for text automation tasks such as content creation, rewriting, and comment replies. It can also be selected as an image source for content-writing automation tasks. It is not used for Knowledge Base indexing destinations.
+
 To set the model:
 
 1. In the right-side **General** card, use **Model** to choose the provider and model.
@@ -762,9 +764,12 @@ Supported image sources:
 | **Google** | Add the Google API key in **AI Puffer > Settings > AI** and sync image models. |
 | **OpenRouter** | Add the OpenRouter API key in **AI Puffer > Settings > AI** and sync image-capable models. |
 | **Azure** | Add the Azure endpoint, API key, API version, and image deployment in **AI Puffer > Settings > AI**. |
+| **xAI** | Add the xAI API key in **AI Puffer > Settings > AI** and sync image models. |
 | **Replicate** | Add the Replicate API key in **AI Puffer > Settings > Integrations** and sync models. |
 | **Pexels** | Add the Pexels API key in **AI Puffer > Settings > Integrations**. |
 | **Pixabay** | Add the Pixabay API key in **AI Puffer > Settings > Integrations**. |
+
+xAI image generation uses xAI image models such as `grok-imagine-image`.
 
 For content images, placement controls where images appear after the post is saved.
 
@@ -836,6 +841,19 @@ To set it up:
 4. Add or sync the image deployment you want to use.
 5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
 6. Select the Azure image deployment from **Image source**.
+
+#### xAI
+
+xAI uses your xAI API key and synced xAI image models.
+
+To set it up:
+
+1. Go to **AI Puffer > Settings > AI**.
+2. Select **xAI**.
+3. Add your xAI API key.
+4. Sync models.
+5. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
+6. Select an xAI image model from **Image source**.
 
 #### Replicate
 

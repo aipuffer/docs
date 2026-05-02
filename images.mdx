@@ -63,14 +63,17 @@ In WordPress admin, go to **AI Puffer > Images**. Use the **Image Generator** ta
 | **Google** | Yes | Yes | Yes | Add a Google API key in **Settings > AI**, then sync image and video models. |
 | **OpenRouter** | Yes | Yes, when the model supports image input and output | No | Add an OpenRouter API key in **Settings > AI**, then sync models. |
 | **Azure** | Yes | No | No | Add the Azure API key and endpoint in **Settings > AI**, then sync deployments. |
+| **xAI** | Yes | Yes | No | Add an xAI API key in **Settings > AI**, then sync image models. |
 | **Replicate** | Yes | No | No | Add a Replicate API key in **Settings > Integrations**, then sync models. |
 
 <Info>
 Set up at least one image provider before publishing the generator. If the model list is empty, configure the provider in [AI Providers](/ai-providers), sync models, then return to Images.
 </Info>
 
+xAI image generation and image editing use xAI image models such as `grok-imagine-image`. Generated xAI URLs are temporary, so AI Puffer stores generated images in the WordPress Media Library when possible.
+
 <Warning>
-Image editing only works with OpenAI, Google, and OpenRouter models that support image editing.
+Image editing only works with OpenAI, Google, OpenRouter, and xAI models that support image editing. xAI edit mode accepts JPG/JPEG and PNG source images.
 </Warning>
 
 ## Generate Images
@@ -104,7 +107,7 @@ To enable edit mode from the Images screen:
 To edit an image on the frontend:
 
 1. Select **Edit** if the mode switch is visible.
-2. Select OpenAI, Google, or OpenRouter.
+2. Select OpenAI, Google, OpenRouter, or xAI.
 3. Select a model that supports editing.
 4. Upload one source image.
 5. Enter the edit prompt.
@@ -114,6 +117,7 @@ To edit an image on the frontend:
 | --- | --- |
 | Files | One source image |
 | Types | JPG, PNG, WEBP, GIF |
+| xAI types | JPG, PNG |
 | Maximum size | 10 MB |
 
 <Frame>
@@ -157,6 +161,7 @@ Common examples:
 [aipkit_image_generator mode="edit"]
 [aipkit_image_generator history="true"]
 [aipkit_image_generator show_provider="false" show_model="false" provider="openai" model="gpt-image-2"]
+[aipkit_image_generator show_provider="false" show_model="false" provider="xai" model="grok-imagine-image"]
 [aipkit_image_generator theme="custom"]
 ```
 
@@ -186,7 +191,7 @@ Use the shortcode settings panel when you want to build the shortcode from the U
 | --- | --- | --- |
 | `show_provider` | `true`, `false` | `true` |
 | `show_model` | `true`, `false` | `true` |
-| `provider` | `openai`, `google`, `openrouter`, `azure`, `replicate` | `openai` |
+| `provider` | `openai`, `google`, `openrouter`, `azure`, `xai`, `replicate` | `openai` |
 | `model` | Provider model ID | `gpt-image-2` |
 | `mode` | `generate`, `edit`, `both` | `generate` |
 | `default_mode` | `generate`, `edit` | `generate` |
