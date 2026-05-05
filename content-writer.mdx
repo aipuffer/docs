@@ -31,7 +31,7 @@ To start using Content Writer, open WordPress Admin and go to **AI Puffer > Cont
   </Card>
 
   <Card title="SEO" icon="search" href="#seo" horizontal>
-    Generate metadata for supported SEO plugins.
+    Generate metadata and improve SEO scores.
   </Card>
 
   <Card title="Publishing" icon="calendar-clock" href="#publishing" horizontal>
@@ -640,6 +640,8 @@ AI Puffer checks required variables before generation. If a required variable is
 
 Use SEO settings when the generated post should leave Content Writer with search metadata already filled in. AI Puffer can create a meta description, focus keyword, tags, and a cleaner WordPress URL slug.
 
+Pro users can also use **Smart SEO** to audit and improve the generated draft against the active SEO plugin.
+
 To use SEO output:
 
 1. In the right-side **General** card, click **Customize** next to **Prompts**.
@@ -667,25 +669,86 @@ The focus keyword is generated first. Meta description, excerpt, and tag prompts
 | **Tags** | Saved as WordPress tags for new posts. Existing-post and product update workflows use the matching tag taxonomy when available. |
 | **URL** | Updates the WordPress post slug when **Optimize URL** is enabled. |
 
+#### Smart SEO
+
+Smart SEO is a Pro feature.
+
+- It works in Content Writer Create mode.
+- It supports Single generation, Batch generation, Quick Paste, CSV, RSS, URL, and Google Sheets batches.
+- It automatically detects the active SEO plugin.
+- It checks the generated draft against that SEO profile.
+- It improves the draft before you save it.
+- For SEO revisions, Smart SEO may use a quality-focused model from the same AI provider selected for generation, never switches providers, and uses the selected deployment or local model for Azure and Ollama.
+- It tries to improve the generated draft up to `100/100`.
+- It can run up to three SEO revisions.
+- If the draft cannot reach `100/100`, AI Puffer keeps the best-scoring revision.
+- In **Single** mode, users can review the SEO score and switch between revisions before saving.
+- In batch modes, users see the SEO score and status in the batch monitor.
+- Free users can still generate meta descriptions, focus keywords, tags, excerpts, and optimized slugs.
+- Only Smart SEO score improvement is paid.
+
+To use Smart SEO:
+
+1. Open **AI Puffer > Content Writer**.
+2. Choose a Create source such as **Manual Entry**, **CSV**, **RSS**, **URL**, or **Google Sheets**.
+3. In the right-side **General** card, enable **Smart SEO**.
+4. Generate the content.
+5. Review the SEO score and generated post before saving.
+
+<Frame>
+  <img src="/images/screenshots/content-writer/smart-seo.png" alt="SEO" />
+</Frame>
+
+Depending on the active SEO plugin profile, Smart SEO can check:
+
+| Area | Examples |
+| --- | --- |
+| **Focus keyword** | Title, introduction, headings, meta description, slug, and duplicate-keyword usage. |
+| **Metadata** | Meta description presence and length. |
+| **Content structure** | Content length, heading balance, table of contents, paragraph length, and sentence length. |
+| **Links** | Internal links, outbound links, and dofollow outbound links when the active SEO plugin scores them. |
+| **Media** | Image presence and focus-keyword image alt text. |
+| **Readability** | Transition words, repeated sentence openings, passive voice, and reading ease where supported. |
+
+<Frame>
+  <img src="/images/screenshots/content-writer/smart-seo-score.png" alt="SEO" />
+</Frame>
+
+<Info>
+Smart SEO follows the active SEO plugin profile automatically. If more than one supported SEO plugin is active, AI Puffer chooses one profile and shows a warning. For predictable scores, use one SEO plugin at a time.
+</Info>
+
+<Warning>
+Some SEO plugin checks are owned by the SEO plugin itself and cannot always be fixed by AI Puffer. For example, plugin-specific premium AI checks or settings-based checks may still appear in the SEO plugin after generation.
+</Warning>
+
 #### Yoast SEO
 
 AI Puffer saves the generated meta description to the Yoast meta description field and the generated focus keyword to the Yoast focus keyphrase field.
 
 If **Optimize URL** is enabled, the slug is built from the focus keyphrase when available. If there is no focus keyphrase, the post title is used.
 
+Smart SEO's Yoast profile is tuned for Yoast SEO analysis and readability checks, including keyphrase placement, meta description length, links, image alt text, and readability signals.
+
 #### Rank Math
 
 AI Puffer saves the generated meta description to the Rank Math description field and the generated focus keyword to the Rank Math focus keyword field.
 
+Smart SEO's Rank Math profile is tuned for Rank Math's Basic SEO, Additional SEO, Title Readability, and Content Readability checks.
+
 #### All in One SEO
 
 AI Puffer saves the generated meta description to All in One SEO and updates the focus keyphrase data used by AIOSEO.
+
+Smart SEO's All in One SEO profile is tuned for TruSEO checks, focus keyphrase analysis, readability checks, and headline score improvements.
 
 #### The SEO Framework
 
 AI Puffer saves the generated meta description to The SEO Framework description field.
 
 The SEO Framework does not provide a native focus keyword field, so AI Puffer does not save a focus keyword for it.
+
+Smart SEO's The SEO Framework profile focuses on title and description behavior because The SEO Framework does not provide a native focus keyword field.
 
 If none of the supported SEO plugins are active, AI Puffer still saves the meta description as fallback post meta. Focus keyword output remains visible in Content Writer, but there is no SEO plugin field to save it into.
 
