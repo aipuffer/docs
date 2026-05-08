@@ -1293,7 +1293,7 @@ n8n connections are verified when AI Puffer sends the first event.
 
 ## Rules
 
-Rules run inside a chatbot and can react to chatbot events.
+Rules run inside a chatbot and can react to chatbot events. A rule runs when its event fires, all of its conditions pass, and its action executes. Lower priority numbers run first.
 
 ### Rule Events
 
@@ -1320,6 +1320,8 @@ Rules can check fields from:
 
 Available operators include equals, contains, starts with, ends with, regex match, empty checks, one-of checks, and numeric comparisons.
 
+Conditions inside one rule use **AND** logic. To run the same action when either of two different conditions is true, create two rules with the same action.
+
 ### Actions
 
 | Action | What it does |
@@ -1340,4 +1342,88 @@ Webhook actions send data outside WordPress. Use trusted webhook URLs and avoid 
 
 <Frame>
   <img src="/images/screenshots/chatbots/rules.png" alt="Chatbot Rules" />
+</Frame>
+
+### Example
+
+#### Lead Collection
+
+Use **Display form** when the chatbot should ask for contact details inside the conversation. The form is rendered in the chat, and AI processing stops for that message while the visitor completes it.
+
+Show the form when the visitor uses a lead keyword:
+
+1. Add a rule named **Lead form**.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example1.png" alt="Chatbot Rules" />
+</Frame>
+
+2. Set **Event** to **User Message Received**.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example2.png" alt="Chatbot Rules" />
+</Frame>
+
+3. Add this condition:
+
+| Type | Field | Operator | Value |
+| --- | --- | --- | --- |
+| **Text Content** | **User Message Text** | **Contains** | `pricing` |
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example3.png" alt="Chatbot Rules" />
+</Frame>
+
+4. Set **Action Type** to **Display Form**.
+5. Add the form title, such as `Request a quote`.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example4.png" alt="Chatbot Rules" />
+</Frame>
+
+6. Add these form elements:
+
+| Element | Field ID | Setup |
+| --- | --- | --- |
+| **Text Input** | `name` | Label: `Name`; required. |
+| **Text Input** | `email` | Label: `Email`; required. |
+| **Dropdown** | `budget` | Options such as `Under $1,000`, `$1,000-$5,000`, and `$5,000+`. |
+| **Textarea** | `message` | Label: `What do you need help with?` |
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example5.png" alt="Chatbot Rules" />
+</Frame>
+
+7. Set **Submit Button Text** to `Send request`.
+
+To save the submitted lead in the chatbot log, add a second rule:
+
+1. Add a rule named **Store lead form submission**.
+2. Set **Event** to **Form Submitted**.
+3. Leave conditions empty if this chatbot only displays one rule form.
+4. Set **Action Type** to **Store Form Submission**.
+5. Use this **Log Message Format**:
+
+```text
+Lead form submitted by {{user_name}}. Summary: {{form_submission_summary}}
+```
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example6.png" alt="Chatbot Rules" />
+</Frame>
+
+Make sure the **Active** checkbox is checked on both rules.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example7.png" alt="Chatbot Rules" />
+</Frame>
+
+Now ask your bot something about pricing and you will see the form; after the form is submitted, you can view its details under **Usage > Logs**.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example8.png" alt="Chatbot Rules" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/chatbots/rules-example9.png" alt="Chatbot Rules" />
 </Frame>
