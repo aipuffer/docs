@@ -799,7 +799,7 @@ To enable images:
 1. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
 2. Select the image provider or model from **Image source**.
 3. Click the settings icon beside **Image source** to open **Image settings**.
-4. Set count, placement, size, and alignment for content images.
+4. Set count, placement, WordPress display size, alignment, and provider options.
 5. To change image prompts, in the right-side **General** card, click **Customize** next to **Prompts** and edit **Content Image** or **Featured Image**.
 
 | Mode | Result |
@@ -952,6 +952,25 @@ To set it up:
 5. Select **Pixabay** from **Image source**.
 6. Click the settings icon beside **Image source** to open **Image settings**.
 7. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
+
+#### Provider Options
+
+Provider options control the generation request sent to the selected AI provider. They are separate from WordPress display settings such as image size and alignment.
+
+Only options supported by the selected provider and model are shown.
+
+| Provider | Available options |
+| --- | --- |
+| **OpenAI** | Canvas size, quality, output format, compression, background, moderation. |
+| **Azure** | Canvas size, quality, output format, compression, background. |
+| **Google** | Aspect ratio, image resolution, and person generation for supported Imagen models. Nano Banana models are included in the Google image model list. |
+| **OpenRouter** | Aspect ratio and image resolution for models that support image configuration. |
+| **xAI** | Aspect ratio and image resolution. |
+| **Replicate** | Model-specific options from synced model schemas. |
+
+<Info>
+Pexels and Pixabay are stock image sources. Their filters narrow search results instead of changing an AI generation request.
+</Info>
 
 #### Image Prompts
 

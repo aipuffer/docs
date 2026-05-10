@@ -832,7 +832,7 @@ To use images, first choose what AI Puffer should create:
 1. In the right-side **Media** card, set **Images** to **Content**, **Featured**, or **Content + Featured**.
 2. Select the image provider or model from **Image source**.
 3. Click the settings icon beside **Image source** to open **Image settings**.
-4. Set the image count, placement, WordPress image size, and alignment.
+4. Set the image count, placement, WordPress display size, alignment, and provider options.
 5. Generate one item and review the image previews before saving the post.
 
 <Frame>
@@ -859,7 +859,7 @@ Image placement controls where content images are inserted after the post is sav
 | **Count** | Number of content images to insert. |
 | **Placement** | Where content images should be inserted. |
 | **X** | Used only with every-X placement options. |
-| **Size** | WordPress image size used in the post. |
+| **Display size** | WordPress image size used in the post. |
 | **Align** | WordPress image alignment. |
 
 Placement options:
@@ -992,6 +992,25 @@ To set it up:
 6. Click the settings icon beside **Image source** to open **Image settings**.
 7. Set **Orientation**, **Type**, and **Category** if you want to narrow results.
 8. Generate one item and review the selected image.
+
+#### Provider Options
+
+Provider options control the generation request sent to the selected AI provider. They are separate from WordPress display settings such as **Display size** and **Align**.
+
+Only options supported by the selected provider and model are shown.
+
+| Provider | Available options |
+| --- | --- |
+| **OpenAI** | Canvas size, quality, output format, compression, background, moderation. |
+| **Azure** | Canvas size, quality, output format, compression, background. |
+| **Google** | Aspect ratio, image resolution, and person generation for supported Imagen models. Nano Banana models are included in the Google image model list. |
+| **OpenRouter** | Aspect ratio and image resolution for models that support image configuration. |
+| **xAI** | Aspect ratio and image resolution. |
+| **Replicate** | Model-specific options from synced model schemas. |
+
+<Info>
+Pexels and Pixabay are stock image sources. Their filters narrow search results instead of changing an AI generation request.
+</Info>
 
 #### Image Prompts
 
