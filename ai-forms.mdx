@@ -5,7 +5,7 @@ description: "Create and embed AI-powered forms in WordPress."
 
 ## Overview
 
-AI Forms collect visitor input, insert the submitted values into a prompt, stream the AI response on the page, and can pass results into another AI Form.
+AI Forms collect visitor input, uploaded files, and uploaded images, insert the submitted values into a prompt, stream the AI response on the page, and can pass results into another AI Form.
 
 Use them for generators, support reply tools, calculators, lead forms, summaries, guided intakes, and multi-form workflows where the visitor provides structured input.
 
@@ -77,7 +77,7 @@ In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to cre
   <img src="/images/screenshots/ai-forms/aiforms.png" alt="AI Forms" />
 </Frame>
 
-You can also click **Generate with AI** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving. Generate with AI creates an individual form; create each workflow step as its own form, then connect them in **Workflow**.
+You can also click **Generate with AI** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-generator-modal.png" alt="AI Form generator modal" />
@@ -103,6 +103,7 @@ Form elements collect the values used by the prompt.
 | **Checkbox** | One or more selected options. |
 | **Radio Buttons** | One selected option from a visible list. |
 | **File Upload** | TXT or PDF upload. The extracted text is passed into the prompt. |
+| **Image Upload** | JPG, PNG, or WEBP upload. The image is sent to a vision-capable model for analysis. |
 
 When you click a field, **Element Settings** replaces the left palette. Edit **Label Text**, **Field Variable Name**, placeholder text, required state, help text, and options.
 
@@ -125,7 +126,15 @@ File Upload sends extracted text in the prompt. It works with the AI Forms text 
 </Info>
 
 <Warning>
-File Upload is available on Pro sites. It accepts `.txt` and `.pdf` files. Text-based PDFs work best; scanned PDFs may not provide usable text. Large files still count against the selected model's context limit.
+File Upload is available on Pro plan. It accepts `.txt` and `.pdf` files. Text-based PDFs work best; scanned PDFs may not provide usable text. Large files still count against the selected model's context limit.
+</Warning>
+
+For **Image Upload**, the visitor uploads an image and AI Puffer sends it with the form request as image input. Use the prompt to tell the model what to do with the image, such as describe it, extract details, compare it with submitted answers, or generate recommendations from it.
+
+Image Upload works only with providers and models that support image input in AI Forms: OpenAI, Google, Anthropic, OpenRouter, xAI, and Ollama. If the selected model cannot analyze images, the form returns an error instead of silently ignoring the upload.
+
+<Warning>
+Image Upload is available on Pro plan. It accepts JPG, PNG, and WEBP images up to 20 MB. Some providers may apply stricter model or file-type rules, such as xAI image analysis using JPG or PNG.
 </Warning>
 
 ### Layouts
@@ -350,10 +359,6 @@ Click the settings icon beside the model list to open **Model settings**.
 | **Presence Penalty** | Encourages the model to introduce new wording or topics. |
 | **Reasoning Effort** | Reasoning level for supported models. Keep it set to **None** for faster responses. |
 
-<Info>
-AI Forms use the providers configured in [AI Providers](/ai-providers). Ollama models appear only on Pro sites.
-</Info>
-
 ### Prompt
 
 AI Forms use field placeholders inside the prompt. Add a field value by wrapping its variable name in braces.
@@ -485,7 +490,7 @@ Web search is not shown for Azure, DeepSeek, or Ollama forms.
 
 ### Connected Apps
 
-Connected Apps send completed form submissions to external apps through recipes. The `form.submitted` event is emitted after the AI response is complete, so mappings can use both submitted inputs and the generated response.
+Connected Apps send completed form submissions to external apps through recipes. The `form.submitted` event is emitted after the AI response is complete, so mappings can use both submitted inputs and the generated response. Image Upload fields include image metadata in the event payload, not the base64 image data.
 
 Supported destinations are Slack, HubSpot, Notion, Pipedrive, Zapier, Make, and n8n.
 
@@ -660,7 +665,7 @@ Go to **AI Puffer > AI Forms > Settings**, then use the **Frontend Models** sect
 
 Each form submission creates logs for the submitted request and the AI response.
 
-Logs include the form ID, submitted inputs, constructed prompt, provider, model, token usage, vector search scores when knowledge base is used, and the generated response.
+Logs include the form ID, submitted inputs, uploaded image metadata, constructed prompt, provider, model, token usage, vector search scores when knowledge base is used, and the generated response.
 
 AI Forms usage is recorded with:
 
@@ -694,6 +699,10 @@ This lets usage rules target all AI Forms or a specific form.
 
   <Accordion title="File upload fails">
     Use a TXT or text-based PDF file. If the server rejects uploads, check WordPress upload limits and security plugin rules.
+  </Accordion>
+
+  <Accordion title="Image upload fails">
+    Use a JPG, PNG, or WEBP image under 20 MB, and make sure the selected provider and model support image input. xAI image analysis accepts JPG and PNG images.
   </Accordion>
 
   <Accordion title="Save as Post fails">
