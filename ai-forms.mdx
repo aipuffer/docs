@@ -5,9 +5,9 @@ description: "Create and embed AI-powered forms in WordPress."
 
 ## Overview
 
-AI Forms collect visitor input, insert the submitted values into a prompt, and stream the AI response on the page.
+AI Forms collect visitor input, insert the submitted values into a prompt, stream the AI response on the page, and can pass results into another AI Form.
 
-Use them for generators, support reply tools, calculators, lead forms, summaries, and other workflows where the visitor provides structured input.
+Use them for generators, support reply tools, calculators, lead forms, summaries, guided intakes, and multi-form workflows where the visitor provides structured input.
 
 In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to create, search, edit, preview, and publish forms. Use the **Settings** tab for module-wide limits, custom CSS, and frontend model access.
 
@@ -36,6 +36,10 @@ In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to cre
 
   <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
     Send form submissions and outputs to external apps.
+  </Card>
+
+  <Card title="Workflow" icon="workflow" href="#workflow" horizontal>
+    Chain AI Forms together and pass answers between forms.
   </Card>
 
   <Card title="Manage Forms" icon="list" href="#manage-forms" horizontal>
@@ -73,7 +77,7 @@ In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to cre
   <img src="/images/screenshots/ai-forms/aiforms.png" alt="AI Forms" />
 </Frame>
 
-You can also click **Generate with AI** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving.
+You can also click **Generate with AI** and describe the form you want. AI Puffer drafts the title, fields, layout, and prompt. Review the draft before saving. Generate with AI creates an individual form; create each workflow step as its own form, then connect them in **Workflow**.
 
 <Frame>
   <img src="/images/screenshots/ai-forms/ai-form-generator-modal.png" alt="AI Form generator modal" />
@@ -170,6 +174,133 @@ In the left **Multi-Step** accordion:
 | **None** | No step header or progress UI. |
 
 Skipped step inputs are cleared before submission.
+
+Multi-Step can be combined with Workflow. The visitor completes the visible steps in the source form first; after the AI response finishes, the next workflow form appears.
+
+### Workflow
+
+Workflow connects one AI Form to another. Use it when a visitor should complete a source form, review the AI response, and continue with a second form that already contains context from the first result.
+
+Workflow is useful for intake funnels, content pipelines, lead routing, support triage, and any process where one AI output becomes the starting point for another AI task.
+
+<Frame>
+  <img src="/images/screenshots/ai-forms/workflow.png" alt="AI Form workflow settings" />
+</Frame>
+
+In the left **Workflow** accordion:
+
+1. Create and save the target AI Form first.
+2. Edit the source AI Form.
+3. Turn on **Enable Workflow**.
+4. Choose the default **Next AI Form**.
+5. Use **Send AI output to** to prefill a target text field with the source form's AI response.
+6. Click **Add Mapping** under **Map submitted answers** to pass source answers into target text fields.
+7. Click **Add Route** under **Conditional routes** if different answers should open different target forms.
+8. Optional: turn on **Auto-submit next form** if the next form should run as soon as mapped values are filled.
+9. Save the source form.
+10. Test the source form with **Preview** or its shortcode.
+
+Workflow runs after the source form finishes streaming its AI response. The target form appears below the source result. By default, the visitor can review the prefilled values and submit the target form when ready. If **Auto-submit next form** is enabled and the target form has all required values, AI Puffer submits the target form automatically.
+
+| Control | Use it for |
+| --- | --- |
+| **Enable Workflow** | Turns workflow behavior on for the source form. |
+| **Next AI Form** | Sets the default target form. |
+| **Send AI output to** | Copies the source AI response into one target field. |
+| **Map submitted answers** | Copies source field answers into target fields. |
+| **Conditional routes** | Opens a different target form when a rule matches. |
+| **Auto-submit next form** | Runs the target form automatically after workflow mappings are filled. |
+
+Workflow mappings can target **Text Input** and **Text Area** fields in the next form. File Upload and Image Upload fields are not prefilled into the target form.
+
+Conditional routes can check the AI response or a submitted field value. Route operators are **equals**, **contains**, and **not empty**. Routes are checked from top to bottom; the first matching route wins. If no route matches, AI Puffer uses the default **Next AI Form**.
+
+<Info>
+Workflow does not auto-submit the next form unless **Auto-submit next form** is turned on. Use auto-submit only when the target form can run from mapped text values. If required values are missing, or the target form needs a required upload or multi-step interaction, the target form waits for the visitor.
+</Info>
+
+#### Examples
+
+<AccordionGroup>
+  <Accordion title="Domain idea to blog post">
+    Use this workflow when the first form suggests domain names and the second form turns the selected direction into a launch blog post draft.
+
+    Create the target form first:
+
+    1. Create **Blog Post Draft**.
+    2. Add a **Text Area** field named `domain_suggestions`.
+    3. Add a **Text Area** field named `business_context`.
+    4. Add a **Text Input** field named `tone`.
+    5. Write a prompt that chooses a strong domain from `{domain_suggestions}` and writes a blog post using `{business_context}` and `{tone}`.
+    6. Save the form.
+
+    Then create the source form:
+
+    1. Create **Domain Name Generator**.
+    2. Add a **Text Area** field named `idea_description`.
+    3. Add a **Dropdown** field named `tone`.
+    4. Write a prompt that suggests domain names from `{idea_description}` and `{tone}`.
+    5. Open **Workflow**.
+    6. Turn on **Enable Workflow**.
+    7. Set **Next AI Form** to **Blog Post Draft**.
+    8. Set **Send AI output to** to `domain_suggestions`.
+    9. Add a mapping from `idea_description` to `business_context`.
+    10. Add a mapping from `tone` to `tone`.
+    11. Optional: turn on **Auto-submit next form** if you want the blog post draft to start immediately after domain ideas are generated.
+    12. Save and test the source form.
+
+    When the visitor submits the source form, the generated domain ideas appear in the target form. The original business description and tone are also prefilled.
+
+    <Frame>
+      <img src="/images/screenshots/ai-forms/workflow2.png" alt="AI Form workflow settings" />
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Lead intake router">
+    Use this workflow when one intake form should route visitors to different next forms based on their request type.
+
+    Create the target forms first:
+
+    1. Create **Sales Follow-up** with fields named `company_name`, `intake_summary`, and `lead_notes`.
+    2. Write a prompt that drafts a sales follow-up from those fields.
+    3. Create **Support Reply** with fields named `company_name`, `intake_summary`, and `customer_message`.
+    4. Write a prompt that drafts a support reply from those fields.
+    5. Save both target forms.
+
+    Then create the source form:
+
+    1. Create **Lead Intake Router**.
+    2. Add a **Text Input** field named `company_name`.
+    3. Add a **Dropdown** field named `request_type` with values such as `sales`, `support`, and `partnership`.
+    4. Add a **Text Area** field named `request_details`.
+    5. Write a prompt that summarizes the lead from `{company_name}`, `{request_type}`, and `{request_details}`.
+    6. Open **Workflow**.
+    7. Turn on **Enable Workflow**.
+    8. Set **Next AI Form** to **Sales Follow-up** as the default route.
+    9. Add a route where `request_type` **equals** `support`, then set the target to **Support Reply**.
+    10. In that route, map AI output to `intake_summary`, `company_name` to `company_name`, and `request_details` to `customer_message`.
+    11. Add a route where `request_type` **equals** `sales`, then set the target to **Sales Follow-up**.
+    12. In that route, map AI output to `intake_summary`, `company_name` to `company_name`, and `request_details` to `lead_notes`.
+    13. Optional: turn on **Auto-submit next form** if each routed target form has everything it needs from the mappings.
+    14. Save and test the source form with both request types.
+
+    Sales requests open the sales follow-up form. Support requests open the support reply form. Other request types fall back to the default next form.
+
+    <Frame>
+      <img src="/images/screenshots/ai-forms/wf2.png" alt="Lead intake workflow routes" />
+    </Frame>
+    <Frame>
+      <img src="/images/screenshots/ai-forms/wf3.png" alt="Lead intake workflow routes" />
+    </Frame>
+    <Frame>
+      <img src="/images/screenshots/ai-forms/wf4.png" alt="Lead intake workflow routes" />
+    </Frame>
+
+    <Frame>
+      <img src="/images/screenshots/ai-forms/wf5.png" alt="Lead intake workflow target form" />
+    </Frame>
+  </Accordion>
+</AccordionGroup>
 
 ### Labels
 
@@ -358,6 +489,8 @@ Connected Apps send completed form submissions to external apps through recipes.
 
 Supported destinations are Slack, HubSpot, Notion, Pipedrive, Zapier, Make, and n8n.
 
+Connected Apps can be used with Workflow. Each submitted form in the chain emits its own `form.submitted` event, so a source form and a target form can trigger separate recipes. When **Auto-submit next form** is enabled, the target form can emit its own event without another visitor click.
+
 1. Go to **AI Puffer > Settings > Apps**.
 2. Connect the app account or webhook destination.
 3. Create or enable a recipe that uses the **AI Form Submitted** event.
@@ -449,6 +582,8 @@ Use the AI Form block if you prefer the block editor.
 </Frame>
 
 The block renders the same form as the shortcode.
+
+Workflow settings are saved with the source form. They work when the source form is rendered by shortcode, the AI Form block, or admin preview.
 
 ### Result Actions
 
@@ -571,5 +706,17 @@ This lets usage rules target all AI Forms or a specific form.
 
   <Accordion title="Connected app recipe does not run">
     Check that the recipe is enabled, the app connection is valid, the scope includes this form, and the recipe uses the **AI Form Submitted** event.
+  </Accordion>
+
+  <Accordion title="Workflow next form does not appear">
+    Check that the source form is saved, **Enable Workflow** is on, the target form still exists, and the source and target are not the same form. Workflow appears only after the source AI response completes.
+  </Accordion>
+
+  <Accordion title="Workflow values are not prefilled">
+    Check the target field names and the workflow mappings. Mappings can prefill text input and textarea fields in the target form. File upload and image upload fields are not prefilled.
+  </Accordion>
+
+  <Accordion title="Workflow next form does not auto-submit">
+    Check that **Auto-submit next form** is enabled on the source form and that the target form has all required values after mappings are applied. Required uploads and multi-step target forms wait for the visitor.
   </Accordion>
 </AccordionGroup>
