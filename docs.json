@@ -12,6 +12,136 @@
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+  "redirects": [
+    {
+      "source": "/docs/ai-forms/form-builder",
+      "destination": "/ai-forms"
+    },
+    {
+      "source": "/docs/ai-forms/:slug*",
+      "destination": "/ai-forms"
+    },
+    {
+      "source": "/docs/ai-forms",
+      "destination": "/ai-forms"
+    },
+    {
+      "source": "/docs/features",
+      "destination": "/"
+    },
+    {
+      "source": "/docs/logs",
+      "destination": "/usage"
+    },
+    {
+      "source": "/docs/content-assistant",
+      "destination": "/content-writer"
+    },
+    {
+      "source": "/docs/content-creation",
+      "destination": "/content-writer"
+    },
+    {
+      "source": "/docs/content-update",
+      "destination": "/content-writer"
+    },
+    {
+      "source": "/docs/content-enhancement",
+      "destination": "/content-writer"
+    },
+    {
+      "source": "/docs/content-writer/:slug*",
+      "destination": "/content-writer"
+    },
+    {
+      "source": "/docs/Write/:slug*",
+      "destination": "/content-writer"
+    },
+    {
+      "source": "/docs/chat",
+      "destination": "/chatbots"
+    },
+    {
+      "source": "/docs/Chatbot/:slug*",
+      "destination": "/chatbots"
+    },
+    {
+      "source": "/docs/ChatGPT/:slug*",
+      "destination": "/chatbots"
+    },
+    {
+      "source": "/docs/voice-features",
+      "destination": "/chatbots"
+    },
+    {
+      "source": "/docs/context",
+      "destination": "/chatbots"
+    },
+    {
+      "source": "/docs/image-generator",
+      "destination": "/images"
+    },
+    {
+      "source": "/docs/api-reference",
+      "destination": "/api-reference"
+    },
+    {
+      "source": "/docs/getting-started/activating-pro",
+      "destination": "/pro-activation"
+    },
+    {
+      "source": "/docs/getting-started/installation",
+      "destination": "/installation"
+    },
+    {
+      "source": "/docs/getting-started/:slug*",
+      "destination": "/installation"
+    },
+    {
+      "source": "/docs/user-credits/intro",
+      "destination": "/usage"
+    },
+    {
+      "source": "/docs/embeddings",
+      "destination": "/knowledge-base"
+    },
+    {
+      "source": "/docs/knowledge-base",
+      "destination": "/knowledge-base"
+    },
+    {
+      "source": "/docs/automate",
+      "destination": "/automations"
+    },
+    {
+      "source": "/docs/triggers",
+      "destination": "/automations"
+    },
+    {
+      "source": "/docs/woocommerce",
+      "destination": "/wordpress-utilities"
+    },
+    {
+      "source": "/docs/ai-engine/openai/:slug*",
+      "destination": "/ai-providers"
+    },
+    {
+      "source": "/docs/community-engagement",
+      "destination": "/"
+    },
+    {
+      "source": "/docs/intro/:slug*",
+      "destination": "/"
+    },
+    {
+      "source": "/docs/security-privacy",
+      "destination": "/wordpress-utilities"
+    },
+    {
+      "source": "/docs/Appearance",
+      "destination": "/wordpress-utilities"
+    }
+  ],
   "navigation": {
     "tabs": [
       {
