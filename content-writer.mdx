@@ -699,6 +699,16 @@ To use Smart SEO:
   <img src="/images/screenshots/content-writer/smart-seo.png" alt="SEO" />
 </Frame>
 
+Advanced users can open **Smart SEO rules** from the settings icon next to the Smart SEO toggle. This panel lets you choose a preset or enable and disable individual rules for the active SEO plugin profile.
+
+| Preset | Default | What it does |
+| --- | --- | --- |
+| **Strict score** | No | Enables every listed rule to chase the highest possible SEO plugin score. Use it when matching the plugin score is more important than minimizing editorial constraints. |
+| **Balanced** | Yes | Keeps the main SEO checks enabled, including Rank Math title-start, table of contents, rich media, and keyword density checks. It still skips optional title gimmicks such as numbers, power words, sentiment wording, and selected image-alt/headline pressure. |
+| **Content first** | No | Keeps essential metadata and placement checks while reducing content-length, density, readability, media, and plugin-specific pressure. Use it when natural writing matters more than maximum plugin score. |
+
+After choosing a preset, you can still toggle individual rules. If the selected rules no longer match a preset, the panel shows the selection as custom.
+
 Depending on the active SEO plugin profile, Smart SEO can check:
 
 | Area | Examples |
@@ -709,6 +719,100 @@ Depending on the active SEO plugin profile, Smart SEO can check:
 | **Links** | Internal links, outbound links, and dofollow outbound links when the active SEO plugin scores them. |
 | **Media** | Image presence and focus-keyword image alt text. |
 | **Readability** | Transition words, repeated sentence openings, passive voice, and reading ease where supported. |
+
+The exact checks depend on the active SEO plugin profile. Some checks are shared across profiles, while others mirror plugin-specific scoring behavior.
+
+<AccordionGroup>
+<Accordion title="Smart SEO rules">
+
+| Check | Applies to | What Smart SEO checks |
+| --- | --- | --- |
+| Focus keyword in title | Yoast SEO, Rank Math, All in One SEO | The SEO title should include the focus keyword. Yoast prefers the exact keyphrase at the beginning, while Rank Math and AIOSEO add their own title-position checks. |
+| Focus keyword in URL slug | Yoast SEO, Rank Math, All in One SEO | The optimized slug should include the focus keyword when **Optimize URL** is enabled or a slug is available. |
+| Paragraph length | Yoast SEO, Rank Math, All in One SEO | Long paragraphs should be split so the article is easier to scan. |
+| Meta description exists | Yoast SEO, Rank Math, The SEO Framework | A meta description should be present. AIOSEO uses its own profile-specific meta description check. |
+| Content length | Yoast SEO, Rank Math | Yoast uses the selected minimum word count. Rank Math uses its own scoring ladder and gives full content-length credit at `2500+` words. |
+| Focus keyword in introduction | Yoast SEO, Rank Math | Yoast checks the first paragraph. Rank Math checks the first 10% of the content. |
+| Focus keyword in meta description | Yoast SEO, Rank Math | The meta description should include the focus keyword. |
+| Focus keyword in heading | Yoast SEO, Rank Math | Yoast checks H2/H3 balance. Rank Math accepts H2-H6 and needs at least one matching heading. |
+| Internal link | Yoast SEO, Rank Math | The article should include a verified internal link. Rank Math requires a link to another published post or page. |
+| External link | Yoast SEO, Rank Math | The article should include a safe outbound link when the profile scores outbound links. |
+| Image alt keyphrase | Yoast SEO, Rank Math | At least one image alt text should contain the focus keyphrase or enough keyphrase words. |
+| Previously used keyphrase | Yoast SEO, Rank Math | The focus keyphrase should not already be used by another post. |
+| Keyword density | Yoast SEO, Rank Math | Exact focus-keyphrase usage should stay in the plugin's target range without stuffing. |
+
+</Accordion>
+<Accordion title="Yoast SEO rules">
+
+| Check | What Smart SEO checks |
+| --- | --- |
+| SEO title width | Title should be in a strong display range, roughly 35-65 characters. |
+| Focus keyphrase length | Focus keyphrase should usually be 1-4 words. |
+| Meta description length | Strong range is 120-156 characters. Longer descriptions are reduced. |
+| Focus keyphrase in first paragraph | The first introduction paragraph should include the focus keyphrase when natural. |
+| Focus keyphrase in subheadings | Enough H2/H3 subheadings should include the keyphrase, but over-optimization is avoided. |
+| Heading distribution | Longer articles should use H2/H3 headings to break up sections. |
+| Image exists | The draft should include at least one image. |
+| Single H1 | The article body should not contain multiple H1 headings. |
+| Competing links | Link anchor text should not be the exact focus keyphrase. |
+| Consecutive sentence starts | Avoid three or more consecutive sentences starting with the same word. |
+| Transition words | At least about 30% of eligible sentences should use transition words. |
+| Sentence length | Long sentences over 20 words should stay within Yoast's readability threshold. |
+| Passive voice | Passive voice should generally stay at or below 10% of sentences. |
+
+</Accordion>
+<Accordion title="Rank Math rules">
+
+| Check | What Smart SEO checks |
+| --- | --- |
+| Content length | Full content-length credit is `2500+` words. Rank Math gives partial credit at lower ranges and fails very short content. |
+| Focus keyword at title beginning | The SEO title should start with the exact focus keyword. |
+| Number in title | The SEO title should include a relevant number. |
+| Power word in title | The SEO title should include a natural power word such as "best", "complete", "easy", "powerful", or "ultimate". |
+| Sentiment in title | The SEO title should include natural positive or negative sentiment wording. |
+| Permalink length | The full permalink should be 75 characters or fewer. |
+| Table of contents | A Rank Math-compatible table of contents should be present, or a ToC plugin should be detected. |
+| Keyword density | Exact focus-keyphrase usage should stay in Rank Math's target range. Low density is improved and overuse is reduced. |
+| Images or videos | Rank Math gives media credit for images or videos. Smart SEO preserves media and alt text but does not invent image or video URLs. |
+
+</Accordion>
+<Accordion title="All in One SEO rules">
+
+| Check | What Smart SEO checks |
+| --- | --- |
+| Focus keyword in content | The content should contain the focus keyword. |
+| Focus keyword in introduction | The first paragraph should contain the focus keyword when natural. |
+| Focus keyword in meta description | The meta description should contain the focus keyword. |
+| Focus keyword in image alt | Existing image alt text should contain the exact focus keyword. |
+| Focus keyword in subheadings | The exact focus keyword should appear in about 30%-75% of H2/H3 subheadings. |
+| Focus keyword length | 1-4 words passes; longer keyphrases may warn or fail. |
+| Meta description length | The target range is roughly 121-160 characters. Empty descriptions fail. |
+| Content length | More than 300 words passes. Shorter content may warn or fail. |
+| Internal links | The content should link to another resource on the same site. |
+| External links | The content should link to a relevant external resource. |
+| Focus keyword near title beginning | The focus keyword should appear near the beginning of the SEO title. |
+| SEO title length | The title should generally be 41-60 characters after AIOSEO-style title scoring. |
+| Headline score | If AIOSEO's headline analyzer is available, Smart SEO aims for a 70+ headline score. |
+| Images or videos | The content should include rich media when AIOSEO scores it. |
+| Sentence length | Too many sentences over 20 words can reduce the readability score. |
+| Passive voice | Passive voice should generally stay at or below 10% of sentences. |
+| Transition words | At least about 30% of eligible sentences should use transition words. |
+| Consecutive sentences | Avoid four or more consecutive sentences starting with the same word. |
+| Subheading distribution | Long sections should be separated by subheadings. |
+| Flesch reading ease | Copy should be easy to read, with a target score of about 63 or higher. |
+
+</Accordion>
+<Accordion title="The SEO Framework rules">
+
+| Check | What Smart SEO checks |
+| --- | --- |
+| Meta description exists | A meta description should be present. |
+| Meta description length | The strongest range is roughly 80-160 characters. |
+| SEO title length and width | Smart SEO estimates the title shown by The SEO Framework, including the site title unless that setting removes it, and keeps it within the target display range. |
+| Focus keyword behavior | The SEO Framework does not provide a native focus keyword field, so Smart SEO does not apply focus-keyword placement rules for this profile. |
+
+</Accordion>
+</AccordionGroup>
 
 <Frame>
   <img src="/images/screenshots/content-writer/smart-seo-score.png" alt="SEO" />
