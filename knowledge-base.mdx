@@ -353,7 +353,7 @@ General controls how Knowledge Base records and indexing buttons appear in the a
 
 ### Chunking
 
-Document chunking controls how AI Puffer splits large uploaded files before embedding them for Pinecone, Qdrant, or Chroma.
+Document chunking controls how AI Puffer splits large uploaded files and WordPress Website content before embedding them for Pinecone, Qdrant, or Chroma.
 
 | Setting | Default | Range | Use it for |
 | --- | --- | --- | --- |
@@ -361,7 +361,7 @@ Document chunking controls how AI Puffer splits large uploaded files before embe
 | **Max tokens per chunk** | `3000` | `256` to `6000` | Sets the maximum chunk size before embedding. |
 | **Overlap tokens** | `150` | `0` to `1000` | Repeats a small part of the previous chunk so context does not break sharply. |
 
-Use smaller chunks when an embedding provider rejects long input. Keep some overlap for long documents where meaning continues across sections.
+Use smaller chunks when an embedding provider rejects long input. Keep some overlap for long documents where meaning continues across sections. Some embedding models have lower hard limits than the visible maximum, so AI Puffer may apply a safer model-specific cap during indexing.
 
 OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the Pinecone, Qdrant, and Chroma chunking settings above.
 
@@ -396,7 +396,7 @@ Embedding Batches controls how many file chunks AI Puffer sends to the embedding
 For example, a batch size of `50` means AI Puffer sends up to 50 prepared file chunks to the embedding API at once. Larger batches can make file upload training much faster because they reduce repeated API calls.
 
 <Info>
-Embedding batch settings apply only to chunked file uploads for Pinecone, Qdrant, and Chroma. They do not change Q&A, Text, Website training, semantic search queries, or OpenAI Vector Store file uploads.
+Embedding batch settings apply only to chunked file uploads for Pinecone, Qdrant, and Chroma. Website training uses document chunking, but these batch-size settings do not change Q&A, Text, Website training, semantic search queries, or OpenAI Vector Store file uploads.
 </Info>
 
 If a provider returns rate limit errors such as HTTP `429`, lower that provider's batch size and try again. AI Puffer can pause and retry file upload processing when the provider sends a retry delay, but lowering the batch size is usually better for accounts with stricter quotas.
