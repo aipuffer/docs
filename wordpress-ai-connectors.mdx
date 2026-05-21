@@ -1,0 +1,210 @@
+---
+title: "WordPress AI Connectors"
+description: "Route WordPress AI Client requests through AI Puffer."
+---
+
+WordPress 7.0 includes a built-in AI Client. Plugins, themes, and WordPress AI features can use `wp_ai_client_prompt()` to send AI requests through connectors configured in WordPress.
+
+AI Puffer can manage those connectors. When management is enabled, WordPress AI Client requests route through AI Puffer provider settings, model defaults, logs, credits, and pricing rules.
+
+<Info>
+This feature is available only on WordPress versions that include the WordPress AI Client and Connectors API.
+</Info>
+
+<Columns cols={2}>
+  <Card title="Enable" icon="gear" href="#enable-management" horizontal>
+    Let AI Puffer manage WordPress AI connectors.
+  </Card>
+
+  <Card title="Routing" icon="list" href="#how-routing-works" horizontal>
+    Understand providers, defaults, and model selection.
+  </Card>
+
+  <Card title="Usage" icon="database" href="#usage-logs-credits-and-pricing" horizontal>
+    Use existing logs, credits, and pricing rules.
+  </Card>
+
+  <Card title="Approvals" icon="wrench" href="#connector-approvals" horizontal>
+    Work with WordPress connector approval checks.
+  </Card>
+</Columns>
+
+## Requirements
+
+You need:
+
+1. WordPress 7.0 or later with AI support enabled.
+2. AI Puffer installed and active.
+3. At least one provider configured in **AI Puffer > Settings > AI**.
+
+Provider API usage still belongs to your provider account. AI Puffer does not include provider credits.
+
+## Enable Management
+
+You can enable management from the WordPress connector screen:
+
+1. Open **WordPress Admin > Settings > Connectors**.
+2. Find the AI Puffer banner.
+3. Click **Enable**.
+
+After enabling, the banner changes to **Managed by AI Puffer**. WordPress AI Client requests now run through AI Puffer.
+
+<Frame>
+  <img src="/images/screenshots/connectors/connectors.png" alt="WordPress Connectors API" />
+</Frame>
+
+You can also enable it from AI Puffer settings:
+
+1. Open **AI Puffer > Settings > Developers**.
+2. Find **WordPress AI Connectors**.
+3. Click **Enable**.
+
+<Frame>
+  <img src="/images/screenshots/connectors/connectors-enable.png" alt="WordPress Connectors API" />
+</Frame>
+
+The **Open Connectors** button opens the WordPress connector screen. If you dismissed the connector-page banner before enabling, use **Enable** from this Developer setting instead.
+
+## Stop Management
+
+To stop AI Puffer from managing WordPress AI connectors:
+
+1. Open **WordPress Admin > Settings > Connectors**.
+2. Find the **Managed by AI Puffer** banner.
+3. Click **Stop**.
+
+<Frame>
+  <img src="/images/screenshots/connectors/connectors-stop2.png" alt="WordPress Connectors API" />
+</Frame>
+
+You can also open **AI Puffer > Settings > Developers** and click **Stop managing**.
+
+<Frame>
+  <img src="/images/screenshots/connectors/connectors-stop.png" alt="WordPress Connectors API" />
+</Frame>
+
+Stopping management does not delete your AI Puffer provider settings. It only stops AI Puffer from taking over the WordPress AI Client connector layer.
+
+## How Routing Works
+
+When management is enabled, AI Puffer registers these providers for the WordPress AI Client:
+
+| Connector | Typical use |
+| --- | --- |
+| OpenAI via AI Puffer | Text, vision-capable text models, and image generation. |
+| Google via AI Puffer | Gemini text, vision-capable models, and image generation. |
+| Anthropic via AI Puffer | Claude text and supported image input. |
+| OpenRouter via AI Puffer | Models available through your OpenRouter account. |
+| Azure OpenAI via AI Puffer | Azure OpenAI deployments. |
+| DeepSeek via AI Puffer | Text generation. |
+| xAI via AI Puffer | Grok text, supported image input, and image generation. |
+| Ollama via AI Puffer | Local or self-hosted text models. |
+
+AI Puffer also exposes default route models for WordPress AI features:
+
+| Route | Uses |
+| --- | --- |
+| Default text model | Text generation and most editor/admin AI features. |
+| Fast text model | Lightweight text tasks when a fast model is suitable. |
+| Default image model | WordPress AI image generation requests. |
+
+AI Puffer infers these routes from your existing provider settings. You do not need to configure a separate WordPress AI Client model list.
+
+## Usage Logs, Credits, and Pricing
+
+AI Puffer logs WordPress AI Client requests separately from AI Puffer module requests.
+
+| WordPress AI request | AI Puffer usage area |
+| --- | --- |
+| Text generation | WP AI Client logs and text pricing rules. |
+| Vision or image input to text models | WP AI Client logs and text pricing rules. |
+| Image generation | WP AI Client logs and image pricing rules. |
+
+Chatbot, AI Forms, and Images quotas are not used for WordPress AI Client requests. Those quotas belong to specific AI Puffer modules, while a generic `wp_ai_client_prompt()` request is not tied to a chatbot, form, or image-generator request.
+
+Generated requests are logged with the module label **WP AI Client**. In conversation details, you can see the provider, model, usage, request type, and response data when available.
+
+If you use credits or pricing rules, AI Puffer records the final usage after the response returns. Module quotas are not enforced for these requests.
+
+## Connector Approvals
+
+The WordPress AI plugin includes an experimental **Connector Approvals** screen. If that feature is enabled, WordPress can block AI connector requests until an administrator approves the caller.
+
+When AI Puffer manages connectors, approvals can involve two layers:
+
+| Approval | Why it may be needed |
+| --- | --- |
+| AI Puffer | AI Puffer is the gateway that sends the provider request. |
+| Calling plugin or theme | Another plugin or theme may be the original caller of `wp_ai_client_prompt()`. |
+
+If a request is blocked, open **WordPress Admin > Tools > Connector Approvals** and review the pending request. Approve only the plugins, themes, and connectors you want to allow.
+
+## For Developers
+
+Use the standard WordPress AI Client API. You do not need to call AI Puffer-specific PHP functions for WordPress AI Client compatibility.
+
+```php
+$result = wp_ai_client_prompt( 'Write a short product summary.' )
+    ->using_temperature( 0.4 )
+    ->generate_text_result();
+
+if ( is_wp_error( $result ) ) {
+    return $result;
+}
+
+return rest_ensure_response( $result );
+```
+
+For image generation:
+
+```php
+$image = wp_ai_client_prompt( 'A clean product photo on a white background.' )
+    ->generate_image();
+
+if ( is_wp_error( $image ) ) {
+    return $image;
+}
+
+echo '<img src="' . esc_url( $image->getDataUri() ) . '" alt="">';
+```
+
+When AI Puffer is managing connectors, these calls use AI Puffer's configured providers and usage controls.
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="I do not see the AI Puffer banner">
+
+Check these items:
+
+1. Confirm the site is running WordPress 7.0 or later.
+2. Confirm AI support and the Connectors API are available on the site.
+3. Open **AI Puffer > Settings > Developers**.
+4. Use **Enable** from the Developer setting if the connector-page banner was dismissed.
+
+</Accordion>
+<Accordion title="A connector approval error appears">
+
+Open **WordPress Admin > Tools > Connector Approvals**.
+
+Approve AI Puffer for the connector first. If the request came from another plugin or theme, approve that caller too.
+
+</Accordion>
+<Accordion title="A request uses the wrong provider or model">
+
+Check the provider settings used by AI Puffer:
+
+1. Open **AI Puffer > Settings > AI**.
+2. Confirm the selected provider and default model.
+3. Sync models if the model list is stale.
+4. For image generation, check **AI Puffer > Images** settings.
+
+</Accordion>
+<Accordion title="The provider says credits or billing are missing">
+
+The provider account is out of credits, blocked by billing settings, or using a key from the wrong account.
+
+Open the provider dashboard and check billing, spend limits, and API key access.
+
+</Accordion>
+</AccordionGroup>

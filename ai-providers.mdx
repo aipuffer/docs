@@ -239,6 +239,16 @@ Do not expose Ollama publicly without access controls. Anyone who can reach the 
   <img src="/images/screenshots/ai-providers/ollama-api-key-settings.png" alt="Ollama API key settings" />
 </Frame>
 
+## WordPress AI Connectors
+
+WordPress 7.0 includes a built-in AI Client and a **Settings > Connectors** screen. AI Puffer can manage those WordPress AI connectors so WordPress AI features, themes, and plugins that call `wp_ai_client_prompt()` use your AI Puffer provider setup.
+
+This does not replace the provider setup above. Add your provider keys in **AI Puffer > Settings > AI** first, then enable connector management when you want WordPress AI Client requests to route through AI Puffer.
+
+AI Puffer exposes OpenAI, Google, Anthropic, OpenRouter, Azure OpenAI, DeepSeek, xAI, and Ollama to the WordPress AI Client. Replicate remains available in AI Puffer's Images module, but it is not exposed as a WordPress AI connector.
+
+See [WordPress AI Connectors](/wordpress-ai-connectors).
+
 ## Troubleshooting
 
 <AccordionGroup>

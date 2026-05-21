@@ -189,7 +189,8 @@
             "group": "Developers",
             "pages": [
               "api-reference",
-              "event-webhooks"
+              "event-webhooks",
+              "wordpress-ai-connectors"
             ]
           }
         ]
