@@ -1082,6 +1082,9 @@ Chatbot recipes can run on these events:
 | **Chat User Message Submitted** | A visitor sends a message. |
 | **Chat Response Generated** | The chatbot finishes an answer. |
 | **Chat Feedback Submitted** | A visitor submits feedback. |
+| **Chatbot Form Submitted** | A visitor submits a form displayed by a chatbot rule. |
+
+Use **Chatbot Form Submitted** for forms created with a chatbot rule's **Display form** action. Use **AI Form Submitted** only for standalone AI Forms from the AI Forms module.
 
 Open **AI Puffer > Settings > Apps** to create connections and recipes. 
 
@@ -1153,6 +1156,17 @@ Use HubSpot to create or update contacts from chatbot events when your recipe ma
 16. Enable the recipe and test from the frontend chatbot.
 
 HubSpot contact recipes require an email mapping.
+
+For lead forms shown inside the chatbot by a rule, choose the **Chatbot Form Submitted** event. Common mappings are:
+
+| HubSpot field | Source path |
+| --- | --- |
+| Email | `data.inputs.email` |
+| First name | `data.inputs.first_name` |
+| Last name | `data.inputs.last_name` |
+| Phone | `data.inputs.phone` |
+| Company | `data.inputs.company` |
+| Note | `data.summary` |
 
 <Frame>
   <img src="/images/screenshots/chatbots/hubspot-connection.png" alt="Chatbot HubSpot" />
@@ -1348,7 +1362,9 @@ Webhook actions send data outside WordPress. Use trusted webhook URLs and avoid 
 
 #### Lead Collection
 
-Use **Display form** when the chatbot should ask for contact details inside the conversation. The form is rendered in the chat, and AI processing stops for that message while the visitor completes it.
+Use **Display form** when the chatbot should ask for contact details inside the conversation. The form is rendered in the chat, and AI processing pauses for that message while the visitor completes it.
+
+If the form was displayed from a **User Message Received** rule, AI Puffer automatically continues the AI response after a successful form submission. It uses the captured user message, adds the submitted form data as context, and avoids resuming when a form-submission rule already returned a direct bot reply.
 
 Show the form when the visitor uses a lead keyword:
 
@@ -1418,7 +1434,9 @@ Make sure the **Active** checkbox is checked on both rules.
   <img src="/images/screenshots/chatbots/rules-example7.png" alt="Chatbot Rules" />
 </Frame>
 
-Now ask your bot something about pricing and you will see the form; after the form is submitted, you can view its details under **Usage > Logs**.
+Now ask your bot something about pricing and you will see the form. After the form is submitted, the chatbot continues answering the original pricing question and you can view the submitted details under **Usage > Logs**.
+
+To send the same rule form submission to HubSpot, create a Connected Apps recipe that uses **Chatbot Form Submitted** and maps fields such as `data.inputs.email`, `data.inputs.first_name`, `data.inputs.last_name`, `data.inputs.phone`, and `data.inputs.company`.
 
 <Frame>
   <img src="/images/screenshots/chatbots/rules-example8.png" alt="Chatbot Rules" />
