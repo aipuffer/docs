@@ -23,11 +23,11 @@ Use it for support answers, product details, documentation, policies, posts, pag
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure visibility, chunking, embedding batches, content rules, and search.
+    Configure chunking, content rules, semantic search, and other settings.
   </Card>
 
   <Card title="Semantic Search" icon="search" href="#semantic-search" horizontal>
-    Publish a frontend vector search form.
+    Publish and configure a frontend vector search form.
   </Card>
 
   <Card title="Troubleshooting" icon="wrench" href="#troubleshooting" horizontal>
@@ -334,22 +334,13 @@ Available actions:
 
 Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behavior.
 
-<Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-settings.png" alt="Knowledge Base settings" />
-</Frame>
+The Settings screen is split into tabs.
 
-### General
-
-General controls how Knowledge Base records and indexing buttons appear in the admin.
-
-| Setting | What it does |
+| Tab | What it contains |
 | --- | --- |
-| **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base source table. |
-| **Show index button** | Shows vector indexing controls on supported WordPress list screens. |
-
-<Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-settings-general.png" alt="Knowledge Base general settings" />
-</Frame>
+| **Chunking** | Document chunking and embedding batch controls. |
+| **Content Rules** | Rules for which WordPress content fields are embedded. |
+| **Others** | Semantic Search, user upload visibility, and list-screen index buttons. |
 
 ### Chunking
 
@@ -376,7 +367,7 @@ OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the 
 Embedding Batches controls how many file chunks AI Puffer sends to the embedding provider in one request.
 
 1. Go to **AI Puffer > Knowledge Base > Settings**.
-2. Open **Chunking & Batches**.
+2. Open **Chunking**.
 3. Click **Embedding Batches** to reveal the provider batch settings.
 4. Adjust the batch size for the embedding provider you use.
 5. Wait for the settings autosave to finish.
@@ -405,18 +396,19 @@ If a provider returns rate limit errors such as HTTP `429`, lower that provider'
   <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base chunking and batches settings" />
 </Frame>
 
-### Indexing Controls
+### Content Rules
 
-Indexing controls define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
+Content Rules define which WordPress fields are included when Website training or list-screen indexing sends WordPress content to a vector target.
 
 1. Go to **AI Puffer > Knowledge Base > Settings**.
-2. In **Indexing Controls**, click **Configure**.
-3. Select a post type.
-4. Adjust **Basic Labels** if you want different labels for source URL, title, excerpt, or content.
-5. Enable or disable custom fields.
-6. Enable or disable taxonomies.
-7. For WooCommerce products, enable or disable product data such as SKU, price, stock, dimensions, and attributes.
-8. Save.
+2. Open **Content Rules**.
+3. Click **Configure**.
+4. Select a post type.
+5. Adjust **Basic Labels** if you want different labels for source URL, title, excerpt, or content.
+6. Enable or disable custom fields.
+7. Enable or disable taxonomies.
+8. For WooCommerce products, enable or disable product data such as SKU, price, stock, dimensions, and attributes.
+9. Save.
 
 If the Save button shows **Upgrade**, activate Pro before saving indexing rules.
 
@@ -424,19 +416,17 @@ If the Save button shows **Upgrade**, activate Pro before saving indexing rules.
   <img src="/images/screenshots/knowledgebase/knowledge-base-indexing-controls.png" alt="Knowledge Base indexing controls" />
 </Frame>
 
-When **Show index button** is enabled, supported WordPress list screens can show vector indexing controls.
+### Others
 
-| Control | What it does |
-| --- | --- |
-| **Index Status** column | Shows whether a post has already been indexed. |
-| **Index Status** filter | Filters content by indexed or not indexed. |
-| **Add to Vector Store** action | Sends selected posts to a vector target. |
+Open **AI Puffer > Knowledge Base > Settings**, then open **Others**.
 
-## Semantic Search
+The Others tab contains Semantic Search and admin visibility settings.
+
+#### Semantic Search
 
 Semantic Search publishes a search form that queries a Pinecone index, Qdrant collection, or Chroma collection from the frontend.
 
-Open **AI Puffer > Knowledge Base > Settings**. In **Semantic Search**, click **Configure**.
+In **Others**, click **Configure** in the **Semantic Search** row.
 
 1. Select **Vector DB**: Pinecone, Qdrant, or Chroma.
 2. Select the index or collection.
@@ -458,6 +448,21 @@ Use the same embedding model that was used when the Pinecone, Qdrant, or Chroma 
   <img src="/images/screenshots/knowledgebase/knowledge-base-semantic-search.png" alt="Knowledge Base Semantic Search settings" />
 </Frame>
 
+#### Admin Visibility
+
+| Setting | What it does |
+| --- | --- |
+| **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base source table. |
+| **Show index button** | Shows vector indexing controls on supported WordPress list screens. |
+
+When **Show index button** is enabled, supported WordPress list screens can show vector indexing controls.
+
+| Control | What it does |
+| --- | --- |
+| **Index Status** column | Shows whether a post has already been indexed. |
+| **Index Status** filter | Filters content by indexed or not indexed. |
+| **Add to Vector Store** action | Sends selected posts to a vector target. |
+
 ## Troubleshooting
 
 <AccordionGroup>
@@ -474,7 +479,7 @@ Use the same embedding model that was used when the Pinecone, Qdrant, or Chroma 
   </Accordion>
 
   <Accordion title="WordPress list indexing controls are missing">
-    Enable **Knowledge Base > Settings > Basics > Show index button** and confirm the user role can access the vector content indexer module.
+    Enable **Knowledge Base > Settings > Others > Show index button** and confirm the user role can access the vector content indexer module.
   </Accordion>
 
   <Accordion title="Semantic Search returns no results">

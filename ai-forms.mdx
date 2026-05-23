@@ -51,7 +51,7 @@ In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to cre
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure limits, custom CSS, and frontend model access.
+    Configure the Limits, Custom CSS, and Frontend Models tabs.
   </Card>
 
   <Card title="Logs" icon="list" href="#logs" horizontal>
@@ -604,11 +604,21 @@ Save as Post uses the form title as the post title and saves the output as draft
 
 ## Settings
 
+Open **AI Puffer > AI Forms > Settings**.
+
+The Settings screen is split into tabs.
+
+| Tab | What it contains |
+| --- | --- |
+| **Limits** | Guest, user, role, reset, and quota message settings. |
+| **Custom CSS** | CSS for forms using the custom theme. |
+| **Frontend Models** | Models visitors can select on the frontend. |
+
 ### Limits
 
 Limits control how much AI Forms usage is allowed for guests and logged-in users.
 
-Go to **AI Puffer > AI Forms > Settings**, then use the **Limits** section.
+Open **Limits**.
 
 1. Set **Guest quota**.
 2. Choose **Quota mode** for logged-in users.
@@ -616,10 +626,6 @@ Go to **AI Puffer > AI Forms > Settings**, then use the **Limits** section.
 4. Choose **Reset period**.
 5. Edit **Quota reached message**.
 6. Configure optional primary and secondary buttons.
-
-<Frame>
-  <img src="/images/screenshots/ai-forms/ai-forms-limits-settings.png" alt="AI Forms limits settings" />
-</Frame>
 
 | Value | Meaning |
 | --- | --- |
@@ -639,11 +645,7 @@ For credit-based form access, define pricing rules in [Usage](/usage#pricing-rul
 
 Custom CSS applies to forms embedded with `theme="custom"`.
 
-Go to **AI Puffer > AI Forms > Settings**, then use the **Custom CSS** section.
-
-<Frame>
-  <img src="/images/screenshots/ai-forms/ai-forms-custom-css-settings.png" alt="AI Forms custom CSS settings" />
-</Frame>
+Open **Custom CSS**.
 
 ```css
 .aipkit-ai-form-wrapper.aipkit-theme-custom {
@@ -651,15 +653,11 @@ Go to **AI Puffer > AI Forms > Settings**, then use the **Custom CSS** section.
 }
 ```
 
-### Provider Filtering
+### Frontend Models
 
-Provider filtering controls which models visitors can select when the shortcode or block shows the frontend provider or model selector.
+Frontend Models controls which models visitors can select when the shortcode or block shows the frontend provider or model selector.
 
-Go to **AI Puffer > AI Forms > Settings**, then use the **Frontend Models** section to select the models visitors can use. If no models are selected, all configured frontend models are allowed.
-
-<Frame>
-  <img src="/images/screenshots/ai-forms/ai-forms-provider-filtering-settings.png" alt="AI Forms provider filtering settings" />
-</Frame>
+Open **Frontend Models** and select the models visitors can use. If no models are selected, all configured frontend models are allowed.
 
 ## Logs
 

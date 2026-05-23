@@ -252,7 +252,7 @@ To create an index:
 7. Create the index, then add training data with the same embedding model.
 
 <Frame>
-  <img src="/images/screenshots/knowledgebase/pinecone-create-index2.png" alt="Pinecone Create Index" />
+  <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
 </Frame>
 
 To use it in a chatbot:
@@ -301,7 +301,7 @@ To create a collection:
 7. Create the collection, then add training data with the same embedding model.
 
 <Frame>
-  <img src="/images/screenshots/knowledgebase/qdrant-create-collection2.png" alt="Qdrant Create collection" />
+  <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
 </Frame>
 
 To use it in a chatbot:
@@ -999,9 +999,8 @@ Open **AI Puffer > Settings > Security**.
 | **IP Anonymization** | Stores anonymized IP addresses in logs. |
 | **Banned Words** | Blocks messages that contain configured words or phrases. |
 | **Banned IPs** | Blocks messages from configured IP addresses. |
-| **OpenAI Moderation** | Uses OpenAI moderation for OpenAI chatbots. |
 
-Set custom block messages for banned words, banned IPs, and OpenAI moderation if you want visitors to see specific text.
+Set custom block messages for banned words and banned IPs if you want visitors to see specific text.
 
 Chatbot logs include conversation messages, usage data, feedback, and metadata needed for history and reporting. Enable IP anonymization if you do not want full IP addresses stored in logs.
 
@@ -1009,9 +1008,15 @@ Chatbot logs include conversation messages, usage data, feedback, and metadata n
 Use IP anonymization when you need usage logs without storing full visitor IP addresses.
 </Info>
 
-<Frame>
-  <img src="/images/screenshots/chatbots/chatbot-security.png" alt="Chatbot Security" />
-</Frame>
+OpenAI moderation is configured from the OpenAI provider settings.
+
+1. Open **AI Puffer > Settings > AI**.
+2. Select **OpenAI**.
+3. Open **Advanced**.
+4. Set **Moderation** to **Yes**.
+5. Set **Moderation Message** if you want a custom message when input is blocked.
+
+Moderation applies to chatbot requests that use OpenAI. If the chatbot uses another provider, this setting is skipped.
 
 ## Limits
 

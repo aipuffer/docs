@@ -43,7 +43,7 @@ In WordPress admin, go to **AI Puffer > Images**. Use the **Image Generator** ta
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure limits, UI text, custom CSS, and frontend model access.
+    Configure the Limits, UI Text, Custom CSS, and Frontend Models tabs.
   </Card>
 
   <Card title="Connected Apps" icon="plug" href="#connected-apps" horizontal>
@@ -242,11 +242,20 @@ Guest generations are not shown in user history.
 
 Open **AI Puffer > Images > Settings**.
 
+The Settings screen is split into tabs.
+
+| Tab | What it contains |
+| --- | --- |
+| **Limits** | Guest, user, role, reset, and quota message settings. |
+| **UI Text** | Frontend labels, placeholders, hints, and empty-state text. |
+| **Custom CSS** | CSS for generators using the custom theme. |
+| **Frontend Models** | Models visitors can select on the frontend. |
+
 ### Limits
 
 Limits control how much image generator usage is allowed for guests and logged-in users.
 
-Go to **AI Puffer > Images > Settings**, then use the **Limits** section.
+Open **Limits**.
 
 1. Set **Guest quota**.
 2. Choose **Quota mode** for logged-in users.
@@ -254,10 +263,6 @@ Go to **AI Puffer > Images > Settings**, then use the **Limits** section.
 4. Choose **Reset period**.
 5. Edit **Quota reached message**.
 6. Configure optional primary and secondary buttons.
-
-<Frame>
-  <img src="/images/screenshots/images/images-limits-settings.png" alt="Images limits settings" />
-</Frame>
 
 | Value | Meaning |
 | --- | --- |
@@ -275,11 +280,7 @@ For credit-based image access, define pricing rules in [Usage](/usage#pricing-ru
 
 UI Text changes the frontend labels without editing code.
 
-Go to **AI Puffer > Images > Settings**, then use the **UI Text** section.
-
-<Frame>
-  <img src="/images/screenshots/images/images-ui-text-settings.png" alt="Images UI text settings" />
-</Frame>
+Open **UI Text**.
 
 | Field | Default |
 | --- | --- |
@@ -300,11 +301,7 @@ Go to **AI Puffer > Images > Settings**, then use the **UI Text** section.
 
 Custom CSS applies to generators using the custom theme.
 
-Go to **AI Puffer > Images > Settings**, then use the **Custom CSS** section.
-
-<Frame>
-  <img src="/images/screenshots/images/images-custom-css-settings.png" alt="Images custom CSS settings" />
-</Frame>
+Open **Custom CSS**.
 
 Use the custom theme in the shortcode:
 
@@ -320,19 +317,15 @@ Then target the custom wrapper:
 }
 ```
 
-### Provider Filtering
+### Frontend Models
 
-Provider filtering controls which models visitors can select when the frontend provider or model selectors are visible.
+Frontend Models controls which models visitors can select when the frontend provider or model selectors are visible.
 
-Go to **AI Puffer > Images > Settings**, then use the **Frontend Models** section.
+Open **Frontend Models**.
 
 1. Select the models visitors can use.
 2. Leave all models unselected if you want to allow every configured image and video model.
 3. Save the settings.
-
-<Frame>
-  <img src="/images/screenshots/images/images-provider-filtering-settings.png" alt="Images provider filtering settings" />
-</Frame>
 
 AI Puffer builds the frontend provider list from the selected <Tooltip headline="Allowed models" tip="The model list that is allowed to appear in the frontend generator.">allowed models</Tooltip>. For example, if you only select OpenAI models, the frontend provider selector only shows OpenAI.
 
@@ -372,7 +365,7 @@ Usage operations:
   </Accordion>
 
   <Accordion title="The provider or model list is empty">
-    Configure the provider in **AI Puffer > Settings > AI** or **Settings > Integrations**, sync models, then reload the Images screen. If Provider Filtering is enabled, confirm that the selected models still exist.
+    Configure the provider in **AI Puffer > Settings > AI** or **Settings > Integrations**, sync models, then reload the Images screen. If Frontend Models is restricted, confirm that the selected models still exist.
   </Accordion>
 
   <Accordion title="Image editing does not work">
