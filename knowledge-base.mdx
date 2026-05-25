@@ -23,7 +23,7 @@ Use it for support answers, product details, documentation, policies, posts, pag
   </Card>
 
   <Card title="Settings" icon="gear" href="#settings" horizontal>
-    Configure chunking, content rules, semantic search, and other settings.
+    Configure chunking, batches, content rules, semantic search, and other settings.
   </Card>
 
   <Card title="Semantic Search" icon="search" href="#semantic-search" horizontal>
@@ -338,9 +338,10 @@ The Settings screen is split into tabs.
 
 | Tab | What it contains |
 | --- | --- |
-| **Chunking** | Document chunking and embedding batch controls. |
+| **Chunking** | Document chunking controls. |
+| **Batches** | Embedding batch controls. |
 | **Content Rules** | Rules for which WordPress content fields are embedded. |
-| **Others** | Semantic Search, user upload visibility, and list-screen index buttons. |
+| **Others** | Semantic Search and user upload visibility. |
 
 ### Chunking
 
@@ -362,15 +363,20 @@ OpenAI Vector Store file uploads use OpenAI File Search chunking instead of the 
 | **Max chunk size tokens** | `800` | `100` to `4096` | Sets the maximum OpenAI File Search chunk size when **Custom** is selected. |
 | **Chunk overlap tokens** | `400` | `0` to half of max chunk size | Repeats part of the previous OpenAI File Search chunk when **Custom** is selected. |
 
-### Embedding Batches
+<Frame>
+  <img src="/images/screenshots/knowledgebase/knowledge-base-chunking.png" alt="Knowledge Base Batches settings" />
+</Frame>
 
-Embedding Batches controls how many file chunks AI Puffer sends to the embedding provider in one request.
+### Batches
+
+The **Batches** tab contains **Embedding Batches**, which controls how many file chunks AI Puffer sends to the embedding provider in one request.
 
 1. Go to **AI Puffer > Knowledge Base > Settings**.
-2. Open **Chunking**.
-3. Click **Embedding Batches** to reveal the provider batch settings.
-4. Adjust the batch size for the embedding provider you use.
-5. Wait for the settings autosave to finish.
+2. Open **Batches**.
+3. Adjust the batch size for the embedding provider you use.
+4. Wait for the settings autosave to finish.
+
+If the Batches tab shows **Upgrade**, activate Pro before saving batch settings.
 
 | Provider | Default | Maximum |
 | --- | --- | --- |
@@ -381,7 +387,7 @@ Embedding Batches controls how many file chunks AI Puffer sends to the embedding
 | **Ollama** | `10` | `100` |
 
 <Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-batch-embeddings.png" alt="Knowledge Base Batch settings" />
+  <img src="/images/screenshots/knowledgebase/knowledge-base-batch-embeddings.png" alt="Knowledge Base Batches settings" />
 </Frame>
 
 For example, a batch size of `50` means AI Puffer sends up to 50 prepared file chunks to the embedding API at once. Larger batches can make file upload training much faster because they reduce repeated API calls.
@@ -391,10 +397,6 @@ Embedding batch settings apply only to chunked file uploads for Pinecone, Qdrant
 </Info>
 
 If a provider returns rate limit errors such as HTTP `429`, lower that provider's batch size and try again. AI Puffer can pause and retry file upload processing when the provider sends a retry delay, but lowering the batch size is usually better for accounts with stricter quotas.
-
-<Frame>
-  <img src="/images/screenshots/knowledgebase/knowledge-base-document-chunking.png" alt="Knowledge Base chunking and batches settings" />
-</Frame>
 
 ### Content Rules
 
@@ -453,9 +455,8 @@ Use the same embedding model that was used when the Pinecone, Qdrant, or Chroma 
 | Setting | What it does |
 | --- | --- |
 | **Hide user uploads** | Hides chatbot upload records from the main Knowledge Base source table. |
-| **Show index button** | Shows vector indexing controls on supported WordPress list screens. |
 
-When **Show index button** is enabled, supported WordPress list screens can show vector indexing controls.
+The post-list **Index** button is managed from **AI Puffer > Settings > Utilities**. See [WordPress Utilities](/wordpress-utilities#content-indexing).
 
 | Control | What it does |
 | --- | --- |
@@ -479,7 +480,7 @@ When **Show index button** is enabled, supported WordPress list screens can show
   </Accordion>
 
   <Accordion title="WordPress list indexing controls are missing">
-    Enable **Knowledge Base > Settings > Others > Show index button** and confirm the user role can access the vector content indexer module.
+    Enable **AI Puffer > Settings > Utilities > Index button** and confirm the user role can access the vector content indexer module.
   </Accordion>
 
   <Accordion title="Semantic Search returns no results">

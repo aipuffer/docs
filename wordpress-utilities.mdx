@@ -9,8 +9,10 @@ WordPress Utilities are AI Puffer tools that appear inside normal WordPress admi
 
 Use them when you are already reviewing posts, pages, products, or editor content and want to update or index that content without opening a full module screen.
 
+Turn these utilities on or off from **AI Puffer > Settings > Utilities**.
+
 <Columns cols={2}>
-  <Card title="Bulk Assistant" icon="list-check" href="#bulk-assistant" horizontal>
+  <Card title="Content Assistant" icon="list-check" href="#bulk-assistant" horizontal>
     Update selected posts from the list screen.
   </Card>
 
@@ -35,30 +37,28 @@ Use them when you are already reviewing posts, pages, products, or editor conten
   </Card>
 </Columns>
 
-## Bulk Assistant
+## Content Assistant
 
-Bulk Assistant appears as an **Assistant** button next to **Add New** on supported post list screens.
+Content Assistant appears as an **Assistant** button next to **Add New** on supported post list screens.
 
 Use it when you want to update several posts, pages, or products in one run. It can update title, content, meta description, focus keyword, excerpt, tags, and URL slug.
 
 To enable the Assistant button:
 
-1. Go to **AI Puffer > Content Writer**.
-2. Under **Mode > Optimize**, select **Rewrite Content**.
-3. In the right column, click **Configure assistant settings**.
-4. Turn on **Show on Post Lists**.
+1. Go to **AI Puffer > Settings > Utilities**.
+2. Turn on **Content Assistant**.
 
-The same panel also manages editor actions. Each action has a label, a prompt, and an optional position. Use `%s` in the prompt where the selected editor text should be inserted.
+This controls the bulk **Assistant** button and the row **Assistant** menu on supported post, page, and product list screens.
 
 <Frame>
-  <img src="/images/screenshots/utilities/content-assistant-settings.png" alt="Content Assistant settings" />
+  <img src="/images/screenshots/utilities/content-assistant-settings.png" alt="Utilities settings for Content Assistant" />
 </Frame>
 
 <Info>
-Row menu suggestions use the default AI provider and model from **Settings > AI**. Bulk Assistant lets you choose the provider and model before running.
+Row menu suggestions use the default AI provider and model from **Settings > AI**. Content Assistant lets you choose the provider and model before running.
 </Info>
 
-To run Bulk Assistant:
+To run Content Assistant:
 
 1. Go to a WordPress post list, such as **Posts**, **Pages**, or **Products**.
 2. Select one or more rows.
@@ -76,18 +76,18 @@ To run Bulk Assistant:
 </Frame>
 
 <Frame>
-  <img src="/images/screenshots/utilities/bulk-assistant-modal.png" alt="Bulk Assistant modal" />
+  <img src="/images/screenshots/utilities/bulk-assistant-modal.png" alt="Content Assistant modal" />
 </Frame>
 
 <Tip>
-Use Bulk Assistant on a small selection first. It edits real WordPress records.
+Use Content Assistant on a small selection first. It edits real WordPress records.
 </Tip>
 
 ## Row Assistant Menu
 
 The row menu is for one post at a time.
 
-Hover over a post row and click **Assistant** to open the menu. It includes:
+When **Content Assistant** is enabled in **Settings > Utilities**, hover over a post row and click **Assistant** to open the menu. It includes:
 
 | Action | What it does |
 | --- | --- |
@@ -117,11 +117,11 @@ Use it to add selected WordPress content to Knowledge Base retrieval.
 
 To show or hide the **Index** button:
 
-1. Go to **AI Puffer > Knowledge Base > Settings**.
-2. In **Others**, turn **Show index button** on or off.
+1. Go to **AI Puffer > Settings > Utilities**.
+2. Turn **Index button** on or off.
 
 <Frame>
-  <img src="/images/screenshots/utilities/knowledge-base-show-index-button.png" alt="Knowledge Base setting for the post-list Index button" />
+  <img src="/images/screenshots/utilities/knowledge-base-show-index-button.png" alt="Utilities setting for the post-list Index button" />
 </Frame>
 
 | Provider | Target | Extra requirement |
@@ -180,7 +180,7 @@ WooCommerce Assistant uses the same Assistant tools on the **Products** list.
 
 Use it when you want to update product titles, descriptions, short descriptions, SEO fields, tags, or URL slugs from the product list screen.
 
-To use Bulk Assistant on products:
+To use Content Assistant on products:
 
 1. Go to **Products > All Products**.
 2. Select one or more products.
@@ -216,25 +216,38 @@ Use it to rewrite, expand, summarize, simplify, create outlines, generate FAQs, 
 
 To use it:
 
-1. Go to **AI Puffer > Content Writer**.
-2. Under **Mode > Optimize**, select **Rewrite Content**.
-3. Click **Configure assistant settings**.
-4. Turn on **Enable in Editors**.
-5. Open a post or page in the Classic Editor.
-6. Use the **Visual** editor.
-7. Select the text you want to process.
-8. Click **Assistant** in the editor toolbar.
-9. Choose an action.
-10. Review the inserted output.
+1. Go to **AI Puffer > Settings > Utilities**.
+2. Turn on **Editor Assistant**.
+3. Open a post or page in the Classic Editor.
+4. Use the **Visual** editor.
+5. Select the text you want to process.
+6. Click **Assistant** in the editor toolbar.
+7. Choose an action.
+8. Review the inserted output.
+
+
+<Frame>
+  <img src="/images/screenshots/utilities/editor-assistant-settings.png" alt="editor-assistant-settings on a WordPress post list" />
+</Frame>
 
 <Frame>
   <img src="/images/screenshots/utilities/classic-editor-assistant.png" alt="Content Assistant in the Classic Editor toolbar" />
 </Frame>
 
-The selected action decides what prompt is sent. The default insert position decides whether the result replaces the selected text, appears before it, or appears after it. A custom action can override the default position.
+To customize the menu:
+
+1. Open the **Assistant** dropdown in the Classic Editor.
+2. Choose **Customize menu**.
+3. Select an action to edit its label, prompt, and insert position.
+4. Move actions up or down, add a new action, or delete actions you do not use.
+5. Click **Save**.
+
+Use `%s` in a custom prompt where the selected editor text should be inserted.
+
+The Classic Editor and Block Editor assistants share the same action list. Changes saved from either editor apply to both menus.
 
 <Tip>
-If the Classic Editor button is missing, check **Enable in Editors** and make sure the user's profile does not disable the visual editor.
+If the Classic Editor button is missing, check **Editor Assistant** in **Settings > Utilities** and make sure the user's profile does not disable the visual editor.
 </Tip>
 
 ## Block Editor Assistant
@@ -243,15 +256,13 @@ The Block Editor Assistant appears in the block toolbar when text is selected.
 
 To use it:
 
-1. Go to **AI Puffer > Content Writer**.
-2. Under **Mode > Optimize**, select **Rewrite Content**.
-3. Click **Configure assistant settings**.
-4. Turn on **Enable in Editors**.
-5. Open a post or page in the Block Editor.
-6. Select text inside a text-based block.
-7. Click the Assistant icon in the block toolbar.
-8. Choose an action.
-9. Review the result.
+1. Go to **AI Puffer > Settings > Utilities**.
+2. Turn on **Editor Assistant**.
+3. Open a post or page in the Block Editor.
+4. Select text inside a text-based block.
+5. Click the Assistant icon in the block toolbar.
+6. Choose an action.
+7. Review the result.
 
 <Frame>
   <img src="/images/screenshots/utilities/block-editor-assistant.png" alt="Content Assistant in the Block Editor toolbar" />
@@ -259,27 +270,31 @@ To use it:
 
 If the generated output includes headings, lists, or paragraphs, AI Puffer can insert it as formatted editor content. The Block Editor notice includes **Undo** when the change can be reverted from the notice.
 
+To customize the menu, open the Assistant menu in the Block Editor and choose **Customize menu**. You can edit action labels, prompts, insert positions, order, and add or delete actions.
+
+The Classic Editor and Block Editor assistants share the same action list.
+
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="Assistant button is missing on post lists">
-    Go to **Content Writer > Mode > Optimize > Rewrite Content**, click **Configure assistant settings**, and turn on **Show on Post Lists**. Also confirm the current user can edit the post type and has access to the Content Assistant module.
+    Go to **AI Puffer > Settings > Utilities** and turn on **Content Assistant**. Also confirm the current user can edit the post type and has access to the Content Assistant module.
   </Accordion>
 
   <Accordion title="Index button is missing on post lists">
-    Turn on **Knowledge Base > Settings > Others > Show index button**. The button appears on supported post, page, and product list screens when the user has access to Content Indexing.
+    Go to **AI Puffer > Settings > Utilities** and turn on **Index button**. The button appears on supported post, page, and product list screens when the user has access to Content Indexing.
   </Accordion>
 
-  <Accordion title="Bulk Assistant says to select a post">
+  <Accordion title="Content Assistant says to select a post">
     Select one or more rows using the checkboxes in the WordPress list table, then click **Assistant** again.
   </Accordion>
 
   <Accordion title="Editor Assistant is disabled">
-    Select text inside the editor first. The assistant actions need selected text because the action prompt uses that text as input.
+    Turn on **Editor Assistant** in **AI Puffer > Settings > Utilities**, then select text inside the editor. The assistant actions need selected text because the action prompt uses that text as input.
   </Accordion>
 
   <Accordion title="Custom action ignores the selected text">
-    Edit the action prompt and include `%s`. AI Puffer replaces `%s` with the selected editor text before sending the request.
+    Open **Customize menu** from the editor Assistant menu, edit the action prompt, and include `%s`. AI Puffer replaces `%s` with the selected editor text before sending the request.
   </Accordion>
 
   <Accordion title="Pinecone, Qdrant, or Chroma indexing fails">
