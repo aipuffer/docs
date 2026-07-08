@@ -5,7 +5,9 @@ description: "Create, configure, and deploy AI Puffer chatbots."
 
 ## Overview
 
-Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, tools, interface, popup settings, limits, connected apps, and rules.
+Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, instructions, knowledge sources, capabilities, display settings, popup settings, limits, connected apps, and rules.
+
+If the Chatbots menu is not visible, enable **Chatbots** under **AI Puffer > Settings > Modules** and confirm that your WordPress role has access to it.
 
 <Card
   title="Live chatbot demo"
@@ -27,15 +29,15 @@ Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, in
   </Card>
 
   <Card title="Knowledge" icon="database" href="#knowledge" horizontal>
-    Use vectors, page context, and training data.
+    Use vectors, page context, and knowledge sources.
   </Card>
 
-  <Card title="Tools" icon="wrench" href="#tools" horizontal>
-    Add file upload, web search, images, and voice.
+  <Card title="Capabilities" icon="wrench" href="#capabilities" horizontal>
+    Enable file upload, web search, images, and voice.
   </Card>
 
-  <Card title="Interface" icon="paintbrush" href="#interface" horizontal>
-    Customize theme, popup, starters, consent, and labels.
+  <Card title="Display" icon="paintbrush" href="#display" horizontal>
+    Customize colors, popup, suggested questions, consent, and labels.
   </Card>
 
   <Card title="Limits" icon="chart-line" href="#limits" horizontal>
@@ -53,22 +55,24 @@ Use Chatbots to add AI chatbots to WordPress. Each chatbot has its own model, in
 
 ## Create a Chatbot
 
-1. Click the **+** button in the chatbot tab row.
+1. Go to **AI Puffer > Chatbots**.
+2. Click the **+** button next to the chatbot selector.
 
 <Frame>
   <img src="/images/screenshots/chatbots/create-chatbot.png" alt="Create chatbot" />
 </Frame>
 
-2. A new bot will be created immediately with the default name New Chatbot.
-3. Use the Name field in the Chatbot accordion to rename it.
+3. A new bot is created immediately with the default name New Chatbot.
+4. Select the chatbot from the dropdown.
+5. Open **Chatbot settings > Display > Chat text** to rename it.
 
 <Frame>
   <img src="/images/screenshots/chatbots/rename-chatbot.png" alt="Rename chatbot" />
 </Frame>
 
-4. Use **Preview** to test the chatbot before publishing it.
+6. Use the live preview to test the chatbot before publishing it.
 
-Use **Actions** for saved chatbots:
+Use the chatbot actions menu for saved chatbots:
 
 | Action | What it does |
 | --- | --- |
@@ -90,15 +94,20 @@ Each chatbot has a <Tooltip headline="Shortcode" tip="A bracketed WordPress tag 
 
 ### On-page Chatbot
 
-1. Select **Mode: On-page**.
-2. Copy the shortcode.
+1. Select the chatbot.
+2. Turn **Popup** off in the preview bar.
+3. Copy the shortcode from the preview bar, or open **Chatbot settings > Publish > WordPress shortcode**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-shortcode-onpage.png" alt="Chatbot Onpage shortcode" />
 </Frame>
 
-3. Paste it into a page, post, block, or shortcode area.
-4. Publish or update the page.
+<Frame>
+  <img src="/images/screenshots/chatbots/chatbot-shortcode-onpage2.png" alt="Chatbot Onpage shortcode" />
+</Frame>
+
+4. Paste it into a page, post, block, or shortcode area.
+5. Publish or update the page.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-shortcode-classic-editor.png" alt="Chatbot shortcode classic editor" />
@@ -110,9 +119,16 @@ Each chatbot has a <Tooltip headline="Shortcode" tip="A bracketed WordPress tag 
 
 ### Popup Chatbot
 
-1. Select **Mode: Popup**.
-2. Choose whether the popup should be **Site-Wide**.
-3. Save and test the site frontend.
+1. Select the chatbot.
+2. Turn **Popup** on in the preview bar.
+3. Turn **Site-wide** on if the launcher should appear across the site.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/chatbot-popup-settings.png" alt="Chatbot Popup shortcode" />
+</Frame>
+
+4. Configure the popup design on the main screen, or open **Chatbot settings > Display** for more popup options.
+5. Save and test the site frontend.
 
 <Info>
 Site-wide popup mode is global. Enabling it for one chatbot turns it off for the previous site-wide popup chatbot.
@@ -122,35 +138,31 @@ Site-wide popup mode is global. Enabling it for one chatbot turns it off for the
 
 External Embed lets you place a chatbot on a non-WordPress site while managing it from WordPress.
 
-1. Select **Mode: External**.
-2. Click **External Setup**.
-
-<Frame>
-  <img src="/images/screenshots/chatbots/chatbot-external.png" alt="Chatbot external settings" />
-</Frame>
-
-3. Copy the embed code.
-4. Add allowed domains, one URL per line.
-5. Paste the embed code into the external site.
-
-<Warning>
-Set allowed domains before using external embed on a production site. Do not leave external embeds open to domains you do not control.
-</Warning>
+1. Select the chatbot.
+2. Open **Chatbot settings**.
+3. Open **Publish > External embed**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-external-snippet.png" alt="Chatbot external snippet" />
 </Frame>
 
+4. Copy the embed code.
+5. Add allowed websites, one URL per line.
+6. Paste the embed code into the external site.
+
+<Warning>
+Set allowed domains before using external embed on a production site. Do not leave external embeds open to domains you do not control.
+</Warning>
+
 ## Model and Instructions
 
-Open the **General** section to set the chatbot identity and model behavior.
+Use the main chatbot builder to choose the chatbot model and write instructions. Open **Chatbot settings > AI behavior > Model** for response tuning.
 
 | Setting | Use it for |
 | --- | --- |
-| **Name** | Internal chatbot name shown in the Chatbots screen. |
-| **Engine** | AI provider for this chatbot. |
 | **Model** | Model used by this chatbot. |
 | **Instructions** | System instructions for the chatbot. Use `[date]` when the bot needs today's date in its instructions. |
+| **Chatbot name** | Internal chatbot name shown in the Chatbots screen. Open **Chatbot settings > Display > Chat text** to edit it. |
 | **Temperature** | Response variation. Lower values are more predictable. |
 | **Context** | Maximum completion tokens for the model response. |
 | **Messages** | Number of previous conversation messages included as history. |
@@ -162,7 +174,11 @@ Session memory applies only to OpenAI chatbots. When enabled, conversation conti
 </Warning>
 
 <Frame>
-  <img src="/images/screenshots/chatbots/chatbot-general.png" alt="Chatbot General Settings" />
+  <img src="/images/screenshots/chatbots/chatbot-general2.png" alt="Chatbot model settings" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/chatbots/chatbot-general.png" alt="Chatbot model settings" />
 </Frame>
 
 ## Knowledge
@@ -170,6 +186,8 @@ Session memory applies only to OpenAI chatbots. When enabled, conversation conti
 Knowledge controls the information a chatbot can use before it answers. 
 
 It can read the current page content, search trained vector data, or use both depending on the chatbot setup.
+
+Use the main **Knowledge** card to add website content, text, Q&A, or files for the selected chatbot. Open **Chatbot settings > Conversation > Knowledge** when you need to choose the retrieval source, vector storage, stores or collections, embedding model, **Results**, or **Minimum match**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-knowledge.png" alt="Chatbot Knowledge Settings" />
@@ -198,7 +216,7 @@ To create a store:
 </Frame>
 
 4. Enter a store name and create it.
-5. Go to **AI Puffer > Knowledge Base > Data** and add training data to the store.
+5. Go to **AI Puffer > Knowledge Base > Data** and add data to the store.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-add-data.png" alt="OpenAI Add Data" />
@@ -207,15 +225,17 @@ To create a store:
 To use it in a chatbot:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **Knowledge**, select **Vector** as a data source.
-3. Set **Vector provider** to **OpenAI**.
+2. Open **Chatbot settings > Conversation > Knowledge**.
+3. Turn on **Use vector search**.
+4. Open the vector search settings.
+5. Set **Knowledge storage** to **OpenAI**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-vector-openai.png" alt="Chatbot Vector OpenAI" />
 </Frame>
 
-4. Select one or two vector stores.
-5. Save the chatbot.
+6. Select one or two vector stores.
+7. Save the chatbot.
 
 #### Pinecone
 
@@ -249,7 +269,7 @@ To create an index:
 </Frame>
 
 6. Enter an index name and use the dimension for the selected embedding model.
-7. Create the index, then add training data with the same embedding model.
+7. Create the index, then add data with the same embedding model.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/pinecone-create-index1.png" alt="Pinecone Create Index" />
@@ -258,11 +278,13 @@ To create an index:
 To use it in a chatbot:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **Knowledge**, select **Vector** as a data source.
-3. Set **Vector provider** to **Pinecone**.
-4. Select the Pinecone index.
-5. Select the same embedding provider and model used when you added the data.
-6. Save the chatbot.
+2. Open **Chatbot settings > Conversation > Knowledge**.
+3. Turn on **Use vector search**.
+4. Open the vector search settings.
+5. Set **Knowledge storage** to **Pinecone**.
+6. Select the Pinecone index.
+7. Select the same embedding provider and model used when you added the data.
+8. Save the chatbot.
 
 <Frame>
   <img src="/images/screenshots/chatbots/pinecone-chatbot-settings.png" alt="Pinecone Chatbot" />
@@ -298,7 +320,7 @@ To create a collection:
 </Frame>
 
 6. Enter a collection name and use the dimension for the selected embedding model.
-7. Create the collection, then add training data with the same embedding model.
+7. Create the collection, then add data with the same embedding model.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/qdrant-create-collection1.png" alt="Qdrant Create collection" />
@@ -307,11 +329,13 @@ To create a collection:
 To use it in a chatbot:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **Knowledge**, select **Vector** as a data source.
-3. Set **Vector provider** to **Qdrant**.
-4. Select one or more collections.
-5. Select the same embedding provider and model used when you added the data.
-6. Save the chatbot.
+2. Open **Chatbot settings > Conversation > Knowledge**.
+3. Turn on **Use vector search**.
+4. Open the vector search settings.
+5. Set **Knowledge storage** to **Qdrant**.
+6. Select one or more collections.
+7. Select the same embedding provider and model used when you added the data.
+8. Save the chatbot.
 
 <Frame>
   <img src="/images/screenshots/chatbots/qdrant-chatbot-settings.png" alt="Qdrant Chatbot" />
@@ -346,43 +370,49 @@ To create a collection:
 </Frame>
 
 5. Enter a collection name.
-6. Create the collection, then add training data with the same embedding model.
+6. Create the collection, then add data with the same embedding model.
 
 To use it in a chatbot:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **Knowledge**, select **Vector** as a data source.
-3. Set **Vector provider** to **Chroma**.
-4. Select one or more collections.
-5. Select the same embedding provider and model used when you added the data.
-6. Save the chatbot.
+2. Open **Chatbot settings > Conversation > Knowledge**.
+3. Turn on **Use vector search**.
+4. Open the vector search settings.
+5. Set **Knowledge storage** to **Chroma**.
+6. Select one or more collections.
+7. Select the same embedding provider and model used when you added the data.
+8. Save the chatbot.
 
-#### Limit and Threshold
+<Frame>
+  <img src="/images/screenshots/chatbots/chatbot-vector-chroma.png" alt="Chroma Chatbot" />
+</Frame>
+
+#### Results and Minimum Match
 
 For OpenAI, Pinecone, Qdrant, and Chroma, use these settings to control how much vector context is added to the answer.
 
 | Setting | How it works | Example |
 | --- | --- | --- |
-| **Limit** | How many pieces of your content the chatbot is allowed to use for one answer. | `3` means the chatbot can use up to 3 matching pieces from your content. |
-| **Threshold** | How closely a piece of content must match the visitor’s question before the chatbot can use it. | Lower values allow looser matches. Higher values allow only stronger matches. |
+| **Results** | How many pieces of your content the chatbot is allowed to use for one answer. | `3` means the chatbot can use up to 3 matching pieces from your content. |
+| **Minimum match** | How closely a piece of content must match the visitor’s question before the chatbot can use it. | Lower values allow looser matches. Higher values allow only stronger matches. |
 
 <Frame>
-  <img src="/images/screenshots/chatbots/limit-threshold.png" alt="Limit and Threshold" />
+  <img src="/images/screenshots/chatbots/limit-threshold.png" alt="Results and Minimum Match" />
 </Frame>
 
-If answers miss useful context, increase **Limit** or lower **Threshold**. If answers include unrelated context, lower **Limit** or raise **Threshold**.
+If answers miss useful context, increase **Results** or lower **Minimum match**. If answers include unrelated context, lower **Results** or raise **Minimum match**.
 
 After testing, open **Usage > Logs** and check the Score badge in the conversation details.
 
 <Tip>
-Start with a small limit and a moderate threshold. Then use the Score badge in logs to tune the chatbot with real questions.
+Start with a small result count and a moderate minimum match. Then use the Score badge in logs to tune the chatbot with real questions.
 </Tip>
 
 <Frame>
   <img src="/images/screenshots/usage/score.png" alt="Score" />
 </Frame>
 
-Scores show which vector results matched the visitor question and help you tune the threshold.
+Scores show which vector results matched the visitor question and help you tune the minimum match.
 
 #### Embedding Models
 
@@ -391,7 +421,7 @@ Pinecone, Qdrant, and Chroma need an <Tooltip headline="Embedding model" tip="A 
 OpenAI Vector Stores do not need this setting in AI Puffer. OpenAI handles the vector store search on its side.
 
 <Info>
-For Pinecone, Qdrant, and Chroma, use the same embedding model when adding training data and when enabling the chatbot vector provider.
+For Pinecone, Qdrant, and Chroma, use the same embedding model when adding data and when enabling the chatbot knowledge storage.
 </Info>
 
 <AccordionGroup>
@@ -475,22 +505,62 @@ Azure OpenAI embedding deployments are synced from your Azure resource. Use the 
 </Accordion>
 </AccordionGroup>
 
-#### Training Data
+#### Add Knowledge
 
-When Vector is enabled, use **Training Data** to add sources.
+Use the **Knowledge** card on the chatbot screen to choose what the selected chatbot should know.
 
-| Source | Use it for |
-| --- | --- |
-| **Q&A** | Add question and answer pairs. |
-| **Text** | Paste custom text. |
-| **Files** | Upload `.pdf`, `.docx`, `.txt`, `.md`, `.csv`, or `.json` files. |
-| **Website** | Add WordPress content by post type and status, or select specific posts. |
+The card has two source choices:
 
-Use **AI Puffer > Knowledge Base > Data** to review and manage existing sources.
+| Source | Use it for | How it works |
+| --- | --- | --- |
+| **My website** | Add published WordPress content. | **Pages** and **Posts** are selected by default. Click **Add knowledge** to add those pages and posts to the chatbot. |
+| **Other sources** | Add text, Q&A, or files. | Click the **+** button to open the source panel, then choose the content type you want to add. |
 
 <Frame>
-  <img src="/images/screenshots/chatbots/add-training-data-chatbot.png" alt="Training Data" />
+  <img src="/images/screenshots/chatbots/knowledge.png" alt="Chatbot knowledge" />
 </Frame>
+
+To add website content:
+
+1. Go to **AI Puffer > Chatbots** and select the chatbot.
+2. Find the **Knowledge** card.
+3. Leave **My website** selected.
+4. Click **Add knowledge** to add the default **Pages** and **Posts**.
+5. To change which WordPress content types are included, click the **+** button on **My website**.
+6. Select or unselect content types such as pages, posts, products, or other public post types available on your site.
+7. Click **Add knowledge**.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/knowledge-mywebsite.png" alt="Chatbot knowledge" />
+</Frame>
+
+After website knowledge exists, the status changes to **Knowledge ready** and the button changes to **Update knowledge**. Click **Update knowledge** when you want to refresh the chatbot with the latest selected website content.
+
+To add other sources:
+
+1. Click the **+** button on **Other sources**.
+2. Choose **Text**, **Q&A**, or **Files** from **Content type**.
+3. For **Text**, paste the content the chatbot should know.
+4. For **Q&A**, enter a **Title / Question** and **Answer**. You can also add from common questions.
+5. For **Files**, click **Choose files** and upload `.pdf`, `.docx`, `.txt`, `.md`, `.csv`, or `.json` files.
+6. Click **Add knowledge**. For files, click **Upload** after choosing files.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/knowledge-other.png" alt="Chatbot knowledge" />
+</Frame>
+
+The knowledge status shows **No knowledge yet**, **Adding knowledge...**, **Knowledge ready**, or **Failed**. Click the **?** on the status pill to see knowledge details, including entries, queued items, processing items, failed items, **View knowledge**, and **Stop training** when a website update is running.
+
+Use **Knowledge entries** on the chatbot screen, or **AI Puffer > Knowledge Base > Data**, to review and manage existing sources.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/knowledge-view-entries.png" alt="Chatbot knowledge" />
+</Frame>
+
+<Frame>
+  <img src="/images/screenshots/chatbots/knowledge-view-entries-2.png" alt="Chatbot knowledge" />
+</Frame>
+
 
 ### Page Context
 
@@ -508,17 +578,21 @@ If no excerpt is available, the plugin will automatically generate a short summa
 
 This is ideal for creating page-specific chatbots.
 
-## Tools
+## Capabilities
 
-Tools are optional capabilities the chatbot can use during a conversation. They let visitors upload files, search the web, attach images, generate images, or use voice features when those options are enabled.
+Capabilities are optional features the chatbot can use during a conversation. They let visitors upload files, search the web, attach images, generate images, or use voice features when those options are enabled.
 
-Enable only the tools you want your chatbot to offer.
+Enable only the capabilities you want your chatbot to offer.
+
+<Frame>
+  <img src="/images/screenshots/chatbots/capabilities.png" alt="Chatbot capabilities" />
+</Frame>
 
 ### File Upload
 
 File upload lets visitors attach a document to the current chat. AI Puffer reads the file, prepares it for the selected vector provider, and uses the matching file content as context for the visitor's next messages.
 
-File upload uses the chatbot's **Vector provider** setting: OpenAI, Pinecone, Qdrant, Chroma, or Anthropic Files when the chatbot provider is Anthropic.
+File upload uses the chatbot's **Knowledge storage** setting: OpenAI, Pinecone, Qdrant, Chroma, or Anthropic Files when the chatbot provider is Anthropic.
 
 Visitors can upload `.txt` and `.pdf` files. The frontend limit is **20 MB**, but your WordPress or server upload limit can be lower.
 
@@ -529,16 +603,16 @@ Text-based PDFs work best. Scanned PDFs may not provide usable text unless they 
 To enable file upload:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **Knowledge**, select **Vector** as a data source.
-3. Select the **Vector provider**.
-4. Configure vector provider.
+2. Open **Chatbot settings > Conversation > Knowledge**.
+3. Turn on **Use vector search**.
+4. Configure the **Knowledge storage** settings.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-vector-openai.png" alt="Chatbot Vector OpenAI" />
 </Frame>
 
-5. Open **Tools**.
-6. Add **File upload** to **Enabled tools**.
+5. Open **Chatbot settings > Conversation > Capabilities**.
+6. Turn on **File upload**.
 7. Save the chatbot.
 
 <Frame>
@@ -555,21 +629,21 @@ To enable file upload:
 
 Web Search lets a chatbot use online sources while answering. When enabled, the chatbot input shows a web/search toggle on the frontend.
 
-If the frontend toggle is off, the chatbot answers without web search even when the tool is enabled in the admin.
+If the frontend toggle is off, the chatbot answers without web search even when the capability is enabled in the admin.
 
 Web Search is available for OpenAI, Google, Anthropic, OpenRouter, and xAI models that support web search.
 
 <Info>
-Web search has two controls: the admin tool setting enables the feature, and the frontend toggle decides whether a specific visitor message uses it.
+Web search has two controls: the admin capability setting enables the feature, and the frontend toggle decides whether a specific visitor message uses it.
 </Info>
 
 To enable web search:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **General**, select **OpenAI**, **Google**, **Anthropic**, **OpenRouter**, or **xAI** as the engine.
-3. In **Tools**, add **Web search** to **Enabled tools**.
-4. Set **Web search** to **Yes**.
-5. Click **Options**.
+2. Choose an **OpenAI**, **Google**, **Anthropic**, **OpenRouter**, or **xAI** model.
+3. Open **Chatbot settings > Conversation > Capabilities**.
+4. Turn on **Web search**.
+5. Open the web search settings.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-web.png" alt="Chatbot Web" />
@@ -637,7 +711,7 @@ xAI uses the shared web search options above and does not add provider-specific 
 
 ### Images and Vision
 
-Image tools cover two separate features:
+Image capabilities cover two separate features:
 
 - **Image analysis** sends an uploaded image to the chatbot model so it can answer questions about the image.
 - **Image generation** creates a new image when the visitor types a configured image command.
@@ -668,17 +742,16 @@ Visitors can upload one image per message, with a **20 MB** frontend limit. xAI 
 To enable image analysis:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. In **General**, select a supported provider and model.
-3. Open **Tools**.
-4. Add **Image analysis** to **Enabled tools**.
-5. Set **Image analysis** to **Yes**.
+2. Select a supported provider and model.
+3. Open **Chatbot settings > Conversation > Capabilities**.
+4. Turn on **Image analysis**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-image-analysis.png" alt="Chatbot Image Analysis" />
 </Frame>
 
-6. Save the chatbot.
-7. Test the chatbot on the frontend.
+5. Save the chatbot.
+6. Test the chatbot on the frontend.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-image-analysis-demo.png" alt="Chatbot Image Analysis Demo" />
@@ -701,7 +774,7 @@ Each command returns one image.
 Image generation uses a separate image model. It does not use the chatbot's answer model.
 
 <Info>
-Image generation uses the image model selected in Tools, not the chatbot model selected in General.
+Image generation uses the image model selected in **Capabilities**, not the chatbot answer model.
 </Info>
 
 | Provider | Support | Model source |
@@ -720,12 +793,13 @@ If a model is missing, configure the provider and sync models in [AI Providers](
 To enable image generation:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. Open **Tools**.
-3. Add **Image generation** to **Enabled tools**.
-4. Select the image model.
-5. Set the image triggers.
-6. Save the chatbot.
-7. Test the command on the frontend.
+2. Open **Chatbot settings > Conversation > Capabilities**.
+3. Turn on **Image generation**.
+4. Open the image generation settings.
+5. Select the image model.
+6. Set the image triggers.
+7. Save the chatbot.
+8. Test the command on the frontend.
 
 Triggers are comma-separated and must start with `/`. Examples:
 
@@ -745,9 +819,9 @@ When a visitor uses an image trigger, AI Puffer extracts the prompt after the tr
 
 ### Audio and Speech
 
-Audio tools are configured per chatbot under **Tools**.
+Audio and speech capabilities are configured per chatbot under **Chatbot settings > Conversation > Capabilities**.
 
-| Tool | What it does |
+| Capability | What it does |
 | --- | --- |
 | **Speech to Text** | Records visitor speech, transcribes it, and sends the text as the chat message. |
 | **Text to Speech** | Adds a play button to assistant replies. Auto play can read replies automatically. |
@@ -769,16 +843,15 @@ To enable speech to text:
 
 1. Configure OpenAI in [AI Providers](/ai-providers).
 2. Go to **AI Puffer > Chatbots** and select the chatbot.
-3. Open **Tools**.
-4. Add **Speech to Text** to **Enabled tools**.
-5. Set **Speech to Text** to **Yes**.
+3. Open **Chatbot settings > Conversation > Capabilities**.
+4. Turn on **Speech to text**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-speech-to-text.png" alt="Chatbot Speech to Text" />
 </Frame>
 
-6. Select the model if the model selector is shown.
-7. Save the chatbot and test the microphone on the frontend.
+5. Select the model if the model selector is shown.
+6. Save the chatbot and test the microphone on the frontend.
 
 <Warning>
 Speech to Text needs browser microphone permission and HTTPS. Localhost can be used for testing without HTTPS. Recorded audio uploads are limited to **4 MB** by default.
@@ -805,9 +878,9 @@ Text to Speech is available for Google, OpenAI, and ElevenLabs.
 To enable text to speech:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. Open **Tools**.
-3. Add **Text to Speech** to **Enabled tools**.
-4. Set **Text to Speech** to **Yes**.
+2. Open **Chatbot settings > Conversation > Capabilities**.
+3. Turn on **Text to speech**.
+4. Open the text-to-speech settings.
 5. Select the provider.
 6. Select the voice and model fields shown for that provider.
 7. Enable **Auto play** only if replies should play automatically.
@@ -839,9 +912,9 @@ To enable realtime voice:
 
 1. Configure OpenAI in [AI Providers](/ai-providers).
 2. Go to **AI Puffer > Chatbots** and select the chatbot.
-3. Open **Tools**.
-4. Add **Realtime Voice** to **Enabled tools**.
-5. Set **Realtime voice agent** to **Yes**.
+3. Open **Chatbot settings > Conversation > Capabilities**.
+4. Turn on **Realtime voice**.
+5. Open the realtime voice settings.
 6. Select the realtime model.
 7. Select the voice.
 8. Choose turn detection.
@@ -876,19 +949,19 @@ Realtime sessions create chat log entries for the user transcript and assistant 
 Realtime Voice uses microphone access and an OpenAI Realtime model. Test it on HTTPS and review costs in your OpenAI account.
 </Warning>
 
-## Interface
+## Display
 
-Open **Interface** to control the visible chatbot UI.
+Use the main chatbot screen for quick visual changes such as chat photo, welcome message, widget colors, and launcher icon. Open **Chatbot settings > Display** for chat text, launcher behavior, welcome-message timing, and publish options.
 
 <Frame>
-  <img src="/images/screenshots/chatbots/chatbot-interface.png" alt="Chatbot Interface" />
+  <img src="/images/screenshots/chatbots/chatbot-interface.png" alt="Chatbot display settings" />
 </Frame>
 
-### Theme
+### Widget Colors
 
-Choose **Light**, **Dark**, **ChatGPT**, or one of the custom color presets from the **Theme** menu.
+Choose a color preset from **Widget colors** on the main chatbot screen.
 
-To build your own theme, select **Custom** and click **Edit**. The custom editor lets you change the main colors, bubble radius, font, inline width, popup width, chat height, and advanced colors for messages, header, footer, input area, buttons, and sidebar. Use **Reset** to return the custom theme fields to their defaults.
+To build your own theme, choose the custom option and open the custom editor. The editor lets you change the main colors, bubble radius, font, inline width, popup width, chat height, and advanced colors for messages, header, footer, input area, buttons, and sidebar. Use **Reset** to return the custom theme fields to their defaults.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-theme.png" alt="Chatbot Theme" />
@@ -901,11 +974,12 @@ Popup mode adds a launcher button to the page. When the visitor clicks it, the c
 To configure a popup:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. Set **Mode** to **Popup**.
-3. Set **Site-Wide** to **Yes** if the launcher should appear across the site.
-4. Open **Popup**.
-5. Configure the launcher position, shape, size, hint, icon, avatar, and online text.
-6. Save the chatbot and test it on the frontend.
+2. Turn on **Popup** in the preview bar.
+3. Turn on **Site-wide** if the launcher should appear across the site.
+4. Use the main screen to set the chat photo, welcome message, widget colors, and launcher icon.
+5. Open **Chatbot settings > Display**.
+6. Configure **Launcher** and **Welcome message** options.
+7. Save the chatbot and test it on the frontend.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-popup-settings.png" alt="Chatbot popup settings" />
@@ -914,46 +988,54 @@ To configure a popup:
 | Setting | Use it for |
 | --- | --- |
 | **Position** | Place the launcher in a page corner. Options are bottom right, bottom left, top right, and top left. |
-| **Shape** | Set the launcher shape to circle, square, or none. |
+| **Icon style** | Set the launcher icon style to circle, square, or original. |
 | **Size** | Set the launcher size to small, medium, large, or x-large. |
 | **Auto-open** | Open the popup automatically after a delay, or keep it off. |
-| **Hint** | Show a short message near the launcher. Click **Edit** to set the text, timing, size, frequency, desktop/mobile visibility, and dismiss button. |
+| **Welcome message** | Show a short message near the launcher. Set the text on the main screen and timing, size, frequency, desktop/mobile visibility, and dismiss behavior in **Chatbot settings > Display > Welcome message**. |
 | **Online text** | Set the status text shown in the chatbot header. |
-| **Icon** | Choose a built-in launcher icon or enter a custom icon URL. |
-| **Avatar** | Choose a built-in header avatar or enter a custom avatar URL. |
+| **Launcher icon** | Choose a built-in launcher icon or upload a custom icon. |
+| **Chat photo** | Choose a built-in header avatar or upload a custom image. |
 
-### UI Features
+<Frame>
+  <img src="/images/screenshots/chatbots/chatbot-launcher.png" alt="Chatbot popup settings" />
+</Frame>
 
-Use UI features to choose which controls appear in the chatbot.
+<Frame>
+  <img src="/images/screenshots/chatbots/chatbot-welcome.png" alt="Chatbot popup settings" />
+</Frame>
+
+### Chat Options
+
+Open **Chatbot settings > Conversation > Chat options** to choose which controls appear in the chatbot.
 
 | Setting | Use it for |
 | --- | --- |
 | **Download** | Let visitors download chatbot transcripts as TXT or PDF. |
-| **Copy** | Show copy buttons on assistant messages. |
-| **Feedback** | Show like and dislike buttons on assistant messages. |
+| **Consent** | Require visitors to accept a notice before they can start chatting. |
 | **Fullscreen** | Show the fullscreen button. |
 | **Sidebar** | Show conversation history for on-page chatbots. Sidebar is disabled in popup mode. |
+| **Suggested questions** | Show first questions visitors can tap before sending their own message. |
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-ui-features.png" alt="Chatbot UI features" />
 </Frame>
 
-#### Conversation Starters
+#### Suggested Questions
 
-Conversation starters are quick prompts shown inside the chatbot before the first message. Use them to help visitors begin with common questions.
+Suggested questions are quick prompts shown inside the chatbot before the first message. Use them to help visitors begin with common questions.
 
-To enable and customize starters:
+To enable and customize suggested questions:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. Open **Interface**.
-3. In **UI features**, enable **Starters**.
-4. Click **Edit**.
-5. Add one starter prompt per line.
-6. Keep the list to 6 prompts or fewer.
+2. Open **Chatbot settings > Conversation > Chat options**.
+3. Enable **Suggested questions**.
+4. Click the **+** settings button for **Suggested questions**.
+5. In **Conversation starters (max 6)**, add one question per line.
+6. Keep the list to 6 questions or fewer.
 7. Save the chatbot.
 
 <Frame>
-  <img src="/images/screenshots/chatbots/chatbot-starters.png" alt="Chatbot Starters" />
+  <img src="/images/screenshots/chatbots/chatbot-starters.png" alt="Chatbot suggested questions" />
 </Frame>
 
 #### Consent Notice
@@ -963,9 +1045,9 @@ Consent shows a notice before the conversation starts. The chatbot input stays d
 To enable and customize the consent notice:
 
 1. Go to **AI Puffer > Chatbots** and select the chatbot.
-2. Open **Interface**.
-3. In **UI features**, enable **Consent**.
-4. Click **Edit**.
+2. Open **Chatbot settings > Conversation > Chat options**.
+3. Enable **Consent**.
+4. Open the consent editor.
 5. Set the **Title**.
 6. Set the **Button label**.
 7. Write the **Message**.
@@ -977,7 +1059,7 @@ To enable and customize the consent notice:
 
 ### Text Labels
 
-Use text labels to change the words visitors see in the chatbot.
+Open **Chatbot settings > Display > Chat text** to change the words visitors see in the chatbot.
 
 | Setting | Use it for |
 | --- | --- |
@@ -1023,6 +1105,8 @@ Moderation applies to chatbot requests that use OpenAI. If the chatbot uses anot
 Limits control how much a visitor can use this chatbot before AI Puffer stops new messages.
 
 AI Puffer checks the visitor's quota before a chat request starts and records usage after the response. Guests are tracked by session. Logged-in users are tracked on their WordPress account. Leave a quota empty for unlimited usage, or set it to `0` to block that group.
+
+Open **Chatbot settings > AI behavior > Limits** to configure chatbot quota controls.
 
 | Setting | Use it for |
 | --- | --- |
@@ -1097,7 +1181,7 @@ Open **AI Puffer > Settings > Apps** to create connections and recipes.
   <img src="/images/screenshots/chatbots/chatbot-connected-apps.png" alt="Chatbot Connected Apps" />
 </Frame>
 
-Use **Chatbots > Connected Apps** to review the recipes attached to the current chatbot.
+Open **Chatbot settings > Automations > Apps** to review the recipes attached to the current chatbot.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-connected-apps2.png" alt="Chatbot Connected Apps" />
@@ -1313,6 +1397,8 @@ n8n connections are verified when AI Puffer sends the first event.
 ## Rules
 
 Rules run inside a chatbot and can react to chatbot events. A rule runs when its event fires, all of its conditions pass, and its action executes. Lower priority numbers run first.
+
+Open **Chatbot settings > Automations > Rules**, then click **Manage rules** to create or edit chatbot rules.
 
 ### Rule Events
 
