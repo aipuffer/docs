@@ -91,12 +91,12 @@ OpenAI supports the widest set of AI Puffer features.
 2. Click **Connect** or **Manage** on the **OpenAI** card.
 3. Paste your OpenAI API key.
 4. Keep the default base URL unless you use a compatible custom endpoint.
-5. Open **Advanced** and click **Sync Models**.
+5. Click **Sync models** beside the default model.
 6. Select the model you want to use by default.
 
 For knowledge features, OpenAI embedding models are available in embedding model selectors. OpenAI Vector Stores are created and managed in **Knowledge Base > Stores**.
 
-OpenAI moderation is also available under **Advanced**. Set **Moderation** to **Yes** to check OpenAI chatbot input with OpenAI moderation, then set **Moderation Message** if you want to customize the message shown when input is blocked.
+OpenAI moderation is also available under **Advanced settings**. Set **Moderation** to **Yes** to check OpenAI chatbot input with OpenAI moderation, then set **Moderation Message** if you want to customize the message shown when input is blocked.
 
 <Frame>
   <img src="/images/screenshots/ai-providers/openai-api-key-settings.png" alt="OpenAI API key settings" />
@@ -109,7 +109,7 @@ Google provides Gemini, embeddings, image/video models, text to speech, and grou
 1. Open **AI Puffer > Settings > AI**.
 2. Click **Connect** or **Manage** on the **Google** card.
 3. Paste your Google API key.
-4. Open **Advanced** and click **Sync Models**.
+4. Click **Sync models** beside the default model.
 5. Select the default model.
 6. Review Google safety settings if you need to change blocking thresholds.
 
@@ -130,7 +130,7 @@ Anthropic is available for text workflows, web search, and supported Claude imag
 1. Open **AI Puffer > Settings > AI**.
 2. Click **Connect** or **Manage** on the **Anthropic** card.
 3. Paste your Anthropic API key.
-4. Open **Advanced** and click **Sync Models**.
+4. Click **Sync models** beside the default model.
 5. Select the default model.
 
 Anthropic does not provide embeddings through the current AI Puffer provider strategy.
@@ -146,7 +146,7 @@ OpenRouter gives access to models available in your OpenRouter account.
 1. Open **AI Puffer > Settings > AI**.
 2. Click **Connect** or **Manage** on the **OpenRouter** card.
 3. Paste your OpenRouter API key.
-4. Open **Advanced** and click **Sync Models**.
+4. Click **Sync models** beside the default model.
 5. Select the default model.
 
 Some capabilities depend on the selected model.
@@ -167,9 +167,9 @@ Azure uses your Azure OpenAI <Tooltip headline="Deployment" tip="The deployment 
 2. Click **Connect** or **Manage** on the **Azure** card.
 3. Paste your Azure API key.
 4. Enter the Azure endpoint URL for your resource.
-5. Open **Advanced**.
+5. Open **Advanced settings**.
 6. Check the API versions if your Azure resource requires different versions.
-7. Click **Sync Models** to load deployments.
+7. Click **Sync models** to load deployments.
 8. Select the deployment to use as the default model.
 
 <Info>
@@ -187,7 +187,7 @@ DeepSeek is available for text workflows.
 1. Open **AI Puffer > Settings > AI**.
 2. Click **Connect** or **Manage** on the **DeepSeek** card.
 3. Paste your DeepSeek API key.
-4. Open **Advanced** and click **Sync Models**.
+4. Click **Sync models** beside the default model.
 5. Select the default model.
 
 DeepSeek embeddings are not supported by the current provider strategy. Use OpenAI, Google, Azure, OpenRouter, or Ollama for embedding workflows.
@@ -205,7 +205,7 @@ xAI is available for text workflows, Grok models, web search, supported image an
 3. Paste your xAI API key.
 4. Keep the default base URL unless you use a compatible xAI endpoint.
 5. Keep the API version as `v1`.
-6. Open **Advanced** and click **Sync Models**.
+6. Click **Sync models** beside the default model.
 7. Select the default text model.
 
 AI Puffer uses xAI's Responses API for text generation and streaming. Legacy completions and chat completions are not used by this provider integration.
@@ -233,7 +233,7 @@ ollama pull llama3
 4. Open **AI Puffer > Settings > AI**.
 5. Click **Connect** or **Manage** on the **Ollama** card.
 6. Enter the Ollama base URL. The default is `http://localhost:11434`.
-7. Click **Sync Models**.
+7. Click **Sync models**.
 8. Select the default model.
 
 Install notes:
@@ -244,7 +244,7 @@ Install notes:
 | Windows | Run the Windows installer. Ollama runs in the background after installation. |
 | Linux | Run `curl -fsSL https://ollama.com/install.sh \| sh`. The installer sets up Ollama as a service. |
 
-You can pull more than one model. AI Puffer shows synced Ollama models after **Sync Models** runs.
+You can pull more than one model. AI Puffer shows synced Ollama models after **Sync models** runs.
 
 <Warning>
 If WordPress and Ollama are on different servers, do not use `localhost` unless Ollama is running on the same server as WordPress. Use the reachable server URL instead.
@@ -301,23 +301,15 @@ For OpenAI, see [Incorrect API key provided](https://help.openai.com/en/articles
 </Accordion>
 <Accordion title="Model is missing">
 
-AI Puffer syncs models when you switch providers, but the list can be out of date.
+AI Puffer uses saved model catalogs so opening a module does not wait for each provider. Connect or sync the provider to update its catalog.
 
 Check these items:
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select the provider.
-3. Open **Advanced**.
-4. Click **Sync Models**.
-5. Open **Settings > Others**.
-6. Click **Clear Model Cache**.
-7. Click **Clear Transients**.
-8. Click **Sync All**.
-9. Return to **Settings > AI** and check the model list again.
-
-<Frame>
-  <img src="/images/screenshots/ai-providers/settings-others-model-cache.png" alt="Settings Others model cache buttons" />
-</Frame>
+2. Click **Manage** on the provider card.
+3. Click **Sync models** beside the default model and wait for it to finish.
+4. Reopen the model picker in the module.
+5. For frontend Images, check any restriction in **Images > Settings > Frontend Models**.
 
 If the model still does not appear, confirm the provider account has access to that model.
 
