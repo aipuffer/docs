@@ -13,6 +13,12 @@ Base URL:
 https://your-site.com/wp-json/aipkit/v1
 ```
 
+## Cloud requests
+
+Use `provider: "aipuffercloud"` for supported Cloud text, image, or embedding requests. Connect Cloud from WordPress first and use a model ID from its published catalog. The server uses the stored connection; your REST API key authenticates the caller and is not a Cloud credential. Never expose the Cloud connection credential or Freemius secrets to a client. Cloud calls use the connected account’s credits.
+
+For `/vector-stores/upsert`, use `provider: "local"` to target a Local store and set `embedding_provider: "aipuffercloud"` plus the embedding model. Index and query using the same model and output dimension.
+
 ## Authentication
 
 Most endpoints require the AI Puffer REST API key.
@@ -56,7 +62,7 @@ curl https://your-site.com/wp-json/aipkit/v1/logs?aipkit_api_key=YOUR_API_KEY
 | `/embeddings` | `POST` | Create embeddings from text. |
 | `/chat/{bot_id}/message` | `POST` | Send a message to a chatbot. |
 | `/logs` | `GET` | Read saved chat logs. |
-| `/vector-stores/upsert` | `POST` | Embed text and upsert it into Pinecone, Qdrant, or Chroma. |
+| `/vector-stores/upsert` | `POST` | Embed text and upsert it into Local, Pinecone, Qdrant, or Chroma. |
 | `/chatbots/{bot_id}/embed-config` | `GET` | Read the embed config and HTML for an external chatbot widget. |
 
 ## Text generation
@@ -71,7 +77,7 @@ POST /wp-json/aipkit/v1/generate
 
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `provider` | string | Yes | `openai`, `azure`, `google`, `openrouter`, `claude` for Anthropic, `deepseek`, `xai`, or `ollama`. |
+| `provider` | string | Yes | `aipuffercloud`, `openai`, `azure`, `google`, `openrouter`, `claude` for Anthropic, `deepseek`, `xai`, or `ollama`. |
 | `model` | string | Yes | Model ID or Azure deployment ID. |
 | `messages` | array | Yes | Chat-style messages with `role` and `content`. Roles: `system`, `user`, `assistant`. |
 | `system_instruction` | string | No | Extra instruction text. Supports `[date]` and `[username]`. |
@@ -127,7 +133,7 @@ POST /wp-json/aipkit/v1/images/generate
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
 | `prompt` | string | Yes | Text prompt for the image. |
-| `provider` | string | No | `openai`, `azure`, or `google`. Default: `openai`. |
+| `provider` | string | No | `aipuffercloud`, `openai`, `openrouter`, `azure`, or `google`. Default: `openai`. |
 | `model` | string | No | Image model ID. Uses plugin settings if omitted. |
 | `n` | integer | No | Number of images. Minimum `1`, maximum `10`. Default: `1`. |
 | `size` | string | No | Supported values include `1024x1024`, `1792x1024`, `1024x1792`, `1536x1024`, `1024x1536`, `1024x768`, and `768x1024`. |
@@ -179,10 +185,10 @@ POST /wp-json/aipkit/v1/embeddings
 
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `provider` | string | Yes | `openai`, `google`, `azure`, or `openrouter`. |
+| `provider` | string | Yes | `aipuffercloud`, `openai`, `google`, `azure`, `openrouter`, or `ollama` when enabled. |
 | `model` | string | Yes | Embedding model ID or Azure deployment ID. |
 | `input` | string or array | Yes | Text to embed. |
-| `dimensions` | integer | No | OpenAI, OpenRouter, or Azure output dimensions when supported. |
+| `dimensions` | integer | No | Output dimensions for Cloud, OpenAI, OpenRouter, or Azure when the selected model supports them. |
 | `encoding_format` | string | No | OpenAI or OpenRouter format: `float` or `base64`. Default: `float`. |
 | `task_type` | string | No | Google embedding task type. |
 | `output_dimensionality` | integer | No | Google embedding output dimension size. |
@@ -332,7 +338,7 @@ curl "https://your-site.com/wp-json/aipkit/v1/logs?per_page=10&bot_id=123" \
 
 ## Vector store upsert
 
-Embed text and add the vectors to Pinecone, Qdrant, or Chroma.
+Embed text and add the vectors to Local, Pinecone, Qdrant, or Chroma.
 
 The target index or collection must already exist. AI Puffer creates embeddings, then sends vectors to the selected vector database.
 
@@ -344,10 +350,10 @@ POST /wp-json/aipkit/v1/vector-stores/upsert
 
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `provider` | string | Yes | `pinecone`, `qdrant`, or `chroma`. |
-| `target_id` | string | Yes | Pinecone index name, Qdrant collection name, or Chroma collection name. |
+| `provider` | string | Yes | `local`, `pinecone`, `qdrant`, or `chroma`. |
+| `target_id` | string | Yes | Local store ID, Pinecone index name, Qdrant collection name, or Chroma collection name. |
 | `vectors` | array | Yes | Objects with `content`. Optional `id` and `metadata`. |
-| `embedding_provider` | string | Yes | `openai`, `google`, `azure`, or `openrouter`. |
+| `embedding_provider` | string | Yes | `aipuffercloud`, `openai`, `google`, `azure`, `openrouter`, or `ollama` when enabled. |
 | `embedding_model` | string | Yes | Embedding model ID or Azure deployment ID. |
 | `namespace` | string | No | Pinecone namespace. Ignored by Qdrant and Chroma. |
 

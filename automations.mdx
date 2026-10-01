@@ -74,6 +74,14 @@ The **Tasks** table shows each automation's name, type, frequency, status, last 
 
 To edit a task, click its edit icon, open any setting you want to change, then open **Finish** and click **Save changes**.
 
+## Use AI Puffer Cloud
+
+[Connect Cloud](/cloud#connect) before creating a task, then choose a Cloud model in the task’s AI settings. Supported content and comment tasks use Cloud text models; generated images use the task’s separate image model.
+
+For indexing tasks, select **Local**, Pinecone, Qdrant, or Chroma and a compatible Cloud embedding model. Keep the same model and dimension when searching that store later. OpenAI or Google managed stores use their own direct connections.
+
+Automations need sufficient credits at the time they run. Review failed and pending items in **Queue**; changing providers does not remove task scheduling or Pro requirements.
+
 ## How Automations Run
 
 Automations use <Tooltip headline="WordPress cron" tip="WordPress' scheduled task system. It runs when WordPress receives traffic unless a real server cron calls it.">WordPress cron</Tooltip>.
@@ -353,7 +361,7 @@ Select **Build a knowledge base** in **Setup** to add published WordPress conten
 AI Puffer queues existing content in batches. **Run now** queues matching published content again.
 
 <Warning>
-For Pinecone, Qdrant, and Chroma, the destination vector dimension must match the selected embedding model.
+For Local, Pinecone, Qdrant, and Chroma, the destination vector dimension must match the selected embedding model.
 </Warning>
 
 ## Comment Replies
@@ -552,6 +560,9 @@ Dates without a timezone are interpreted using the WordPress site timezone.
 
 ### Images
 
+**AI Puffer Cloud** is available for supported image generation models. Connect Cloud and refresh its catalog before selecting the image model. Generated images use credits separately from text. Cloud image editing and video are not available.
+
+
 Use **Images** in a Create Content automation to configure content images, a featured image, or both. Each image type has its own **Instructions** control.
 
 When either image type is enabled, choose **AI generated** or **Stock photos**.
@@ -630,11 +641,14 @@ Common placeholders include `{topic}`, `{keywords}`, `{post_title}`, and `{excer
 
 ### Knowledge Base
 
+For **Local**, choose a store and the same embedding model/output dimension used during indexing. Cloud embedding models work with Local and compatible Pinecone, Qdrant, or Chroma targets. Storage and embeddings are separate choices.
+
+
 Use optional **Knowledge** settings when generated or rewritten text should include information from a vector database.
 
 1. Select a **Knowledge source**.
 2. Select the provider's vector stores, index, or collection.
-3. For Pinecone, Qdrant, or Chroma, select the **Embedding model** used to index the data.
+3. For Local, Pinecone, Qdrant, or Chroma, select the **Embedding model** used to index the data.
 4. Set **Results limit**.
 5. Adjust **Confidence threshold** only when needed.
 
@@ -766,7 +780,7 @@ Create Content tasks do not queue another scheduled batch while the same task al
 <Accordion title="Content indexing fails">
 
 1. Confirm the selected store, index, or collection still exists.
-2. For Pinecone, Qdrant, and Chroma, select an embedding model.
+2. For Local, Pinecone, Qdrant, and Chroma, select an embedding model.
 3. Confirm the destination dimension matches the embedding model.
 4. Confirm the selected content types contain published content.
 5. Check the provider connection in [AI Providers](/ai-providers).

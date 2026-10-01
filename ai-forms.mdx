@@ -59,6 +59,12 @@ In WordPress admin, go to **AI Puffer > AI Forms**. Use the **Forms** tab to cre
   </Card>
 </Columns>
 
+## Use AI Puffer Cloud
+
+[Connect Cloud](/cloud#connect), then choose a Cloud text model in the form’s **AI** controls. Form requests use Cloud credits on the site’s connected account, including requests from visitors. WordPress visitor quotas or credit balances remain separate access controls.
+
+File Upload sends extracted text to the selected model. Image Upload needs a Cloud model with image-input support. Pro requirements for upload fields and workflows still apply. Cloud does not currently support the form’s provider-native Web Search option.
+
 ## Create a Form
 
 1. Open **AI Puffer > AI Forms > Forms**.
@@ -122,7 +128,7 @@ Add the file field placeholder to the prompt where you want the extracted text t
 AI Puffer does not summarize the file before the form runs. If you want a summary, ask for it in the prompt.
 
 <Info>
-File Upload sends extracted text in the prompt. It works with the AI Forms text providers: OpenAI, Google, Anthropic, OpenRouter, Azure, xAI, Ollama, and DeepSeek. It does not use Knowledge Base or vector provider settings.
+File Upload sends extracted text in the prompt. It works with the AI Forms text providers: AI Puffer Cloud, OpenAI, Google, Anthropic, OpenRouter, Azure, xAI, Ollama, and DeepSeek. It does not use Knowledge Base or vector provider settings.
 </Info>
 
 <Warning>
@@ -131,7 +137,7 @@ File Upload is available on Pro plan. It accepts `.txt` and `.pdf` files. Text-b
 
 For **Image Upload**, the visitor uploads an image and AI Puffer sends it with the form request as image input. Use the prompt to tell the model what to do with the image, such as describe it, extract details, compare it with submitted answers, or generate recommendations from it.
 
-Image Upload works only with providers and models that support image input in AI Forms: OpenAI, Google, Anthropic, OpenRouter, xAI, and Ollama. If the selected model cannot analyze images, the form returns an error instead of silently ignoring the upload.
+Image Upload works only with providers and models that support image input in AI Forms: AI Puffer Cloud, OpenAI, Google, Anthropic, OpenRouter, xAI, and Ollama. If the selected model cannot analyze images, the form returns an error instead of silently ignoring the upload.
 
 <Warning>
 Image Upload is available on Pro plan. It accepts JPG, PNG, and WEBP images up to 20 MB. Some providers may apply stricter model or file-type rules, such as xAI image analysis using JPG or PNG.
@@ -398,7 +404,7 @@ Use the right-side **Context** container to enable Knowledge Base and configure 
 2. Click the settings icon beside **Knowledge Base**.
 3. Select **Vector provider**.
 4. Choose the vector store, index, or collection.
-5. For Pinecone, Qdrant, or Chroma, select the same **Embedding** model used when the content was indexed.
+5. For Local, Pinecone, Qdrant, or Chroma, select the same **Embedding** model used when the content was indexed.
 6. Set **Limit** and **Score threshold**.
 7. Save the form.
 
@@ -408,6 +414,7 @@ Use the right-side **Context** container to enable Knowledge Base and configure 
 
 | Vector provider | Required setup |
 | --- | --- |
+| **Local** | Select the Local store and the embedding model/output dimension used to add its data. Cloud embedding models can be used here. |
 | **OpenAI** | Select up to two **Vector stores**. |
 | **Pinecone** | Select **Index** and **Embedding**. Configure the Pinecone connection in **AI Puffer > Settings > Integrations** first. |
 | **Qdrant** | Select **Collection** and **Embedding**. Configure the Qdrant connection in **AI Puffer > Settings > Integrations** first. |
@@ -424,7 +431,7 @@ For Chroma, configure the connection and collection in **AI Puffer > Settings > 
 </Frame>
 
 <Warning>
-For Pinecone, Qdrant, and Chroma, the <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> must match the model used when the content was added to the index or collection.
+For Local, Pinecone, Qdrant, and Chroma, the <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> must match the model used when the content was added to the index or collection.
 </Warning>
 
 **Limit** controls how many matching chunks AI Puffer can include. **Score threshold** controls how strict the match must be. A lower threshold allows more matches; a higher threshold only uses stronger matches.

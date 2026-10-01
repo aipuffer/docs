@@ -164,6 +164,7 @@
           {
             "group": "Setup",
             "pages": [
+              "cloud",
               "ai-providers"
             ]
           },

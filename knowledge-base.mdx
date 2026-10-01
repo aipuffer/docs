@@ -11,7 +11,7 @@ Use it for support answers, product details, documentation, policies, posts, pag
 
 <Columns cols={2}>
   <Card title="Providers" icon="database" href="#providers" horizontal>
-    Use OpenAI Vector Stores, Pinecone, Qdrant, or Chroma.
+    Use Local, OpenAI or Google managed stores, Pinecone, Qdrant, or Chroma.
   </Card>
 
   <Card title="Manage Vector Stores" icon="box" href="#manage-vector-stores" horizontal>
@@ -39,18 +39,43 @@ Use it for support answers, product details, documentation, policies, posts, pag
 
 | Provider | Target name | How it works |
 | --- | --- | --- |
+| **Local** | Store | Source chunks and vectors stay in WordPress. Choose a compatible embedding provider for indexing and search. |
+| **Google** | Store | Google manages file search through your direct Google connection. |
 | **OpenAI** | Vector store | AI Puffer sends the source data to OpenAI Vector Stores. No separate embedding model is selected in AI Puffer for this target. |
 | **Pinecone** | Index | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Pinecone index. |
 | **Qdrant** | Collection | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Qdrant collection. |
 | **Chroma** | Collection | AI Puffer creates embeddings with the model you choose, then stores the vectors in a Chroma collection. |
 
-For Pinecone, Qdrant, and Chroma, the index or collection dimension must match the embedding model.
+For Local, Pinecone, Qdrant, and Chroma, the store dimension must match the embedding model’s output dimension. Use the same model and dimension for both indexing and querying.
 
 For example, if your Pinecone index, Qdrant collection, or Chroma collection is **3072 dimensions**, use a **3072-dimension** embedding model when adding data and when searching that data later.
 
 <Warning>
 If the dimension does not match, the vector provider can reject the data or return unusable search results.
 </Warning>
+
+### Local
+
+Local stores source chunks, metadata, and embedding vectors in your WordPress database. No Pinecone, Qdrant, or Chroma account is required. Your WordPress hosting stores the data; AI Puffer Cloud does not host it.
+
+Local still needs an embedding model for indexing and search. Use a Cloud embedding model or a compatible model from your own provider. The text model generating answers can be a different provider.
+
+To create a store:
+
+1. Open **AI Puffer > Knowledge Base > Stores**.
+2. Click **Create store**.
+3. Select **Local**.
+4. Enter the **Name** and **Dimension**.
+5. Click **Create store**.
+6. Use **Add source** in Data to choose this store and the embedding model before adding content.
+
+<Frame>
+  <img src="/images/screenshots/cloud/local-create-store.png" alt="Local store creation with name and dimension fields" />
+</Frame>
+
+Creating the store sets its dimension, not its embedding model. When adding or searching data, use the same model and dimension. Models with equal dimensions are not necessarily compatible. If you switch embedding models, re-index the content into a store configured for the new model.
+
+Local indexing and semantic search through a hosted embedding model use that provider’s billing or Cloud credits. Local storage itself does not consume Cloud storage credits, but uses your WordPress database and hosting resources.
 
 ### OpenAI
 
@@ -107,7 +132,7 @@ Chroma uses endpoint, tenant, and database settings.
 
 1. Go to **AI Puffer > Settings > Integrations**.
 2. Select **Chroma**.
-3. Enter your **Chroma URL**. For Cloud, you can use https://api.trychroma.com
+3. Enter your **Chroma URL**. For Chroma Cloud, you can use https://api.trychroma.com
 4. Enter your **Chroma API Key** if you use Chroma Cloud or an authenticated server.
 5. Enter the **Tenant**.
 6. Enter the **Database**.
@@ -122,17 +147,17 @@ For local Chroma, the default tenant is `default_tenant` and the default databas
 
 ### Embedding Providers
 
-Pinecone, Qdrant, and Chroma store vectors that AI Puffer creates with a selected embedding model. Before adding data to these providers, configure the embedding provider you want to use in **AI Puffer > Settings > AI**.
+Local, Pinecone, Qdrant, and Chroma store vectors that AI Puffer creates with a selected embedding model. Before adding data to these providers, configure the embedding provider you want to use in **AI Puffer > Settings > AI**.
 
-Supported embedding providers include OpenAI, Google, Azure, and OpenRouter. The selected embedding model must match the dimension of the Pinecone index, Qdrant collection, or Chroma collection.
+Supported embedding providers include **AI Puffer Cloud**, OpenAI, Google, Azure, OpenRouter, and Ollama where available. For Cloud, connect the account and refresh its models; you do not enter a provider API key. The selector shows actual model names. Supported output dimensions come from the model’s capabilities; a store is not limited to 512 dimensions. The selected embedding model must match the dimension of the Pinecone index, Qdrant collection, or Chroma collection.
 
-xAI is not an embedding provider or vector store provider in the current integration. xAI chatbots, forms, and text workflows can still use retrieved Knowledge Base context from OpenAI, Pinecone, Qdrant, or Chroma because AI Puffer sends that context as text.
+xAI is not an embedding provider or vector store provider in the current integration. xAI chatbots, forms, and text workflows can still use retrieved Knowledge Base context from Local, OpenAI, Google, Pinecone, Qdrant, or Chroma because AI Puffer sends that context as text.
 
 ## Manage Vector Stores
 
 Use **AI Puffer > Knowledge Base > Stores** to create, refresh, inspect, or delete vector targets.
 
-The Stores tab is where you manage OpenAI vector stores, Pinecone indexes, Qdrant collections, and Chroma collections. The Data tab uses these targets when you add content.
+The Stores tab manages Local stores, OpenAI and Google managed stores, Pinecone indexes, Qdrant collections, and Chroma collections. The Data tab uses these targets when you add content.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-provider-selector.png" alt="Knowledge Base provider selector" />
@@ -215,8 +240,9 @@ Before adding data:
 1. Go to **AI Puffer > Knowledge Base > Data**.
 2. Select a provider.
 3. Select the target vector store, index, or collection.
-4. For Pinecone, Qdrant, or Chroma, select the embedding model.
-5. Click **+ Add Data**.
+4. Click **Add source**.
+5. Choose the target store and, for Local, Pinecone, Qdrant, or Chroma, its embedding model.
+6. Choose Website, Q&A, Text, or Files and add the content.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-add-data.png" alt="Knowledge Base Add data panel" />
@@ -270,7 +296,7 @@ Supported file extensions:
 .pdf, .docx, .txt, .md, .csv, .json
 ```
 
-For Pinecone, Qdrant, and Chroma, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection. File chunks can be embedded in batches to reduce the number of embedding API requests.
+For Local, Pinecone, Qdrant, and Chroma, AI Puffer extracts text, splits large files into chunks, creates embeddings, and stores each chunk in the selected index or collection. File chunks can be embedded in batches to reduce the number of embedding API requests.
 
 File size is limited by your WordPress/PHP upload settings. OpenAI Vector Store uploads also use OpenAI's file limits.
 
@@ -319,7 +345,7 @@ Available actions:
 | **View** | Review the stored source preview. |
 | **Edit** | Edit a text source and save it again. |
 | **Retrain** | Re-index a WordPress content source after the content changes. |
-| **Delete** | Remove the source from the external provider and from the local source table. |
+| **Delete** | Remove the source from the selected knowledge store and from the local source table. |
 
 
 <Frame>
@@ -334,7 +360,7 @@ Available actions:
 
 Open **AI Puffer > Knowledge Base > Settings** to configure Knowledge Base behavior.
 
-The Settings screen is split into tabs.
+Knowledge Base has **Data**, **Stores**, **Search**, and **Settings** tabs. The sections below describe the settings controls; some screenshots show their earlier tab layout.
 
 | Tab | What it contains |
 | --- | --- |
@@ -345,7 +371,7 @@ The Settings screen is split into tabs.
 
 ### Chunking
 
-Document chunking controls how AI Puffer splits large uploaded files and WordPress Website content before embedding them for Pinecone, Qdrant, or Chroma.
+Document chunking controls how AI Puffer splits large uploaded files and WordPress Website content before embedding them for Local, Pinecone, Qdrant, or Chroma.
 
 | Setting | Default | Range | Use it for |
 | --- | --- | --- | --- |
@@ -393,7 +419,7 @@ If the Batches tab shows **Upgrade**, activate Pro before saving batch settings.
 For example, a batch size of `50` means AI Puffer sends up to 50 prepared file chunks to the embedding API at once. Larger batches can make file upload training much faster because they reduce repeated API calls.
 
 <Info>
-Embedding batch settings apply only to chunked file uploads for Pinecone, Qdrant, and Chroma. Website training uses document chunking, but these batch-size settings do not change Q&A, Text, Website training, semantic search queries, or OpenAI Vector Store file uploads.
+Embedding batch settings apply to the supported providers’ chunked file uploads for Local, Pinecone, Qdrant, and Chroma. Cloud applies its own batch limits. Website training uses document chunking, but these batch-size settings do not change Q&A, Text, Website training, semantic search queries, or OpenAI Vector Store file uploads.
 </Info>
 
 If a provider returns rate limit errors such as HTTP `429`, lower that provider's batch size and try again. AI Puffer can pause and retry file upload processing when the provider sends a retry delay, but lowering the batch size is usually better for accounts with stricter quotas.
@@ -420,17 +446,17 @@ If the Save button shows **Upgrade**, activate Pro before saving indexing rules.
 
 ### Others
 
-Open **AI Puffer > Knowledge Base > Settings**, then open **Others**.
+Open **AI Puffer > Knowledge Base > Search** for Semantic Search. Other Knowledge Base controls appear under **Settings**.
 
 The Others tab contains Semantic Search and admin visibility settings.
 
 #### Semantic Search
 
-Semantic Search publishes a search form that queries a Pinecone index, Qdrant collection, or Chroma collection from the frontend.
+Semantic Search publishes a search form that queries a Local store, Pinecone index, Qdrant collection, or Chroma collection from the frontend.
 
-In **Others**, click **Configure** in the **Semantic Search** row.
+Open the **Search** tab and configure the search target.
 
-1. Select **Vector DB**: Pinecone, Qdrant, or Chroma.
+1. Select the storage provider: Local, Pinecone, Qdrant, or Chroma.
 2. Select the index or collection.
 3. Select the embedding model.
 4. Set **Number of Results**.
@@ -444,7 +470,7 @@ In **Others**, click **Configure** in the **Semantic Search** row.
 
 Semantic Search uses the global settings from this panel. It does not use OpenAI Vector Stores in the current UI.
 
-Use the same embedding model that was used when the Pinecone, Qdrant, or Chroma data was added.
+Use the same embedding model and dimension used when the Local, Pinecone, Qdrant, or Chroma data was added.
 
 <Frame>
   <img src="/images/screenshots/knowledgebase/knowledge-base-semantic-search.png" alt="Knowledge Base Semantic Search settings" />

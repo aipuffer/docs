@@ -53,6 +53,15 @@ If the Chatbots menu is not visible, enable **Chatbots** under **AI Puffer > Set
   </Card>
 </Columns>
 
+## Use AI Puffer Cloud
+
+1. [Connect Cloud](/cloud#connect) in onboarding, Settings, or **Connect a provider**.
+2. Select the chatbot and open its main model picker.
+3. Choose a supported **AI Puffer Cloud** model.
+4. Set instructions and the output limit, then test a reply.
+
+Cloud text replies use your Cloud credits. A direct provider model uses its own key and billing. Images, speech, transcription, and embeddings have their own model choices and charges. Cloud does not provide the separate realtime voice connection.
+
 ## Create a Chatbot
 
 1. Go to **AI Puffer > Chatbots**.
@@ -167,7 +176,7 @@ Use the main chatbot builder to choose the chatbot model and write instructions.
 | **Context** | Maximum completion tokens for the model response. |
 | **Messages** | Number of previous conversation messages included as history. |
 | **Session memory** | Only applies when the chatbot uses OpenAI. AI Puffer stores the OpenAI response ID and sends it with the next message so OpenAI can continue the same conversation state. |
-| **Reasoning** | Reasoning effort for supported models. Keep it set to None for faster responses; higher values can make replies slower. |
+| **Reasoning** | Model-supported reasoning effort. Available options depend on the selected model. Unsupported controls are not sent; lower effort can improve response time when the model offers it. |
 
 <Warning>
 Session memory applies only to OpenAI chatbots. When enabled, conversation continuity depends on OpenAI response IDs, so review this setting before using it for privacy-sensitive chatbots.
@@ -187,7 +196,7 @@ Knowledge controls the information a chatbot can use before it answers.
 
 It can read the current page content, search trained vector data, or use both depending on the chatbot setup.
 
-Use the main **Knowledge** card to add website content, text, Q&A, or files for the selected chatbot. Open **Chatbot settings > Conversation > Knowledge** when you need to choose the retrieval source, vector storage, stores or collections, embedding model, **Results**, or **Minimum match**.
+Use **Add source** on the main **Knowledge** card to add website content, text, Q&A, or files for the selected chatbot. If knowledge is not configured, AI Puffer prepares a compatible setup based on the chatbot’s provider, enables knowledge retrieval, and creates or selects a store. If credentials or a compatible embedding model are missing, complete the prompted setup. Existing knowledge settings are preserved. Review the chosen destination before adding data. Open **Chatbot settings > Conversation > Knowledge** when you need to choose the retrieval source, vector storage, stores or collections, embedding model, **Results**, or **Minimum match**.
 
 <Frame>
   <img src="/images/screenshots/chatbots/chatbot-knowledge.png" alt="Chatbot Knowledge Settings" />
@@ -200,6 +209,10 @@ Vector is the better option when you want to train the chatbot with your own con
 AI Puffer converts your content into searchable chunks. 
 
 When a visitor asks a question, the chatbot retrieves the closest matching chunks and uses them as context for the answer.
+
+#### Local
+
+Choose **Local** to keep knowledge on your WordPress site. Create or choose a store, then select a compatible embedding model. Cloud embeddings do not require your own API key. Use the same embedding model and output dimension for indexing and search. See [Local setup](/knowledge-base#local).
 
 #### OpenAI
 
@@ -389,7 +402,7 @@ To use it in a chatbot:
 
 #### Results and Minimum Match
 
-For OpenAI, Pinecone, Qdrant, and Chroma, use these settings to control how much vector context is added to the answer.
+For Local, OpenAI, Google, Pinecone, Qdrant, and Chroma, use these settings to control how much vector context is added to the answer.
 
 | Setting | How it works | Example |
 | --- | --- | --- |
@@ -416,12 +429,14 @@ Scores show which vector results matched the visitor question and help you tune 
 
 #### Embedding Models
 
-Pinecone, Qdrant, and Chroma need an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> because AI Puffer must turn your content and the visitor question into vectors before it can search.
+**AI Puffer Cloud** embedding models appear by their actual model names after connection/model refresh. They can be used with Local or a compatible external store, independently of the chatbot’s text provider. The tables below list common direct-provider dimensions; some models support smaller output dimensions. Match the store’s configured dimension and use the same model for indexing and search.
+
+Local, Pinecone, Qdrant, and Chroma need an <Tooltip headline="Embedding model" tip="A model that converts text into vectors so vector databases can search by meaning.">embedding model</Tooltip> because AI Puffer must turn your content and the visitor question into vectors before it can search.
 
 OpenAI Vector Stores do not need this setting in AI Puffer. OpenAI handles the vector store search on its side.
 
 <Info>
-For Pinecone, Qdrant, and Chroma, use the same embedding model when adding data and when enabling the chatbot knowledge storage.
+For Local, Pinecone, Qdrant, and Chroma, use the same embedding model when adding data and when enabling the chatbot knowledge storage.
 </Info>
 
 <AccordionGroup>
@@ -592,7 +607,7 @@ Enable only the capabilities you want your chatbot to offer.
 
 File upload lets visitors attach a document to the current chat. AI Puffer reads the file, prepares it for the selected vector provider, and uses the matching file content as context for the visitor's next messages.
 
-File upload uses the chatbot's **Knowledge storage** setting: OpenAI, Pinecone, Qdrant, Chroma, or Anthropic Files when the chatbot provider is Anthropic.
+File upload uses the chatbot's **Knowledge storage** setting, including **Local**. Cloud chatbots can use Local with Cloud embeddings or a compatible external vector store. Enable knowledge, choose the store and embedding model, and then enable File upload. Direct OpenAI, Google, or Anthropic file features require those providers’ own connections.
 
 Visitors can upload `.txt` and `.pdf` files. The frontend limit is **20 MB**, but your WordPress or server upload limit can be lower.
 
@@ -728,6 +743,7 @@ Image analysis is model-dependent. If the option is missing or replies fail, cho
 
 | Provider | Support | Notes |
 | --- | --- | --- |
+| **AI Puffer Cloud** | Model-dependent | Choose a Cloud text model with image-input capability. |
 | **OpenAI** | Yes | Uses the selected OpenAI chat model. |
 | **Anthropic** | Yes | Uses the selected Claude chat model. |
 | **xAI** | Yes | Uses a selected Grok model that supports image input. |
@@ -781,6 +797,7 @@ Image generation uses the image model selected in **Capabilities**, not the chat
 | --- | --- | --- |
 | **OpenAI** | Yes | Built-in GPT Image models. |
 | **Google** | Yes | Synced Google image models. |
+| **AI Puffer Cloud** | Yes | Connect Cloud and choose a published image-generation model. |
 | **Azure** | Yes | Synced Azure image deployments. |
 | **OpenRouter** | Model-dependent | Synced OpenRouter models with image output. |
 | **xAI** | Yes | Synced xAI image models such as `grok-imagine-image`. |
@@ -837,11 +854,12 @@ Speech to Text is currently available for OpenAI.
 
 | Provider | Speech to Text model |
 | --- | --- |
+| **AI Puffer Cloud** | Synced Cloud transcription models. |
 | **OpenAI** | `whisper-1` |
 
 To enable speech to text:
 
-1. Configure OpenAI in [AI Providers](/ai-providers).
+1. Connect Cloud or configure OpenAI in [AI Providers](/ai-providers).
 2. Go to **AI Puffer > Chatbots** and select the chatbot.
 3. Open **Chatbot settings > Conversation > Capabilities**.
 4. Turn on **Speech to text**.
@@ -867,10 +885,11 @@ Text to Speech adds playback controls for assistant replies.
 
 When a visitor clicks the play button, AI Puffer sends the assistant reply text to the selected text-to-speech provider and plays the returned audio in the browser.
 
-Text to Speech is available for Google, OpenAI, and ElevenLabs.
+Text to Speech is available for AI Puffer Cloud, Google, OpenAI, and ElevenLabs. Choose its provider separately from the main text model. Cloud speech uses Cloud credits.
 
 | Provider | Text to Speech models |
 | --- | --- |
+| **AI Puffer Cloud** | Synced Cloud speech models and their supported voices. |
 | **OpenAI** | `tts-1`, `tts-1-hd` |
 | **ElevenLabs** | `eleven_v3`, `eleven_multilingual_v2`, `eleven_flash_v2_5`, `eleven_flash_v2` |
 | **Google** | Uses synced Google voices. |
@@ -897,6 +916,10 @@ ElevenLabs voices and models appear only after the ElevenLabs API key is saved u
 <Frame>
   <img src="/images/screenshots/chatbots/elevenlabs-api-key.png" alt="ElevenLabs API key" />
 </Frame>
+
+<Info>
+**OpenAI Realtime** and **GPT Live** require a direct OpenAI connection and use OpenAI billing. Selecting Cloud for the chatbot’s main model does not route realtime voice through Cloud.
+</Info>
 
 #### Realtime Voice Agents
 

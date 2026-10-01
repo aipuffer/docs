@@ -37,7 +37,7 @@ You need:
 2. AI Puffer installed and active.
 3. At least one provider configured in **AI Puffer > Settings > AI**.
 
-Provider API usage still belongs to your provider account. AI Puffer does not include provider credits.
+Cloud routes use the connected Cloud account’s credits. Direct provider routes use that provider account’s billing. WordPress visitor credit rules are separate from Cloud charges.
 
 ## Enable Management
 
@@ -87,6 +87,7 @@ When management is enabled, AI Puffer registers these providers for the WordPres
 
 | Connector | Typical use |
 | --- | --- |
+| AI Puffer Cloud | Hosted text, supported image input, and image generation through the connected Cloud account. |
 | OpenAI via AI Puffer | Text, vision-capable text models, and image generation. |
 | Google via AI Puffer | Gemini text, vision-capable models, and image generation. |
 | Anthropic via AI Puffer | Claude text and supported image input. |
@@ -105,6 +106,10 @@ AI Puffer also exposes default route models for WordPress AI features:
 | Default image model | WordPress AI image generation requests. |
 
 AI Puffer infers these routes from your existing provider settings. You do not need to configure a separate WordPress AI Client model list.
+
+## Cloud routing
+
+With Cloud selected as the default, managed WordPress AI Client requests use its supported Cloud models. Connect Cloud in AI Puffer first; do not put a Cloud connection credential in a WordPress API-key field. Cloud does not provide every capability offered by direct providers. Confirm the requested feature is supported by the selected model.
 
 ## Usage Logs, Credits, and Pricing
 

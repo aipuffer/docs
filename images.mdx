@@ -59,6 +59,7 @@ In WordPress admin, go to **AI Puffer > Images**. Use the **Image Generator** ta
 
 | Provider | Generate images | Edit images | Generate videos | Required setup |
 | --- | --- | --- | --- | --- |
+| **AI Puffer Cloud** | Yes | No | No | Connect Cloud in **Settings > AI** and refresh its models. |
 | **OpenAI** | Yes | Yes | No | Add an OpenAI API key in **Settings > AI**, then sync models. |
 | **Google** | Yes | Yes | Yes | Add a Google API key in **Settings > AI**, then sync image and video models. |
 | **OpenRouter** | Yes | Yes, when the model supports image input and output | No | Add an OpenRouter API key in **Settings > AI**, then sync models. |
@@ -75,6 +76,12 @@ xAI image generation and image editing use xAI image models such as `grok-imagin
 <Warning>
 Image editing only works with OpenAI, Google, OpenRouter, and xAI models that support image editing. xAI edit mode accepts JPG/JPEG and PNG source images.
 </Warning>
+
+## Cloud model catalog
+
+Cloud image models are separate from Cloud text models. Connect Cloud, refresh or sync its catalog in Settings, then choose an image model in the generator. If **Settings > Frontend Models** contains an allowed-model restriction, select the new model there as well. An empty restriction allows all available models.
+
+Cloud generations use the connected site account’s credits. Visitor quotas and WordPress visitor balances are separate. If a request is still processing or needs review, check its status before generating again to avoid creating a second request.
 
 ## Generate Images
 

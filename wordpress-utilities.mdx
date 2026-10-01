@@ -9,7 +9,7 @@ WordPress Utilities are AI Puffer tools that appear inside normal WordPress admi
 
 Use them when you are already reviewing posts, pages, products, or editor content and want to update or index that content without opening a full module screen.
 
-Turn these utilities on or off from **AI Puffer > Settings > Utilities**.
+Turn these utilities on or off from **AI Puffer > Settings > Others > Editor and content tools**.
 
 <Columns cols={2}>
   <Card title="Content Assistant" icon="list-check" href="#bulk-assistant" horizontal>
@@ -37,6 +37,12 @@ Turn these utilities on or off from **AI Puffer > Settings > Utilities**.
   </Card>
 </Columns>
 
+## Cloud and direct providers
+
+Content Assistant and editor tools can use your connected Cloud text models. Check the utility’s provider/model settings and global defaults before running an action. Cloud calls use the connected account’s credits; direct models use that provider’s billing.
+
+**Add to knowledge base** on content lists supports **Local** with Cloud embeddings. It also supports compatible Cloud embedding models with Pinecone, Qdrant, and Chroma. The store and embedding provider are independent; choose the same embedding model and dimension for indexing and retrieval.
+
 ## Content Assistant
 
 Content Assistant appears as an **Assistant** button next to **Add New** on supported post list screens.
@@ -45,7 +51,7 @@ Use it when you want to update several posts, pages, or products in one run. It 
 
 To enable the Assistant button:
 
-1. Go to **AI Puffer > Settings > Utilities**.
+1. Go to **AI Puffer > Settings > Others > Editor and content tools**.
 2. Turn on **Content Assistant**.
 
 This controls the bulk **Assistant** button and the row **Assistant** menu on supported post, page, and product list screens.
@@ -87,7 +93,7 @@ Use Content Assistant on a small selection first. It edits real WordPress record
 
 The row menu is for one post at a time.
 
-When **Content Assistant** is enabled in **Settings > Utilities**, hover over a post row and click **Assistant** to open the menu. It includes:
+When **Content Assistant** is enabled in **Settings > Others > Editor and content tools**, hover over a post row and click **Assistant** to open the menu. It includes:
 
 | Action | What it does |
 | --- | --- |
@@ -111,14 +117,14 @@ To use it:
 
 ## Content Indexing
 
-Content Indexing appears as an **Index** button next to **Add New** on post, page, and product list screens.
+The **Add to knowledge base** utility appears as an **Index** button next to **Add New** on post, page, and product list screens.
 
 Use it to add selected WordPress content to Knowledge Base retrieval.
 
 To show or hide the **Index** button:
 
-1. Go to **AI Puffer > Settings > Utilities**.
-2. Turn **Index button** on or off.
+1. Go to **AI Puffer > Settings > Others > Editor and content tools**.
+2. Turn **Add to knowledge base** on or off.
 
 <Frame>
   <img src="/images/screenshots/utilities/knowledge-base-show-index-button.png" alt="Utilities setting for the post-list Index button" />
@@ -126,6 +132,7 @@ To show or hide the **Index** button:
 
 | Provider | Target | Extra requirement |
 | --- | --- | --- |
+| **Local** | Store | Select a Local store and compatible embedding model. Cloud embeddings do not need a provider API key. |
 | **OpenAI** | Vector store | Select an existing OpenAI vector store. |
 | **Pinecone** | Index | Select the same embedding model that matches the index dimension. |
 | **Qdrant** | Collection | Select the same embedding model that matches the collection dimension. |
@@ -137,9 +144,9 @@ To index selected posts:
 2. Go to a supported WordPress post list.
 3. Select one or more rows.
 4. Click **Index** next to **Add New**.
-5. Select **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
+5. Select **Local**, **OpenAI**, **Google**, **Pinecone**, **Qdrant**, or **Chroma**.
 6. Select the target vector store, index, or collection.
-7. For Pinecone, Qdrant, or Chroma, select the embedding model.
+7. For Local, Pinecone, Qdrant, or Chroma, select the embedding model.
 8. Click **Start Indexing**.
 
 For Chroma, configure the connection and collection before using the post-list indexer.
@@ -161,7 +168,7 @@ For Chroma, configure the connection and collection before using the post-list i
 </Frame>
 
 <Warning>
-For Pinecone, Qdrant, and Chroma, the embedding model dimension must match the index or collection dimension. For example, a 3072-dimension index or collection needs a 3072-dimension embedding model.
+For Local, Pinecone, Qdrant, and Chroma, the embedding model dimension must match the index or collection dimension. For example, a 3072-dimension index or collection needs a 3072-dimension embedding model.
 </Warning>
 
 The post list includes an **Index Status** filter with **Indexed** and **Not Indexed** options.
@@ -216,7 +223,7 @@ Use it to rewrite, expand, summarize, simplify, create outlines, generate FAQs, 
 
 To use it:
 
-1. Go to **AI Puffer > Settings > Utilities**.
+1. Go to **AI Puffer > Settings > Others > Editor and content tools**.
 2. Turn on **Editor Assistant**.
 3. Open a post or page in the Classic Editor.
 4. Use the **Visual** editor.
@@ -247,7 +254,7 @@ Use `%s` in a custom prompt where the selected editor text should be inserted.
 The Classic Editor and Block Editor assistants share the same action list. Changes saved from either editor apply to both menus.
 
 <Tip>
-If the Classic Editor button is missing, check **Editor Assistant** in **Settings > Utilities** and make sure the user's profile does not disable the visual editor.
+If the Classic Editor button is missing, check **Editor Assistant** in **Settings > Others > Editor and content tools** and make sure the user's profile does not disable the visual editor.
 </Tip>
 
 ## Block Editor Assistant
@@ -256,7 +263,7 @@ The Block Editor Assistant appears in the block toolbar when text is selected.
 
 To use it:
 
-1. Go to **AI Puffer > Settings > Utilities**.
+1. Go to **AI Puffer > Settings > Others > Editor and content tools**.
 2. Turn on **Editor Assistant**.
 3. Open a post or page in the Block Editor.
 4. Select text inside a text-based block.
@@ -278,11 +285,11 @@ The Classic Editor and Block Editor assistants share the same action list.
 
 <AccordionGroup>
   <Accordion title="Assistant button is missing on post lists">
-    Go to **AI Puffer > Settings > Utilities** and turn on **Content Assistant**. Also confirm the current user can edit the post type and has access to the Content Assistant module.
+    Go to **AI Puffer > Settings > Others > Editor and content tools** and turn on **Content Assistant**. Also confirm the current user can edit the post type and has access to the Content Assistant module.
   </Accordion>
 
   <Accordion title="Index button is missing on post lists">
-    Go to **AI Puffer > Settings > Utilities** and turn on **Index button**. The button appears on supported post, page, and product list screens when the user has access to Content Indexing.
+    Go to **AI Puffer > Settings > Others > Editor and content tools** and turn on **Index button**. The button appears on supported post, page, and product list screens when the user has access to Content Indexing.
   </Accordion>
 
   <Accordion title="Content Assistant says to select a post">
@@ -290,7 +297,7 @@ The Classic Editor and Block Editor assistants share the same action list.
   </Accordion>
 
   <Accordion title="Editor Assistant is disabled">
-    Turn on **Editor Assistant** in **AI Puffer > Settings > Utilities**, then select text inside the editor. The assistant actions need selected text because the action prompt uses that text as input.
+    Turn on **Editor Assistant** in **AI Puffer > Settings > Others > Editor and content tools**, then select text inside the editor. The assistant actions need selected text because the action prompt uses that text as input.
   </Accordion>
 
   <Accordion title="Custom action ignores the selected text">

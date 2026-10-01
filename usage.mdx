@@ -1,6 +1,6 @@
 ---
 title: "Usage"
-description: "Review logs, manage credits, define pricing rules, and sell credit packages."
+description: "Manage Cloud credits and requests, review activity, and configure separate visitor billing."
 ---
 
 ## Overview
@@ -9,11 +9,35 @@ Usage is where you review saved AI activity and manage AI Puffer credits.
 
 In WordPress admin, go to **AI Puffer > Usage**.
 
-The screen has two tabs: **Logs** and **Billing**. Logs are for reviewing saved requests and conversations. Billing is for pricing rules, ledger activity, user balances, and WooCommerce credit packages.
+Cloud account controls appear in **Overview**, and hosted requests in **Requests**. Saved conversations remain available in the local logs. Visitor billing, pricing rules, balances, and WooCommerce packages are separate controls; their layout can vary by plugin version.
 
 <Info>
-AI Puffer credits are internal plugin credits. They do not replace OpenAI, Google, Anthropic, xAI, Replicate, or other provider billing. Provider API usage is still billed by the provider account you connect.
+**Cloud credits** fund hosted requests on your connected AI Puffer account. **Visitor credits** are WordPress user balances you manage for access to your tools. A visitor purchase does not increase your Cloud balance. Your own provider models use the provider’s billing instead of Cloud credits.
 </Info>
+
+## Cloud overview and requests
+
+1. Open **AI Puffer > Usage > Overview**.
+2. Review available credits, the free monthly allowance and renewal date, and purchased credits.
+3. Use **Refresh** after a purchase or account change. Opening Usage also refreshes the balance in the background.
+4. Use **Buy credits** for optional Freemius top-ups. Check the buyer email before paying.
+5. Open **Requests** to see Cloud model names, status, token usage where available, and credits used.
+
+<Frame>
+  <img src="/images/screenshots/cloud/credit-balance.png" alt="Available, free, and purchased Cloud credit balances" />
+</Frame>
+
+The balance shown is an example, not the included allowance. Eligible verified accounts receive **25 free credits per month**. Unused free credits expire each period; purchased credits do not expire and are shared across sites on the same account. Whole-number balance displays are rounded; detailed request records may show decimals.
+
+Use **Edit** next to the account email to update the AI Puffer/Freemius identity, or **Disconnect** to stop Cloud access for this site. See [Cloud account controls](/cloud#account-email-and-verification).
+
+Text charges use tokens and a model-specific minimum. Media and embeddings use their operation-specific pricing. A model-picker estimate is not a guaranteed per-request price. Before a call, Cloud reserves enough for the allowed output; lowering the output limit may help if the reservation exceeds your remaining balance.
+
+Cloud request history is different from local conversation logs: BYOK requests are not Cloud charges. Knowledge indexed with a direct OpenAI embedding model therefore does not appear as Cloud activity, even when the storage provider is Local.
+
+## Visitor billing and local logs
+
+The controls below manage your WordPress visitors and saved activity. They do not change Cloud model pricing or add Cloud credits. Some screenshots show the earlier **Logs** and **Billing** tab layout.
 
 <Columns cols={2}>
   <Card title="Logs" icon="list" href="#logs" horizontal>
@@ -49,7 +73,8 @@ Key terms:
 
 | Term | Meaning |
 | --- | --- |
-| **Credit** | An internal AI Puffer unit stored on a logged-in user's account. |
+| **Cloud credit** | A hosted-usage unit on the connected Cloud account. |
+| **Visitor credit** | A unit in a logged-in WordPress user’s site balance. |
 | **Balance** | The user's available prepaid credits. |
 | **Quota** | A periodic usage limit for guests, users, or roles. |
 | **Pricing rule** | A rule that turns model usage into credits. |
@@ -176,7 +201,7 @@ Quotas are configured inside the module that uses them: Chatbots, AI Forms, or I
 
 Open **AI Puffer > Usage > Billing > Pricing**.
 
-Pricing rules tell AI Puffer how many credits a model operation should cost.
+These visitor pricing rules decide what you charge WordPress users for a model operation. Cloud prices are set by the Cloud catalog and are charged independently.
 
 #### How Pricing Works
 

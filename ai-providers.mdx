@@ -5,13 +5,19 @@ description: "Connect the model providers and service integrations used by AI Pu
 
 ## Overview
 
-AI Puffer uses a <Tooltip headline="Bring your own key" tip="You use your own provider account and API key. AI Puffer does not include provider credits.">bring-your-own-key</Tooltip> model. Add your provider credentials, sync models, then choose the provider and model inside each module.
+Choose either connection method:
+
+- **AI Puffer Cloud:** connect without an API key. Eligible verified accounts receive 25 monthly free credits; optional top-ups pay for more hosted usage.
+- **Your own provider:** enter the provider’s API key and pay that provider directly.
+
+You can keep both connected and choose the provider/model separately in each module. **Settings > AI** manages connections and defaults; the provider dialog does not choose a module’s model.
 
 <Info>
-When you purchase AI Puffer Pro, you get access to additional plugin features. API usage is separate. You still need your own provider account and billing setup for OpenAI, Google, Anthropic, xAI, or any other provider you connect. AI Puffer does not include API credits.
+Pro unlocks plugin features. Cloud credits, your direct provider’s API billing, and the visitor credits you may sell on your WordPress site are separate from the Pro license.
 </Info>
 
 <Columns cols={2}>
+  <Card title="AI Puffer Cloud" icon="cloud" href="/cloud" horizontal>Hosted models without an API key, with monthly free credits.</Card>
   <Card title="OpenAI" icon="/images/logos/providers/openai.svg" href="#openai" horizontal>
     Text, images, embeddings, speech, web, and realtime.
   </Card>
@@ -49,6 +55,7 @@ AI providers power text, image, audio, <Tooltip headline="Embeddings" tip="Numer
 
 | Provider | Text | Images | Embeddings | Audio | Video | Web | Realtime |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| AI Puffer Cloud | ✓ | ✓ | ✓ | TTS + STT | - | - | - |
 | OpenAI | ✓ | ✓ | ✓ | TTS + STT | - | ✓ | ✓ |
 | Google | ✓ | ✓ | ✓ | TTS | ✓ | ✓ | - |
 | Anthropic | ✓ | - | - | - | - | ✓ | - |
@@ -58,20 +65,30 @@ AI providers power text, image, audio, <Tooltip headline="Embeddings" tip="Numer
 | xAI | ✓ | ✓ | - | - | - | ✓ | - |
 | Ollama | ✓ | - | ✓ | - | - | - | - |
 
-`✓` means supported. `-` means not supported in the current provider strategy.
+`✓` means supported. `-` means not supported in the current provider strategy. Support also depends on the model and module. Cloud images means generation; image editing and video use supported direct providers. Cloud image analysis requires a text model with image-input capability. Realtime voice uses a separate OpenAI connection.
 
 **AI Puffer > Settings** is the central area for managing your connections to different AI providers.
 
 <Frame>
-  <img src="/images/screenshots/ai-providers/settings.png" alt="Settings" />
+  <img src="/images/screenshots/cloud/provider-settings.png" alt="AI Settings provider connection cards" />
 </Frame>
+
+## Connect your own provider
+
+1. Open **AI Puffer > Settings > AI**.
+2. Click **Connect** on the provider card, or **Manage** if it is already connected.
+3. Enter or update that provider’s key and any required endpoint fields. Use **Show/Hide** to inspect the key.
+4. Click **Connect** to validate and save it. A rejected replacement is not saved.
+5. Refresh or sync the provider’s models when needed, then choose a model in your module.
+
+A connected provider card indicates a saved connection. It does not guarantee every model is available to that account. New modules use your configured defaults where supported; changing a default does not replace every existing chatbot or saved template.
 
 ## OpenAI
 
 OpenAI supports the widest set of AI Puffer features.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **OpenAI**.
+2. Click **Connect** or **Manage** on the **OpenAI** card.
 3. Paste your OpenAI API key.
 4. Keep the default base URL unless you use a compatible custom endpoint.
 5. Open **Advanced** and click **Sync Models**.
@@ -90,7 +107,7 @@ OpenAI moderation is also available under **Advanced**. Set **Moderation** to **
 Google provides Gemini, embeddings, image/video models, text to speech, and grounding.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **Google**.
+2. Click **Connect** or **Manage** on the **Google** card.
 3. Paste your Google API key.
 4. Open **Advanced** and click **Sync Models**.
 5. Select the default model.
@@ -111,7 +128,7 @@ Google safety settings can block some responses. Change them only when the defau
 Anthropic is available for text workflows, web search, and supported Claude image analysis models.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **Anthropic**.
+2. Click **Connect** or **Manage** on the **Anthropic** card.
 3. Paste your Anthropic API key.
 4. Open **Advanced** and click **Sync Models**.
 5. Select the default model.
@@ -127,7 +144,7 @@ Anthropic does not provide embeddings through the current AI Puffer provider str
 OpenRouter gives access to models available in your OpenRouter account.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **OpenRouter**.
+2. Click **Connect** or **Manage** on the **OpenRouter** card.
 3. Paste your OpenRouter API key.
 4. Open **Advanced** and click **Sync Models**.
 5. Select the default model.
@@ -147,7 +164,7 @@ OpenRouter support depends on the model you select. Check the model capabilities
 Azure uses your Azure OpenAI <Tooltip headline="Deployment" tip="The deployment name you created in Azure OpenAI for a model.">deployments</Tooltip>.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **Azure**.
+2. Click **Connect** or **Manage** on the **Azure** card.
 3. Paste your Azure API key.
 4. Enter the Azure endpoint URL for your resource.
 5. Open **Advanced**.
@@ -168,7 +185,7 @@ Azure uses deployment names. If a deployment does not appear, confirm it exists 
 DeepSeek is available for text workflows.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **DeepSeek**.
+2. Click **Connect** or **Manage** on the **DeepSeek** card.
 3. Paste your DeepSeek API key.
 4. Open **Advanced** and click **Sync Models**.
 5. Select the default model.
@@ -184,7 +201,7 @@ DeepSeek embeddings are not supported by the current provider strategy. Use Open
 xAI is available for text workflows, Grok models, web search, supported image analysis models, and image generation.
 
 1. Open **AI Puffer > Settings > AI**.
-2. Select **xAI**.
+2. Click **Connect** or **Manage** on the **xAI** card.
 3. Paste your xAI API key.
 4. Keep the default base URL unless you use a compatible xAI endpoint.
 5. Keep the API version as `v1`.
@@ -214,7 +231,7 @@ ollama pull llama3
 ```
 
 4. Open **AI Puffer > Settings > AI**.
-5. Select **Ollama**.
+5. Click **Connect** or **Manage** on the **Ollama** card.
 6. Enter the Ollama base URL. The default is `http://localhost:11434`.
 7. Click **Sync Models**.
 8. Select the default model.

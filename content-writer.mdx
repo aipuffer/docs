@@ -51,6 +51,14 @@ To start using Content Writer, open WordPress Admin and go to **AI Puffer > Cont
   </Card>
 </Columns>
 
+## Use AI Puffer Cloud
+
+[Connect Cloud](/cloud#connect), then choose a Cloud text model in Content Writer’s model picker. You can write a draft without a provider API key.
+
+A draft can involve separate AI calls for content, SEO fields, rewrites, and images. Each call using a Cloud model uses Cloud credits. Configure the image model separately; your text model does not determine image pricing. Review the generated draft before publishing it.
+
+For knowledge context, choose Local or another supported store and use the same embedding model and dimension used to index its content. Cloud embeddings work independently of the store provider.
+
 ## Create Content
 
 To create new content, first choose where the input comes from.
@@ -931,6 +939,9 @@ Use Dates from Input is available for Batch Editor, Quick Paste, CSV, and Google
 
 ### Images
 
+**AI Puffer Cloud** is available for supported image generation models. Connect Cloud and refresh its catalog before selecting the image model. Generated images use credits separately from text. Cloud image editing and video are not available.
+
+
 Images can be inserted into the article content, set as the featured image, or both.
 
 To use images, first choose what AI Puffer should create:
@@ -1152,6 +1163,9 @@ AI Puffer saves generated metadata to the WordPress media attachment fields. Alt
 
 ### Knowledge Base
 
+For **Local**, choose a store and the same embedding model/output dimension used during indexing. Cloud embedding models work with Local and compatible Pinecone, Qdrant, or Chroma targets. Storage and embeddings are separate choices.
+
+
 Knowledge Base lets Content Writer use vector data you already added in **AI Puffer > Knowledge Base > Data**.
 
 When Knowledge Base is enabled, AI Puffer searches the selected vector source with the current generation prompt and adds the closest matches to the request.
@@ -1162,7 +1176,7 @@ To enable it:
 2. In the right-side **Advanced** card, set **Context** to **OpenAI**, **Pinecone**, **Qdrant**, or **Chroma**.
 3. Select the vector store, index, or collection in **Source**.
 4. Click the settings icon beside **Source** to open **Context settings**.
-5. For Pinecone, Qdrant, or Chroma, select the embedding provider and model in **Context settings**.
+5. For Local, Pinecone, Qdrant, or Chroma, select the embedding provider and model in **Context settings**.
 6. Set **Results Limit** and **Confidence Threshold**.
 7. Generate one item and check the output.
 
