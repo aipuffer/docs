@@ -166,7 +166,8 @@
             "group": "Setup",
             "pages": [
               "cloud",
-              "ai-providers"
+              "ai-providers",
+              "manage-my-website"
             ]
           },
           {

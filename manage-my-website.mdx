@@ -1,0 +1,66 @@
+---
+title: "Manage my website"
+description: "Connect ChatGPT or Claude to read posts, create drafts and request publication with WordPress approval."
+---
+
+## Before you start
+
+Use an MCP-enabled AI Puffer release and an administrator account on the WordPress site you own or are authorized to manage. The feature is available in both Free and paid versions. It is an optional **Settings > Connections** feature; onboarding is unchanged.
+
+Connect AI Puffer Cloud and verify its account email if requested. An already verified Cloud account does not need to verify again. You do not need to choose an AI model or enter a model-provider API key for website management. Your ChatGPT or Claude account must support connecting remote MCP apps; their plan and workspace restrictions apply.
+
+## Connect an assistant
+
+1. Open **AI Puffer > Settings > Connections** and select **Manage my website**.
+2. If prompted, connect your Cloud account and complete email verification.
+3. Choose **ChatGPT**, **Claude**, or **Other MCP assistant**.
+4. Choose access: **Read posts**, **Read posts and create drafts**, or **Read, create drafts and request publication**.
+5. Read the terms and privacy notice, then select **Connect assistant**.
+6. Select **Continue connection** and follow the hosted connection page. Complete approval in the same browser within 10 minutes.
+7. Return to WordPress and select **Check** beside the assistant to confirm the connection.
+
+If your assistant asks for the remote MCP server URL, use `https://mcp.aipuffer.org/mcp` and its OAuth connection flow. ChatGPT may require creating a custom app in developer mode; Claude uses a custom connector. These are not promises of an app-directory listing or availability on every assistant plan. Follow the current instructions on the hosted connection page.
+
+If **Manage my website** is absent, that plugin version does not include the feature. Installing Cloud alone does not add it to an older plugin.
+
+## What you can do
+
+| Operation | Result |
+| --- | --- |
+| List connected sites and get an overview | Identify the site before making a request. |
+| Search or read posts | Retrieve posts permitted by your WordPress identity and chosen access. |
+| Create a draft | Save a new unpublished post for review. |
+| Request publication | Produce a WordPress approval link; it does not publish immediately. |
+| Check an operation or usage | See the recorded outcome and remaining allowance. |
+
+The initial release does not edit existing post content, themes, plugins, page builders or Elementor, run arbitrary code, or manage AI Puffer chatbots.
+
+Try: “List my connected websites”, “Find posts about gardening”, or “Create a draft post about spring planting on this site”. State which site to use if your account has several.
+
+## Publish with approval
+
+1. Ask the assistant to create a draft.
+2. Review the draft and ask it to request publication.
+3. Open the returned approval link and sign in to WordPress if required.
+4. Review the post and explicitly confirm publication in WordPress.
+5. Ask the assistant to check the operation or read the post again.
+
+Until confirmation, the post remains unpublished. An assistant saying “published” is not proof; verify the WordPress status. Read-only or draft-only access cannot request publication. AI-generated content needs your review before approval.
+
+## Website-action allowance
+
+The pilot includes **2,000 website actions per account per month** on every plan, with no welcome bonus. This is separate from AI credits and your assistant's own subscription or model charges. It is shared across connected sites and assistants. Several tool operations may be needed for one post.
+
+Open **AI Puffer > Usage** for used, remaining, monthly allowance and renewal date. Pending operations may hold actions until their outcome is reconciled. Adding sites or reconnecting does not reset the allowance.
+
+## Pause or disconnect
+
+- Use **Website changes** in the sheet to pause changes on this site. AI Puffer's chatbot and other AI features are unaffected.
+- Use **Disconnect** beside an assistant to revoke that connection.
+- Use **Turn off website management** to disable the feature for the site. This hides its Usage card.
+
+Disconnecting does not delete posts or reset your account's allowance. Reconnect through Settings to grant access again. Existing conversations may need you to reselect the app after authorization changes.
+
+## Privacy
+
+The hosted bridge processes the site address, authorized WordPress identity, permissions and operation metadata. Requested post content passes to your assistant; its privacy terms also apply. Website-management audit records contain operational metadata rather than full page bodies or chat transcripts. WordPress retains its own posts and operation records. See the [Privacy Policy](https://aipower.org/privacy-policy/) and [Terms](https://aipower.org/terms-and-conditions/).
